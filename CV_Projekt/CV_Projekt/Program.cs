@@ -1,8 +1,15 @@
+using CV_Projekt.Models;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Proxies;
+using Microsoft.EntityFrameworkCore.Diagnostics;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-
+//Emils - Dubbelkolla context-klassen
+builder.Services.AddDbContext<CvContext>(options =>
+    options.UseLazyLoadingProxies().UseSqlServer(builder.Configuration.GetConnectionString("CvContext")).ConfigureWarnings(warning => warning.Ignore(RelationalEventId.PendingModelChangesWarning)));
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

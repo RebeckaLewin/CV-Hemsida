@@ -7,3 +7,4 @@ namespace CV_Projekt.Models
         public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
     }
 }
+ 
