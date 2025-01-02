@@ -12,12 +12,17 @@ namespace CV_Projekt.Models
 		public DateTime EndDate { get; set; }
 		[Required(ErrorMessage = "Ett projekt måste ha en titel.")]
 		public string Title { get; set; }
-		public string Description { get; set; }
+		public string? Description { get; set; }
 		[Required(ErrorMessage = "Ett projekt måste ha en ägare.")]
 		public int CreatorId { get; set; }
+		public List<int>? CVsId { get; set; } = [];
 
-		[ForeignKey("CreatorId")]
-		public User Creator { get; set; }
+
+		[ForeignKey(nameof(CVsId))]
+		public virtual List<CV> Cvs { get; set; } = [];
+
+		[ForeignKey(nameof(CreatorId))]
+		public virtual User Creator { get; set; }
 
 	}
 }

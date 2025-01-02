@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CV_Projekt.Models
 {
@@ -8,7 +9,15 @@ namespace CV_Projekt.Models
 		[Required]
 		public DateTime StartDate { get; set; }
 		public DateTime EndDate { get; set; }
-		public string Location { get; set; }
-		public string Description { get; set; }
+		public string? Location { get; set; }
+		public string? Description { get; set; }
+		public int UserId { get; set; }
+		public List<int> CVsIds { get; set; } = [];
+
+		[ForeignKey(nameof(CVsIds))]
+		public virtual List<CV>? CVs { get; set; }
+
+		[ForeignKey(nameof(UserId))]
+		public User? User { get; set; }
 	}
 }

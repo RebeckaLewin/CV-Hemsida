@@ -24,11 +24,10 @@ namespace CV_Projekt.Models
 		public bool isPrivate { get; set; }
 		[Required]
 		public bool isActive { get; set; }
-		public List<CV> CVs { get; set; }
 		//Picture
 
 
-		[ForeignKey("InformationId")]
-		public ContactInformation ContactInformation { get; set; }
+		[ForeignKey(nameof(InformationId))]
+		public virtual ContactInformation? ContactInformation { get; set; }
 	}
 }
