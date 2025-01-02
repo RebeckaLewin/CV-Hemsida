@@ -17,6 +17,7 @@ namespace CV_Projekt.Models
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
+			base.OnModelCreating(modelBuilder);
 			List<Project> projects = [
 				new Project
 				{
@@ -42,26 +43,29 @@ namespace CV_Projekt.Models
 					Id = 1,
 					OwnerId = 1,
 					Skills = new List<string> { "Projektledning", "CSS", "HTML" },
-					ProjectsIds = new List<int> { projects[0].Id }
-				},
+					Projects = new List<Project> { projects[0]}
+
+                },
 				new CV
 				{
 					Id = 2,
 					OwnerId = 2,
 					Skills = new List<string> { "Grafisk design", "Pedagogik" },
-					ProjectsIds = new List<int> { projects[0].Id, projects[1].Id }
+					Projects = new List<Project> { projects[0], projects[1] }
 				}
 			];
-
+			//gpt bjöd på denna:
 			projects[0].CVs.Add(cvs[0]);
-            projects[0].CVs.Add(cvs[0]);
-            projects[1].CVs.Add(cvs[1]);
+			projects[0].CVs.Add(cvs[0]);
+			projects[1].CVs.Add(cvs[1]);
 
-            //projects[0].CVsId.Add(cvs[0].Id);
-            //projects[0].CVsId.Add(cvs[0].Id);
-            //projects[1].CVsId.Add(cvs[1].Id);
 
-            modelBuilder.Entity<ContactInformation>().HasData(
+			//original:
+			//projects[0].CVsId.Add(cvs[0].Id);
+			//projects[0].CVsId.Add(cvs[0].Id);
+			//projects[1].CVsId.Add(cvs[1].Id);
+
+			modelBuilder.Entity<ContactInformation>().HasData(
 				new ContactInformation
 				{ 
 					Id = 1,
@@ -244,13 +248,13 @@ namespace CV_Projekt.Models
 
 			modelBuilder.Entity<CV>()
 				.HasMany(cv => cv.Projects)
-				.WithMany(p => p.CVs)
+				.WithMany(proj => proj.CVs)
 				.UsingEntity(
-					"CVPRoject",
-					l => l.HasOne(typeof(Project)).WithMany().HasForeignKey("ProjectId").HasPrincipalKey(nameof(Project.Id)).OnDelete(DeleteBehavior.Restrict),
-					r => r.HasOne(typeof(CV)).WithMany().HasForeignKey("CVId").HasPrincipalKey(nameof(CV.Id)).OnDelete(DeleteBehavior.Restrict),
+					"CVProject",
+					l => l.HasOne(typeof(CV)).WithMany().HasForeignKey("CVId").HasPrincipalKey(nameof(CV.Id)).OnDelete(DeleteBehavior.Restrict),
+					r => r.HasOne(typeof(Project)).WithMany().HasForeignKey("ProjectId").HasPrincipalKey(nameof(Project.Id)).OnDelete(DeleteBehavior.Restrict),
 					j => j.HasKey("ProjectId", "CVId"));
-
+			
 
         }
     }
