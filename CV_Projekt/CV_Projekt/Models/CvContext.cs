@@ -21,16 +21,16 @@ namespace CV_Projekt.Models
 				new Project
 				{
 					Id = 1,
-					StartDate = DateTime.Now,
-					Title = "Tidstabell för Postnord",
+					StartDate = new DateTime(2010, 8, 30),
+                    Title = "Tidstabell för Postnord",
 					CreatorId = 1,
 				},
 				new Project
 				{
 					Id = 2,
-					StartDate = DateTime.Now,
-					EndDate = DateTime.Now,
-					Title = "SJ Bokningssystem",
+					StartDate = new DateTime(2010, 8, 30),
+                    EndDate = new DateTime(2020, 8, 30),
+                    Title = "SJ Bokningssystem",
 					Description = "Skapade ett bokningssystem för SJ.",
 					CreatorId = 3
 				}
@@ -146,16 +146,16 @@ namespace CV_Projekt.Models
 				new OtherExperience
 				{
 					Id = 1,
-					StartDate = DateTime.Now,
-					Location = "Örebro kommun",
+					StartDate = new DateTime(2016, 8, 30),
+                    Location = "Örebro kommun",
 					Type = "Praktik",
 					UserId = 2
 				},
                 new OtherExperience
                 {
 					Id = 2,
-					StartDate = DateTime.Now,
-					Location = "Kävesta Folkhögskola",
+					StartDate = new DateTime(2021, 8, 30),
+                    Location = "Kävesta Folkhögskola",
 					Description = "En kurs i drejeri",
                     Type = "Kurs",
 					UserId = 1
@@ -163,8 +163,8 @@ namespace CV_Projekt.Models
                 new OtherExperience
                 {
 					Id = 3,
-					StartDate = DateTime.Now,
-					Location = "Röda korset Örebro",
+					StartDate = new DateTime(2022, 8, 30),
+                    Location = "Röda korset Örebro",
                     Type = "Volentärarbete",
 					UserId = 1
                 }
@@ -174,7 +174,7 @@ namespace CV_Projekt.Models
 				new Work
 				{
                     Id = 4,
-                    StartDate = DateTime.Now,
+                    StartDate = new DateTime(2020, 6, 29),
                     Location = "Café Deed",
                     Description = "Underhåller ett team i bageri/ungdomsgård",
                     Role = "Arbetsledare",
@@ -183,7 +183,7 @@ namespace CV_Projekt.Models
                 new Work
                 {
                     Id = 5,
-                    StartDate = DateTime.Now,
+                    StartDate = new DateTime(2019, 8, 30),
                     Location = "Uppsala Sjukhus",
                     Description = "Omvårdnad",
                     Role = "Sjuksköterska",
@@ -192,7 +192,7 @@ namespace CV_Projekt.Models
                 new Work
                 {
                     Id = 6,
-                    StartDate = DateTime.Now,
+                    StartDate = new DateTime(2021, 8, 30),
                     Location = "Generiskt Företag",
                     Description = "Arbetsuppgifter",
                     Role = "Arbetstitel",
@@ -204,8 +204,8 @@ namespace CV_Projekt.Models
 				new Education
 				{
 					Id = 7,
-					StartDate = DateTime.Now,
-					Location = "Karolinska Gymnasiet",
+					StartDate = new DateTime(2016, 4, 12),
+                    Location = "Karolinska Gymnasiet",
 					Level = "Gymnasial",
 					Program = "Vård och omsorg",
 					Description = "",
@@ -214,8 +214,8 @@ namespace CV_Projekt.Models
 				new Education
 				{
 					Id = 8,
-					StartDate = DateTime.Now,
-					Location = "Uppsala Universitet",
+					StartDate = new DateTime(2010, 2, 02),
+                    Location = "Uppsala Universitet",
 					Level = "Kandidat",
 					Program = "Arkelogi",
 					Description = "",
@@ -228,6 +228,16 @@ namespace CV_Projekt.Models
 				cvs[0],
 				cvs[1]		
 			);
+            modelBuilder.Entity<CV>()
+              .HasMany(cv => cv.Experiences)
+              .WithMany(exp => exp.CVs)
+              .UsingEntity(
+                  "CVExperience",
+                  l => l.HasOne(typeof(Experience)).WithMany().HasForeignKey("ExperienceId").HasPrincipalKey(nameof(Experience.Id)).OnDelete(DeleteBehavior.SetNull),
+                  r => r.HasOne(typeof(CV)).WithMany().HasForeignKey("CVId").HasPrincipalKey(nameof(CV.Id)).OnDelete(DeleteBehavior.SetNull),
+                  j => j.HasKey("ExperienceId", "CVId"));
+
+
         }
-	}
+    }
 }

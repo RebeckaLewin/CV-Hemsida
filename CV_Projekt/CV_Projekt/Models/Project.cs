@@ -15,11 +15,11 @@ namespace CV_Projekt.Models
 		public string? Description { get; set; }
 		[Required(ErrorMessage = "Ett projekt måste ha en ägare.")]
 		public int CreatorId { get; set; }
-		public List<int>? CVsId { get; set; } = [];
+		public List<int>? CVsId { get; set; } = new List<int>();
 
 
 		[ForeignKey(nameof(CVsId))]
-		public virtual List<CV> Cvs { get; set; } = [];
+		public virtual List<CV> Cvs { get; set; } = new List<CV>();
 
 		[ForeignKey(nameof(CreatorId))]
 		public virtual User Creator { get; set; }
