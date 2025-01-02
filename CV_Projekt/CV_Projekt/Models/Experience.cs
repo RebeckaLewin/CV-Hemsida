@@ -12,7 +12,7 @@ namespace CV_Projekt.Models
 		public string? Location { get; set; }
 		public string? Description { get; set; }
 		public int UserId { get; set; }
-		public List<int> CVsIds { get; set; } = [];
+		public List<int> CVsIds { get; set; } = new List<int>();
 
 		[ForeignKey(nameof(CVsIds))]
 		public virtual List<CV>? CVs { get; set; }
