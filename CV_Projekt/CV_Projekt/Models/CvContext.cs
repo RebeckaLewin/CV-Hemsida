@@ -53,11 +53,15 @@ namespace CV_Projekt.Models
 				}
 			];
 
-			projects[0].CVsId.Add(cvs[0].Id);
-			projects[0].CVsId.Add(cvs[0].Id);
-			projects[1].CVsId.Add(cvs[1].Id);
+			projects[0].CVs.Add(cvs[0]);
+            projects[0].CVs.Add(cvs[0]);
+            projects[1].CVs.Add(cvs[1]);
 
-			modelBuilder.Entity<ContactInformation>().HasData(
+            //projects[0].CVsId.Add(cvs[0].Id);
+            //projects[0].CVsId.Add(cvs[0].Id);
+            //projects[1].CVsId.Add(cvs[1].Id);
+
+            modelBuilder.Entity<ContactInformation>().HasData(
 				new ContactInformation
 				{ 
 					Id = 1,
