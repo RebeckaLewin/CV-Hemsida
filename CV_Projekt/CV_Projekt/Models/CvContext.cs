@@ -18,46 +18,46 @@ namespace CV_Projekt.Models
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
 			base.OnModelCreating(modelBuilder);
-			List<Project> projects = [
-				new Project
-				{
-					Id = 1,
-					StartDate = new DateTime(2010, 8, 30),
-                    Title = "Tidstabell för Postnord",
-					CreatorId = 1,
-				},
-				new Project
-				{
-					Id = 2,
-					StartDate = new DateTime(2010, 8, 30),
-                    EndDate = new DateTime(2020, 8, 30),
-                    Title = "SJ Bokningssystem",
-					Description = "Skapade ett bokningssystem för SJ.",
-					CreatorId = 3
-				}
-			];
+			//List<Project> projects = [
+			//	new Project
+			//	{
+			//		Id = 1,
+			//		StartDate = new DateTime(2010, 8, 30),
+   //                 Title = "Tidstabell för Postnord",
+			//		CreatorId = 1,
+			//	},
+			//	new Project
+			//	{
+			//		Id = 2,
+			//		StartDate = new DateTime(2010, 8, 30),
+   //                 EndDate = new DateTime(2020, 8, 30),
+   //                 Title = "SJ Bokningssystem",
+			//		Description = "Skapade ett bokningssystem för SJ.",
+			//		CreatorId = 3
+			//	}
+			//];
 
-			List<CV> cvs = [
-				new CV
-				{
-					Id = 1,
-					OwnerId = 1,
-					Skills = new List<string> { "Projektledning", "CSS", "HTML" },
-					Projects = new List<Project> { projects[0]}
+			//List<CV> cvs = [
+			//	new CV
+			//	{
+			//		Id = 1,
+			//		OwnerId = 1,
+			//		Skills = new List<string> { "Projektledning", "CSS", "HTML" },
+			//		Projects = new List<Project> { projects[0]}
 
-                },
-				new CV
-				{
-					Id = 2,
-					OwnerId = 2,
-					Skills = new List<string> { "Grafisk design", "Pedagogik" },
-					Projects = new List<Project> { projects[0], projects[1] }
-				}
-			];
-			//gpt bjöd på denna:
-			projects[0].CVs.Add(cvs[0]);
-			projects[0].CVs.Add(cvs[0]);
-			projects[1].CVs.Add(cvs[1]);
+   //             },
+			//	new CV
+			//	{
+			//		Id = 2,
+			//		OwnerId = 2,
+			//		Skills = new List<string> { "Grafisk design", "Pedagogik" },
+			//		Projects = new List<Project> { projects[0], projects[1] }
+			//	}
+			//];
+			////gpt bjöd på denna:
+			//projects[0].CVs.Add(cvs[0]);
+			//projects[0].CVs.Add(cvs[0]);
+			//projects[1].CVs.Add(cvs[1]);
 
 
 			//original:
@@ -122,10 +122,10 @@ namespace CV_Projekt.Models
                 }
             );
 
-			modelBuilder.Entity<Project>().HasData(
-				projects[0],
-				projects[1]
-			);
+			//modelBuilder.Entity<Project>().HasData(
+			//	projects[0],
+			//	projects[1]
+			//);
 
 			modelBuilder.Entity<Tag>().HasData(
 				new Tag
@@ -232,18 +232,63 @@ namespace CV_Projekt.Models
 
 			);
 
+			//modelBuilder.Entity<CV>().HasData(
+			//	cvs[0],
+			//	cvs[1]		
+			//);
+
 			modelBuilder.Entity<CV>().HasData(
-				cvs[0],
-				cvs[1]		
+				new CV
+				{
+					Id = 1,
+					OwnerId = 1,
+					Skills = new List<string> { "Projektledning", "CSS", "HTML" },
+					Views = 10
+				},
+                new CV
+                {
+                    Id = 2,
+                    OwnerId = 3,
+                    Skills = new List<string> { "Grafisk design", "Pedagogik" },
+                    Views = 11
+                }
+            );
+
+			modelBuilder.Entity<Project>().HasData(
+				new Project
+				{
+					Id = 1,
+					StartDate = new DateTime(2010, 8, 30),
+					EndDate = new DateTime(2011, 8, 30),
+					Title = "Tidtabell för postnord",
+                    Description = "En app för att optimera postleveranser.",
+                    CreatorId = 1
+                },
+                new Project
+                {
+                    Id = 2,
+                    StartDate = new DateTime(2012, 1, 15),
+                    EndDate = new DateTime(2015, 3, 10),
+                    Title = "SJ Bokningssystem",
+                    Description = "Ett bokningssystem för SJ-resor.",
+                    CreatorId = 3
+                }
+            );
+
+            modelBuilder.Entity("CVProject").HasData(
+				new { CVsId = 1, ProjectsId = 1 },
+				new { CVsId = 2, ProjectsId = 1 },
+			    new { CVsId = 2, ProjectsId = 2 }
 			);
+
             modelBuilder.Entity<CV>()
               .HasMany(cv => cv.Experiences)
               .WithMany(exp => exp.CVs)
               .UsingEntity(
                   "CVExperience",
                   l => l.HasOne(typeof(Experience)).WithMany().HasForeignKey("ExperienceId").HasPrincipalKey(nameof(Experience.Id)).OnDelete(DeleteBehavior.Restrict),
-                  r => r.HasOne(typeof(CV)).WithMany().HasForeignKey("CVId").HasPrincipalKey(nameof(CV.Id)).OnDelete(DeleteBehavior.Restrict),
-                  j => j.HasKey("ExperienceId", "CVId"));
+                  r => r.HasOne(typeof(CV)).WithMany().HasForeignKey("CVsId").HasPrincipalKey(nameof(CV.Id)).OnDelete(DeleteBehavior.Restrict),
+                  j => j.HasKey("ExperienceId", "CVsId"));
 
 
 			modelBuilder.Entity<CV>()
@@ -251,9 +296,9 @@ namespace CV_Projekt.Models
 				.WithMany(proj => proj.CVs)
 				.UsingEntity(
 					"CVProject",
-					l => l.HasOne(typeof(CV)).WithMany().HasForeignKey("CVId").HasPrincipalKey(nameof(CV.Id)).OnDelete(DeleteBehavior.Restrict),
-					r => r.HasOne(typeof(Project)).WithMany().HasForeignKey("ProjectId").HasPrincipalKey(nameof(Project.Id)).OnDelete(DeleteBehavior.Restrict),
-					j => j.HasKey("ProjectId", "CVId"));
+					l => l.HasOne(typeof(CV)).WithMany().HasForeignKey("CVsId").HasPrincipalKey(nameof(CV.Id)).OnDelete(DeleteBehavior.Restrict),
+					r => r.HasOne(typeof(Project)).WithMany().HasForeignKey("ProjectsId").HasPrincipalKey(nameof(Project.Id)).OnDelete(DeleteBehavior.Restrict),
+					j => j.HasKey("CVsId", "ProjectsId"));
 			
 
         }
