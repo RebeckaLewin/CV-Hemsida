@@ -15,7 +15,7 @@ namespace CV_Projekt.Models
 		public List<int> CVsIds { get; set; } = new List<int>();
 
 		[ForeignKey(nameof(CVsIds))]
-		public virtual List<CV>? CVs { get; set; }
+		public virtual List<CV>? CVs { get; set; } = new List<CV>();
 
 		[ForeignKey(nameof(UserId))]
 		public User? User { get; set; }

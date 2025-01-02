@@ -233,9 +233,19 @@ namespace CV_Projekt.Models
               .WithMany(exp => exp.CVs)
               .UsingEntity(
                   "CVExperience",
-                  l => l.HasOne(typeof(Experience)).WithMany().HasForeignKey("ExperienceId").HasPrincipalKey(nameof(Experience.Id)).OnDelete(DeleteBehavior.SetNull),
-                  r => r.HasOne(typeof(CV)).WithMany().HasForeignKey("CVId").HasPrincipalKey(nameof(CV.Id)).OnDelete(DeleteBehavior.SetNull),
+                  l => l.HasOne(typeof(Experience)).WithMany().HasForeignKey("ExperienceId").HasPrincipalKey(nameof(Experience.Id)).OnDelete(DeleteBehavior.Restrict),
+                  r => r.HasOne(typeof(CV)).WithMany().HasForeignKey("CVId").HasPrincipalKey(nameof(CV.Id)).OnDelete(DeleteBehavior.Restrict),
                   j => j.HasKey("ExperienceId", "CVId"));
+
+
+			modelBuilder.Entity<CV>()
+				.HasMany(cv => cv.Projects)
+				.WithMany(p => p.CVs)
+				.UsingEntity(
+					"CVPRoject",
+					l => l.HasOne(typeof(Project)).WithMany().HasForeignKey("ProjectId").HasPrincipalKey(nameof(Project.Id)).OnDelete(DeleteBehavior.Restrict),
+					r => r.HasOne(typeof(CV)).WithMany().HasForeignKey("CVId").HasPrincipalKey(nameof(CV.Id)).OnDelete(DeleteBehavior.Restrict),
+					j => j.HasKey("ProjectId", "CVId"));
 
 
         }

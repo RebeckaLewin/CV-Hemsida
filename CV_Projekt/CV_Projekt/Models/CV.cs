@@ -17,7 +17,7 @@ namespace CV_Projekt.Models
 
 
 		[ForeignKey(nameof(ExperiencesIds))]
-		public virtual List<Experience>? Experiences { get; set; }
+		public virtual List<Experience>? Experiences { get; set; } = new List<Experience> ();
 		[ForeignKey(nameof(ProjectsIds))]
 		public virtual List<Project>? Projects { get; set; } = new List<Project> ();
 		[ForeignKey(nameof(OwnerId))]
