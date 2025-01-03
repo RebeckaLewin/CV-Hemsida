@@ -8,18 +8,18 @@ namespace CV_Projekt.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         //Emils
-        private CvContext cvs;
+        private CvContext cvContext;
 
-        public HomeController(ILogger<HomeController> logger, CvContext service)
+        public HomeController(ILogger<HomeController> logger, CvContext context)
         {
             _logger = logger;
-            cvs = service;
+            cvContext = context;
         }
 
         //Emils test
         public IActionResult Test()
         {
-            IQueryable<User> userList = from user in cvs.Users select user;
+            IQueryable<User> userList = from user in cvContext.Users select user;
             
             return View(userList.ToList());
         }
