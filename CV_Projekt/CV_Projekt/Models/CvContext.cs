@@ -281,8 +281,8 @@ namespace CV_Projekt.Models
 			  .UsingEntity(
 				  "CVExperience",
 				  l => l.HasOne(typeof(Experience)).WithMany().HasForeignKey("ExperienceId").HasPrincipalKey(nameof(Experience.Id)).OnDelete(DeleteBehavior.Restrict),
-				  r => r.HasOne(typeof(CV)).WithMany().HasForeignKey("CVId").HasPrincipalKey(nameof(CV.Id)).OnDelete(DeleteBehavior.Restrict),
-				  j => j.HasKey("ExperienceId", "CVId")
+				  r => r.HasOne(typeof(CV)).WithMany().HasForeignKey("CVsId").HasPrincipalKey(nameof(CV.Id)).OnDelete(DeleteBehavior.Restrict),
+				  j => j.HasKey("ExperienceId", "CVsId")
 			  );
 
 			modelBuilder.Entity<CV>()
@@ -301,28 +301,25 @@ namespace CV_Projekt.Models
 				.UsingEntity(
 					"CVTag",
 					l => l.HasOne(typeof(CV)).WithMany().HasForeignKey("CVsId").HasPrincipalKey(nameof(CV.Id)).OnDelete(DeleteBehavior.Restrict),
-					r => r.HasOne(typeof(Tag)).WithMany().HasForeignKey("TagId").HasForeignKey(nameof(Tag.Id)).OnDelete(DeleteBehavior.Restrict),
-					j => j.HasKey("CVsId", "TagId")
+					r => r.HasOne(typeof(Tag)).WithMany().HasForeignKey("TagsId").HasPrincipalKey(nameof(Tag.Id)).OnDelete(DeleteBehavior.Restrict),
+					j => j.HasKey("CVsId", "TagsId")
 				);
 
 			modelBuilder.Entity("CVProject").HasData(
-				new { CVsId = 1, ProjectsId = 1 },
 				new { CVsId = 2, ProjectsId = 1 },
 			    new { CVsId = 2, ProjectsId = 2 }
 			);
 
 			modelBuilder.Entity("CVExperience").HasData(
-				new { CVId = 1, ExperienceId = 1 },
-				new { CVId = 1, ExperienceId = 2 },
-				new { CVId = 2, ExperienceId = 3 }
+				new { CVsId = 1, ExperienceId = 1 },
+				new { CVsId = 1, ExperienceId = 2 },
+				new { CVsId = 2, ExperienceId = 3 }
 			);
 
 			modelBuilder.Entity("CVTag").HasData(
-				new { CVsId = 1, TagId = 2, Id = 2 },
-				new { CvsId = 1, TagId = 3, Id = 2 }
+				new { CVsId = 1, TagsId = 2 },
+				new { CVsId = 1, TagsId = 3 }
 			);
-
-
         }
     }
 }
