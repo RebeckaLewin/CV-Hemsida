@@ -17,13 +17,8 @@ a:visited {
 #cv-nav {
     color: lightgray;
 }
-.nav-link {
-    text-align: right;
-    
-}
-
 .nav-item {
-    margin: 0 2px;
+    text-align: right;
 }
 
 @media (min-width: 768px) {
