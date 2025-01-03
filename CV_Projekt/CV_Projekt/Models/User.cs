@@ -24,6 +24,10 @@ namespace CV_Projekt.Models
 		public bool isPrivate { get; set; }
 		[Required]
 		public bool isActive { get; set; }
+
+		public virtual List<Message>? RecievedMessages { get; set; } = new List<Message>();
+		public virtual List<Message>? SentMessages { get; set; } = new List<Message>();
+
 		//Picture
 
 

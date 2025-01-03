@@ -239,6 +239,61 @@ namespace CV_Projekt.Migrations
                     b.UseTphMappingStrategy();
                 });
 
+            modelBuilder.Entity("CV_Projekt.Models.Message", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("RecieverId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SenderId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Subject")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RecieverId");
+
+                    b.HasIndex("SenderId");
+
+                    b.ToTable("Message");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Content = "Hej på dig! Hur är det med dig?",
+                            Date = new DateTime(2020, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            RecieverId = 2,
+                            SenderId = 1,
+                            Subject = "En hälsning"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Content = "Missade att du skrev, förlåt.",
+                            Date = new DateTime(2020, 7, 16, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            RecieverId = 1,
+                            SenderId = 2,
+                            Subject = "Missade"
+                        });
+                });
+
             modelBuilder.Entity("CV_Projekt.Models.Project", b =>
                 {
                     b.Property<int>("Id")
@@ -411,7 +466,7 @@ namespace CV_Projekt.Migrations
                         {
                             Id = 1,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "69de93c8-8cf4-46c0-893a-456538c0b1ef",
+                            ConcurrencyStamp = "6ead067d-d776-4e19-a5d9-6ab721cef856",
                             EmailConfirmed = false,
                             FirstName = "Alice",
                             InformationId = 1,
@@ -419,7 +474,7 @@ namespace CV_Projekt.Migrations
                             LockoutEnabled = false,
                             Password = "P@ssword123",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "a350b097-d3bc-4a0d-b8d9-b2424b8de27f",
+                            SecurityStamp = "71883185-2a3a-4e87-9b46-dfe6965e6041",
                             TwoFactorEnabled = false,
                             isActive = true,
                             isPrivate = true
@@ -428,7 +483,7 @@ namespace CV_Projekt.Migrations
                         {
                             Id = 2,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "9404616c-e83d-4c14-b279-830d1fb2feff",
+                            ConcurrencyStamp = "654f41cf-7278-4e18-b235-b4c9bd2942a0",
                             EmailConfirmed = false,
                             FirstName = "Bob",
                             InformationId = 2,
@@ -436,7 +491,7 @@ namespace CV_Projekt.Migrations
                             LockoutEnabled = false,
                             Password = "P@ssword456",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "4112ce6d-b80d-418b-9fba-fa9103fbe5d2",
+                            SecurityStamp = "207064f6-b515-4163-b294-290566c1a627",
                             TwoFactorEnabled = false,
                             isActive = true,
                             isPrivate = false
@@ -445,7 +500,7 @@ namespace CV_Projekt.Migrations
                         {
                             Id = 3,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "fdcf8902-bb46-486d-8a61-546812a3058d",
+                            ConcurrencyStamp = "9f4a0a84-613c-43a8-8782-1ffa70317778",
                             EmailConfirmed = false,
                             FirstName = "Charlie",
                             InformationId = 3,
@@ -453,7 +508,7 @@ namespace CV_Projekt.Migrations
                             LockoutEnabled = false,
                             Password = "P@ssword789",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "8c7083a1-f325-48ea-9357-2ee3291a244f",
+                            SecurityStamp = "a15d4eca-4113-4a31-a375-315ccda89e3c",
                             TwoFactorEnabled = false,
                             isActive = false,
                             isPrivate = false
@@ -650,6 +705,23 @@ namespace CV_Projekt.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("CV_Projekt.Models.Message", b =>
+                {
+                    b.HasOne("CV_Projekt.Models.User", "Reciever")
+                        .WithMany("RecievedMessages")
+                        .HasForeignKey("RecieverId")
+                        .IsRequired();
+
+                    b.HasOne("CV_Projekt.Models.User", "Sender")
+                        .WithMany("SentMessages")
+                        .HasForeignKey("SenderId")
+                        .IsRequired();
+
+                    b.Navigation("Reciever");
+
+                    b.Navigation("Sender");
+                });
+
             modelBuilder.Entity("CV_Projekt.Models.Project", b =>
                 {
                     b.HasOne("CV_Projekt.Models.User", "Creator")
@@ -670,6 +742,13 @@ namespace CV_Projekt.Migrations
                         .IsRequired();
 
                     b.Navigation("ContactInformation");
+                });
+
+            modelBuilder.Entity("CV_Projekt.Models.User", b =>
+                {
+                    b.Navigation("RecievedMessages");
+
+                    b.Navigation("SentMessages");
                 });
 #pragma warning restore 612, 618
         }

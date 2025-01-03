@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace CV_Projekt.Migrations
 {
     /// <inheritdoc />
-    public partial class @in : Migration
+    public partial class Setup : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -126,6 +126,33 @@ namespace CV_Projekt.Migrations
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Message",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Subject = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Content = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: false),
+                    Date = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    SenderId = table.Column<int>(type: "int", nullable: false),
+                    RecieverId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Message", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Message_Users_RecieverId",
+                        column: x => x.RecieverId,
+                        principalTable: "Users",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Message_Users_SenderId",
+                        column: x => x.SenderId,
+                        principalTable: "Users",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -249,9 +276,9 @@ namespace CV_Projekt.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "InformationId", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "Password", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName", "isActive", "isPrivate" },
                 values: new object[,]
                 {
-                    { 1, 0, "69de93c8-8cf4-46c0-893a-456538c0b1ef", null, false, "Alice", 1, "Andersson", false, null, null, null, "P@ssword123", null, null, false, "a350b097-d3bc-4a0d-b8d9-b2424b8de27f", false, null, true, true },
-                    { 2, 0, "9404616c-e83d-4c14-b279-830d1fb2feff", null, false, "Bob", 2, "Bergström", false, null, null, null, "P@ssword456", null, null, false, "4112ce6d-b80d-418b-9fba-fa9103fbe5d2", false, null, true, false },
-                    { 3, 0, "fdcf8902-bb46-486d-8a61-546812a3058d", null, false, "Charlie", 3, "Carlsson", false, null, null, null, "P@ssword789", null, null, false, "8c7083a1-f325-48ea-9357-2ee3291a244f", false, null, false, false }
+                    { 1, 0, "6ead067d-d776-4e19-a5d9-6ab721cef856", null, false, "Alice", 1, "Andersson", false, null, null, null, "P@ssword123", null, null, false, "71883185-2a3a-4e87-9b46-dfe6965e6041", false, null, true, true },
+                    { 2, 0, "654f41cf-7278-4e18-b235-b4c9bd2942a0", null, false, "Bob", 2, "Bergström", false, null, null, null, "P@ssword456", null, null, false, "207064f6-b515-4163-b294-290566c1a627", false, null, true, false },
+                    { 3, 0, "9f4a0a84-613c-43a8-8782-1ffa70317778", null, false, "Charlie", 3, "Carlsson", false, null, null, null, "P@ssword789", null, null, false, "a15d4eca-4113-4a31-a375-315ccda89e3c", false, null, false, false }
                 });
 
             migrationBuilder.InsertData(
@@ -290,6 +317,15 @@ namespace CV_Projekt.Migrations
                 {
                     { 7, "", "Education", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Gymnasial", "Karolinska Gymnasiet", "Vård och omsorg", new DateTime(2016, 4, 12, 0, 0, 0, 0, DateTimeKind.Unspecified), 2 },
                     { 8, "", "Education", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Kandidat", "Uppsala Universitet", "Arkelogi", new DateTime(2010, 2, 2, 0, 0, 0, 0, DateTimeKind.Unspecified), 3 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Message",
+                columns: new[] { "Id", "Content", "Date", "RecieverId", "SenderId", "Subject" },
+                values: new object[,]
+                {
+                    { 1, "Hej på dig! Hur är det med dig?", new DateTime(2020, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified), 2, 1, "En hälsning" },
+                    { 2, "Missade att du skrev, förlåt.", new DateTime(2020, 7, 16, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, 2, "Missade" }
                 });
 
             migrationBuilder.InsertData(
@@ -355,6 +391,16 @@ namespace CV_Projekt.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Message_RecieverId",
+                table: "Message",
+                column: "RecieverId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Message_SenderId",
+                table: "Message",
+                column: "SenderId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Projects_CreatorId",
                 table: "Projects",
                 column: "CreatorId");
@@ -376,6 +422,9 @@ namespace CV_Projekt.Migrations
 
             migrationBuilder.DropTable(
                 name: "CVTag");
+
+            migrationBuilder.DropTable(
+                name: "Message");
 
             migrationBuilder.DropTable(
                 name: "Experiences");
