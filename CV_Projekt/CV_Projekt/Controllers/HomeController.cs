@@ -25,6 +25,7 @@ namespace CV_Projekt.Controllers
         }
         public IActionResult Index()
         {
+            var cvList = cvContext.CVs.ToList();
             return View();
         }
 

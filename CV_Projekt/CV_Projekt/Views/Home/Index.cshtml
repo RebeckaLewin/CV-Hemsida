@@ -1,9 +1,30 @@
-﻿@{
+﻿@model IEnumerable<CV_Projekt.Models.CV>
+@{
     ViewData["Title"] = "Home Page";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <div class="container mt-4">
+        <h1>Lista med Cvn</h1>
+        <div class="row">
+            @foreach (var cv in Model) {
+                <div class="col-md-4 mb-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5>CV: @cv.Id</h5>
+                            <p class="card-text">
+                                Ägarid: @cv.Owner != null ? @cv.Owner.FirstName + @cv.Owner.LastName : "Ingen användare"<br />
+                                Erfarenheter:
+                                @* @if (cv.Experiences ! = null && @cv.Experiences.Any()) { *@
+
+                                }
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
     <a asp-controller="Project" asp-action="ProjectView">Gå till projektsida</a>
 </div>
+
