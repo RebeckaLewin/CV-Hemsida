@@ -4,5 +4,7 @@
 	{
 		public List<User> Users { get; set; }
 		public List<Project> Projects { get; set; }
+		public Project ProjectToSave { get; set; }
+		public bool IsUpdating { get; set; }
 	}
 }
