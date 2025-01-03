@@ -8,25 +8,48 @@ namespace CV_Projekt.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         //Emils
-        private CvContext cvContext;
+        private CvContext context;
 
         public HomeController(ILogger<HomeController> logger, CvContext context)
         {
             _logger = logger;
-            cvContext = context;
+            this.context = context;
         }
 
         //Emils test
         public IActionResult Test()
         {
-            IQueryable<User> userList = from user in cvContext.Users select user;
+            IQueryable<User> userList = from user in context.Users select user;
             
             return View(userList.ToList());
         }
+
+        [HttpGet]
+        //public IActionResult CVView()
+        //{
+        //    CVViewModel cvvm = new CVViewModel
+        //    {
+        //        Users = context.Users.ToList(),
+        //        Projects = context.Projects.ToList(),
+        //        Cvs = context.CVs.ToList(),
+        //        Experiences = context.Experiences.ToList(),
+        //        Tags = context.Tags.ToList(),
+
+        //    };
+        //    return View(cvvm);
+        //}
         public IActionResult Index()
         {
-            var cvList = cvContext.CVs.ToList();
-            return View();
+            CVViewModel cvvm = new CVViewModel
+            {
+                Users = context.Users.ToList(),
+                Projects = context.Projects.ToList(),
+                Cvs = context.CVs.ToList(),
+                Experiences = context.Experiences.ToList(),
+                Tags = context.Tags.ToList(),
+
+            };
+            return View(cvvm);
         }
 
         public IActionResult Privacy()
