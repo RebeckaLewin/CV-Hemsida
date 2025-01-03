@@ -2,6 +2,15 @@ html {
   font-size: 14px;
 }
 
+.nav-link {
+    text-align: right;
+    
+}
+
+.nav-item {
+    margin: 0 2px;
+}
+
 @media (min-width: 768px) {
   html {
     font-size: 16px;
