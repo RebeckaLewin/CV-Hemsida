@@ -8,6 +8,10 @@ body {
 .footer-shared {
     color: lightgrey;
 }
+i {
+    margin: 1px;
+}
+
 a:link {
     color: lightgray;   
 }
