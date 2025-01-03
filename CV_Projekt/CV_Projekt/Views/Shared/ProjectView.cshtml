@@ -1,0 +1,12 @@
+﻿@model ProjectViewModel
+
+@{
+	ViewData["Title"] = "Home Page";
+}
+
+<div class="dropdown-menu">
+	@foreach (var project in Model.Projects)
+	{
+		<div class="dropdown-item">project.Title</div>
+	}
+</div>
