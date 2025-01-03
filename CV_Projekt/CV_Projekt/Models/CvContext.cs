@@ -13,7 +13,7 @@ namespace CV_Projekt.Models
 		public DbSet<CV> CVs { get; set; }
 		public DbSet<Experience> Experiences { get; set; }
 		public DbSet<Tag> Tags { get; set; }
-		//public DbSet<Message> Messages { get; set; }
+		public DbSet<Message> Messages { get; set; }
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
