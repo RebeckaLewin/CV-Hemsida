@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - CV_Projekt</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/CV_Projekt.styles.css" asp-append-version="true" />
 </head>
@@ -12,9 +13,9 @@
     <header>
         <nav class="navbar navbar-dark bg-dark">
             <a href="/" class="navbar-brand">
-              Curriculum Vitae
+				<h3 id="cv-nav">Curriculum Vitae</h3>
             </a>
-
+            
             <button class="navbar-toggler ml-auto"
                     type="button"
                     data-bs-toggle="collapse"
@@ -61,8 +62,9 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2024 - CV_Projekt - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
+            <div class="footer-shared">&copy; 2024 - CV_Projekt - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+			</div>
+		</div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

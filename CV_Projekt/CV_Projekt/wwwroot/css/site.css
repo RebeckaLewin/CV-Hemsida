@@ -2,6 +2,21 @@ html {
   font-size: 14px;
 }
 
+body {
+    background-color: dimgrey;
+}
+.footer-shared {
+    color: lightgrey;
+}
+a:link {
+    color: lightgray;   
+}
+a:visited {
+    color: brown;
+}
+#cv-nav {
+    color: lightgray;
+}
 .nav-link {
     text-align: right;
     
