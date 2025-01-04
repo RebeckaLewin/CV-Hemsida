@@ -4,22 +4,42 @@
 }
 
 
-
 <div class="text-center"></div>
 
 
 
-
-    <div class="container mt-4">
-        <div class="row">
-            @foreach (var cv in Model.Users) 
-            {
-                <div class="col">
-                    <h3>@cv.FirstName</h3>
+<div class="container">
+    <div class="row">
+        @foreach (var user in Model.Users) 
+        {
+            <div class="col-auto">
+                <div class="border p-3 d-flex">
+                    <div class="me-4">
+                        <p class="font-weight-bold">@user.FirstName</p>
+                        <p class="font-weight-bold">@user.LastName</p>
+                        @foreach (var exp in Model.Experiences.Where(e => e.UserId == user.Id))
+                        {
+                            <div>
+                                <p>@exp.Location</p>
+                                <p>@exp.Description</p>
+                            </div>
+                        }
+                    </div>
+                    @* <div>
+                        @foreach (var tag in Model.Tags.Where(t => ))
+                        {
+                            <ul>
+                                <li>
+                                    <p>@tag</p>
+                                </li>
+                            </ul>
+                        }
+                    </div> *@
                 </div>
-            }
-        </div>
+            </div>
+        }
     </div>
+</div>
             
 
     <a asp-controller="Project" asp-action="ProjectView">Gå till projektsida</a>

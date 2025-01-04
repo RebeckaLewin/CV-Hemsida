@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using CV_Projekt.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 
 namespace CV_Projekt.Controllers
 {
@@ -40,14 +41,25 @@ namespace CV_Projekt.Controllers
         //}
         public IActionResult Index()
         {
+            var cvs = context.CVs.ToList();
+            var users = context.Users.ToList();
+            var projects = context.Projects.ToList();
+            var experiences = context.Experiences.ToList();
+            var tags = context.Tags.ToList();
+
+            var skills = cvs.Where(cv => cv.Skills !=null && cv.Skills.Any())
+                .SelectMany(cv => cv.Skills)
+                .Distinct()
+                .ToList();
             CVViewModel cvvm = new CVViewModel
             {
-                Users = context.Users.ToList(),
-                Projects = context.Projects.ToList(),
-                Cvs = context.CVs.ToList(),
-                Experiences = context.Experiences.ToList(),
-                Tags = context.Tags.ToList(),
-
+                Users = users,
+                Projects = projects,
+                Cvs = cvs,
+                Experiences = experiences,
+                Tags = tags,
+                Skills = skills
+                
             };
             return View(cvvm);
         }
