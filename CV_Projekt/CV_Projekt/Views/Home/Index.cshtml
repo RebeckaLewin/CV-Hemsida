@@ -25,16 +25,17 @@
                             </div>
                         }
                     </div>
-                    @* <div>
-                        @foreach (var tag in Model.Tags.Where(t => ))
+                    <div>
+                        @foreach (var cv in Model.Cvs.Where(c => c.OwnerId == user.Id))
                         {
                             <ul>
-                                <li>
-                                    <p>@tag</p>
-                                </li>
+                                @foreach (var skill in cv.Skills)
+                                {
+                                    <li>@skill</li>
+                                }
                             </ul>
                         }
-                    </div> *@
+                    </div>
                 </div>
             </div>
         }
