@@ -2,15 +2,12 @@
 @{
     ViewData["Title"] = "Home Page";
 }
-
-<div class="text-center"></div>
-
+<br />
 <div class="container">
-    <div class="card-group">
+    <div class="row row-cols-md-4 g-4">
         @foreach (var user in Model.Users) 
         {
-
-            <div class="col-md-4">
+            <div class="col">
                 <div class="card">
                     <div class="card-body position-relative">
                         <div class="card-header font-weight-bold">@user.FirstName @user.LastName</div>
@@ -20,43 +17,92 @@
                                 <div class="card-title fw-bold">@exp.Location</div>
                                 @if (exp.Description !=null)
                                 {
-                                    <div class="card-text">@exp.Description</div>
+                                    <div class="card-text fw-light">@exp.Description</div>
                                     <br />
                                 } else {
-                                    <div class="card-text">Beskrivning av arbetsuppgifter saknas.</div>
+                                    <div class="card-text fw-light">Beskrivning av arbetsuppgifter saknas.</div>
                                     <br />
                                 }
                             </div>
                         }
-                    </div>
                     <div>
+                        <div class="card-text">Färdigheter:</div>
                         @foreach (var cv in Model.Cvs.Where(c => c.OwnerId == user.Id))
                         {
                             @if (cv.Skills.Any())
                             {
-                                <p>Färdigheter:</p>
-                                    <ul>
-                                        @foreach (var skill in cv.Skills) 
-                                        {
-                                            <li>@skill</li>
-                                        }
-                                    </ul>
+                                <ul class="list-unstyled">
+                                    @foreach (var skill in cv.Skills) 
+                                    {
+                                        <li class="card-text">@skill</li>
+                                    }
+                                </ul>
                             } else {
-                                <p>Inga färdigheter listade</p>
+                                 <ul class="list-unstyled">
+                                    <li class="card-text fw-light">Inga färdigheter listade</li>
+                                </ul>
                             }
                         }
-                        @* Placeholder för en länk som skall peka på en profil *@
-                        @* <a asp-controller="Profile"
+                        @* Placeholder för en länk som skall leda till profilen *@
+                         <a href="#" class="btn btn-primary"
+                             @* asp-controller="Profile"
                         asp-action="Index"
-                        asp-route-id="@()"
-                        class="stretched-link"></a> *@
+                        asp-route-id="@()" *@>
+                        Visa profil
+                        </a> 
+                    </div>
                     </div>
                 </div>
             </div>
         }
     </div>
 </div>
-            
 
-    <a asp-controller="Project" asp-action="ProjectView">Gå till projektsida</a>
+<br />
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-4">
+            <div class="container">
+                <div class="card">
+                    @foreach(var proj in Model.Projects)
+                    {
+                        var projectOwner = Model.Users.FirstOrDefault(u => u.Id == proj.CreatorId);
+                        <div class="card-body position-relative">
+                        <div class="card-header">@proj.Title</div>
+                        <div class="card-text">@proj.Description</div>
+                        <div class="card-text fw-light">Datum:</div>
+                        <div class="card-text fw-light">Start: @proj.StartDate.ToString("yy-MM-dd") Slut: @proj.EndDate.ToString("yy-MM-dd")</div>
+                        <div class="card-text fw-light">Projektägare:</div>
+                        @if (projectOwner != null) 
+                        {
+                            <div class="card-text fw-light">@projectOwner.FirstName @projectOwner.LastName</div>
+                        } else {
+                            <div class="card-text fw-light">Ingen projektägare hittades.</div>
+                        }
+                        </div>
+                    }
+                    @* Placeholder för en länk som skall leda till projektet *@
+                    <a href="#" class="btn btn-primary"
+                    @* asp-controller="Profile"
+                    asp-action="Index"
+                    asp-route-id="@()" *@>
+                    Visa projekt
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<br />
+<br />
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-4">
+            <a asp-controller="Project" asp-action="ProjectView" class="btn btn-primary">Gå till projektsida</a>
+        </div>
+    </div>
+</div>
 

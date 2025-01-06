@@ -43,22 +43,29 @@ namespace CV_Projekt.Controllers
         {
             var cvs = context.CVs.ToList();
             var users = context.Users.ToList();
-            var projects = context.Projects.ToList();
             var experiences = context.Experiences.ToList();
             var tags = context.Tags.ToList();
 
+            var latestProject = context.Projects.OrderByDescending(p => p.Id)
+                .Take(1)
+                .ToList();
+            
             var skills = cvs.Where(cv => cv.Skills !=null && cv.Skills.Any())
                 .SelectMany(cv => cv.Skills)
                 .Distinct()
                 .ToList();
 
+            var random = new Random();
+
             var usersWithCvs = users.Where(u => cvs.Any(cv => cv.OwnerId == u.Id))
+                .OrderBy(u => random.Next())
+                .Take(4)
                 .ToList();
             
             CVViewModel cvvm = new CVViewModel
             {
                 Users = usersWithCvs,
-                Projects = projects,
+                Projects = latestProject,
                 Cvs = cvs,
                 Experiences = experiences,
                 Tags = tags,
