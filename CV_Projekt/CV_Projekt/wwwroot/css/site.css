@@ -2,13 +2,27 @@ html {
   font-size: 14px;
 }
 
-.nav-link {
-    text-align: right;
-    
+body {
+    background-color: dimgrey;
+}
+.footer-shared {
+    color: lightgrey;
+}
+i {
+    margin: 1px;
 }
 
+a:link {
+    color: lightgray;   
+}
+a:visited {
+    color: brown;
+}
+#cv-nav {
+    color: lightgray;
+}
 .nav-item {
-    margin: 0 2px;
+    text-align: right;
 }
 
 @media (min-width: 768px) {
