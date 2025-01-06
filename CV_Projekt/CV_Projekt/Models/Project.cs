@@ -16,13 +16,13 @@ namespace CV_Projekt.Models
 		[Required(ErrorMessage = "Ett projekt måste ha en ägare.")]
 		public int CreatorId { get; set; }
 		public virtual List<CV>? CVs { get; set; } = new List<CV>(); //ändrade dessa från int CVid, plus gjorde virtual
-
+		public virtual List<User>? Participants { get; set; } = new List<User>();
 
 		//[ForeignKey(nameof(CV.Id))] //ändrade denna från int cvid
 		//public virtual List<CV> Cvs { get; set; } = new List<CV>();
 
 		[ForeignKey(nameof(CreatorId))]
-		public virtual User Creator { get; set; }
+		public virtual User? Creator { get; set; }
 
 	}
 }

@@ -240,6 +240,21 @@ namespace CV_Projekt.Models
                 }
             );
 
+			modelBuilder.Entity<Project>()
+				.HasOne(p => p.Creator)
+				.WithMany(u => u.CreatedProjects)
+				.OnDelete(DeleteBehavior.ClientSetNull);
+
+			modelBuilder.Entity<Project>()
+				.HasMany(p => p.Participants)
+				.WithMany(u => u.JoinedProjects)
+				.UsingEntity(
+					"ProjectUser",
+					l => l.HasOne(typeof(Project)).WithMany().HasForeignKey("ProjectId").HasPrincipalKey(nameof(Project.Id)).OnDelete(DeleteBehavior.ClientSetNull),
+					r => r.HasOne(typeof(User)).WithMany().HasForeignKey("UserId").HasPrincipalKey(nameof(User.Id)).OnDelete(DeleteBehavior.ClientSetNull),
+					j => j.HasKey("ProjectId", "UserId")
+				);
+
 			modelBuilder.Entity<Message>()
 				.HasOne(m => m.Sender)
 				.WithMany(s => s.SentMessages)

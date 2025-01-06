@@ -20,11 +20,11 @@ namespace CV_Projekt.Controllers
 		}
 
 		[HttpPost]
-		public IActionResult ProjectView(ProjectViewModel pvm)
+		public IActionResult ProjectView(ProjectViewModel viewModel)
 		{
 			if (ModelState.IsValid)
 			{
-				context.Add(aProject);
+				context.Add(viewModel.ProjectToSave);
 				context.SaveChanges();
 			}
 			ProjectViewModel pvm = new ProjectViewModel { Users = context.Users.ToList(), Projects = context.Projects.ToList() };

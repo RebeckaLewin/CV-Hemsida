@@ -9,15 +9,15 @@
 <h1>Projekt</h1>
 
 <form asp-action="ProjectView" method="post">
-	<input asp-for="" type="text" />
+	<input asp-for="ProjectToSave.Title" type="text" />
 	<br />
-	<input asp-for="StartDate" type="date" />
+	<input asp-for="ProjectToSave.StartDate" type="date" />
 	<br />
-	<input asp-for="EndDate" type="date" />
+	<input asp-for="ProjectToSave.EndDate" type="date" />
 	<br />
-	<textarea asp-for="Description"></textarea>
+	<textarea asp-for="ProjectToSave.Description"></textarea>
 	<br />
-	<input asp-for="CreatorId" type="number" />
+	<input asp-for="ProjectToSave.CreatorId" type="number" />
 	<button type="submit">Skapa</button>
 </form>
 
@@ -33,7 +33,7 @@
 	</div>
 </div>
 
-<input type="checkbox" />
+<input type="checkbox" asp-for="IsUpdating"/>
 
 <div class="dropdown">
 	<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
