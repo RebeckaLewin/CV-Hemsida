@@ -48,11 +48,10 @@
                         </div>
                     </div>
                     <div class="text-center">
-                        @* Placeholder för en länk som skall leda till profilen *@
-                        <a href="#" class="btn btn-primary"
-                        @* asp-controller="Profile"
-                           asp-action="Index"
-                           asp-route-id="@()" *@>
+                        <a  class="btn btn-primary"
+                            asp-controller="Profile"
+                            asp-action="Profile"
+                            asp-route-id="@user.Id" >
                             Visa profil
                         </a>
                     </div>

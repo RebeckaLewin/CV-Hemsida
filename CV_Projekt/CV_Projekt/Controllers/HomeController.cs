@@ -8,44 +8,22 @@ namespace CV_Projekt.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        //Emils
-        private CvContext context;
+        private CvContext _context;
 
         public HomeController(ILogger<HomeController> logger, CvContext context)
         {
             _logger = logger;
-            this.context = context;
-        }
-
-        //Emils test
-        public IActionResult Test()
-        {
-            IQueryable<User> userList = from user in context.Users select user;
-            
-            return View(userList.ToList());
+            _context = context;
         }
 
         [HttpGet]
-        //public IActionResult CVView()
-        //{
-        //    CVViewModel cvvm = new CVViewModel
-        //    {
-        //        Users = context.Users.ToList(),
-        //        Projects = context.Projects.ToList(),
-        //        Cvs = context.CVs.ToList(),
-        //        Experiences = context.Experiences.ToList(),
-        //        Tags = context.Tags.ToList(),
-
-        //    };
-        //    return View(cvvm);
-        //}
         public IActionResult Index()
         {
-            var cvs = context.CVs.ToList();
-            var users = context.Users.ToList();
-            var experiences = context.Experiences.ToList();
+            var cvs = _context.CVs.ToList();
+            var users = _context.Users.ToList();
+            var experiences = _context.Experiences.ToList();
 
-            var latestProject = context.Projects.OrderByDescending(p => p.Id)
+            var latestProject = _context.Projects.OrderByDescending(p => p.Id)
                 .Take(1)
                 .ToList();
             
@@ -59,6 +37,7 @@ namespace CV_Projekt.Controllers
             var usersWithCvs = users.Where(u => cvs.Any(cv => cv.OwnerId == u.Id))
                 .OrderBy(u => random.Next())
                 .Take(4)
+                .Distinct()
                 .ToList();
             
             CVViewModel cvvm = new CVViewModel
