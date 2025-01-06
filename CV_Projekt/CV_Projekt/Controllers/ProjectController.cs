@@ -18,5 +18,17 @@ namespace CV_Projekt.Controllers
 			ProjectViewModel pvm = new ProjectViewModel { Users = context.Users.ToList(), Projects = context.Projects.ToList() };
 			return View(pvm);
 		}
+
+		[HttpPost]
+		public IActionResult ProjectView(ProjectViewModel viewModel)
+		{
+			if (ModelState.IsValid)
+			{
+				context.Add(viewModel.ProjectToSave);
+				context.SaveChanges();
+			}
+			ProjectViewModel pvm = new ProjectViewModel { Users = context.Users.ToList(), Projects = context.Projects.ToList() };
+			return View(pvm);
+		}
 	}
 }

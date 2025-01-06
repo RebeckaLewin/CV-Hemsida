@@ -28,6 +28,9 @@ namespace CV_Projekt.Models
 		public virtual List<Message>? RecievedMessages { get; set; } = new List<Message>();
 		public virtual List<Message>? SentMessages { get; set; } = new List<Message>();
 
+		public virtual List<Project>? CreatedProjects { get; set; } = new List<Project>();
+		public virtual List<Project>? JoinedProjects { get; set; } = new List<Project>();
+
 		//Picture
 
 
