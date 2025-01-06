@@ -51,9 +51,13 @@ namespace CV_Projekt.Controllers
                 .SelectMany(cv => cv.Skills)
                 .Distinct()
                 .ToList();
+
+            var usersWithCvs = users.Where(u => cvs.Any(cv => cv.OwnerId == u.Id))
+                .ToList();
+            
             CVViewModel cvvm = new CVViewModel
             {
-                Users = users,
+                Users = usersWithCvs,
                 Projects = projects,
                 Cvs = cvs,
                 Experiences = experiences,
