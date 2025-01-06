@@ -9,7 +9,6 @@
 
         public List<Experience> Experiences { get; set; }
 
-        public List<Tag> Tags { get; set; }
         public List<string> Skills {  get; set; } 
     }
 }
