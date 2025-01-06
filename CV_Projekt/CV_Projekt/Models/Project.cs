@@ -14,7 +14,7 @@ namespace CV_Projekt.Models
 		public string Title { get; set; }
 		public string? Description { get; set; }
 		[Required(ErrorMessage = "Ett projekt måste ha en ägare.")]
-		public int CreatorId { get; set; }
+		public string CreatorId { get; set; }
 		public virtual List<CV>? CVs { get; set; } = new List<CV>(); //ändrade dessa från int CVid, plus gjorde virtual
 		public virtual List<User>? Participants { get; set; } = new List<User>();
 

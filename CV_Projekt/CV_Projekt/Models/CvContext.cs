@@ -1,13 +1,14 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace CV_Projekt.Models
 {
-	public class CvContext : DbContext
+	public class CvContext : IdentityDbContext<User>
 	{
 		public CvContext(DbContextOptions<CvContext> options) : base(options) { }
 
-		public DbSet<User> Users { get; set; }
+		public override DbSet<User> Users { get; set; }
 		public DbSet<ContactInformation> ContactInformations { get; set; }
 		public DbSet<Project> Projects { get; set; }
 		public DbSet<CV> CVs { get; set; }
@@ -46,9 +47,10 @@ namespace CV_Projekt.Models
 			modelBuilder.Entity<User>().HasData(
 				new User
 				{
-					Id = 1,
+					Id = 1.ToString(),
 					FirstName = "Alice",
 					LastName = "Andersson",
+					UserName = "aliA",
 					InformationId = 1,
 					Password = "P@ssword123",
 					isPrivate = true,
@@ -56,9 +58,10 @@ namespace CV_Projekt.Models
 				},
                 new User
                 {
-                    Id = 2,
+                    Id = 2.ToString(),
                     FirstName = "Bob",
                     LastName = "Bergström",
+					UserName = "BobbieB",
                     InformationId = 2,
                     Password = "P@ssword456",
                     isPrivate = false,
@@ -66,9 +69,10 @@ namespace CV_Projekt.Models
                 },
                 new User
                 {
-                    Id = 3,
+                    Id = 3.ToString(),
                     FirstName = "Charlie",
                     LastName = "Carlsson",
+					UserName = "Charlie",
                     InformationId = 3,
                     Password = "P@ssword789",
                     isPrivate = false,
@@ -83,8 +87,8 @@ namespace CV_Projekt.Models
 					Subject = "En hälsning",
 					Content = "Hej på dig! Hur är det med dig?",
 					Date = new DateTime(2020, 6, 12),
-					SenderId = 1,
-					RecieverId = 2
+					SenderId = 1.ToString(),
+					RecieverId = 2.ToString()
 				},
 				new Message
 				{
@@ -92,8 +96,8 @@ namespace CV_Projekt.Models
 					Subject = "Missade",
 					Content = "Missade att du skrev, förlåt.",
 					Date = new DateTime(2020, 7, 16),
-					SenderId = 2,
-					RecieverId = 1
+					SenderId = 2.ToString(),
+					RecieverId = 1.ToString()
 				}
 			);
 
@@ -127,7 +131,7 @@ namespace CV_Projekt.Models
 					StartDate = new DateTime(2016, 8, 30),
                     Location = "Örebro kommun",
 					Type = "Praktik",
-					UserId = 2
+					UserId = 2.ToString()
 				},
                 new OtherExperience
                 {
@@ -136,7 +140,7 @@ namespace CV_Projekt.Models
                     Location = "Kävesta Folkhögskola",
 					Description = "En kurs i drejeri",
                     Type = "Kurs",
-					UserId = 1
+					UserId = 1.ToString()
                 },
                 new OtherExperience
                 {
@@ -144,7 +148,7 @@ namespace CV_Projekt.Models
 					StartDate = new DateTime(2022, 8, 30),
                     Location = "Röda korset Örebro",
                     Type = "Volentärarbete",
-					UserId = 1
+					UserId = 1.ToString()
                 }
             );
 
@@ -156,7 +160,7 @@ namespace CV_Projekt.Models
                     Location = "Café Deed",
                     Description = "Underhåller ett team i bageri/ungdomsgård",
                     Role = "Arbetsledare",
-					UserId = 1
+					UserId = 1.ToString()
 				},
                 new Work
                 {
@@ -165,7 +169,7 @@ namespace CV_Projekt.Models
                     Location = "Uppsala Sjukhus",
                     Description = "Omvårdnad",
                     Role = "Sjuksköterska",
-                    UserId = 2
+                    UserId = 2.ToString()
                 },
                 new Work
                 {
@@ -174,7 +178,7 @@ namespace CV_Projekt.Models
                     Location = "Generiskt Företag",
                     Description = "Arbetsuppgifter",
                     Role = "Arbetstitel",
-                    UserId = 3
+                    UserId = 3.ToString()
                 }
             );
 
@@ -187,7 +191,7 @@ namespace CV_Projekt.Models
 					Level = "Gymnasial",
 					Program = "Vård och omsorg",
 					Description = "",
-					UserId = 2
+					UserId = 2.ToString()
 				},
 				new Education
 				{
@@ -197,7 +201,7 @@ namespace CV_Projekt.Models
 					Level = "Kandidat",
 					Program = "Arkelogi",
 					Description = "",
-					UserId = 3
+					UserId = 3.ToString()
 				}
 
 			);
@@ -206,14 +210,14 @@ namespace CV_Projekt.Models
 				new CV
 				{
 					Id = 1,
-					OwnerId = 1,
+					OwnerId = 1.ToString(),
 					Skills = new List<string> { "Projektledning", "CSS", "HTML" },
 					Views = 10
 				},
                 new CV
                 {
                     Id = 2,
-                    OwnerId = 3,
+                    OwnerId = 3.ToString(),
                     Skills = new List<string> { "Grafisk design", "Pedagogik" },
                     Views = 11
                 }
@@ -227,7 +231,7 @@ namespace CV_Projekt.Models
 					EndDate = new DateTime(2011, 8, 30),
 					Title = "Tidtabell för postnord",
                     Description = "En app för att optimera postleveranser.",
-                    CreatorId = 1
+                    CreatorId = 1.ToString()
                 },
                 new Project
                 {
@@ -236,7 +240,7 @@ namespace CV_Projekt.Models
                     EndDate = new DateTime(2015, 3, 10),
                     Title = "SJ Bokningssystem",
                     Description = "Ett bokningssystem för SJ-resor.",
-                    CreatorId = 3
+                    CreatorId = 3.ToString()
                 }
             );
 

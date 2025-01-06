@@ -14,9 +14,9 @@ namespace CV_Projekt.Models
 		[Required]
 		public DateTime Date { get; set; }
 		[Required]
-		public int? SenderId { get; set; }
+		public string? SenderId { get; set; }
 		[Required]
-		public int? RecieverId { get; set; }
+		public string? RecieverId { get; set; }
 
 		[ForeignKey(nameof(SenderId))]
 		public virtual User? Sender { get; set; }

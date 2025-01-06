@@ -8,7 +8,7 @@ namespace CV_Projekt.Models
 	{
 		public int Id { get; set; }
 		[Required(ErrorMessage = "CV måste tillhöra en användare.")]
-		public int OwnerId { get; set; }
+		public string OwnerId { get; set; }
 		public List<string> Skills { get; set; } = new List<string>();
 		public virtual List<Tag>? Tags { get; set; } = new List<Tag> ();
 		public virtual List<Experience>? Experiences { get; set; } = new List<Experience>();
