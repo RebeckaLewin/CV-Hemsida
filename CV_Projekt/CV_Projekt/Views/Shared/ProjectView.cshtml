@@ -46,3 +46,13 @@
 		}
 	</div>
 </div>
+
+<select onchange="">
+	<option value="">Välj projekt</option>
+	@foreach (var project in Model.Projects)
+	{
+		<option value="@project">@project.Title</option>
+	}
+</select>
+
+

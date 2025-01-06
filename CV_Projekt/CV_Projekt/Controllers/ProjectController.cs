@@ -24,7 +24,14 @@ namespace CV_Projekt.Controllers
 		{
 			if (ModelState.IsValid)
 			{
-				context.Add(viewModel.ProjectToSave);
+				if(viewModel.IsUpdating)
+				{
+					context.Projects.Update(viewModel.ProjectToSave);
+				}
+				else
+				{
+					context.Add(viewModel.ProjectToSave);
+				}
 				context.SaveChanges();
 			}
 			ProjectViewModel pvm = new ProjectViewModel { Users = context.Users.ToList(), Projects = context.Projects.ToList() };
