@@ -4,12 +4,12 @@
 }
 <br />
 <div class="container">
-    <div class="row row-cols-md-4 g-4">
+    <div class="row row-cols-md-4 g-4 align-items-stretch">
         @foreach (var user in Model.Users) 
         {
             <div class="col">
-                <div class="card">
-                    <div class="card-body position-relative">
+                <div class="card h-100 d-flex flex-column">
+                    <div class="card-body position-relative flex-grow-1">
                         <div class="card-header font-weight-bold">@user.FirstName @user.LastName</div>
                         @foreach (var exp in Model.Experiences.Where(e => e.UserId == user.Id))
                         {
@@ -42,15 +42,19 @@
                                     <li class="card-text fw-light">Inga färdigheter listade</li>
                                 </ul>
                             }
+                             
+                            
                         }
-                        @* Placeholder för en länk som skall leda till profilen *@
-                         <a href="#" class="btn btn-primary"
-                             @* asp-controller="Profile"
-                        asp-action="Index"
-                        asp-route-id="@()" *@>
-                        Visa profil
-                        </a> 
+                        </div>
                     </div>
+                    <div class="text-center">
+                        @* Placeholder för en länk som skall leda till profilen *@
+                        <a href="#" class="btn btn-primary"
+                        @* asp-controller="Profile"
+                           asp-action="Index"
+                           asp-route-id="@()" *@>
+                            Visa profil
+                        </a>
                     </div>
                 </div>
             </div>
@@ -63,7 +67,6 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-4">
-            <div class="container">
                 <div class="card">
                     @foreach(var proj in Model.Projects)
                     {
@@ -82,27 +85,24 @@
                         }
                         </div>
                     }
-                    @* Placeholder för en länk som skall leda till projektet *@
-                    <a href="#" class="btn btn-primary"
-                    @* asp-controller="Profile"
-                    asp-action="Index"
-                    asp-route-id="@()" *@>
-                    Visa projekt
-                    </a>
+                    <div class="text-center">
+                        @* Placeholder för en länk som skall leda till projektet *@
+                        <a href="#" class="btn btn-primary"
+                        @* asp-controller="Profile"
+                        asp-action="Index"
+                        asp-route-id="@()" *@>
+                        Visa detta projekt
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
 <br />
 <br />
 
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-4">
-            <a asp-controller="Project" asp-action="ProjectView" class="btn btn-primary">Gå till projektsida</a>
-        </div>
-    </div>
+<div class="d-flex justify-content-center mt-2">
+    <a asp-controller="Project" asp-action="ProjectView" class="btn btn-primary">Gå till projektsida</a>
 </div>
 
