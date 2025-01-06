@@ -1,2 +1,55 @@
 ﻿@model ProfileViewModel
 
+
+
+<p>Hej jag heter @Model.User.FirstName @Model.User.LastName </p>
+<br />
+<p>Min skills är:</p>
+ @if(Model.Skills != null){
+	@foreach (var skill in Model.Skills) 
+	{
+		@skill
+	}
+} else {
+	<p>inga skills lol</p>
+} 
+<br />
+@*  <p>Taggar:</p>
+@foreach (var tag in Model.Tags)
+{
+	@tag.Descriptor
+} 
+<br /> *@
+@*  <p>Projekt jag har jobbat med:</p>
+@foreach (var proj in Model.ProjectCollaborator)
+{
+	@proj.Title
+} 
+<br />
+<p>Projekt jag har skapat:</p>
+@foreach (var proj in Model.ProjectsCreated)
+{
+	@proj.Title
+} *@
+<br />
+<p>Skickade meddelanden:</p>
+@foreach(var msg in Model.MessagesSent)
+{
+	<p>@msg.Content</p>
+}
+<br />
+<p>Mottagna meddelanden:</p>
+@foreach (var msg in Model.MessagesRecieved)
+{
+	<p>@msg.Content</p>
+}
+<br />
+<p>Erfarenheter:</p>
+@foreach (var exp in Model.Experiences)
+{
+	<p>@exp.Location</p>
+}
+
+<div class="d-flex justify-content-center mt-2">
+	<a asp-controller="Home" asp-action="Index" class="btn btn-primary">Startsida</a>
+</div>

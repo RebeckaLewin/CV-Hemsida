@@ -3,15 +3,17 @@
     public class ProfileViewModel
     {
         public List<CV> Cvs { get; set; }
-        public List<User> Users { get; set; }
+        public User User { get; set; }
 
-        public List<Project> Projects { get; set; }
+        public List<Project> ProjectsCreated { get; set; }
+        public List<Project> ProjectCollaborator { get; set; }
 
         public List<Experience> Experiences { get; set; }
 
         public List<string> Skills { get; set; }
         public List<Tag> Tags { get; set; }
-        public List<Message> Messages { get; set; }
-    
+        public List<Message> MessagesSent { get; set; }
+        public List<Message> MessagesRecieved { get; set; }
+
     }
 }

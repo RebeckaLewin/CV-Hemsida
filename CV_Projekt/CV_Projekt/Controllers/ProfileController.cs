@@ -16,20 +16,40 @@ namespace CV_Projekt.Controllers
             _context = context;
         }
         [HttpGet]
-        public IActionResult Profile()
+        public IActionResult Profile(int id)
         {
-            var users = _context.Users.ToList();
-            var cvs = _context.CVs.ToList();
-            var msg = _context.Messages.ToList();
-            var proj = _context.Projects.ToList();
-            var tags = _context.Tags.ToList();
-            var exp = _context.Experiences.ToList();
+            var user = _context.Users.FirstOrDefault(u=> u.Id == id);
+            if (user == null) 
+            { 
+                return NotFound();
+            }
+            
+            var cvs = _context.CVs.Where(cv=>cv.OwnerId==id).ToList();
+
+            var msgRec = _context.Messages.Where(m=>m.RecieverId==id).ToList();
+            var msgSent = _context.Messages.Where(m => m.SenderId == id).ToList();
+            //var projCreator = _context.Projects.Where(p=>p.CreatorId==id).ToList();
+            //var projColl = _context.Projects.Where(p => p.CVs == cvs).ToList();
+            //var tags = _context.Tags.Where(t=>t.CVs==cvs).ToList();
+            var exp = _context.Experiences.Where(e=>e.UserId==id).ToList();
             var skills = cvs.Where(cv => cv.Skills != null && cv.Skills.Any())
                 .SelectMany(cv => cv.Skills)
                 .Distinct()
                 .ToList();
-            
-            return View();
+
+            ProfileViewModel pvm = new ProfileViewModel
+            {
+                Cvs = cvs,
+                User = user,
+                MessagesSent = msgSent,
+                MessagesRecieved = msgRec,
+                //ProjectCollaborator = projColl,
+                //ProjectsCreated = projCreator,
+                //Tags = tags,
+                Experiences = exp,
+                Skills = skills
+            };
+            return View(pvm);
         }
     }
 }
