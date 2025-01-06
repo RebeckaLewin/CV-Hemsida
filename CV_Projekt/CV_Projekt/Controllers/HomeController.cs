@@ -44,7 +44,6 @@ namespace CV_Projekt.Controllers
             var cvs = context.CVs.ToList();
             var users = context.Users.ToList();
             var experiences = context.Experiences.ToList();
-            var tags = context.Tags.ToList();
 
             var latestProject = context.Projects.OrderByDescending(p => p.Id)
                 .Take(1)
@@ -68,7 +67,6 @@ namespace CV_Projekt.Controllers
                 Projects = latestProject,
                 Cvs = cvs,
                 Experiences = experiences,
-                Tags = tags,
                 Skills = skills
                 
             };
