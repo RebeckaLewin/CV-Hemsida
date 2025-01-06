@@ -12,8 +12,6 @@
 
         public List<string> Skills { get; set; }
         public List<Tag> Tags { get; set; }
-        public List<Message> MessagesSent { get; set; }
-        public List<Message> MessagesRecieved { get; set; }
-
+        
     }
 }
