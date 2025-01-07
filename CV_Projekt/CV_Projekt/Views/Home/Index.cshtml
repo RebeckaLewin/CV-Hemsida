@@ -14,18 +14,25 @@
                         @foreach (var exp in Model.Experiences.Where(e => e.UserId == user.Id))
                         {
                             <div>
+                                <br />
                                 <div class="card-title fw-bold">@exp.Location</div>
                                 @if (exp.Description !=null)
                                 {
-                                    <div class="card-text fw-light">@exp.Description</div>
-                                    <br />
+                                    <p class="card-text fw-light">@exp.Description</p>
                                 } else {
-                                    <div class="card-text fw-light">Beskrivning av arbetsuppgifter saknas.</div>
-                                    <br />
-                                }
+                                    <p class="card-text fw-light">Beskrivning av arbetsuppgifter saknas.</p>
+                                }   
                             </div>
+                            @if (exp is Education edu)
+                            {
+                                <div class="education-details">
+                                    <p class="card-text fw-light">Nivå:@edu.Level</p>
+                                    <p class="card-text fw-light">Inriktning: @edu.Program</p>
+                                </div>
+                            }
                         }
                     <div>
+                        <br />
                         <div class="card-text">Färdigheter:</div>
                         @foreach (var cv in Model.Cvs.Where(c => c.OwnerId == user.Id))
                         {
@@ -34,7 +41,7 @@
                                 <ul class="list-unstyled">
                                     @foreach (var skill in cv.Skills) 
                                     {
-                                        <li class="card-text">@skill</li>
+                                        <li class="card-text fw-light">@skill</li>
                                     }
                                 </ul>
                             } else {

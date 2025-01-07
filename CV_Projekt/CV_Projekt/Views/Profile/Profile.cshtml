@@ -59,6 +59,13 @@
 										<p class="fw-light">Beskrivning saknas.</p>
 									}
 								</li>
+								@if (exp is Education edu)
+								{
+									<div class="education-details">
+										<p class="fw-light">Nivå:@edu.Level</p>
+										<p class="fw-light">Inriktning: @edu.Program</p>
+									</div>
+								}
 							}
 						</ul>
 					}
