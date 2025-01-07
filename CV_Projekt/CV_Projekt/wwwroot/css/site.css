@@ -29,6 +29,9 @@ a:visited {
 .nav-item {
     text-align: right;
 }
+.card-text {
+    margin-left: 2rem;
+}
 
 @media (min-width: 768px) {
   html {
