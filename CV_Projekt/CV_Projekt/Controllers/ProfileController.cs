@@ -16,7 +16,7 @@ namespace CV_Projekt.Controllers
             _context = context;
         }
         [HttpGet]
-        public IActionResult Profile(int id)
+        public IActionResult Profile(string id)
         {
             var user = _context.Users.FirstOrDefault(u=> u.Id == id);
             if (user == null) 

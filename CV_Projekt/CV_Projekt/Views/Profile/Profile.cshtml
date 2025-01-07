@@ -2,53 +2,55 @@
 
 
 <div class="card">
-	<p>Hej jag heter @Model.User.FirstName @Model.User.LastName </p>
+	<div class="card-header">@Model.User.FirstName @Model.User.LastName </div>
 	<br />
-	<p>Min skills är:</p>
-	@if(Model.Skills != null){
-		@foreach (var skill in Model.Skills) 
+	<div class="card-body">
+		<p>Min skills är:</p>
+		@if(Model.Skills != null){
+			@foreach (var skill in Model.Skills) 
+			{
+				<ul>
+					<li class="list-unstyled">@skill</li>
+				</ul>
+			}
+		} else {
+			<ul>
+				<li class="list-unstyled">Inga skills lol</li>
+			</ul>
+		} 
+		<br />
+		<p>Taggar:</p>
+		@foreach (var tag in Model.Tags)
 		{
 			<ul>
-				<li class="list-unstyled">@skill</li>
+				<li class="list-unstyled">@tag.Descriptor</li>
+			</ul>
+		} 
+		<br /> 
+		<p>Projekt jag har jobbat med:</p>
+		@foreach (var proj in Model.ProjectCollaborator)
+		{
+			<ul>
+				<li class="list-unstyled">@proj.Title</li>
+			</ul>
+		} 
+		<br />
+		<p>Projekt jag har skapat:</p>
+		@foreach (var proj in Model.ProjectsCreated)
+		{
+			<ul>
+				<li class="list-unstyled">@proj.Title</li>
+			</ul>
+		} 
+
+		<p>Erfarenheter:</p>
+		@foreach (var exp in Model.Experiences)
+		{
+			<ul>
+				<li class="list-unstyled">@exp.Location</li>
 			</ul>
 		}
-	} else {
-		<ul>
-			<li class="list-unstyled">Inga skills lol</li>
-		</ul>
-	} 
-	<br />
-	<p>Taggar:</p>
-	@foreach (var tag in Model.Tags)
-	{
-		<ul>
-			<li class="list-unstyled">@tag.Descriptor</li>
-		</ul>
-	} 
-	<br /> 
-	<p>Projekt jag har jobbat med:</p>
-	@foreach (var proj in Model.ProjectCollaborator)
-	{
-		<ul>
-			<li class="list-unstyled">@proj.Title</li>
-		</ul>
-	} 
-	<br />
-	<p>Projekt jag har skapat:</p>
-	@foreach (var proj in Model.ProjectsCreated)
-	{
-		<ul>
-			<li class="list-unstyled">@proj.Title</li>
-		</ul>
-	} 
-
-	<p>Erfarenheter:</p>
-	@foreach (var exp in Model.Experiences)
-	{
-		<ul>
-			<li class="list-unstyled">@exp.Location</li>
-		</ul>
-	}
+	</div>
 </div>
 
 <div class="d-flex justify-content-center mt-2">
