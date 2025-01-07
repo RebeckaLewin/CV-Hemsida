@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CV_Projekt.Migrations
 {
     [DbContext(typeof(CvContext))]
-    [Migration("20250103093909_Setup")]
-    partial class Setup
+    [Migration("20250106165707_addedUser")]
+    partial class addedUser
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -122,8 +122,9 @@ namespace CV_Projekt.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("OwnerId")
-                        .HasColumnType("int");
+                    b.Property<string>("OwnerId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.PrimitiveCollection<string>("Skills")
                         .IsRequired()
@@ -142,14 +143,14 @@ namespace CV_Projekt.Migrations
                         new
                         {
                             Id = 1,
-                            OwnerId = 1,
+                            OwnerId = "1",
                             Skills = "[\"Projektledning\",\"CSS\",\"HTML\"]",
                             Views = 10
                         },
                         new
                         {
                             Id = 2,
-                            OwnerId = 3,
+                            OwnerId = "3",
                             Skills = "[\"Grafisk design\",\"Pedagogik\"]",
                             Views = 11
                         });
@@ -228,8 +229,9 @@ namespace CV_Projekt.Migrations
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
@@ -258,11 +260,13 @@ namespace CV_Projekt.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("RecieverId")
-                        .HasColumnType("int");
+                    b.Property<string>("RecieverId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
-                    b.Property<int>("SenderId")
-                        .HasColumnType("int");
+                    b.Property<string>("SenderId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Subject")
                         .IsRequired()
@@ -274,7 +278,7 @@ namespace CV_Projekt.Migrations
 
                     b.HasIndex("SenderId");
 
-                    b.ToTable("Message");
+                    b.ToTable("Messages");
 
                     b.HasData(
                         new
@@ -282,8 +286,8 @@ namespace CV_Projekt.Migrations
                             Id = 1,
                             Content = "Hej på dig! Hur är det med dig?",
                             Date = new DateTime(2020, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            RecieverId = 2,
-                            SenderId = 1,
+                            RecieverId = "2",
+                            SenderId = "1",
                             Subject = "En hälsning"
                         },
                         new
@@ -291,8 +295,8 @@ namespace CV_Projekt.Migrations
                             Id = 2,
                             Content = "Missade att du skrev, förlåt.",
                             Date = new DateTime(2020, 7, 16, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            RecieverId = 1,
-                            SenderId = 2,
+                            RecieverId = "1",
+                            SenderId = "2",
                             Subject = "Missade"
                         });
                 });
@@ -305,8 +309,9 @@ namespace CV_Projekt.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("CreatorId")
-                        .HasColumnType("int");
+                    b.Property<string>("CreatorId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
@@ -331,7 +336,7 @@ namespace CV_Projekt.Migrations
                         new
                         {
                             Id = 1,
-                            CreatorId = 1,
+                            CreatorId = "1",
                             Description = "En app för att optimera postleveranser.",
                             EndDate = new DateTime(2011, 8, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             StartDate = new DateTime(2010, 8, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -340,7 +345,7 @@ namespace CV_Projekt.Migrations
                         new
                         {
                             Id = 2,
-                            CreatorId = 3,
+                            CreatorId = "3",
                             Description = "Ett bokningssystem för SJ-resor.",
                             EndDate = new DateTime(2015, 3, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             StartDate = new DateTime(2012, 1, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -389,20 +394,19 @@ namespace CV_Projekt.Migrations
 
             modelBuilder.Entity("CV_Projekt.Models.User", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
                     b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
@@ -425,10 +429,12 @@ namespace CV_Projekt.Migrations
                         .HasColumnType("datetimeoffset");
 
                     b.Property<string>("NormalizedEmail")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("NormalizedUserName")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("Password")
                         .IsRequired()
@@ -450,7 +456,8 @@ namespace CV_Projekt.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("UserName")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<bool>("isActive")
                         .HasColumnType("bit");
@@ -462,14 +469,22 @@ namespace CV_Projekt.Migrations
 
                     b.HasIndex("InformationId");
 
-                    b.ToTable("Users");
+                    b.HasIndex("NormalizedEmail")
+                        .HasDatabaseName("EmailIndex");
+
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasDatabaseName("UserNameIndex")
+                        .HasFilter("[NormalizedUserName] IS NOT NULL");
+
+                    b.ToTable("AspNetUsers", (string)null);
 
                     b.HasData(
                         new
                         {
-                            Id = 1,
+                            Id = "1",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "6ead067d-d776-4e19-a5d9-6ab721cef856",
+                            ConcurrencyStamp = "10175356-61ec-43aa-956c-b3b28ac1ab22",
                             EmailConfirmed = false,
                             FirstName = "Alice",
                             InformationId = 1,
@@ -477,16 +492,16 @@ namespace CV_Projekt.Migrations
                             LockoutEnabled = false,
                             Password = "P@ssword123",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "71883185-2a3a-4e87-9b46-dfe6965e6041",
+                            SecurityStamp = "fc77d281-e848-42cc-b732-63865111ba7b",
                             TwoFactorEnabled = false,
                             isActive = true,
                             isPrivate = true
                         },
                         new
                         {
-                            Id = 2,
+                            Id = "2",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "654f41cf-7278-4e18-b235-b4c9bd2942a0",
+                            ConcurrencyStamp = "0d0e2e75-694f-4227-89c6-65f10cb5054c",
                             EmailConfirmed = false,
                             FirstName = "Bob",
                             InformationId = 2,
@@ -494,16 +509,16 @@ namespace CV_Projekt.Migrations
                             LockoutEnabled = false,
                             Password = "P@ssword456",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "207064f6-b515-4163-b294-290566c1a627",
+                            SecurityStamp = "7e1027cb-b260-4f2e-a1fd-2ffbe1183d55",
                             TwoFactorEnabled = false,
                             isActive = true,
                             isPrivate = false
                         },
                         new
                         {
-                            Id = 3,
+                            Id = "3",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "9f4a0a84-613c-43a8-8782-1ffa70317778",
+                            ConcurrencyStamp = "b44bd884-358f-47d7-981f-522d2caebb3c",
                             EmailConfirmed = false,
                             FirstName = "Charlie",
                             InformationId = 3,
@@ -511,11 +526,170 @@ namespace CV_Projekt.Migrations
                             LockoutEnabled = false,
                             Password = "P@ssword789",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "a15d4eca-4113-4a31-a375-315ccda89e3c",
+                            SecurityStamp = "e524b500-955b-4f7c-b7b7-cbda196b2f6c",
                             TwoFactorEnabled = false,
                             isActive = false,
                             isPrivate = false
                         });
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("NormalizedName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedName")
+                        .IsUnique()
+                        .HasDatabaseName("RoleNameIndex")
+                        .HasFilter("[NormalizedName] IS NOT NULL");
+
+                    b.ToTable("AspNetRoles", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RoleId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetRoleClaims", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserClaims", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+                {
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ProviderKey")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ProviderDisplayName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("LoginProvider", "ProviderKey");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserLogins", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("RoleId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("UserId", "RoleId");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetUserRoles", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Value")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("UserId", "LoginProvider", "Name");
+
+                    b.ToTable("AspNetUserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("ProjectUser", b =>
+                {
+                    b.Property<int>("ProjectId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("JoinedProjectsId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ParticipantsId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("ProjectId", "UserId");
+
+                    b.HasIndex("JoinedProjectsId");
+
+                    b.HasIndex("ParticipantsId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("ProjectUser");
                 });
 
             modelBuilder.Entity("CV_Projekt.Models.Education", b =>
@@ -540,7 +714,7 @@ namespace CV_Projekt.Migrations
                             EndDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Location = "Karolinska Gymnasiet",
                             StartDate = new DateTime(2016, 4, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            UserId = 2,
+                            UserId = "2",
                             Level = "Gymnasial",
                             Program = "Vård och omsorg"
                         },
@@ -551,7 +725,7 @@ namespace CV_Projekt.Migrations
                             EndDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Location = "Uppsala Universitet",
                             StartDate = new DateTime(2010, 2, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            UserId = 3,
+                            UserId = "3",
                             Level = "Kandidat",
                             Program = "Arkelogi"
                         });
@@ -574,7 +748,7 @@ namespace CV_Projekt.Migrations
                             EndDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Location = "Örebro kommun",
                             StartDate = new DateTime(2016, 8, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            UserId = 2,
+                            UserId = "2",
                             Type = "Praktik"
                         },
                         new
@@ -584,7 +758,7 @@ namespace CV_Projekt.Migrations
                             EndDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Location = "Kävesta Folkhögskola",
                             StartDate = new DateTime(2021, 8, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            UserId = 1,
+                            UserId = "1",
                             Type = "Kurs"
                         },
                         new
@@ -593,7 +767,7 @@ namespace CV_Projekt.Migrations
                             EndDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Location = "Röda korset Örebro",
                             StartDate = new DateTime(2022, 8, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            UserId = 1,
+                            UserId = "1",
                             Type = "Volentärarbete"
                         });
                 });
@@ -616,7 +790,7 @@ namespace CV_Projekt.Migrations
                             EndDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Location = "Café Deed",
                             StartDate = new DateTime(2020, 6, 29, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            UserId = 1,
+                            UserId = "1",
                             Role = "Arbetsledare"
                         },
                         new
@@ -626,7 +800,7 @@ namespace CV_Projekt.Migrations
                             EndDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Location = "Uppsala Sjukhus",
                             StartDate = new DateTime(2019, 8, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            UserId = 2,
+                            UserId = "2",
                             Role = "Sjuksköterska"
                         },
                         new
@@ -636,7 +810,7 @@ namespace CV_Projekt.Migrations
                             EndDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Location = "Generiskt Företag",
                             StartDate = new DateTime(2021, 8, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            UserId = 3,
+                            UserId = "3",
                             Role = "Arbetstitel"
                         });
                 });
@@ -728,9 +902,8 @@ namespace CV_Projekt.Migrations
             modelBuilder.Entity("CV_Projekt.Models.Project", b =>
                 {
                     b.HasOne("CV_Projekt.Models.User", "Creator")
-                        .WithMany()
+                        .WithMany("CreatedProjects")
                         .HasForeignKey("CreatorId")
-                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Creator");
@@ -747,8 +920,86 @@ namespace CV_Projekt.Migrations
                     b.Navigation("ContactInformation");
                 });
 
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+                {
+                    b.HasOne("CV_Projekt.Models.User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+                {
+                    b.HasOne("CV_Projekt.Models.User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CV_Projekt.Models.User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+                {
+                    b.HasOne("CV_Projekt.Models.User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("ProjectUser", b =>
+                {
+                    b.HasOne("CV_Projekt.Models.Project", null)
+                        .WithMany()
+                        .HasForeignKey("JoinedProjectsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CV_Projekt.Models.User", null)
+                        .WithMany()
+                        .HasForeignKey("ParticipantsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CV_Projekt.Models.Project", null)
+                        .WithMany()
+                        .HasForeignKey("ProjectId")
+                        .IsRequired();
+
+                    b.HasOne("CV_Projekt.Models.User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("CV_Projekt.Models.User", b =>
                 {
+                    b.Navigation("CreatedProjects");
+
                     b.Navigation("RecievedMessages");
 
                     b.Navigation("SentMessages");

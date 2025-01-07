@@ -7,13 +7,14 @@ namespace CV_Projekt.Models
 {
 	public class User : IdentityUser
 	{
-		public int Id { get; set; }
 		[Required]
 		[RegularExpression("^[a-zA-ZÅÄÖåäö_-]+$")]
 		public string FirstName { get; set; }
 		[Required]
 		[RegularExpression("^[A-Za-zÅÄÖåäö_-]+$")]
 		public string LastName { get; set; }
+		[Required]
+		public override string UserName { get; set; }
 		[Required]
 		public int InformationId { get; set; }
 		[Required]
@@ -27,6 +28,9 @@ namespace CV_Projekt.Models
 
 		public virtual List<Message>? RecievedMessages { get; set; } = new List<Message>();
 		public virtual List<Message>? SentMessages { get; set; } = new List<Message>();
+
+		public virtual List<Project>? CreatedProjects { get; set; } = new List<Project>();
+		public virtual List<Project>? JoinedProjects { get; set; } = new List<Project>();
 
 		//Picture
 

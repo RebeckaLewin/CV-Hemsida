@@ -11,7 +11,8 @@ namespace CV_Projekt.Models
 		public DateTime EndDate { get; set; }
 		public string? Location { get; set; }
 		public string? Description { get; set; }
-		public int UserId { get; set; }
+		[Required(ErrorMessage = "En erfarenhet måste vara kopplad till en användare")]
+		public string UserId { get; set; }
 		public virtual List<CV>? CVs { get; set; } = new List<CV>();
 
 		[ForeignKey(nameof(UserId))]

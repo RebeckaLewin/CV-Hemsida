@@ -8,13 +8,69 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/CV_Projekt.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-dark bg-dark">
+
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
+            <!-- Container wrapper -->
+            <div class="container-fluid">
+                <!-- Navbar brand -->
+                <a class="navbar-brand" href="#">Curriculum Vitae</a>
+
+                <!-- Toggle button -->
+                <button data-mdb-button-init class="navbar-toggler" type="button" data-mdb-collapse-init data-mdb-target="#navbarSupportedContent"
+                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <i class="fas fa-bars"></i>
+                </button>
+
+                <!-- Collapsible wrapper -->
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ms-auto">
+                        <!-- Link -->
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="#"><i class="fa-solid fa-user"></i></a>
+                        </li>
+                        
+                        <!-- Dropdown -->
+                        <li class="nav-item dropdown hidden-arrow">
+                            <a data-mdb-dropdown-init class="nav-link dropdown-toggle text-black" href="#" id="#navbarDropdown" role="button"
+                               data-bs-toggle="dropdown" data-bs-target="#funka" aria-expanded="false">
+                                <i class="fa-solid fa-bars text-white"></i>
+                            </a>
+                           
+                            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-lg-end" id="funka" aria-labelledby="navbarDropdown">
+                                <li>
+                                    <a class="dropdown-item text-black" href="#">
+                                <i class="fa-solid fa-envelope text-black"></i>
+                                <span class="badge rounded-pill badge-notification bg-danger">1</span>
+									Meddelanden</a>
+								</li>
+								<li>
+                                    <a class="dropdown-item text-black" href="#"><i class="fa-solid fa-lock text-black"></i>Logga In</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item text-black" href="#"><i class="fa-solid fa-gear text-black"></i>Inställningar</a>
+                                </li>
+                              
+                            </ul>
+                        </li>
+                    </ul>
+
+                
+                </div>
+            </div>
+            <!-- Container wrapper -->
+        </nav>
+        <!-- Navbar -->
+   
+        @* <nav class="navbar navbar-dark bg-dark">
             <a href="/" class="navbar-brand">
 				<h3 id="cv-nav">Curriculum Vitae</h3>
             </a>
+			
             
             <button class="navbar-toggler ml-auto"
                     type="button"
@@ -26,33 +82,19 @@
             <div class="navbar-collapse collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mx-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Projekt</a>
-                    </li>
+                        <a class="nav-link" href="#"><i class="fa-solid fa-lock"></i>Logga In</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#"><i class="fa-solid fa-user"></i>Mina Sidor</a>
+					</li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Logga in</a>
+                        <a class="nav-link" href="#"><i class="fa-solid fa-gear"></i>Inställningar</a>
                     </li>
+                    
                 </ul>
             </div>
-        </nav>
-        @* <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">CV_Projekt</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav> *@
+        </nav>  *@
+       
     </header>
     <div class="container">
         <main role="main" class="pb-3">
