@@ -17,68 +17,52 @@ namespace CV_Projekt.Controllers
             _context = context;
         }
         [HttpGet]
-        public IActionResult Profile(string id)
+        public IActionResult Profile(int id)
         {
-            var user = _context.Users
-                .Include(u => u.ContactInformation)
-                .FirstOrDefault(u=> u.Id == id);
-            if (user == null) 
-            { 
-                return NotFound();
-            }
-            
-            var cvs = _context.CVs.Where(cv=>cv.OwnerId==id).ToList();
 
-            var projCreator = _context.Projects.Where(p => p.CreatorId == id).ToList();
-            
-            var projColl = _context.Projects.Where(p => p.CVs.Any(cv => cv.OwnerId == id )).ToList();
-            
-            var tags = _context.Tags.Where(t => t.CVs.Any(cv => cv.OwnerId == id)).ToList();
-            
-            var exp = _context.Experiences.Where(e=>e.UserId==id).ToList();
-            var skills = cvs.Where(cv => cv.Skills != null && cv.Skills.Any())
-                .SelectMany(cv => cv.Skills)
-                .Distinct()
-                .ToList();
-
-           
-            ProfileViewModel pvm = new ProfileViewModel
-            {
-                Cvs = cvs,
-                User = user,
-                ProjectCollaborator = projColl,
-                ProjectsCreated = projCreator,
-                Tags = tags,
-                Experiences = exp,
-                Skills = skills
-            };
-            return View(pvm);
-        }
-
-        [HttpGet]
-        public IActionResult ViewCV(int id)
-        {
             var cv = _context.CVs
                 .Include(cv => cv.Owner)
                 .ThenInclude(u => u.ContactInformation)
                 .FirstOrDefault(cv => cv.Id == id);
-
-            if(cv == null)
+            if (cv == null)
             {
                 return NotFound();
             }
 
-            var userCv = new UserCVViewModel
+            var user = _context.Users
+                    .Include(u => u.ContactInformation)
+                    .FirstOrDefault(u => u.Id == cv.OwnerId);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            var cvs = _context.CVs.Where(cv => cv.OwnerId == user.Id).ToList();
+
+            var projCreated = _context.Projects
+                .Where(p => p.CreatorId == cv.OwnerId)
+                .ToList();
+            var projColl = _context.Projects
+                .Where(p => p.CVs.Any(c => c.Id == id))
+                .ToList();
+            var tags = _context.Tags
+                .Where(t => t.CVs.Any(c => c.Id == id))
+                .ToList();
+            var exp = _context.Experiences
+                .Where(e => e.UserId == cv.OwnerId)
+                .ToList();
+
+            var userCv = new ProfileViewModel
             {
                 CV = cv,
+                Cvs = cvs,
                 Owner = cv.Owner,
+                User = cv.Owner,
                 Skills = cv.Skills ?? new List<string>(),
-                Projects = _context.Projects
-                .Where(p => p.CVs.Any(c => c.Id == id))
-                .ToList(),
-                Tags = _context.Tags
-                .Where(t => t.CVs.Any(cv => cv.Id == id))
-                .ToList()
+                Tags = tags,
+                ProjectsCreated = projCreated,
+                ProjectCollaborator = projColl,
+                Experiences = exp
             };
             return View(userCv);
         }

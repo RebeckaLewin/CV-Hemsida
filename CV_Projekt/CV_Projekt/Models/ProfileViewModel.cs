@@ -2,6 +2,8 @@
 {
     public class ProfileViewModel
     {
+        public CV CV { get; set; }
+        public User Owner { get; set; }
         public List<CV> Cvs { get; set; }
         public User User { get; set; }
 

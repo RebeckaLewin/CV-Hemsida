@@ -128,10 +128,36 @@
 						<p class="fw-light">Kontaktinformation saknas</p>
 					}
 				</section>
-
 			</div>
 		</div>
 	</div>
+</div>
+
+<div class="row row-cols-1 row-cols-md-4 g-4">
+	@foreach (var cv in Model.Cvs)
+	{
+		<div class="col">
+			<div class="card">
+				<div class="card-header">
+					<h5>@Model.User.FirstName @Model.User.LastName</h5>
+				</div>
+				<div class="card-body">
+					<h6>Färdigheter:</h6>
+					@if (cv.Skills?.Any() ?? false)
+					{
+						<ul class="list-unstyled">
+							@foreach (var skill in cv.Skills)
+							{
+								<li>@skill</li>
+							}
+						</ul>
+					} else {
+						<p class="fw-light">Inga färdigheter listade</p>
+					}
+				</div>
+			</div>
+		</div>
+	}
 </div>
 
 <div class="d-flex justify-content-center mt-2">
