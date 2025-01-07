@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using CV_Projekt.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 
 namespace CV_Projekt.Controllers
@@ -18,7 +19,9 @@ namespace CV_Projekt.Controllers
         [HttpGet]
         public IActionResult Profile(string id)
         {
-            var user = _context.Users.FirstOrDefault(u=> u.Id == id);
+            var user = _context.Users
+                .Include(u => u.ContactInformation)
+                .FirstOrDefault(u=> u.Id == id);
             if (user == null) 
             { 
                 return NotFound();
