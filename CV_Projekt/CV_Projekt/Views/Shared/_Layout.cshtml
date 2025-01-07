@@ -12,8 +12,61 @@
 </head>
 <body>
     <header>
+
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
+            <!-- Container wrapper -->
+            <div class="container-fluid">
+                <!-- Navbar brand -->
+                <a class="navbar-brand" href="#">Curriculum Vitae</a>
+
+                <!-- Toggle button -->
+                <button data-mdb-button-init class="navbar-toggler" type="button" data-mdb-collapse-init data-mdb-target="#navbarSupportedContent"
+                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <i class="fas fa-bars"></i>
+                </button>
+
+                <!-- Collapsible wrapper -->
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ms-auto">
+                        <!-- Link -->
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="#"><i class="fa-solid fa-user"></i></a>
+                        </li>
+                        
+                        <!-- Dropdown -->
+                        <li class="nav-item dropdown hidden-arrow">
+                            <a data-mdb-dropdown-init class="nav-link dropdown-toggle text-black" href="#" id="#navbarDropdown" role="button"
+                               data-bs-toggle="dropdown" data-bs-target="#funka" aria-expanded="false">
+                                <i class="fa-solid fa-bars text-white"></i>
+                            </a>
+                           
+                            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-lg-end" id="funka" aria-labelledby="navbarDropdown">
+                                <li>
+                                    <a class="dropdown-item text-black" href="#">
+                                <i class="fa-solid fa-envelope text-black"></i>
+                                <span class="badge rounded-pill badge-notification bg-danger">1</span>
+									Meddelanden</a>
+								</li>
+								<li>
+                                    <a class="dropdown-item text-black" href="#"><i class="fa-solid fa-lock text-black"></i>Logga In</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item text-black" href="#"><i class="fa-solid fa-gear text-black"></i>Inställningar</a>
+                                </li>
+                              
+                            </ul>
+                        </li>
+                    </ul>
+
+                
+                </div>
+            </div>
+            <!-- Container wrapper -->
+        </nav>
+        <!-- Navbar -->
    
-        <nav class="navbar navbar-dark bg-dark">
+        @* <nav class="navbar navbar-dark bg-dark">
             <a href="/" class="navbar-brand">
 				<h3 id="cv-nav">Curriculum Vitae</h3>
             </a>
@@ -32,7 +85,7 @@
                         <a class="nav-link" href="#"><i class="fa-solid fa-lock"></i>Logga In</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="#"><<i class="fa-solid fa-user"></i>Mina Sidor</a>
+						<a class="nav-link" href="#"><i class="fa-solid fa-user"></i>Mina Sidor</a>
 					</li>
                     <li class="nav-item">
                         <a class="nav-link" href="#"><i class="fa-solid fa-gear"></i>Inställningar</a>
@@ -40,7 +93,7 @@
                     
                 </ul>
             </div>
-        </nav> 
+        </nav>  *@
        
     </header>
     <div class="container">
