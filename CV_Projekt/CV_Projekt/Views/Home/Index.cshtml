@@ -10,7 +10,9 @@
             <div class="col">
                 <div class="card h-100 d-flex flex-column">
                     <div class="card-body position-relative flex-grow-1">
-                        <div class="card-header font-weight-bold">@user.FirstName @user.LastName</div>
+                        <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(107).webp" alt="image 1"
+                             class="card-img-top w-100 rounded-3">
+                        <div class="card-header font-weight-bold bg-dark text-light">@user.FirstName @user.LastName</div>
                         @foreach (var exp in Model.Experiences.Where(e => e.UserId == user.Id))
                         {
                             <div>
@@ -48,7 +50,8 @@
                         </div>
                     </div>
                     <div class="text-center">
-                        <a  class="btn btn-primary"
+                        <a  class="btn btn-primary text-light"
+                         style="background-color:#ff6219; margin-bottom:2rem;"
                             asp-controller="Profile"
                             asp-action="Profile"
                             asp-route-id="@user.Id" >
@@ -86,7 +89,8 @@
                     }
                     <div class="text-center">
                         @* Placeholder för en länk som skall leda till projektet *@
-                        <a href="#" class="btn btn-primary"
+                        <a href="#" class="btn btn-primary text-light"
+                            style="background-color:#ff6219; margin-bottom: 2rem;"
                         @* asp-controller="Profile"
                         asp-action="Index"
                         asp-route-id="@()" *@>
@@ -102,7 +106,7 @@
 <br />
 
 <div class="d-flex justify-content-center mt-2">
-    <a asp-controller="Project" asp-action="ProjectView" class="btn btn-primary">Gå till projektsida</a>
-    <a asp-controller="Account" asp-action="LogIn">Logga in</a>
+    <a asp-controller="Project" asp-action="ProjectView" class="btn btn-primary text-light" style="background-color:#ff6219; margin: 2rem">Gå till projektsida</a>
+    <a asp-controller="Account" asp-action="LogIn" class="btn btn-primary text-light" style="background-color:#ff6219; margin: 2rem">Logga in</a>
 </div>
 
