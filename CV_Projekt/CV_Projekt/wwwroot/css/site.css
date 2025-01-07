@@ -14,11 +14,14 @@ i {
 .dropdown-toggle::after {
     display: none;
 }
+.vh-100 {
+    margin: 0 0 rem 0;
+}
 a:link {
     color: lightgray;   
 }
 a:visited {
-    color: brown;
+    color: #ff6219;
 }
 #cv-nav {
     color: lightgray;
