@@ -12,6 +12,8 @@
 
         public List<string> Skills { get; set; }
         public List<Tag> Tags { get; set; }
+
+        public ContactInformation Info {  get; set; }
         
     }
 }
