@@ -10,24 +10,29 @@
             <div class="col">
                 <div class="card h-100 d-flex flex-column">
                     <div class="card-body position-relative flex-grow-1">
-                        <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(107).webp" alt="image 1"
-                             class="card-img-top w-100 rounded-3">
-                        <div class="card-header font-weight-bold bg-dark text-light">@user.FirstName @user.LastName</div>
+                        <div class="card-header font-weight-bold">@user.FirstName @user.LastName</div>
                         @foreach (var exp in Model.Experiences.Where(e => e.UserId == user.Id))
                         {
                             <div>
+                                <br />
                                 <div class="card-title fw-bold">@exp.Location</div>
                                 @if (exp.Description !=null)
                                 {
-                                    <div class="card-text fw-light">@exp.Description</div>
-                                    <br />
+                                    <p class="card-text fw-light">@exp.Description</p>
                                 } else {
-                                    <div class="card-text fw-light">Beskrivning av arbetsuppgifter saknas.</div>
-                                    <br />
-                                }
+                                    <p class="card-text fw-light">Beskrivning av arbetsuppgifter saknas.</p>
+                                }   
                             </div>
+                            @if (exp is Education edu)
+                            {
+                                <div class="education-details">
+                                    <p class="card-text fw-light">Nivå:@edu.Level</p>
+                                    <p class="card-text fw-light">Inriktning: @edu.Program</p>
+                                </div>
+                            }
                         }
                     <div>
+                        <br />
                         <div class="card-text">Färdigheter:</div>
                         @foreach (var cv in Model.Cvs.Where(c => c.OwnerId == user.Id))
                         {
@@ -36,7 +41,7 @@
                                 <ul class="list-unstyled">
                                     @foreach (var skill in cv.Skills) 
                                     {
-                                        <li class="card-text">@skill</li>
+                                        <li class="card-text fw-light">@skill</li>
                                     }
                                 </ul>
                             } else {
@@ -50,8 +55,7 @@
                         </div>
                     </div>
                     <div class="text-center">
-                        <a  class="btn btn-primary text-light"
-                         style="background-color:#ff6219; margin-bottom:2rem;"
+                        <a  class="btn btn-primary"
                             asp-controller="Profile"
                             asp-action="Profile"
                             asp-route-id="@user.Id" >
@@ -89,8 +93,7 @@
                     }
                     <div class="text-center">
                         @* Placeholder för en länk som skall leda till projektet *@
-                        <a href="#" class="btn btn-primary text-light"
-                            style="background-color:#ff6219; margin-bottom: 2rem;"
+                        <a href="#" class="btn btn-primary"
                         @* asp-controller="Profile"
                         asp-action="Index"
                         asp-route-id="@()" *@>
@@ -106,7 +109,9 @@
 <br />
 
 <div class="d-flex justify-content-center mt-2">
-    <a asp-controller="Project" asp-action="ProjectView" class="btn btn-primary text-light" style="background-color:#ff6219; margin: 2rem">Gå till projektsida</a>
-    <a asp-controller="Account" asp-action="LogIn" class="btn btn-primary text-light" style="background-color:#ff6219; margin: 2rem">Logga in</a>
+    <a asp-controller="Project" asp-action="ProjectView" class="btn btn-primary">Gå till projektsida</a>
 </div>
-
+<br />
+<div class="d-flex justify-content-center mt-2">
+    <a asp-controller="Account" asp-action="LogIn" class="btn btn-primary">Logga in</a>
+</div>

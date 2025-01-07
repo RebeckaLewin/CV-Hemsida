@@ -59,6 +59,13 @@
 										<p class="fw-light">Beskrivning saknas.</p>
 									}
 								</li>
+								@if (exp is Education edu)
+								{
+									<div class="education-details">
+										<p class="fw-light">Nivå:@edu.Level</p>
+										<p class="fw-light">Inriktning: @edu.Program</p>
+									</div>
+								}
 							}
 						</ul>
 					}
@@ -104,6 +111,24 @@
 						<p class="fw-light">Inga taggar tillagda</p>
 					} 	
 				</section>
+
+				<section class="mb-4">
+					<h5 class="text-decoration-underline">Kontaktinformation</h5>
+					@if (Model.User.ContactInformation != null)
+					{
+						<ul class="list-unstyled">
+							<li>Email: @Model.User.ContactInformation.Email</li>
+							<li>Telefon: @Model.User.ContactInformation.Phone</li>
+							@if (!string.IsNullOrEmpty(Model.User.ContactInformation.Address))
+							{
+								<li>Adress: @Model.User.ContactInformation.Address</li>
+							}
+						</ul>
+					} else {
+						<p class="fw-light">Kontaktinformation saknas</p>
+					}
+				</section>
+
 			</div>
 		</div>
 	</div>
