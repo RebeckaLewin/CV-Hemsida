@@ -1,0 +1,60 @@
+﻿@model CV_Projekt.Models.UserCVViewModel
+
+<div class="card">
+    <div class="card-header">
+        <h3>@Model.Owner.FirstName @Model.Owner.LastName</h3>
+        
+    </div>
+    <div class="card-body">
+        <section class="mb-4">
+            <h5>Färdigheter:</h5>
+            @if (Model.Skills != null && Model.Skills.Any())
+            {
+                <ul class="list-unstyled">
+                    @foreach (var skill in Model.Skills)
+                    {
+                        <li>@skill</li>
+                    }
+                </ul>
+            }
+            else
+            {
+                <p class="fw-light">Inga färdigheter listade.</p>
+            }
+        </section>
+
+        <section class="mb-4">
+            <h5>Projekt:</h5>
+            @if (Model.Projects != null && Model.Projects.Any())
+            {
+                <ul class="list-unstyled">
+                    @foreach (var proj in Model.Projects)
+                    {
+                        <li>@proj.Title</li>
+                    }
+                </ul>
+            }
+            else
+            {
+                <p class="fw-light">Inga projekt kopplade till detta CV.</p>
+            }
+        </section>
+
+        <section class="mb-4">
+            <h5>Taggar:</h5>
+            @if (Model.Tags != null && Model.Tags.Any())
+            {
+                <ul class="list-unstyled">
+                    @foreach (var tag in Model.Tags)
+                    {
+                        <li>@tag.Descriptor</li>
+                    }
+                </ul>
+            }
+            else
+            {
+                <p class="fw-light">Inga taggar tillagda.</p>
+            }
+        </section>
+    </div>
+</div>

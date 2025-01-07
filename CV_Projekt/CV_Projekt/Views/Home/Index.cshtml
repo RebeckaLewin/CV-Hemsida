@@ -52,18 +52,17 @@
                                 </ul>
                             }
                              
-                            
+                            <div class="text-center">
+                                <a  class="btn btn-primary text-light"
+                                style="background-color:#ff6219; margin-bottom:2rem;"
+                                asp-controller="Profile"
+                                asp-action="ViewCv"
+                                asp-route-id="@cv.Id">
+                                Visa CV
+                                </a>
+                            </div>
                         }
                         </div>
-                    </div>
-                    <div class="text-center">
-                        <a  class="btn btn-primary text-light"
-                            style="background-color:#ff6219; margin-bottom:2rem;"
-                            asp-controller="Profile"
-                            asp-action="Profile"
-                            asp-route-id="@user.Id" >
-                            Visa profil
-                        </a>
                     </div>
                 </div>
             </div>

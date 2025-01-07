@@ -55,16 +55,44 @@ namespace CV_Projekt.Controllers
             return View(pvm);
         }
 
-        [HttpPost]
-        public IActionResult IncrementCvViews(string id)
+        [HttpGet]
+        public IActionResult ViewCV(int id)
         {
-            var user = _context.Users.FirstOrDefault(u => u.Id == id);
-            var views = _context.CVs
-            if (user != null)
+            var cv = _context.CVs
+                .Include(cv => cv.Owner)
+                .ThenInclude(u => u.ContactInformation)
+                .FirstOrDefault(cv => cv.Id == id);
+
+            if(cv == null)
             {
-                user.Views++;
-                _context.SaveChanges();
+                return NotFound();
             }
+
+            var userCv = new UserCVViewModel
+            {
+                CV = cv,
+                Owner = cv.Owner,
+                Skills = cv.Skills ?? new List<string>(),
+                Projects = _context.Projects
+                .Where(p => p.CVs.Any(c => c.Id == id))
+                .ToList(),
+                Tags = _context.Tags
+                .Where(t => t.CVs.Any(cv => cv.Id == id))
+                .ToList()
+            };
+            return View(userCv);
         }
+
+        //[HttpPost]
+        //public IActionResult IncrementCvViews(string id)
+        //{
+        //    var user = _context.Users.FirstOrDefault(u => u.Id == id);
+        //    var views = _context.CVs
+        //    if (user != null)
+        //    {
+        //        user.Views++;
+        //        _context.SaveChanges();
+        //    }
+        //}
     }
 }
