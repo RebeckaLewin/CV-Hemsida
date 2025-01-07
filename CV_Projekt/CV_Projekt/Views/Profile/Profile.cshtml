@@ -5,51 +5,60 @@
 	<div class="card-header">@Model.User.FirstName @Model.User.LastName </div>
 	<br />
 	<div class="card-body">
-		<p>Min skills är:</p>
-		@if(Model.Skills != null){
-			@foreach (var skill in Model.Skills) 
-			{
-				<ul>
-					<li class="list-unstyled">@skill</li>
+		<div class="row">
+			<div class="col-md-8">
+				<p>Projekt jag har skapat:</p>
+				<ul class="list-unstyled">
+				@foreach (var proj in Model.ProjectsCreated)
+				{
+					<li class="list-unstyled">@proj.Title</li>
+				}
 				</ul>
-			}
-		} else {
-			<ul>
-				<li class="list-unstyled">Inga skills lol</li>
-			</ul>
-		} 
-		<br />
-		<p>Taggar:</p>
-		@foreach (var tag in Model.Tags)
-		{
-			<ul>
-				<li class="list-unstyled">@tag.Descriptor</li>
-			</ul>
-		} 
-		<br /> 
-		<p>Projekt jag har jobbat med:</p>
-		@foreach (var proj in Model.ProjectCollaborator)
-		{
-			<ul>
-				<li class="list-unstyled">@proj.Title</li>
-			</ul>
-		} 
-		<br />
-		<p>Projekt jag har skapat:</p>
-		@foreach (var proj in Model.ProjectsCreated)
-		{
-			<ul>
-				<li class="list-unstyled">@proj.Title</li>
-			</ul>
-		} 
 
-		<p>Erfarenheter:</p>
-		@foreach (var exp in Model.Experiences)
-		{
-			<ul>
-				<li class="list-unstyled">@exp.Location</li>
-			</ul>
-		}
+				<br />
+				<p>Projekt jag har jobbat med:</p>
+				<ul class="list-unstyled">
+				@foreach (var proj in Model.ProjectCollaborator)
+				{
+					<li >@proj.Title</li>
+				}
+				</ul>
+				<br />
+				<p>Erfarenheter:</p>
+				<ul class="list-unstyled">
+				@foreach (var exp in Model.Experiences)
+				{
+					<li >@exp.Location</li>
+				}
+				</ul>
+				<p>färdigheter inkluderar:</p>
+				@if (Model.Skills != null)
+				{
+					<ul class="list-unstyled">
+					@foreach (var skill in Model.Skills)
+					{
+						<li >@skill</li>
+					}
+					</ul>
+				}
+				else
+				{
+					<ul>
+						<li class="list-unstyled">Inga skills lol</li>
+					</ul>
+				}
+			</div>
+		
+			<div class="col-md-4">
+				<p>Taggar:</p>
+				<ul class="list-unstyled">
+				@foreach (var tag in Model.Tags)
+				{
+					<li >@tag.Descriptor</li>
+				} 
+				</ul>
+			</div>
+		</div>
 	</div>
 </div>
 
