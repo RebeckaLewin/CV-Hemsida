@@ -58,6 +58,20 @@ namespace CV_Projekt.Controllers
             return View();
         }
 
+        //[HttpPost]
+        //public IActionResult IncrementCVViews(string userId)
+        //{
+        //    var user = _context.Users.FirstOrDefault(u => u.Id == userId);
+        //    if (user != null)
+        //    {
+        //        user.views++;
+        //        _context.SaveChanges();
+        //    }
+        //}
+
+
+
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

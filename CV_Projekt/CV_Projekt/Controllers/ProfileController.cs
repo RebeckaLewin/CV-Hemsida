@@ -41,6 +41,7 @@ namespace CV_Projekt.Controllers
                 .Distinct()
                 .ToList();
 
+           
             ProfileViewModel pvm = new ProfileViewModel
             {
                 Cvs = cvs,
@@ -53,5 +54,7 @@ namespace CV_Projekt.Controllers
             };
             return View(pvm);
         }
+
+        
     }
 }
