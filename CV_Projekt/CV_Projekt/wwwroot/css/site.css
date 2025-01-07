@@ -11,7 +11,9 @@ body {
 i {
     margin: 1px;
 }
-
+.dropdown-toggle::after {
+    display: none;
+}
 a:link {
     color: lightgray;   
 }
