@@ -34,7 +34,8 @@ namespace CV_Projekt.Controllers
 
             var random = new Random();
 
-            var usersWithCvs = users.Where(u => cvs.Any(cv => cv.OwnerId == u.Id))
+            var usersWithCvs = users
+                .Where(u => u.isActive && cvs.Any(cv => cv.OwnerId == u.Id))
                 .OrderBy(u => random.Next())
                 .Take(4)
                 .Distinct()
