@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace CV_Projekt.Migrations
 {
     /// <inheritdoc />
-    public partial class addedUser : Migration
+    public partial class _1 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -83,11 +83,11 @@ namespace CV_Projekt.Migrations
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: false),
                     InformationId = table.Column<int>(type: "int", nullable: false),
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     isPrivate = table.Column<bool>(type: "bit", nullable: false),
                     isActive = table.Column<bool>(type: "bit", nullable: false),
-                    UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedEmail = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -430,9 +430,9 @@ namespace CV_Projekt.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "InformationId", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "Password", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName", "isActive", "isPrivate" },
                 values: new object[,]
                 {
-                    { "1", 0, "10175356-61ec-43aa-956c-b3b28ac1ab22", null, false, "Alice", 1, "Andersson", false, null, null, null, "P@ssword123", null, null, false, "fc77d281-e848-42cc-b732-63865111ba7b", false, null, true, true },
-                    { "2", 0, "0d0e2e75-694f-4227-89c6-65f10cb5054c", null, false, "Bob", 2, "Bergström", false, null, null, null, "P@ssword456", null, null, false, "7e1027cb-b260-4f2e-a1fd-2ffbe1183d55", false, null, true, false },
-                    { "3", 0, "b44bd884-358f-47d7-981f-522d2caebb3c", null, false, "Charlie", 3, "Carlsson", false, null, null, null, "P@ssword789", null, null, false, "e524b500-955b-4f7c-b7b7-cbda196b2f6c", false, null, false, false }
+                    { "1", 0, "58f09138-4648-4654-8259-64e5267a9485", null, false, "Alice", 1, "Andersson", false, null, null, null, "P@ssword123", null, null, false, "d5b08f00-1319-4401-b00a-58aefe907539", false, "aliA", true, true },
+                    { "2", 0, "146fe802-695c-4364-aa58-f2890fe40b3a", null, false, "Bob", 2, "Bergström", false, null, null, null, "P@ssword456", null, null, false, "631d6415-70b1-4f54-b07e-a011e61c242c", false, "BobbieB", true, false },
+                    { "3", 0, "c0932691-a15a-4617-86ad-2a880f9fad7e", null, false, "Charlie", 3, "Carlsson", false, null, null, null, "P@ssword789", null, null, false, "6a5760ff-9ac9-44b6-8763-2bb8dd9d21fd", false, "Charlie", false, false }
                 });
 
             migrationBuilder.InsertData(
