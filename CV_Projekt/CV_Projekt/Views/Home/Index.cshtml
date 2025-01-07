@@ -51,8 +51,18 @@
                                     <li class="card-text fw-light">Inga färdigheter listade</li>
                                 </ul>
                             }
-                             
+                            
                             <div class="text-center">
+                                    <form asp-controller="Profile" asp-action="IncrementCvViews" method="post">
+                                        <input type="hidden" name="id" value="@cv.Id"/>
+                                        <button type="submit" class="btn btn-primary text-light"
+                                                style="background-color:#ff6219; margin-bottom:2rem;">
+                                                Visa CV
+                                        </button>
+                                </form>
+                            </div>
+
+                            @* <div class="text-center">
                                 <a  class="btn btn-primary text-light"
                                 style="background-color:#ff6219; margin-bottom:2rem;"
                                 asp-controller="Profile"
@@ -60,7 +70,7 @@
                                 asp-route-id="@cv.Id">
                                 Visa CV
                                 </a>
-                            </div>
+                            </div> *@
                         }
                         </div>
                     </div>

@@ -16,6 +16,8 @@
         public List<Tag> Tags { get; set; }
 
         public ContactInformation Info {  get; set; }
+
+        private int Views { get; set; }
         
     }
 }

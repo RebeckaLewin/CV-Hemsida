@@ -67,16 +67,17 @@ namespace CV_Projekt.Controllers
             return View(userCv);
         }
 
-        //[HttpPost]
-        //public IActionResult IncrementCvViews(string id)
-        //{
-        //    var user = _context.Users.FirstOrDefault(u => u.Id == id);
-        //    var views = _context.CVs
-        //    if (user != null)
-        //    {
-        //        user.Views++;
-        //        _context.SaveChanges();
-        //    }
-        //}
+        [HttpPost]
+        public IActionResult IncrementCvViews(int id)
+        {
+            var cv = _context.CVs.FirstOrDefault(c => c.Id == id);
+            var views = _context.CVs;
+            if (cv != null)
+            {
+                cv.Views++;
+                _context.SaveChanges();
+            }
+            return RedirectToAction("Profile", new {id});
+        }
     }
 }
