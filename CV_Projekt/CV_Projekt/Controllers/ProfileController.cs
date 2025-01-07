@@ -55,6 +55,16 @@ namespace CV_Projekt.Controllers
             return View(pvm);
         }
 
-        
+        [HttpPost]
+        public IActionResult IncrementCvViews(string id)
+        {
+            var user = _context.Users.FirstOrDefault(u => u.Id == id);
+            var views = _context.CVs
+            if (user != null)
+            {
+                user.Views++;
+                _context.SaveChanges();
+            }
+        }
     }
 }
