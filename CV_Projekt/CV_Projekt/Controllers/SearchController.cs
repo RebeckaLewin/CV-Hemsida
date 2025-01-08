@@ -12,9 +12,23 @@ namespace CV_Projekt.Controllers
             _context = context;
         }
         [HttpGet]
-        public IActionResult SearchWindow(CvContext context)
+        public IActionResult SearchWindow(string searchTerm)
         {
-            return View();
+            var users = new List<User>();
+
+            if(!string.IsNullOrEmpty(searchTerm))
+            {
+                users = _context.Users
+                    .Where(u => u.FirstName.ToLower().Contains(searchTerm.ToLower()) || u.LastName.ToLower().Contains(searchTerm.ToLower()))
+                    .ToList();
+
+                ViewData["SearchedName"] = searchTerm;
+            }
+            var svm = new SearchViewModel
+            {
+                Users = users
+            };
+            return View(svm);
         }
     }
 }

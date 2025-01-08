@@ -18,9 +18,41 @@ namespace CV_Projekt.Controllers
 			this.context = context;
 		}
 
+		[HttpGet]
 		public IActionResult LogIn()
 		{
-			return View();
+			LogInViewModel viewModel = new LogInViewModel();
+			return View(viewModel);
+		}
+
+		[HttpPost]
+		public async Task<IActionResult> LogIn(LogInViewModel viewModel)
+		{
+			if (ModelState.IsValid)
+			{
+				var result = await signInManager.PasswordSignInAsync(
+					viewModel.UserName,
+					viewModel.Password,
+					isPersistent: viewModel.RememberMe,
+					lockoutOnFailure: true
+					);
+				if (result.Succeeded)
+				{
+					return RedirectToAction("Index", "Home");
+				}
+				else
+				{
+					ModelState.AddModelError("", "Fel användarnamn eller lösenord.");
+				}
+			}
+			return View(viewModel);
+		}
+
+		[HttpPost]
+		public async Task<IActionResult> LogOut()
+		{
+			await signInManager.SignOutAsync();
+			return RedirectToAction("Index", "Home");
 		}
 
 		[HttpGet]
@@ -35,6 +67,12 @@ namespace CV_Projekt.Controllers
 		{
 			if (ModelState.IsValid)
 			{
+				if (!viewModel.ConfirmedPassword.Equals(viewModel.Password))
+				{
+					ModelState.AddModelError("", "De angivna lösenorden matchar inte.");
+					return View(viewModel);
+				}
+
 				ContactInformation contactInformation = new ContactInformation
 				{
 					Email = viewModel.Email,
@@ -50,11 +88,11 @@ namespace CV_Projekt.Controllers
 					UserName = viewModel.UserName.Trim(),
 					FirstName = viewModel.FirstName,
 					LastName = viewModel.LastName,
-					Password = viewModel.Password,
+					PasswordHash = viewModel.Password,
 					ContactInformation = contactInformation
 				};
 				Debug.WriteLine(viewModel.Password);
-				var result = await userManager.CreateAsync(newUser, newUser.Password);
+				var result = await userManager.CreateAsync(newUser, newUser.PasswordHash);
 				if (result.Succeeded)
 				{
 					await signInManager.SignInAsync(newUser, isPersistent: true);

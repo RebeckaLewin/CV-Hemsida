@@ -1,8 +1,10 @@
 ﻿@model RegisterViewModel
 
+//Vill lägga in javascript, sorry lämnar det såhär for now
+
 <h1>Registrera dig</h1>
 <div asp-validation-summary="All" class="text-danger"></div>
-<form method="post" asp-action="Register">
+<form method="post" asp-action="Register" onsubmit="">
 	<div class="form-group row">
 		<div class="col-sm-2">
 			<label>Användarnamn: </label>

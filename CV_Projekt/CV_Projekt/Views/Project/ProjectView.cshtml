@@ -17,7 +17,7 @@
 	<br />
 	<textarea asp-for="ProjectToSave.Description"></textarea>
 	<br />
-	<input asp-for="ProjectToSave.CreatorId" type="number" />
+	<input value="@User.Identity" asp-for="ProjectToSave.CreatorId" type="text" />
 	<button type="submit">Skapa</button>
 </form>
 
@@ -31,28 +31,28 @@
 			<a class="dropdown-item" href="#">@project.FirstName @project.LastName</a>
 		}
 	</div>
-</div>
+	</div>
 
-<input type="checkbox" asp-for="IsUpdating"/>
+	<input type="checkbox" asp-for="IsUpdating" />
 
-<div class="dropdown">
-	<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	<div class="dropdown">
+		<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 		Välj projekt
-	</button>
-	<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+		</button>
+		<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+			@foreach (var project in Model.Projects)
+			{
+				<a class="dropdown-item" href="#">@project.Title</a>
+			}
+		</div>
+	</div>
+
+	<select onchange="">
+		<option value="">Välj projekt</option>
 		@foreach (var project in Model.Projects)
 		{
-			<a class="dropdown-item" href="#">@project.Title</a>
+			<option value="@project">@project.Title</option>
 		}
-	</div>
-</div>
-
-<select onchange="">
-	<option value="">Välj projekt</option>
-	@foreach (var project in Model.Projects)
-	{
-		<option value="@project">@project.Title</option>
-	}
-</select>
+	</select>
 
 

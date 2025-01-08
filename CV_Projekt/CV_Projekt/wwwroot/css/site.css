@@ -32,9 +32,33 @@ a:visited {
 .card-text {
     margin-left: 2rem;
 }
+.scroll {
+    max-height: 100%;
+    overflow-y: auto;
+}
+input[type="checkbox"]:checked {
+    background-color: #ff6219;
+    border: 1px solid #ff6219;
+    color: lightgray;
+    accent-color: #ff6219;
+}
+settingsLbl 
+{
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: 500;
+    color: #777;
+    padding-left: 3px;
+}
+.form-control {
+    border-radius: 10px;
+}
+input[placeholder] {
+    font-weight: 500;
+}
 
 @media (min-width: 768px) {
-  html {
+    html {
     font-size: 16px;
   }
 }

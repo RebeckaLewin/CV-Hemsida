@@ -14,12 +14,10 @@ namespace CV_Projekt.Models
 		[RegularExpression("^[A-Za-zÅÄÖåäö_-]+$")]
 		public string LastName { get; set; }
 		[Required]
-		public override string UserName { get; set; }
-		[Required]
 		public int InformationId { get; set; }
 		[Required]
 		[DataType(DataType.Password)]
-		[Range(6, 20)]
+		[Range(6, 20, ErrorMessage = "Lösenordet får endast vara mellan 6 till 20 tecken.")]
 		public string Password { get; set; }
 		[Required]
 		public bool isPrivate { get; set; }

@@ -1,0 +1,97 @@
+﻿<body class="bodyUserProfileSettings" 
+      style="margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            background-color: dimgrey;">
+    <div class="wrapper my-sm-5" 
+         style="background-color:#fff;
+                padding: 30px 50px;
+                border: 1px solid #ff6219;
+                border-radius: 15px;
+                margin: 10px auto;
+                max-width: 600px;">
+        <h4 class="pb-4 border-bottom" 
+            style="letter-spacing: -1px;
+                   font-weight: 400;">
+            Ändra Profil
+    </h4>
+    <div class="d-flex align-items-start py-3 border-bottom">
+        <img src="https://images.pexels.com/photos/1037995/pexels-photo-1037995.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+                 class="img" alt="" 
+                 style="width: 100px;
+                        height: 100px;
+                        border-radius: 6px;
+                        object-fit: cover">
+            <div class="pl-sm-4 pl-2 m-2" id="img-section" >
+				<b style ="font-size: 14px;">
+					Ändra Profilbild</b>
+            <p style="font-size: 12px;
+                        color: #777;
+                        margin-bottom: 10px;
+                        text-align: justify;">
+             </p>
+            <button class="btn p-2" style="background-color:#fff; color:#ff6219; border-color:#ff6219 ">Ladda upp foto</button>
+        </div>
+    </div>
+    <div class="py-2">
+        <div class="row py-2">
+            <div class="col-md-6">
+                <label class="settingsLbl"for="firstname">Förnamn</label>
+                    <input type="text" class="bg-light form-control" placeholder="Ex. Anna">
+            </div>
+            <div class="col-md-6 pt-md-0 pt-3">
+                <label class="settingsLbl" for="lastname">Efternamn</label>
+                <input type="text" class="bg-light form-control" placeholder="Ex. Andersson">
+            </div>
+        </div>
+        <div class="row py-2">
+            <div class="col-md-6">
+                <label class="settingsLbl" for="email">Epost-Adress</label>
+                <input type="text" class="bg-light form-control" placeholder="Ex. exempel@exempel.se">
+            </div>
+            <div class="col-md-6 pt-md-0 pt-3">
+                <label class="settingsLbl" for="phone">Telefonnummer</label>
+                <input type="tel" class="bg-light form-control" placeholder="Ex. +4670 345 67 89, 070 345 67 89">
+            </div>
+        </div>
+        <div class="row py-2">
+            <div class="col-md-6">
+                <label class="settingsLbl" for="passwordchange">Nytt Lösenord</label>
+                <input type="password" class="bg-light form-control" placeholder="Minst 6 tecken långt">
+            </div>
+            <div class="col-md-6 pt-md-0 pt-3">
+                <label class="settingsLbl" for="confirmpasswordchange">Bekräfta Lösenord</label>
+                <input type="password" class="bg-light form-control" placeholder="**********">
+            </div>
+        </div>
+        <div class="row py-2">
+            <div class="col-md-6">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" style="accent-color:#ff6219">
+                    <label class="settingsLbl form-check-label" for="flexCheckDefault">
+                        Privat
+                    </label>
+            </div>
+            <div class="col-md-6 pt-md-0 pt-3">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" style="border-color:#ff6219;">
+                    <label class="settingsLbl form-check-label" for="flexCheckDefault">
+                        Offentlig
+                    </label>
+            </div>
+        </div>
+        <div class="py-3 pb-4 border-bottom">
+            <button class="btn border border-light button mr-3 text-light" style="background-color:#ff6219;">Spara Ändringar</button>
+            <button class="btn border border-light button" style="background-color: #fff;; color: #ff6219">Avbryt</button>
+        </div>
+        <div class="d-sm-flex align-items-center pt-3" id="deactivate">
+            <div>
+                <b>Avaktivera Konto</b>
+                <p></p>
+            </div>
+            <div class="ml-auto">
+                <button class="btn btn-outline-danger m-2">Avaktivera konto</button>
+            </div>
+        </div>
+    </div>
+	</div>
+</body>
