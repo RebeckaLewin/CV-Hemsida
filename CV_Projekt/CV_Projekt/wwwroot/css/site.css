@@ -36,6 +36,12 @@ a:visited {
     max-height: 100%;
     overflow-y: auto;
 }
+input[type="checkbox"]:checked {
+    background-color: #ff6219;
+    border: 1px solid #ff6219;
+    color: lightgray;
+    accent-color: #ff6219;
+}
 settingsLbl 
 {
     margin-bottom: 0;
