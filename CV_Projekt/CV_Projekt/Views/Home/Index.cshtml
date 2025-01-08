@@ -15,9 +15,10 @@
         {
             <div class="col">
                 <div class="card h-100 d-flex flex-column">
-                    <div class="card-body position-relative flex-grow-1">
+                    <div class="card-body position-relative flex-grow-1" style="padding-bottom: 70px;">
                         <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(107).webp" alt="image 1"
                              class="card-img-top w-100 rounded-3">
+                        <div class="scrollable-content" style="max-height: 80%; overflow-y: auto; padding-bottom: 10px;">
                         <div class="card-header font-weight-bold bg-dark text-light">@user.FirstName @user.LastName</div>
                         @foreach (var exp in Model.Experiences.Where(e => e.UserId == user.Id))
                         {
@@ -39,9 +40,11 @@
                                 </div>
                             }
                         }
-                    <div>
+                    
                         <br />
-                        <div class="card-text">Färdigheter:</div>
+                       
+							<div class="card-text"> Färdigheter: </div>
+                            
                         @foreach (var cv in Model.Cvs.Where(c => c.OwnerId == user.Id))
                         {
                             @if (cv.Skills.Any())
@@ -58,10 +61,10 @@
                                 </ul>
                             }
                             
-                            <div class="text-center">
+                                <div class="text-center position-absolute bottom-0 start-0 w-100">
                                     <form asp-controller="Profile" asp-action="IncrementCvViews" method="post">
                                         <input type="hidden" name="id" value="@cv.Id"/>
-                                        <button type="submit" class="btn btn-primary text-light"
+                                        <button type="submit" class="btn text-light"
                                                 style="background-color:#ff6219; margin-bottom:2rem;">
                                                 Visa CV
                                         </button>
@@ -111,7 +114,7 @@
                     }
                     <div class="text-center">
                         @* Placeholder för en länk som skall leda till projektet *@
-                        <a href="#" class="btn btn-primary text-light"
+                        <a href="#" class="btn text-light"
                             style="background-color:#ff6219; margin-bottom:2rem;"
                         @* asp-controller="Profile"
                         asp-action="Index"
@@ -127,16 +130,16 @@
 
 
 <div class="d-flex justify-content-center mt-2">
-    <a asp-controller="Project" asp-action="ProjectView" class="btn btn-primary text-light" style="background-color:#ff6219; margin:1rem;">Gå till projektsida</a>
+    <a asp-controller="Project" asp-action="ProjectView" class="btn text-light" style="background-color:#ff6219; margin:1rem;">Gå till projektsida</a>
 
     @if(!User.Identity.IsAuthenticated)
     {
-        <a asp-controller="Account" asp-action="LogIn" class="btn btn-primary text-light" style="background-color:#ff6219; margin:1rem;">Logga in</a>
+        <a asp-controller="Account" asp-action="LogIn" class="btn text-light" style="background-color:#ff6219; margin:1rem;">Logga in</a>
     }
     else
     {
         <form method="post" asp-controller="Account" asp-action="LogOut">
-            <button type="submit" class="btn btn-primary text-light" style="background-color:#ff6219; margin:1rem;">Logga ut</button>
+            <button type="submit" class="btn  text-light" style="background-color:#ff6219; margin:1rem;">Logga ut</button>
         </form>
     }
 </div>

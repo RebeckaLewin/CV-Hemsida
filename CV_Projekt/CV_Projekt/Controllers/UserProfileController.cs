@@ -20,6 +20,12 @@ namespace CV_Projekt.Controllers
         {
             return View();
         }
+
+        public IActionResult UserProfileSettings()
+        {
+            return View();
+        }
+
         //public IActionResult UserProfile(string id)
         //{
         //    var user = _context.Users.FirstOrDefault(u => u.Id == id);

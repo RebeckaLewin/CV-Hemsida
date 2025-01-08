@@ -32,9 +32,27 @@ a:visited {
 .card-text {
     margin-left: 2rem;
 }
+.scroll {
+    max-height: 100%;
+    overflow-y: auto;
+}
+settingsLbl 
+{
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: 500;
+    color: #777;
+    padding-left: 3px;
+}
+.form-control {
+    border-radius: 10px;
+}
+input[placeholder] {
+    font-weight: 500;
+}
 
 @media (min-width: 768px) {
-  html {
+    html {
     font-size: 16px;
   }
 }
