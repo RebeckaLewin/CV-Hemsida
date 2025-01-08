@@ -1,9 +1,38 @@
-﻿@Model SearchViewModel
+﻿@model SearchViewModel
 
 <div class="input-group mt-sm-5">
-    <input type="search" class="form-control rounded" placeholder="Sök" aria-label="Search" aria-describedby="search-addon" />
-    <button type="button" class="btn" style="background-color:#ff6219; color:#fff;" data-mdb-ripple-init><i class="fa-solid fa-magnifying-glass"></i>Sök</button>
+    <form asp-controller="Search" asp-action="SearchWindow" method="get">
+        <input type="search" 
+            class="form-control rounded" 
+            placeholder="Sök" 
+            aria-label="Search" 
+            aria-describedby="search-addon"
+            name="searchTerm"
+               value="@ViewData["SearchedName"]" />
+        <button type="submit"
+            class="btn" 
+            style="background-color:#ff6219; color:#fff;" 
+            data-mdb-ripple-init><i class="fa-solid fa-magnifying-glass"></i>
+            Sök
+        </button>
+    </form>
 </div>
+
+@if (Model.Users != null && Model.Users.Any())
+{
+    <div class="mt-4">
+        <h5>Sökresultat:</h5>
+        <ul>
+            @foreach (var user in Model.Users)
+            {
+                <li>@user.FirstName @user.LastName</li>
+            }
+        </ul>
+
+    </div>
+} else {
+    <p>Inga resultat hittades för "@ViewData["SearchedName"]"</p>
+}
 
 <div class="input-group mt-2">
     <button type="button" class="btn" style="background-color:#ff6219;">
