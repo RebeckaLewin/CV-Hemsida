@@ -1,10 +1,13 @@
-﻿<div class="container mt-5">
-    <div class="row justify-content-center">
-        <div class="col-md-6">
-            <div class="input-group">
-                <input type="text" class="form-control" placeholder="Sök efter något..." aria-label="Search">
-                <button class="btn btn-primary" type="button">Sök</button>
-            </div>
-        </div>
-    </div>
+﻿@Model SearchViewModel
+
+<div class="input-group mt-sm-5">
+    <input type="search" class="form-control rounded" placeholder="Sök" aria-label="Search" aria-describedby="search-addon" />
+    <button type="button" class="btn" style="background-color:#ff6219; color:#fff;" data-mdb-ripple-init><i class="fa-solid fa-magnifying-glass"></i>Sök</button>
 </div>
+
+<div class="input-group mt-2">
+    <button type="button" class="btn" style="background-color:#ff6219;">
+    <a asp-controller="Home" asp-action="Index" style="color:#fff;">Startsida</a>
+    </button>
+</div>
+
