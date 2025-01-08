@@ -5,7 +5,7 @@
         <div class="row d-flex justify-content-center">
             <div class="col col-lg-9 col-xl-8">
                 <div class="card">
-                    <div class="rounded-top text-white d-flex flex-row" style="background-color: black; height:200px;">
+                    <div class="rounded-top text-white d-flex flex-row bg-dark" style=" height:200px;">
                         <div class="ms-4 mt-5 d-flex flex-column" style="width: 150px;">
                             <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-profiles/avatar-1.webp"
                                  alt="Generic placeholder image" class="img-fluid img-thumbnail mt-4 mb-2"
@@ -14,7 +14,10 @@
 								<i class="fa-solid fa-gear"></i> <a asp-controller="UserProfile" asp-action="UserProfileSettings">Ändra Profil</a>
                             </button>
                             <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-outline-dark text-body" data-mdb-ripple-color="dark" style="z-index: 1;">
-                               <i class="fa-solid fa-envelope"></i> Meddelanden
+                                <i class="fa-solid fa-envelope text-black position-relative">
+                                    <span class="badge rounded-pill badge-notification bg-danger position-absolute top-0 left-0 translate-middle" style="font-size:0.5rem;">1</span>
+                                </i>
+                                Meddelanden
                             </button>
                         </div>
                         <div class="ms-3" style="margin-top: 130px;">

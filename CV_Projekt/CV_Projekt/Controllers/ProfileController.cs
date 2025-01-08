@@ -17,6 +17,10 @@ namespace CV_Projekt.Controllers
             _context = context;
         }
         [HttpGet]
+        public IActionResult Profile2()
+        {
+            return View();
+        }
         public IActionResult Profile(int id)
         {
 

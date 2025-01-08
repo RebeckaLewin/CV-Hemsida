@@ -42,6 +42,39 @@ input[type="checkbox"]:checked {
     color: lightgray;
     accent-color: #ff6219;
 }
+
+
+
+    
+
+
+    .profile-work .a {
+        text-decoration: none;
+        color: #495057;
+        font-weight: 600;
+        font-size: 14px;
+    }
+    .profile-work .a:hover {
+       
+        color: #ff6219;
+        
+    }
+    #home-tab #work-tab #education-tab #other-tab #project-tab {
+        color: black;
+    }
+
+
+   
+
+.profile-tab .lbl {
+    font-weight: 600;
+    color: #ff6219;
+}
+
+.profile-tab .p-tab {
+    font-weight: 600;
+    color: #0062cc;
+}
 settingsLbl 
 {
     margin-bottom: 0;
