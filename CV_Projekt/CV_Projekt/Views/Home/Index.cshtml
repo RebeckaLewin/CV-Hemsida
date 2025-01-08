@@ -2,6 +2,12 @@
 @{
     ViewData["Title"] = "Home Page";
 }
+
+@if(User.Identity.IsAuthenticated)
+{
+    <h1>Välkommen @User.Identity.Name!</h1>
+}
+
 <br />
 <div class="container">
     <div class="row row-cols-md-4 g-4 align-items-stretch">
@@ -123,6 +129,14 @@
 <div class="d-flex justify-content-center mt-2">
     <a asp-controller="Project" asp-action="ProjectView" class="btn btn-primary text-light" style="background-color:#ff6219; margin:1rem;">Gå till projektsida</a>
 
-
-    <a asp-controller="Account" asp-action="LogIn" class="btn btn-primary text-light" style="background-color:#ff6219; margin:1rem;">Logga in</a>
+    @if(!User.Identity.IsAuthenticated)
+    {
+        <a asp-controller="Account" asp-action="LogIn" class="btn btn-primary text-light" style="background-color:#ff6219; margin:1rem;">Logga in</a>
+    }
+    else
+    {
+        <form method="post" asp-controller="Account" asp-action="LogOut">
+            <button type="submit" class="btn btn-primary text-light" style="background-color:#ff6219; margin:1rem;">Logga ut</button>
+        </form>
+    }
 </div>

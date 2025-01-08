@@ -51,9 +51,21 @@
 									Meddelanden
                                     </a>
 								</li>
-								<li>
-                                    <a class="dropdown-item text-black" href="/Account/LogIn"><i class="fa-solid fa-lock text-black"></i>Logga In</a>
-                                </li>
+                                @if(!User.Identity.IsAuthenticated)
+                                {
+                                    <li>
+                                        <a class="dropdown-item text-black" href="/Account/LogIn"><i class="fa-solid fa-lock text-black"></i>Logga In</a>
+                                    </li>
+                                }
+                                else
+                                {
+                                    <li>
+                                        <form method="post" asp-controller="Account" asp-action="LogOut">
+                                            <button class="dropdown-item text-black" type="submit"><i class="fa-solid fa-lock text-black"></i>Logga ut</button>
+                                        </form>
+                                    </li>
+                                }
+
                                 <li>
                                     <a class="dropdown-item text-black" href="#"><i class="fa-solid fa-gear text-black"></i>Inställningar</a>
                                 </li>
