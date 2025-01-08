@@ -1,8 +1,19 @@
 ﻿@Model SearchViewModel
 
 <div class="input-group mt-sm-5">
-    <input type="search" class="form-control rounded" placeholder="Sök" aria-label="Search" aria-describedby="search-addon" />
-    <button type="button" class="btn" style="background-color:#ff6219; color:#fff;" data-mdb-ripple-init><i class="fa-solid fa-magnifying-glass"></i>Sök</button>
+    <form asp-controller="Search" asp-action="SearchWindow" method="get">
+        <input type="search" 
+            class="form-control rounded" 
+            placeholder="Sök" 
+            aria-label="Search" 
+            aria-describedby="search-addon" />
+        <button type="button"
+            class="btn" 
+            style="background-color:#ff6219; color:#fff;" 
+            data-mdb-ripple-init><i class="fa-solid fa-magnifying-glass"></i>
+            Sök
+        </button>
+    </form>
 </div>
 
 <div class="input-group mt-2">

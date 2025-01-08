@@ -2,5 +2,6 @@
 {
     public class SearchViewModel
     {
+        public List<User> Users { get; set; }
     }
 }
