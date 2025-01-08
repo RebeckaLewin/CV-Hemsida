@@ -18,21 +18,32 @@
     </form>
 </div>
 
-@if (Model.Users != null && Model.Users.Any())
+@if (!string.IsNullOrEmpty(ViewData["SearchedName"]?.ToString()))
 {
-    <div class="mt-4">
-        <h5>Sökresultat:</h5>
-        <ul>
-            @foreach (var user in Model.Users)
+    <div class="d-flex justify-content-center  mt-4">
+        <div class="card">
+            @if (Model.Users != null && Model.Users.Any())
             {
-                <li>@user.FirstName @user.LastName</li>
+                    <h5 class="mb-3">Sökresultat:</h5>
+                    <ul class="list-unstyled">
+                        @foreach (var user in Model.Users)
+                        {
+                            <li>
+                                <a href="#" style="text-decoration: none" class="text-black">
+                                    @user.FirstName @user.LastName
+                                </a>
+                            </li>
+                        }
+                    </ul>
             }
-        </ul>
-
+            else
+            {
+                <p>Inga resultat hittades för "@ViewData["SearchedName"]"</p>
+            }
+        </div>
     </div>
-} else {
-    <p>Inga resultat hittades för "@ViewData["SearchedName"]"</p>
 }
+
 
 <div class="input-group mt-2">
     <button type="button" class="btn" style="background-color:#ff6219;">
