@@ -1,0 +1,21 @@
+﻿@model Message
+
+<h3> @Model.Sender.FirstName @Model.Sender.LastName </h3>
+<h4> @Model.Subject</h4>
+<h4> @Model.Content</h4>
+<a  class="btn btn-primary text-light"
+           style="background-color:#ff6219; margin-bottom:2rem;"
+           asp-controller="Message"
+           asp-action="Add"
+           asp-route-senderId="@Model.ReceiverId"
+           asp-route-recieverId="@Model.SenderId">
+           Svara
+</a>
+
+<a  class="btn btn-primary text-light"
+           style="background-color:#ff6219; margin-bottom:2rem;"
+           asp-controller="Message"
+           asp-action="ChatList"
+           asp-route-id="@Model.ReceiverId">
+           Tillbaka
+</a>

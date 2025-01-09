@@ -1,6 +1,6 @@
 ﻿@model RegisterViewModel
 
-//Vill lägga in javascript, sorry lämnar det såhär for now
+@* //Vill lägga in javascript, sorry lämnar det såhär for now
 
 <h1>Registrera dig</h1>
 <div asp-validation-summary="All" class="text-danger">here there be errors</div>
@@ -76,3 +76,87 @@
 
 <br />
 <a asp-action="LogIn">Tillbaka till inloggning</a>
+
+ *@
+
+
+
+
+<body class="bodyUserProfileSettings"
+      style="margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            background-color: dimgrey;">
+    <div class="wrapper my-sm-5"
+         style="background-color:#fff;
+                padding: 30px 50px;
+                border: 1px solid #ff6219;
+                border-radius: 15px;
+                margin: 10px auto;
+                max-width: 600px;">
+        <h4 class="pb-4 border-bottom"
+            style="letter-spacing: -1px;
+                   font-weight: 400;">
+            Registrera Konto
+        </h4>
+        <div asp-validation-summary="All" class="text-danger">here there be errors</div>
+
+		<div class="py-2">
+			<form method="post" asp-action="Register" onsubmit="">
+            <div class="row py-2">
+                <div class="col-md-6">
+                    <label class="settingsLbl" for="firstname">Förnamn</label>
+                    <input asp-for="FirstName" type="text" class="bg-light form-control" placeholder="Ex. Anna">
+                </div>
+                <div class="col-md-6 pt-md-0 pt-3">
+                    <label class="settingsLbl" for="lastname">Efternamn</label>
+                    <input asp-for="LastName" type="text" class="bg-light form-control" placeholder="Ex. Andersson">
+                </div>
+            </div>
+            <div class="row py-2">
+                <div class="col-md-6">
+                    <label class="settingsLbl" for="address">Adress</label>
+                    <input asp-for="Address" type="text" class="bg-light form-control" placeholder="Ex. Vintergatan 10 12345 Tellus">
+                </div>
+                </div>
+            <div class="row py-2">
+                <div class="col-md-6">
+                    <label class="settingsLbl" for="email">Epost-Adress</label>
+                    <input asp-for="Email" type="text" class="bg-light form-control" placeholder="Ex. exempel@exempel.se">
+                </div>
+                <div class="col-md-6 pt-md-0 pt-3">
+                    <label class="settingsLbl" for="phone">Telefonnummer</label>
+                    <input asp-for="Phone" type="tel" class="bg-light form-control" placeholder="Ex. +4670 345 67 89, 070 345 67 89">
+                </div>
+            </div>
+            <div class="row py-2">
+                <div class="col-md-6">
+                    <label class="settingsLbl" for="passwordchange">Nytt Lösenord</label>
+                    <input asp-for="Password" type="password" class="bg-light form-control" placeholder="Minst 6 tecken långt">
+                </div>
+                <div class="col-md-6 pt-md-0 pt-3">
+                    <label class="settingsLbl" for="confirmpasswordchange">Bekräfta Lösenord</label>
+                    <input asp-for="ConfirmedPassword" type="password" class="bg-light form-control" placeholder="**********">
+                </div>
+            </div>
+            <div class="row py-2">
+                <div class="col-md-6 d-flex align-content-end">
+                    <input asp-for="IsPrivate" class="form-check-input ms-auto" type="checkbox" value="" id="flexCheckDefault">
+                    
+                </div>
+                <div class="col-md-6 pt-md-0 pt-3 ">
+						<label class="settingsLbl form-check-label" for="flexCheckDefault">
+							Privat konto <i style="color:grey;">(Bara inloggade användare kan se mig)</i>
+						</label>
+                </div>
+            </div>
+            <div class="py-3 pb-4 border-bottom">
+                <button type="submit" class="btn border border-light button mr-3 text-light" style="background-color:#ff6219;">Registrera konto</button>
+                <button asp-action="LogIn" class="btn border border-light button" style="background-color: #fff; color: #ff6219;">Tillbaka till Inloggning</button>
+            </div>
+            </form>
+           
+        </div>
+    </div>
+</body>
