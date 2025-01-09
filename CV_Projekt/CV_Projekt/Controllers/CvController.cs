@@ -49,7 +49,7 @@ namespace CV_Projekt.Controllers
                 .Where(e => e.UserId == cv.OwnerId)
                 .ToList();
 
-            var userCv = new ProfileViewModel
+            var userCv = new CvViewModel
             {
                 CV = cv,
                 Cvs = cvs,
