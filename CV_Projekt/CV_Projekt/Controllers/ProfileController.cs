@@ -1,87 +1,43 @@
-﻿using System.Diagnostics;
-using CV_Projekt.Models;
+﻿using CV_Projekt.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
 
 namespace CV_Projekt.Controllers
 {
     public class ProfileController : Controller
     {
-        private readonly ILogger<ProfileController> _logger;
         private CvContext _context;
 
-        public ProfileController(ILogger<ProfileController> logger, CvContext context)
+        public ProfileController(CvContext context)
         {
-            _logger = logger;
             _context = context;
         }
         [HttpGet]
-        public IActionResult Profile2()
+        public IActionResult Profile(string id)
         {
-            return View();
-        }
-        public IActionResult Profile(int id)
-        {
-
-            var cv = _context.CVs
-                .Include(cv => cv.Owner)
-                .ThenInclude(u => u.ContactInformation)
-                .FirstOrDefault(cv => cv.Id == id);
-            if (cv == null)
-            {
-                return NotFound();
-            }
-
             var user = _context.Users
-                    .Include(u => u.ContactInformation)
-                    .FirstOrDefault(u => u.Id == cv.OwnerId);
-            if (user == null)
-            {
-                return NotFound();
-            }
+                .FirstOrDefault(u => u.Id == id);
+                    
 
-            var cvs = _context.CVs.Where(cv => cv.OwnerId == user.Id).ToList();
+            var cvs = _context.CVs.Where(cv => cv.OwnerId == id);
 
             var projCreated = _context.Projects
-                .Where(p => p.CreatorId == cv.OwnerId)
+                .Where(p => p.CreatorId == id)
                 .ToList();
             var projColl = _context.Projects
-                .Where(p => p.CVs.Any(c => c.Id == id))
-                .ToList();
-            var tags = _context.Tags
-                .Where(t => t.CVs.Any(c => c.Id == id))
+                .Where(p => p.Participants.Any(u => u.Id == user.Id))
                 .ToList();
             var exp = _context.Experiences
-                .Where(e => e.UserId == cv.OwnerId)
+                .Where(e => e.UserId == id)
                 .ToList();
-
-            var userCv = new ProfileViewModel
+            
+            var pvm = new ProfileViewModel
             {
-                CV = cv,
-                Cvs = cvs,
-                Owner = cv.Owner,
-                User = cv.Owner,
-                Skills = cv.Skills ?? new List<string>(),
-                Tags = tags,
-                ProjectsCreated = projCreated,
-                ProjectCollaborator = projColl,
-                Experiences = exp
+                User = user,
+                ProjectParticipant = projColl,
+                ProjectCreator = projCreated,
+                Experience = exp
             };
-            return View(userCv);
-        }
-
-        [HttpPost]
-        public IActionResult IncrementCvViews(int id)
-        {
-            var cv = _context.CVs.FirstOrDefault(c => c.Id == id);
-            var views = _context.CVs;
-            if (cv != null)
-            {
-                cv.Views++;
-                _context.SaveChanges();
-            }
-            return RedirectToAction("Profile", new {id});
+            return View(pvm);
         }
     }
 }

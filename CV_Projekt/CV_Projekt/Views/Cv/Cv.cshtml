@@ -1,0 +1,142 @@
+﻿@model CvViewModel
+
+
+<div class="card">
+	<div class="card-header">
+		<h3>@Model.User.FirstName @Model.User.LastName </h3>
+	</div>
+	<div class="card-body">
+		<div class="row">
+			<div class="col-md-8">
+				<h5>Projekt jag har skapat:</h5>
+				<section class="mb-4">
+					@if (Model.ProjectsCreated != null && Model.ProjectsCreated.Any())
+					{
+						<ul class="list-unstyled">
+						@foreach (var proj in Model.ProjectsCreated)
+						{
+							<li class="list-unstyled">@proj.Title</li>
+						}
+						</ul>
+					} else {
+						<p class="fw-light">Användaren har inga skapade projekt</p>
+					}
+				</section>
+
+				<section class="mb-4">
+					<h5>Projekt jag har jobbat med:</h5>
+					@if (Model.ProjectCollaborator != null && Model.ProjectCollaborator.Any())
+					{
+						<ul class="list-unstyled">
+							@foreach (var proj in Model.ProjectCollaborator)
+							{
+								<li>@proj.Title</li>
+							}
+						</ul>
+					}
+					else
+					{
+						<p class="fw-light">Inga projektsammarbeten hittades.</p>
+					}
+				</section>
+
+				<section class="mb-4">
+					<h5>Tidigare Erfarenheter:</h5>
+					@if (Model.Experiences != null && Model.Experiences.Any())
+					{
+						<ul class="list-unstyled">
+							@foreach (var exp in Model.Experiences)
+							{
+								
+								<li>
+									@exp.Location
+									@if (exp.Description != null)
+									{
+										<p class="fw-light">@exp.Description</p>
+									}
+									else
+									{
+										<p class="fw-light">Beskrivning saknas.</p>
+									}
+								</li>
+								@if (exp is Education edu)
+								{
+									<div class="education-details">
+										<p class="fw-light">Nivå:@edu.Level</p>
+										<p class="fw-light">Inriktning: @edu.Program</p>
+									</div>
+								}
+							}
+						</ul>
+					}
+					else
+					{
+						<p class="fw-light">Inga tidgare erfarenheter hittades</p>
+					}
+				</section>
+				
+				
+				<section class="mb-4">
+					<h5>Färdigheter Inkluderar:</h5>
+					@if (Model.Skills != null && Model.Skills.Any())
+					{
+						<ul class="list-unstyled">
+							@foreach (var skill in Model.Skills)
+							{
+								<li>@skill</li>
+							}
+						</ul>
+					}
+					else
+					{
+						<p class="fw-light">Användaren har inga färdigheter listade</p>
+					}
+				</section>
+			</div>
+		
+			<div class="col-md-4">
+				<section class="mb-4">
+					<h5>
+						<i class="fas fa-hashtag fa-2x" aria-hidden="true" aria-label="Taggar"></i>
+					</h5>
+					@if (Model.Tags != null && Model.Tags.Any())
+					{
+						<ul class="list-unstyled">
+						@foreach (var tag in Model.Tags)
+						{
+							<li>@tag.Descriptor</li>
+						}
+						</ul>
+					} else {
+						<p class="fw-light">Inga taggar tillagda</p>
+					} 	
+				</section>
+
+				<section class="mb-4">
+					<h5 class="text-decoration-underline">Kontaktinformation</h5>
+					@if (Model.User.ContactInformation != null)
+					{
+						<ul class="list-unstyled">
+							<li>Email: @Model.User.UserName</li>
+							<li>Telefon: @Model.User.ContactInformation.Phone</li>
+							@if (!string.IsNullOrEmpty(Model.User.ContactInformation.Address))
+							{
+								<li>Adress: @Model.User.ContactInformation.Address</li>
+							}
+						</ul>
+					} else {
+						<p class="fw-light">Kontaktinformation saknas</p>
+					}
+				</section>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="d-flex justify-content-center mt-2">
+	<a asp-controller="Home" asp-action="Index" class="btn btn-primary">Startsida</a>
+</div>
+
+<div class="d-flex justify-content-center mt-2">
+	<a asp-controller="Profile" asp-action="Profile" asp-route-id="@Model.User.Id" class="btn btn-primary">VISA PROFIL</a>
+</div>

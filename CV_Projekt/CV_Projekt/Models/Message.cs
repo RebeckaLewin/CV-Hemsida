@@ -16,11 +16,12 @@ namespace CV_Projekt.Models
 		[Required]
 		public string? SenderId { get; set; }
 		[Required]
-		public string? RecieverId { get; set; }
-
+		public string? ReceiverId { get; set; }
+		[Required]
+		bool isRead { get; set; }
 		[ForeignKey(nameof(SenderId))]
 		public virtual User? Sender { get; set; }
-		[ForeignKey(nameof(RecieverId))]
-		public virtual User? Reciever { get; set; }
+		[ForeignKey(nameof(ReceiverId))]
+		public virtual User? Receiver { get; set; }
 	}
 }

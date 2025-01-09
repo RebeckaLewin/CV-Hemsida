@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace CV_Projekt.Migrations
 {
     /// <inheritdoc />
-    public partial class migration1 : Migration
+    public partial class initialMig : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -33,7 +33,6 @@ namespace CV_Projekt.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Phone = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
@@ -83,11 +82,14 @@ namespace CV_Projekt.Migrations
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     InformationId = table.Column<int>(type: "int", nullable: false),
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     isPrivate = table.Column<bool>(type: "bit", nullable: false),
                     isActive = table.Column<bool>(type: "bit", nullable: false),
+                    Picture = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
+                    PictureFormat = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedEmail = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -215,8 +217,7 @@ namespace CV_Projekt.Migrations
                         name: "FK_CVs_AspNetUsers_OwnerId",
                         column: x => x.OwnerId,
                         principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -257,14 +258,14 @@ namespace CV_Projekt.Migrations
                     Content = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: false),
                     Date = table.Column<DateTime>(type: "datetime2", nullable: false),
                     SenderId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    RecieverId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                    ReceiverId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Messages", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Messages_AspNetUsers_RecieverId",
-                        column: x => x.RecieverId,
+                        name: "FK_Messages_AspNetUsers_ReceiverId",
+                        column: x => x.ReceiverId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id");
                     table.ForeignKey(
@@ -297,27 +298,39 @@ namespace CV_Projekt.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "CVTag",
+                name: "TagUser",
                 columns: table => new
                 {
-                    CVsId = table.Column<int>(type: "int", nullable: false),
-                    TagsId = table.Column<int>(type: "int", nullable: false)
+                    TagId = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    TagsId = table.Column<int>(type: "int", nullable: false),
+                    UsersId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CVTag", x => new { x.CVsId, x.TagsId });
+                    table.PrimaryKey("PK_TagUser", x => new { x.TagId, x.UserId });
                     table.ForeignKey(
-                        name: "FK_CVTag_CVs_CVsId",
-                        column: x => x.CVsId,
-                        principalTable: "CVs",
+                        name: "FK_TagUser_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_TagUser_AspNetUsers_UsersId",
+                        column: x => x.UsersId,
+                        principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_CVTag_Tags_TagsId",
+                        name: "FK_TagUser_Tags_TagId",
+                        column: x => x.TagId,
+                        principalTable: "Tags",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_TagUser_Tags_TagsId",
                         column: x => x.TagsId,
                         principalTable: "Tags",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -406,19 +419,19 @@ namespace CV_Projekt.Migrations
 
             migrationBuilder.InsertData(
                 table: "ContactInformations",
-                columns: new[] { "Id", "Address", "Email", "Phone" },
+                columns: new[] { "Id", "Address", "Phone" },
                 values: new object[,]
                 {
-                    { 1, "Rullgatan 24A", "alicean12@live.se", "0723892311" },
-                    { 2, "Johanneslunden 7", "bobbergstrom@gmail.com", "0724873928" },
-                    { 3, "Kolagränd 23", "charliec@live.se", "0809483729" },
-                    { 4, "Mossvägen 15", "danield@outlook.com", "0738452390" },
-                    { 5, "Bäckstigen 12B", "emily.evans@hotmail.com", "0709847328" },
-                    { 6, "Kullavägen 8", "frankfischer@gmail.com", "0762938475" },
-                    { 7, "Tallbacken 4", "grace.gustafsson@live.se", "0701938476" },
-                    { 8, "Lärkträdsvägen 10", "hanna.holm@gmail.com", "0739487261" },
-                    { 9, "Allegatan 14C", "ian.ingemarsson@outlook.com", "0723847569" },
-                    { 10, "Stenvägen 5A", "julia.jonsson@yahoo.com", "0768273945" }
+                    { 1, "Rullgatan 24A", "0723892311" },
+                    { 2, "Johanneslunden 7", "0724873928" },
+                    { 3, "Kolagränd 23", "0809483729" },
+                    { 4, "Mossvägen 15", "0738452390" },
+                    { 5, "Bäckstigen 12B", "0709847328" },
+                    { 6, "Kullavägen 8", "0762938475" },
+                    { 7, "Tallbacken 4", "0701938476" },
+                    { 8, "Lärkträdsvägen 10", "0739487261" },
+                    { 9, "Allegatan 14C", "0723847569" },
+                    { 10, "Stenvägen 5A", "0768273945" }
                 });
 
             migrationBuilder.InsertData(
@@ -441,19 +454,19 @@ namespace CV_Projekt.Migrations
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
-                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "InformationId", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "Password", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName", "isActive", "isPrivate" },
+                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Description", "Email", "EmailConfirmed", "FirstName", "InformationId", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "Password", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "Picture", "PictureFormat", "SecurityStamp", "TwoFactorEnabled", "UserName", "isActive", "isPrivate" },
                 values: new object[,]
                 {
-                    { "1", 0, "a9ab8063-5eac-4e24-ba38-9b00f5c8b6a3", null, false, "Alice", 1, "Andersson", false, null, null, null, "P@ssword123", null, null, false, "e72283c6-4295-4acb-a6c9-7436dfe8115d", false, "aliA", true, true },
-                    { "10", 0, "adb50ef6-3eb8-4207-aaa6-960c639bf6e4", null, false, "Julia", 10, "Jonsson", false, null, null, null, "JuliasP@ss7", null, null, false, "c53669af-3638-482f-978e-49160e3ce75c", false, "JulesJ", false, true },
-                    { "2", 0, "7e8f18a3-6c24-4293-8d25-7123a227ca22", null, false, "Bob", 2, "Bergström", false, null, null, null, "P@ssword456", null, null, false, "a5ddef64-8522-47f7-a942-9f8632f555a8", false, "BobbieB", true, false },
-                    { "3", 0, "34db7cca-32fb-49c8-96ec-c2fce8c132f9", null, false, "Charlie", 3, "Carlsson", false, null, null, null, "P@ssword789", null, null, false, "bdcde9bd-0ca6-4963-929a-71ed6ce24b36", false, "Charlie", false, false },
-                    { "4", 0, "fe3c1c62-a5a1-419c-9e3f-afcebbfced7d", null, false, "Daniel", 4, "Davidsson", false, null, null, null, "SecureP@ss1", null, null, false, "4807dc7f-e0e3-485c-a7a1-e5eb013c320c", false, "DanD", true, true },
-                    { "5", 0, "a702ca9b-ad16-49f0-8a03-a5eed37e658d", null, false, "Emily", 5, "Evans", false, null, null, null, "MyP@ssword2", null, null, false, "b1520053-2369-4ab4-a8b2-12146d660bb3", false, "EmEv", true, false },
-                    { "6", 0, "f53dcd51-1c07-4ac9-8cb9-701efed2fd8e", null, false, "Frank", 6, "Fischer", false, null, null, null, "StrongP@ss3", null, null, false, "bfe65845-62e8-46cb-b6c9-665609952814", false, "Frankie", true, true },
-                    { "7", 0, "56dafb13-d4c8-430f-80ad-b8782a21588f", null, false, "Grace", 7, "Gustafsson", false, null, null, null, "GracefulP@ss4", null, null, false, "9080b141-af80-4ab9-a2de-876f52a7b4cd", false, "GracieG", false, false },
-                    { "8", 0, "01c5a424-a6db-4606-b218-feae53d18ad6", null, false, "Hanna", 8, "Holm", false, null, null, null, "H@nnasP@ss5", null, null, false, "b96ebc82-2139-448a-9288-a5f1d64f25b7", false, "HannaH", true, true },
-                    { "9", 0, "706c401b-a2ec-4304-b167-b2614086b875", null, false, "Ian", 9, "Ingemarsson", false, null, null, null, "I@nsSecure6", null, null, false, "4dd359d4-16f4-4cb2-9e1b-8bbbac74d97a", false, "IanI", true, false }
+                    { "1", 0, "08ae0a35-d6fd-4a52-92ac-da04cc630228", null, null, false, "Alice", 1, "Andersson", false, null, null, null, "P@ssword123", null, null, false, null, null, "39cff57b-71f1-4e0b-87b3-6c2f51a85a15", false, "alicean12@live.se", true, true },
+                    { "10", 0, "2a19d442-8fe2-4931-aacb-85dd0f96ce8c", null, null, false, "Julia", 10, "Jonsson", false, null, null, null, "JuliasP@ss7", null, null, false, null, null, "d910681f-e643-4d6b-ada6-520320ce5aaf", false, "julia.jonsson@yahoo.com", false, true },
+                    { "2", 0, "1ed7bc05-98c8-448a-8453-1993bf6ea991", null, null, false, "Bob", 2, "Bergström", false, null, null, null, "P@ssword456", null, null, false, null, null, "cb4f84e2-a2f5-4fbe-aa3c-0f73f6d50c21", false, "bobbergstrom@gmail.com", true, false },
+                    { "3", 0, "ca284af4-ac23-4ed7-b746-0c1fa2097b96", null, null, false, "Charlie", 3, "Carlsson", false, null, null, null, "P@ssword789", null, null, false, null, null, "9fba9708-c772-4dbc-83a4-f4f9eef6cdd1", false, "charliec@live.se", false, false },
+                    { "4", 0, "9201b6e4-1669-492c-9725-540bcbe6c8b9", null, null, false, "Daniel", 4, "Davidsson", false, null, null, null, "SecureP@ss1", null, null, false, null, null, "ae5d29de-109e-492a-b467-50c9a97288a2", false, "danield@outlook.com", true, true },
+                    { "5", 0, "ede4033e-edc0-449a-ab22-469e21f83192", null, null, false, "Emily", 5, "Evans", false, null, null, null, "MyP@ssword2", null, null, false, null, null, "f2b01416-85e9-40ee-bf93-24a256b3282f", false, "emily.evans@hotmail.com", true, false },
+                    { "6", 0, "9e0cae15-dc0a-4b9f-bced-ec46edba4c28", null, null, false, "Frank", 6, "Fischer", false, null, null, null, "StrongP@ss3", null, null, false, null, null, "c3882472-10aa-4b1c-b2e3-ec6631060491", false, "frankfischer@gmail.com", true, true },
+                    { "7", 0, "69d65d17-aebc-4f55-a971-f63b6ff5709e", null, null, false, "Grace", 7, "Gustafsson", false, null, null, null, "GracefulP@ss4", null, null, false, null, null, "0695e4e9-dc52-4bf3-aaa4-5560a22bda91", false, "grace.gustafsson@live.se", false, false },
+                    { "8", 0, "d12d8e41-75ac-44a8-91a5-c72643f96dba", null, null, false, "Hanna", 8, "Holm", false, null, null, null, "H@nnasP@ss5", null, null, false, null, null, "330d3b90-cf67-4699-a4b7-1e26ffc9a6f7", false, "hanna.holm@gmail.com", true, true },
+                    { "9", 0, "ca88468c-2bd1-4ff8-89ad-12e79e7f500a", null, null, false, "Ian", 9, "Ingemarsson", false, null, null, null, "I@nsSecure6", null, null, false, null, null, "f0d9fa1a-cd0a-4232-b934-29e9fb54710f", false, "ian.ingemarsson@outlook.com", true, false }
                 });
 
             migrationBuilder.InsertData(
@@ -525,7 +538,7 @@ namespace CV_Projekt.Migrations
 
             migrationBuilder.InsertData(
                 table: "Messages",
-                columns: new[] { "Id", "Content", "Date", "RecieverId", "SenderId", "Subject" },
+                columns: new[] { "Id", "Content", "Date", "ReceiverId", "SenderId", "Subject" },
                 values: new object[,]
                 {
                     { 1, "Hej på dig! Hur är det med dig?", new DateTime(2020, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified), "2", "1", "En hälsning" },
@@ -574,15 +587,6 @@ namespace CV_Projekt.Migrations
                 {
                     { 2, 1 },
                     { 2, 2 }
-                });
-
-            migrationBuilder.InsertData(
-                table: "CVTag",
-                columns: new[] { "CVsId", "TagsId" },
-                values: new object[,]
-                {
-                    { 1, 2 },
-                    { 1, 3 }
                 });
 
             migrationBuilder.CreateIndex(
@@ -642,12 +646,8 @@ namespace CV_Projekt.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_CVs_OwnerId",
                 table: "CVs",
-                column: "OwnerId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_CVTag_TagsId",
-                table: "CVTag",
-                column: "TagsId");
+                column: "OwnerId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Experiences_UserId",
@@ -655,9 +655,9 @@ namespace CV_Projekt.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Messages_RecieverId",
+                name: "IX_Messages_ReceiverId",
                 table: "Messages",
-                column: "RecieverId");
+                column: "ReceiverId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Messages_SenderId",
@@ -683,6 +683,21 @@ namespace CV_Projekt.Migrations
                 name: "IX_ProjectUser_UserId",
                 table: "ProjectUser",
                 column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TagUser_TagsId",
+                table: "TagUser",
+                column: "TagsId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TagUser_UserId",
+                table: "TagUser",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TagUser_UsersId",
+                table: "TagUser",
+                column: "UsersId");
         }
 
         /// <inheritdoc />
@@ -710,13 +725,13 @@ namespace CV_Projekt.Migrations
                 name: "CVProject");
 
             migrationBuilder.DropTable(
-                name: "CVTag");
-
-            migrationBuilder.DropTable(
                 name: "Messages");
 
             migrationBuilder.DropTable(
                 name: "ProjectUser");
+
+            migrationBuilder.DropTable(
+                name: "TagUser");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
@@ -728,10 +743,10 @@ namespace CV_Projekt.Migrations
                 name: "CVs");
 
             migrationBuilder.DropTable(
-                name: "Tags");
+                name: "Projects");
 
             migrationBuilder.DropTable(
-                name: "Projects");
+                name: "Tags");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

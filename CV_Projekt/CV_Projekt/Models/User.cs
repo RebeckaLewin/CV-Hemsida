@@ -10,9 +10,14 @@ namespace CV_Projekt.Models
 		[Required]
 		[RegularExpression("^[a-zA-ZÅÄÖåäö_-]+$")]
 		public string FirstName { get; set; }
+		/*
+		[Required(ErrorMessage = "Eposten måste anges.")]
+		[RegularExpression("^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,}$", ErrorMessage = "Eposten är inte giltig.")]
+		public string Email { get; set; }*/
 		[Required]
 		[RegularExpression("^[A-Za-zÅÄÖåäö_-]+$")]
 		public string LastName { get; set; }
+		public string? Description { get; set; }
 		[Required]
 		public int InformationId { get; set; }
 		[Required]
@@ -20,9 +25,13 @@ namespace CV_Projekt.Models
 		[Range(6, 20, ErrorMessage = "Lösenordet får endast vara mellan 6 till 20 tecken.")]
 		public string Password { get; set; }
 		[Required]
+
 		public bool isPrivate { get; set; }
 		[Required]
 		public bool isActive { get; set; }
+
+		public byte[]? Picture { get; set; }
+		public string? PictureFormat { get; set; }
 
 		public virtual List<Message>? RecievedMessages { get; set; } = new List<Message>();
 		public virtual List<Message>? SentMessages { get; set; } = new List<Message>();
@@ -30,7 +39,7 @@ namespace CV_Projekt.Models
 		public virtual List<Project>? CreatedProjects { get; set; } = new List<Project>();
 		public virtual List<Project>? JoinedProjects { get; set; } = new List<Project>();
 
-		//Picture
+		public virtual List<Tag>? Tags { get; set; } = new List<Tag>();
 
 
 		[ForeignKey(nameof(InformationId))]

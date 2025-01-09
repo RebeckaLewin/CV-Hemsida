@@ -15,7 +15,7 @@ i {
     display: none;
 }
 .vh-100 {
-    margin: 0 0 rem 0;
+    margin: 0 0 2rem 0;
 }
 a:link {
     color: lightgray;   
@@ -43,7 +43,19 @@ input[type="checkbox"]:checked {
     accent-color: #ff6219;
 }
 
+#selectedParticipantsList {
+    max-height: 150px;
+    overflow-y: auto;
+}
 
+#listgroupdiv {
+    height: 150px;
+}
+
+#dropdownMenu {
+    max-height: 150px;
+    overflow-y: auto;
+}
 
     
 

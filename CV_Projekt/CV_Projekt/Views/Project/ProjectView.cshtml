@@ -4,7 +4,7 @@
 	ViewData["Title"] = "Projekt";
 }
 
-<div asp-validation-summary="All" class="text-danger"></div>
+@* <div asp-validation-summary="All" class="text-danger"></div>
 
 <h1>Projekt</h1>
 
@@ -53,6 +53,137 @@
 		{
 			<option value="@project">@project.Title</option>
 		}
-	</select>
+	</select> *@
 
 
+<body class="bodyUserProfileSettings"
+      style="margin: 0 0 5rem 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            background-color: dimgrey;">
+    <div class="wrapper my-sm-5"
+         style="background-color:#fff;
+                padding: 30px 50px;
+                border: 1px solid #ff6219;
+                border-radius: 15px;
+                margin: 10px auto;
+                max-width: 600px;">
+        <h4 class="pb-4 border-bottom"
+            style="letter-spacing: -1px;
+                   font-weight: 400;">
+            Lägg till Projekt
+        </h4>
+        <div class="py-2">
+            <form asp-action="ProjectView" method="post">
+            <div class="row py-2">
+                <div class="col-md-6">
+                    <label class="settingsLbl" for="title">Projektets Titel</label>
+                    <input asp-for="ProjectToSave.Title" type="text" class="bg-light form-control">
+                </div>
+                <div class="col-md-6 pt-md-0 pt-3">
+                    <label class="settingsLbl" for="startdate">Startdatum</label>
+                    <input asp-for="ProjectToSave.StartDate" type="date" class="bg-light form-control">
+                </div>
+            </div>
+            <div class="row py-2">
+				<div class="col-md-6">
+					<label class="settingsLbl" for="projDescription">Projektbeskrivning</label>
+					<input asp-for="ProjectToSave.Description" type="text" class="bg-light form-control">
+                    
+                </div>
+                <div class="col-md-6 pt-md-0 pt-3">
+                     <label class="settingsLbl" for="enddate">Slutdatum</label>
+                     <input asp-for="ProjectToSave.EndDate" type="date" class="bg-light form-control">
+                </div>
+            </div>
+            <div class="row py-2">
+                <div class="col-md-6 ">
+                    <label class="settingsLbl" for="projCreator">Skapare av projekt</label>
+                        <input value="@User.Identity" asp-for="ProjectToSave.CreatorId" type="text" class="bg-light form-control">
+                </div>
+                    <div class="col-md-6 pt-md-0 pt-3">
+                        <div>
+                            @* <label class="settingsLbl" for="addParticipants"></label>
+                            <button class="btn border border-light dropdown-toggle" type="button" id="dropdownMenuButton" style="background-color:#fff; color:#ff6219;" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Lägg till Projektdeltagare
+                            </button> *@
+                            </div>
+                            </div>
+                            </div>
+                <div class="row py-2">
+                    <div class="col-md-6 d-flex align-items-center justify-content-center">
+                        
+                        <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" style="background-color:#fff; color:#ff6219;" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fa-solid fa-plus"></i><i class="fa-solid fa-user"></i>Lägg till Deltagare
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-lg-end scroll" id="dropdownMenu" aria-labelledby="dropdownMenuButton">
+                            @foreach (var user in Model.Users)
+                            {
+                                <li><a class="dropdown-item" href="#" data-title="@user.FirstName @user.LastName">@user.FirstName @user.LastName</a></li>
+                            }
+                        </ul>
+                    </div>
+
+                    <div class="col-md-6 pt-md-0 pt-3" id="listgroupdiv">
+
+                        <label class="settingsLbl" for="chosenParticipants">Projektdeltagare</label>
+                        <ul id="selectedParticipantsList" class="list-group">
+                          
+                        </ul>
+                    </div>
+                </div>
+               
+            <div class="py-3 pb-4 border-bottom">
+                <button type="submit" class="btn border border-light button mr-3 text-light" style="background-color:#ff6219;">Skapa Projekt</button>
+                <button class="btn border border-light button" style="background-color: #fff;; color: #ff6219">Avbryt</button>
+            </div>
+           
+            </form>
+        </div>
+    </div>
+    <script>
+            document.addEventListener("DOMContentLoaded", function() {
+            var items = document.querySelectorAll(".dropdown-item");
+            var participantsList = document.getElementById("selectedParticipantsList");
+
+            items.forEach(function(item) {
+                item.addEventListener("click", function(event) {
+                    var selectedTitle = event.target.getAttribute("data-title");
+
+                    
+                    if (!isParticipantAdded(selectedTitle)) {
+                       
+                        var li = document.createElement("li");
+                        li.classList.add("list-group-item");
+                        li.textContent = selectedTitle;
+
+                        var removeButton = document.createElement("button");
+                        removeButton.classList.add("btn", "btn-sm", "btn-secondary", "ms-2");
+                        removeButton.textContent = "X";
+                        removeButton.addEventListener("click", function() {
+                            participantsList.removeChild(li); 
+                        });
+
+                        li.appendChild(removeButton); 
+                        participantsList.appendChild(li); 
+                    }
+
+                    event.preventDefault();
+                });
+            });
+
+            function isParticipantAdded(title) {
+                var existingParticipants = participantsList.querySelectorAll("li");
+                for (var i = 0; i < existingParticipants.length; i++) {
+                    if (existingParticipants[i].textContent.includes(title)) {
+                        return true;
+                    }
+                }
+                return false;
+            }
+        });
+
+
+    </script>
+</body>

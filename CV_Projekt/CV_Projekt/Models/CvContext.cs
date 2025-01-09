@@ -24,21 +24,18 @@ namespace CV_Projekt.Models
                 new ContactInformation
                 {
                     Id = 1,
-                    Email = "alicean12@live.se",
                     Phone = "0723892311",
                     Address = "Rullgatan 24A"
                 },
                 new ContactInformation
                 {
                     Id = 2,
-                    Email = "bobbergstrom@gmail.com",
                     Phone = "0724873928",
                     Address = "Johanneslunden 7"
                 },
                 new ContactInformation
                 {
                     Id = 3,
-                    Email = "charliec@live.se",
                     Phone = "0809483729",
                     Address = "Kolagränd 23"
                 },
@@ -46,49 +43,42 @@ namespace CV_Projekt.Models
                 new ContactInformation
                 {
                     Id = 4,
-                    Email = "danield@outlook.com",
                     Phone = "0738452390",
                     Address = "Mossvägen 15"
                 },
                 new ContactInformation
                 {
                     Id = 5,
-                    Email = "emily.evans@hotmail.com",
                     Phone = "0709847328",
                     Address = "Bäckstigen 12B"
                 },
                 new ContactInformation
                 {
                     Id = 6,
-                    Email = "frankfischer@gmail.com",
                     Phone = "0762938475",
                     Address = "Kullavägen 8"
                 },
                 new ContactInformation
                 {
                     Id = 7,
-                    Email = "grace.gustafsson@live.se",
                     Phone = "0701938476",
                     Address = "Tallbacken 4"
                 },
                 new ContactInformation
                 {
                     Id = 8,
-                    Email = "hanna.holm@gmail.com",
                     Phone = "0739487261",
                     Address = "Lärkträdsvägen 10"
                 },
                 new ContactInformation
                 {
                     Id = 9,
-                    Email = "ian.ingemarsson@outlook.com",
                     Phone = "0723847569",
                     Address = "Allegatan 14C"
                 },
                 new ContactInformation
                 {
                     Id = 10,
-                    Email = "julia.jonsson@yahoo.com",
                     Phone = "0768273945",
                     Address = "Stenvägen 5A"
                 }
@@ -100,7 +90,7 @@ namespace CV_Projekt.Models
                     Id = 1.ToString(),
                     FirstName = "Alice",
                     LastName = "Andersson",
-                    UserName = "aliA",
+                    UserName = "alicean12@live.se",
                     InformationId = 1,
                     Password = "P@ssword123",
                     isPrivate = true,
@@ -111,7 +101,7 @@ namespace CV_Projekt.Models
                     Id = 2.ToString(),
                     FirstName = "Bob",
                     LastName = "Bergström",
-                    UserName = "BobbieB",
+                    UserName = "bobbergstrom@gmail.com",
                     InformationId = 2,
                     Password = "P@ssword456",
                     isPrivate = false,
@@ -122,7 +112,7 @@ namespace CV_Projekt.Models
                     Id = 3.ToString(),
                     FirstName = "Charlie",
                     LastName = "Carlsson",
-                    UserName = "Charlie",
+                    UserName = "charliec@live.se",
                     InformationId = 3,
                     Password = "P@ssword789",
                     isPrivate = false,
@@ -133,7 +123,7 @@ namespace CV_Projekt.Models
                     Id = 4.ToString(),
                     FirstName = "Daniel",
                     LastName = "Davidsson",
-                    UserName = "DanD",
+                    UserName = "danield@outlook.com",
                     InformationId = 4,
                     Password = "SecureP@ss1",
                     isPrivate = true,
@@ -144,7 +134,7 @@ namespace CV_Projekt.Models
                     Id = 5.ToString(),
                     FirstName = "Emily",
                     LastName = "Evans",
-                    UserName = "EmEv",
+                    UserName = "emily.evans@hotmail.com",
                     InformationId = 5,
                     Password = "MyP@ssword2",
                     isPrivate = false,
@@ -155,7 +145,7 @@ namespace CV_Projekt.Models
                     Id = 6.ToString(),
                     FirstName = "Frank",
                     LastName = "Fischer",
-                    UserName = "Frankie",
+                    UserName = "frankfischer@gmail.com",
                     InformationId = 6,
                     Password = "StrongP@ss3",
                     isPrivate = true,
@@ -166,7 +156,7 @@ namespace CV_Projekt.Models
                     Id = 7.ToString(),
                     FirstName = "Grace",
                     LastName = "Gustafsson",
-                    UserName = "GracieG",
+                    UserName = "grace.gustafsson@live.se",
                     InformationId = 7,
                     Password = "GracefulP@ss4",
                     isPrivate = false,
@@ -177,7 +167,7 @@ namespace CV_Projekt.Models
                     Id = 8.ToString(),
                     FirstName = "Hanna",
                     LastName = "Holm",
-                    UserName = "HannaH",
+                    UserName = "hanna.holm@gmail.com",
                     InformationId = 8,
                     Password = "H@nnasP@ss5",
                     isPrivate = true,
@@ -188,7 +178,7 @@ namespace CV_Projekt.Models
                     Id = 9.ToString(),
                     FirstName = "Ian",
                     LastName = "Ingemarsson",
-                    UserName = "IanI",
+                    UserName = "ian.ingemarsson@outlook.com",
                     InformationId = 9,
                     Password = "I@nsSecure6",
                     isPrivate = false,
@@ -199,7 +189,7 @@ namespace CV_Projekt.Models
                     Id = 10.ToString(),
                     FirstName = "Julia",
                     LastName = "Jonsson",
-                    UserName = "JulesJ",
+                    UserName = "julia.jonsson@yahoo.com",
                     InformationId = 10,
                     Password = "JuliasP@ss7",
                     isPrivate = true,
@@ -215,7 +205,7 @@ namespace CV_Projekt.Models
                     Content = "Hej på dig! Hur är det med dig?",
                     Date = new DateTime(2020, 6, 12),
                     SenderId = 1.ToString(),
-                    RecieverId = 2.ToString()
+                    ReceiverId = 2.ToString()
                 },
                 new Message
                 {
@@ -224,7 +214,7 @@ namespace CV_Projekt.Models
                     Content = "Missade att du skrev, förlåt.",
                     Date = new DateTime(2020, 7, 16),
                     SenderId = 2.ToString(),
-                    RecieverId = 1.ToString()
+                    ReceiverId = 1.ToString()
                 },
                 new Message
                 {
@@ -233,7 +223,7 @@ namespace CV_Projekt.Models
                     Content = "Ska vi ta en lunch imorgon?",
                     Date = new DateTime(2020, 8, 1),
                     SenderId = 3.ToString(),
-                    RecieverId = 1.ToString()
+                    ReceiverId = 1.ToString()
                 },
                 new Message
                 {
@@ -242,7 +232,7 @@ namespace CV_Projekt.Models
                     Content = "Tack för att du hjälpte mig med projektet.",
                     Date = new DateTime(2020, 8, 15),
                     SenderId = 1.ToString(),
-                    RecieverId = 3.ToString()
+                    ReceiverId = 3.ToString()
                 },
                 new Message
                 {
@@ -251,7 +241,7 @@ namespace CV_Projekt.Models
                     Content = "Kan du kika på dokumentet jag skickade?",
                     Date = new DateTime(2020, 9, 10),
                     SenderId = 4.ToString(),
-                    RecieverId = 5.ToString()
+                    ReceiverId = 5.ToString()
                 },
                 new Message
                 {
@@ -260,7 +250,7 @@ namespace CV_Projekt.Models
                     Content = "Jag har lagt till några kommentarer i ditt utkast.",
                     Date = new DateTime(2020, 9, 15),
                     SenderId = 5.ToString(),
-                    RecieverId = 4.ToString()
+                    ReceiverId = 4.ToString()
                 },
                 new Message
                 {
@@ -269,7 +259,7 @@ namespace CV_Projekt.Models
                     Content = "Glöm inte mötet imorgon kl. 10.",
                     Date = new DateTime(2020, 10, 1),
                     SenderId = 6.ToString(),
-                    RecieverId = 7.ToString()
+                    ReceiverId = 7.ToString()
                 },
                 new Message
                 {
@@ -278,7 +268,7 @@ namespace CV_Projekt.Models
                     Content = "Har du hunnit förbereda presentationen?",
                     Date = new DateTime(2020, 10, 20),
                     SenderId = 7.ToString(),
-                    RecieverId = 6.ToString()
+                    ReceiverId = 6.ToString()
                 },
                 new Message
                 {
@@ -287,7 +277,7 @@ namespace CV_Projekt.Models
                     Content = "Grattis på födelsedagen!",
                     Date = new DateTime(2020, 11, 3),
                     SenderId = 8.ToString(),
-                    RecieverId = 9.ToString()
+                    ReceiverId = 9.ToString()
                 },
                 new Message
                 {
@@ -296,7 +286,7 @@ namespace CV_Projekt.Models
                     Content = "Ha en trevlig helg! Vi hörs på måndag.",
                     Date = new DateTime(2020, 11, 6),
                     SenderId = 9.ToString(),
-                    RecieverId = 10.ToString()
+                    ReceiverId = 10.ToString()
                 }
             );
 
@@ -822,9 +812,14 @@ namespace CV_Projekt.Models
                 .OnDelete(DeleteBehavior.ClientSetNull);
 
             modelBuilder.Entity<Message>()
-                .HasOne(m => m.Reciever)
+                .HasOne(m => m.Receiver)
                 .WithMany(r => r.RecievedMessages)
                 .OnDelete(DeleteBehavior.ClientSetNull);
+
+            modelBuilder.Entity<CV>()
+                .HasOne(cv => cv.Owner)
+                .WithOne()
+                .OnDelete(DeleteBehavior.ClientNoAction);
 
             modelBuilder.Entity<CV>()
               .HasMany(cv => cv.Experiences)
@@ -846,15 +841,17 @@ namespace CV_Projekt.Models
                     j => j.HasKey("CVsId", "ProjectsId")
                 );
 
-            modelBuilder.Entity<CV>()
-                .HasMany(cv => cv.Tags)
-                .WithMany(t => t.CVs)
+            modelBuilder.Entity<Tag>()
+                .HasMany(t => t.Users)
+                .WithMany(u => u.Tags)
                 .UsingEntity(
-                    "CVTag",
-                    l => l.HasOne(typeof(CV)).WithMany().HasForeignKey("CVsId").HasPrincipalKey(nameof(CV.Id)).OnDelete(DeleteBehavior.Restrict),
-                    r => r.HasOne(typeof(Tag)).WithMany().HasForeignKey("TagsId").HasPrincipalKey(nameof(Tag.Id)).OnDelete(DeleteBehavior.Restrict),
-                    j => j.HasKey("CVsId", "TagsId")
+                    "TagUser",
+                    l => l.HasOne(typeof(Tag)).WithMany().HasForeignKey("TagId").HasPrincipalKey(nameof(Tag.Id)).OnDelete(DeleteBehavior.ClientSetNull),
+                    r => r.HasOne(typeof(User)).WithMany().HasForeignKey("UserId").HasPrincipalKey(nameof(User.Id)).OnDelete(DeleteBehavior.ClientSetNull),
+                    j => j.HasKey("TagId", "UserId")
                 );
+
+
 
             modelBuilder.Entity("CVProject").HasData(
                 new { CVsId = 2, ProjectsId = 1 },
@@ -865,11 +862,6 @@ namespace CV_Projekt.Models
                 new { CVsId = 1, ExperienceId = 1 },
                 new { CVsId = 1, ExperienceId = 2 },
                 new { CVsId = 2, ExperienceId = 3 }
-            );
-
-            modelBuilder.Entity("CVTag").HasData(
-                new { CVsId = 1, TagsId = 2 },
-                new { CVsId = 1, TagsId = 3 }
             );
         }
     }

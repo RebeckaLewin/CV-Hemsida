@@ -75,7 +75,6 @@ namespace CV_Projekt.Controllers
 
 				ContactInformation contactInformation = new ContactInformation
 				{
-					Email = viewModel.Email,
 					Phone = viewModel.Phone,
 					Address = viewModel.Address
 				};
@@ -85,7 +84,7 @@ namespace CV_Projekt.Controllers
 
 				User newUser = new User
 				{
-					UserName = viewModel.UserName.Trim(),
+					UserName = viewModel.Email.Trim(),
 					FirstName = viewModel.FirstName,
 					LastName = viewModel.LastName,
 					PasswordHash = viewModel.Password,

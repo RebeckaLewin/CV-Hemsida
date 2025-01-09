@@ -1,38 +1,52 @@
 ﻿@model SearchViewModel
 
-<div class="input-group mt-sm-5">
-    <form asp-controller="Search" asp-action="SearchWindow" method="get">
-        <input type="search" 
-            class="form-control rounded" 
-            placeholder="Sök" 
-            aria-label="Search" 
-            aria-describedby="search-addon"
-            name="searchTerm"
-               value="@ViewData["SearchedName"]" />
-        <button type="submit"
-            class="btn" 
-            style="background-color:#ff6219; color:#fff;" 
-            data-mdb-ripple-init><i class="fa-solid fa-magnifying-glass"></i>
-            Sök
-        </button>
-    </form>
+<div class="d-flex flex-column align-items-cener justify-content-center" style="margin-bottom: 15px;">
+    <div class="input-group">
+        <form asp-controller="Search" asp-action="SearchWindow" method="get" class="d-flex">
+            <input type="search" 
+                class="form-control rounded" 
+                placeholder="Sök" 
+                aria-label="Search" 
+                aria-describedby="search-addon"
+                name="searchTerm"
+                value="@ViewData["SearchedName"]" />
+            <button type="submit"
+                class="btn" 
+                style="background-color:#ff6219; color:#fff; margin:1rem;" 
+                data-mdb-ripple-init><i class="fa-solid fa-magnifying-glass"></i>
+                Sök
+            </button>
+        </form>
+   </div>
 </div>
 
-@if (Model.Users != null && Model.Users.Any())
-{
-    <div class="mt-4">
-        <h5>Sökresultat:</h5>
-        <ul>
-            @foreach (var user in Model.Users)
-            {
-                <li>@user.FirstName @user.LastName</li>
-            }
-        </ul>
 
-    </div>
-} else {
-    <p>Inga resultat hittades för "@ViewData["SearchedName"]"</p>
-}
+<div class="card" style="width:20rem; height:20rem;">
+    @if (!string.IsNullOrEmpty(ViewData["SearchedName"]?.ToString()))
+    {
+        @if (Model.Users != null && Model.Users.Any())
+        {
+            <h5 class="mb-3">Sökresultat:</h5>
+                <ul class="list-unstyled">
+                    @foreach (var user in Model.Users)
+                    {
+                        <li>
+                            <a href="#" style="text-decoration: none" class="text-black">
+                                @user.FirstName @user.LastName
+                            </a>
+                        </li>
+                    }
+                </ul>
+        } else {
+            <p>Inga resultat hittades för "@ViewData["SearchedName"]"</p>
+        }
+    } else {
+        <div class="d-flex justify-content-center align-items-center">
+            <i class="fa-solid fa-poo" style="font-size: 100px; color: #ff6219;"></i>
+        </div>
+    }
+</div>
+
 
 <div class="input-group mt-2">
     <button type="button" class="btn" style="background-color:#ff6219;">
