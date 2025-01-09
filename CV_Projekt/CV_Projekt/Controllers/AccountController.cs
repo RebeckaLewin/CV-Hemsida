@@ -87,11 +87,11 @@ namespace CV_Projekt.Controllers
 					UserName = viewModel.Email.Trim(),
 					FirstName = viewModel.FirstName,
 					LastName = viewModel.LastName,
-					PasswordHash = viewModel.Password,
+					Password = viewModel.Password,
 					ContactInformation = contactInformation
 				};
 				Debug.WriteLine(viewModel.Password);
-				var result = await userManager.CreateAsync(newUser, newUser.PasswordHash);
+				var result = await userManager.CreateAsync(newUser, newUser.Password);
 				if (result.Succeeded)
 				{
 					await signInManager.SignInAsync(newUser, isPersistent: true);
