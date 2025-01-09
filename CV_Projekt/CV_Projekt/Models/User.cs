@@ -20,9 +20,15 @@ namespace CV_Projekt.Models
 		[Range(6, 20, ErrorMessage = "Lösenordet får endast vara mellan 6 till 20 tecken.")]
 		public string Password { get; set; }
 		[Required]
+
 		public bool isPrivate { get; set; }
 		[Required]
 		public bool isActive { get; set; }
+
+		public virtual List<Tag>? Tags { get; set; } = new List<Tag>();
+
+		public byte[]? Picture { get; set; }
+		public string? PictureFormat { get; set; }
 
 		public virtual List<Message>? RecievedMessages { get; set; } = new List<Message>();
 		public virtual List<Message>? SentMessages { get; set; } = new List<Message>();

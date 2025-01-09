@@ -851,14 +851,14 @@ namespace CV_Projekt.Models
                     j => j.HasKey("CVsId", "ProjectsId")
                 );
 
-            modelBuilder.Entity<CV>()
-                .HasMany(cv => cv.Tags)
-                .WithMany(t => t.CVs)
+            modelBuilder.Entity<User>()
+                .HasMany(u => u.Tags)
+                .WithMany(t => t.Users)
                 .UsingEntity(
-                    "CVTag",
-                    l => l.HasOne(typeof(CV)).WithMany().HasForeignKey("CVsId").HasPrincipalKey(nameof(CV.Id)).OnDelete(DeleteBehavior.Restrict),
-                    r => r.HasOne(typeof(Tag)).WithMany().HasForeignKey("TagsId").HasPrincipalKey(nameof(Tag.Id)).OnDelete(DeleteBehavior.Restrict),
-                    j => j.HasKey("CVsId", "TagsId")
+                    "UserTag",
+                    l => l.HasOne(typeof(User)).WithMany().HasForeignKey("UserId").HasPrincipalKey(nameof(User.Id)).OnDelete(DeleteBehavior.ClientSetNull),
+                    r => r.HasOne(typeof(Tag)).WithMany().HasForeignKey("TagId").HasPrincipalKey(nameof(Tag.Id)).OnDelete(DeleteBehavior.ClientSetNull),
+                    j => j.HasKey("UserId", "TagId")
                 );
 
             modelBuilder.Entity("CVProject").HasData(

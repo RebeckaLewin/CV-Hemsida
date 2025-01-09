@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace CV_Projekt.Migrations
 {
     /// <inheritdoc />
-    public partial class _1 : Migration
+    public partial class initialMig : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -443,16 +443,16 @@ namespace CV_Projekt.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "InformationId", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "Password", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName", "isActive", "isPrivate" },
                 values: new object[,]
                 {
-                    { "1", 0, "f71e7537-3e13-44c1-8afe-830c11616afe", null, false, "Alice", 1, "Andersson", false, null, null, null, "P@ssword123", null, null, false, "47437cf8-ebd3-4fdd-9ad8-42af4fc580b3", false, "aliA", true, true },
-                    { "10", 0, "0ae0c131-005f-4364-b72d-d04ca0e0e2b9", null, false, "Julia", 10, "Jonsson", false, null, null, null, "JuliasP@ss7", null, null, false, "47e05ad2-d9ef-4885-b69f-4e0307d078dc", false, "JulesJ", false, true },
-                    { "2", 0, "af63064f-efde-4c06-8b0b-080468006cfc", null, false, "Bob", 2, "Bergström", false, null, null, null, "P@ssword456", null, null, false, "ee3f2d7d-fe70-40cb-a69a-8cae7d62fc50", false, "BobbieB", true, false },
-                    { "3", 0, "07a9f802-2d95-4ca6-89de-9feebfe265d3", null, false, "Charlie", 3, "Carlsson", false, null, null, null, "P@ssword789", null, null, false, "b6d77379-d1ea-498e-a1b6-c184a84fb0c1", false, "Charlie", false, false },
-                    { "4", 0, "82eb0301-a4ff-4cf7-8ce9-57222c46aa64", null, false, "Daniel", 4, "Davidsson", false, null, null, null, "SecureP@ss1", null, null, false, "2009d46e-306d-481d-81e6-e76a7ae808b2", false, "DanD", true, true },
-                    { "5", 0, "dea02ae1-1bfc-40e6-9760-793d357b9322", null, false, "Emily", 5, "Evans", false, null, null, null, "MyP@ssword2", null, null, false, "6d38033d-3e13-4dcf-a819-8efa8239bcae", false, "EmEv", true, false },
-                    { "6", 0, "a1284e51-8374-42a8-8e69-53b4b7bbe551", null, false, "Frank", 6, "Fischer", false, null, null, null, "StrongP@ss3", null, null, false, "2d8bd4db-2bf6-4a4d-af2c-e65101fb9ff7", false, "Frankie", true, true },
-                    { "7", 0, "30a6be8c-de6a-4a4e-a632-b85ef444f162", null, false, "Grace", 7, "Gustafsson", false, null, null, null, "GracefulP@ss4", null, null, false, "0f8136e5-55bf-4263-b993-68f1cde9249f", false, "GracieG", false, false },
-                    { "8", 0, "4d930554-9745-42fe-a0fd-e519e4702cb2", null, false, "Hanna", 8, "Holm", false, null, null, null, "H@nnasP@ss5", null, null, false, "13062cde-62db-4476-8735-6cc7ccd01b7b", false, "HannaH", true, true },
-                    { "9", 0, "9539a8b7-0e6b-49ae-9c90-1d40b4689832", null, false, "Ian", 9, "Ingemarsson", false, null, null, null, "I@nsSecure6", null, null, false, "f1d6c581-7625-460d-bafa-8ac03d335b52", false, "IanI", true, false }
+                    { "1", 0, "3cfdc14c-21a3-45d5-9855-7fd8cffac15a", null, false, "Alice", 1, "Andersson", false, null, null, null, "P@ssword123", null, null, false, "37b4bb68-e286-4216-9437-867f1d50fc3a", false, "aliA", true, true },
+                    { "10", 0, "d1e3e42d-6e3a-4e78-a0e2-9998130cacd8", null, false, "Julia", 10, "Jonsson", false, null, null, null, "JuliasP@ss7", null, null, false, "faa47b5d-b560-4fe9-8da1-b61302ea7f24", false, "JulesJ", false, true },
+                    { "2", 0, "13e400d4-8f84-4ee3-83a0-13a60a25cbc5", null, false, "Bob", 2, "Bergström", false, null, null, null, "P@ssword456", null, null, false, "3bfdeb75-74dd-4ef9-91f2-f758bd2907c2", false, "BobbieB", true, false },
+                    { "3", 0, "866bc9d6-06ca-4e58-9b39-e671793ba4d4", null, false, "Charlie", 3, "Carlsson", false, null, null, null, "P@ssword789", null, null, false, "6a703bfe-a7ab-42e5-b208-830733fb9257", false, "Charlie", false, false },
+                    { "4", 0, "21cdf162-ea00-4686-afad-403950b0508e", null, false, "Daniel", 4, "Davidsson", false, null, null, null, "SecureP@ss1", null, null, false, "e32f7dee-f400-4bd7-ace1-353e7eda8da8", false, "DanD", true, true },
+                    { "5", 0, "7d856116-0d17-49d6-9ef2-b159c3af47b0", null, false, "Emily", 5, "Evans", false, null, null, null, "MyP@ssword2", null, null, false, "a7b55b13-8538-41a3-8f4d-6036a98f2328", false, "EmEv", true, false },
+                    { "6", 0, "52aa7c0e-c9ab-4519-a442-0780242b22ae", null, false, "Frank", 6, "Fischer", false, null, null, null, "StrongP@ss3", null, null, false, "30149dd3-e064-4f23-a882-6b4567fba31d", false, "Frankie", true, true },
+                    { "7", 0, "d1afafc3-ca81-4718-8029-537e50ddd4ff", null, false, "Grace", 7, "Gustafsson", false, null, null, null, "GracefulP@ss4", null, null, false, "92cd9c51-95cc-48c1-bce7-7b0fd4833d9c", false, "GracieG", false, false },
+                    { "8", 0, "5e41caa0-69c5-4b92-91ea-05a309f6d5b7", null, false, "Hanna", 8, "Holm", false, null, null, null, "H@nnasP@ss5", null, null, false, "7fed3777-1c50-48a6-8ac7-ea234c15c7a7", false, "HannaH", true, true },
+                    { "9", 0, "921e40b1-8daa-4a18-b2a3-ff35e8e69eee", null, false, "Ian", 9, "Ingemarsson", false, null, null, null, "I@nsSecure6", null, null, false, "e25314d7-70b9-44a3-b73b-678c2274cf6e", false, "IanI", true, false }
                 });
 
             migrationBuilder.InsertData(
