@@ -23,7 +23,7 @@ namespace CV_Projekt.Controllers
             //                .ToList();
 
             var message = _context.Messages
-                .Where(m => m.RecieverId.Equals(receiverId) && m.SenderId.Equals(senderId))
+                .Where(m => m.ReceiverId.Equals(receiverId) && m.SenderId.Equals(senderId))
                 .OrderBy(m => m.Date)
                 .FirstOrDefault();
 

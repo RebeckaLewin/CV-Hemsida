@@ -19,7 +19,7 @@ namespace CV_Projekt.Controllers
         {
             
             var recMes = _context.Messages
-                .Where(m => m.RecieverId.Equals(id))
+                .Where(m => m.ReceiverId.Equals(id))
                 .Include(m => m.Sender)
                 .OrderBy(m => m.Date)
                 .ToList();
@@ -58,7 +58,7 @@ namespace CV_Projekt.Controllers
             }
             else
             {
-                return View();
+                return RedirectToAction("Add", new { senderId = viewModel.Sender.Id, recieverId = viewModel.Receiver.Id });
             }
         }
         public IActionResult Index()

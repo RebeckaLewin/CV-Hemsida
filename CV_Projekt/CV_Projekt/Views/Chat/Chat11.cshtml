@@ -7,7 +7,7 @@
            style="background-color:#ff6219; margin-bottom:2rem;"
            asp-controller="Message"
            asp-action="Add"
-           asp-route-senderId="@Model.RecieverId"
+           asp-route-senderId="@Model.ReceiverId"
            asp-route-recieverId="@Model.SenderId">
            Svara
 </a>
@@ -16,6 +16,6 @@
            style="background-color:#ff6219; margin-bottom:2rem;"
            asp-controller="Message"
            asp-action="ChatList"
-           asp-route-id="@Model.RecieverId">
+           asp-route-id="@Model.ReceiverId">
            Tillbaka
 </a>

@@ -19,8 +19,8 @@
 	<label>RecieverId </label>
 	<input asp-for="RecieverId" />
 	<br />	 *@
-	<input asp-for="@Model.Sender" type="hidden" value="@Model.Sender" />
-	<input asp-for="@Model.Receiver" type="hidden" value="@Model.Receiver" />
+	<input asp-for="@Model.Sender.Id" type="hidden" value="@Model.Sender.Id" />
+	<input asp-for="@Model.Receiver.Id" type="hidden" value="@Model.Receiver.Id" />
 	<input type="hidden" name="Date" value="DateTime.Now" />
 	<br />
 	<br />
