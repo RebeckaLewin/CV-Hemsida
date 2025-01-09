@@ -44,7 +44,7 @@ namespace CV_Projekt.Controllers
                 .Distinct()
                 .ToList();
             
-            CVViewModel cvvm = new CVViewModel
+            HomeViewModel cvvm = new HomeViewModel
             {
                 Users = usersWithCvs,
                 Projects = latestProject,
