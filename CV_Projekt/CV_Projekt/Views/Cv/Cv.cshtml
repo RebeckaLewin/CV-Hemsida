@@ -1,6 +1,6 @@
 ﻿@model CvViewModel
 
-
+@* 
 <div class="card">
 	<div class="card-header">
 		<h3>@Model.User.FirstName @Model.User.LastName </h3>
@@ -139,4 +139,127 @@
 
 <div class="d-flex justify-content-center mt-2">
 	<a asp-controller="Profile" asp-action="Profile" asp-route-id="@Model.User.Id" class="btn btn-primary">VISA PROFIL</a>
-</div>
+</div> *@
+
+
+
+<section class="h-100">
+	<div class="container py-5 h-100">
+		<div class="row d-flex justify-content-center">
+			
+			<div class="col col-lg-9 col-xl-8">
+				<div class="card" style="border: 2px solid #ff6219; background-color:lightgrey; ">
+					<div class="container">
+						<div class="row">
+							<div class="col-sm-4">
+					<div class="rounded-top text-dark d-flex flex-row" >
+						<div class="ms-4 mt-5 d-flex flex-column">
+							<img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-profiles/avatar-1.webp"
+								 alt="Generic placeholder image" class="img-fluid img-thumbnail mt-4 mb-2"
+											 style="width: 150px; z-index: 1; box-shadow:2px 2px 4px dimgray">
+									</div>
+									</div>
+							
+						</div>
+						<div class="col-sm-8">
+						<div class="ms-3" style="margin-top: 100px;">
+							<h4 style="text-align:center;">CV</h4>
+							<h5 style="text-align:center;">Model.User.FirstName Model.User.LastName</h5>
+							</div>
+						</div>
+							</div>
+						
+					@* <div class="p-4 text-black bg-body-tertiary">
+						<div class="d-flex justify-content-end text-center py-1 text-body">
+							<div>
+								<p class="mb-1 h5">21</p>
+								<p class="small text-muted mb-0">Projekt</p>
+							</div>
+							<div class="px-3">
+								<p class="mb-1 h5">1026</p>
+								<p class="small text-muted mb-0">Antal visningar</p>
+							</div>
+							
+						</div>
+					</div> *@
+					
+					<div class="row">
+						<div class="col-sm-4">
+					<div class="card-body p-4 text-black">
+						<div class="mb-5  text-body">
+							<h6 class="lead fw-normal mb-1">Skills</h6>
+							<div class="p-4 bg-body-tertiary">
+
+								<p class="font-italic mb-1">Skill1</p>
+								<p class="font-italic mb-1">Skill2</p>
+								</div>
+							</div>
+							</div>
+							</div>
+							
+								<div class="card col-sm-8 mb-2">
+									<div class="card-body text-black">
+									
+										<h6 class="card-header" style="background-color:#fff; color:#ff6219; text-align:center;">Arbetslivserfarenhet</h6>
+										
+										<p class="card-text">expWork.Title</p>
+										<p class="card-text">expWork.Description</p>
+										</div>
+										</div>
+									</div>
+
+					<div class="row">
+						<div class="col-sm-4">
+							<div class="card-body p-4 text-black">
+								<div class="mb-5  text-body">
+									<p class="lead fw-normal mb-1"></p>
+									<div class="p-4 bg-body-tertiary">
+
+										
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="card col-sm-8 mb-2">
+							<div class="card-body text-black">
+								
+								<h6 class="card-header" style="background-color:#fff; color:#ff6219; text-align:center;">Utbildningar</h6>
+								
+								<p class="card-text">Nåt fint</p>
+								<p class="card-text">Lalalala</p>
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-sm-4">
+							<div class="card-body p-4 text-black">
+								<div class="mb-5  text-body">
+									<p class="lead fw-normal mb-1"></p>
+									<div class="p-4 bg-body-tertiary">
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="card col-sm-8 mb-2">
+							<div class="card-body text-black">
+								
+								<h6 class="card-header" style="background-color:#fff; color:#ff6219; text-align:center;">Andra Erfarenheter</h6>
+
+								<p class="card-text">Nåt fint</p>
+								<p class="card-text">Lalalala</p>
+							</div>
+						</div>
+					</div>
+					</div>
+									
+
+								</div>
+							</div>
+						</div>
+						</div>
+					
+				
+</section>
