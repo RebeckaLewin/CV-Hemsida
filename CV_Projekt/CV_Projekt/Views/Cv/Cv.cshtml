@@ -164,7 +164,7 @@
 						<div class="col-sm-8">
 						<div class="ms-3" style="margin-top: 100px;">
 							<h4 style="text-align:center;">CV</h4>
-									<h5 style="text-align:center;">@Model.User.FirstName @Model.User.LastName</h5>
+									<h5 style="text-align:center;">@Model.Owner.FirstName @Model.Owner.LastName</h5>
 							</div>
 						</div>
 							</div>
@@ -193,14 +193,14 @@
 							<h6 class="lead fw-normal mb-1">Kontakt</h6>
 							<div class="p-4 bg-body-tertiary">
 
-											@if (Model.User.ContactInformation != null)
+											@if (Model.Owner.ContactInformation != null)
 											{
 												<ul class="list-unstyled">
-													<li>Email: @Model.User.UserName</li>
-													<li>Telefon: @Model.User.ContactInformation.Phone</li>
-													@if (!string.IsNullOrEmpty(Model.User.ContactInformation.Address))
+													<li>Email: @Model.Owner.UserName</li>
+													<li>Telefon: @Model.Owner.ContactInformation.Phone</li>
+													@if (!string.IsNullOrEmpty(Model.Owner.ContactInformation.Address))
 													{
-														<li>Adress: @Model.User.ContactInformation.Address</li>
+														<li>Adress: @Model.Owner.ContactInformation.Address</li>
 													}
 												</ul>
 											}
@@ -217,9 +217,10 @@
 									<div class="card-body text-black">
 									
 										<h6 class="card-header" style="background-color:#fff; color:#ff6219; text-align:center;">Arbetslivserfarenhet</h6>
-										
-										<p class="card-text">expWork.Title</p>
-										<p class="card-text">expWork.Description</p>
+										@foreach (var work in Model.Work)
+										{
+											<p class="card-text">@work.Description</p>
+										}
 										</div>
 										</div>
 									</div>
@@ -257,8 +258,10 @@
 								
 								<h6 class="card-header" style="background-color:#fff; color:#ff6219; text-align:center;">Utbildningar</h6>
 								
-								<p class="card-text">Nåt fint</p>
-								<p class="card-text">Lalalala</p>
+										@foreach (var education in Model.Educations)
+										{
+											<p class="card-text">@education.Description</p>
+										}
 							</div>
 						</div>
 					</div>
@@ -278,9 +281,10 @@
 							<div class="card-body text-black">
 								
 								<h6 class="card-header" style="background-color:#fff; color:#ff6219; text-align:center;">Andra Erfarenheter</h6>
-
-								<p class="card-text">Nåt fint</p>
-								<p class="card-text">Lalalala</p>
+										@foreach (var other in Model.OtherExperiences)
+										{
+											<p class="card-text">@other.Description</p>
+										}
 							</div>
 						</div>
 					</div>
