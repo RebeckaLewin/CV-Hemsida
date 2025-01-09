@@ -45,9 +45,6 @@ namespace CV_Projekt.Controllers
             var projColl = _context.Projects
                 .Where(p => p.CVs.Any(c => c.Id == id))
                 .ToList();
-            var tags = _context.Tags
-                .Where(t => t.CVs.Any(c => c.Id == id))
-                .ToList();
             var exp = _context.Experiences
                 .Where(e => e.UserId == cv.OwnerId)
                 .ToList();
@@ -59,7 +56,6 @@ namespace CV_Projekt.Controllers
                 Owner = cv.Owner,
                 User = cv.Owner,
                 Skills = cv.Skills ?? new List<string>(),
-                Tags = tags,
                 ProjectsCreated = projCreated,
                 ProjectCollaborator = projColl,
                 Experiences = exp

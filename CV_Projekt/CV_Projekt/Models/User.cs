@@ -17,7 +17,7 @@ namespace CV_Projekt.Models
 		[Required]
 		[RegularExpression("^[A-Za-zÅÄÖåäö_-]+$")]
 		public string LastName { get; set; }
-		public string Description { get; set; }
+		public string? Description { get; set; }
 		[Required]
 		public int InformationId { get; set; }
 		[Required]
@@ -30,8 +30,6 @@ namespace CV_Projekt.Models
 		[Required]
 		public bool isActive { get; set; }
 
-		public virtual List<Tag>? Tags { get; set; } = new List<Tag>();
-
 		public byte[]? Picture { get; set; }
 		public string? PictureFormat { get; set; }
 
@@ -41,7 +39,7 @@ namespace CV_Projekt.Models
 		public virtual List<Project>? CreatedProjects { get; set; } = new List<Project>();
 		public virtual List<Project>? JoinedProjects { get; set; } = new List<Project>();
 
-		//Picture
+		public virtual List<Tag>? Tags { get; set; } = new List<Tag>();
 
 
 		[ForeignKey(nameof(InformationId))]

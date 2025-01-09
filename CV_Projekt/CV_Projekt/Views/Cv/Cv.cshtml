@@ -117,7 +117,7 @@
 					@if (Model.User.ContactInformation != null)
 					{
 						<ul class="list-unstyled">
-							<li>Email: @Model.User.ContactInformation.Email</li>
+							<li>Email: @Model.User.UserName</li>
 							<li>Telefon: @Model.User.ContactInformation.Phone</li>
 							@if (!string.IsNullOrEmpty(Model.User.ContactInformation.Address))
 							{

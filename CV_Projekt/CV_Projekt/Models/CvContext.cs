@@ -841,15 +841,17 @@ namespace CV_Projekt.Models
                     j => j.HasKey("CVsId", "ProjectsId")
                 );
 
-            modelBuilder.Entity<User>()
-                .HasMany(u => u.Tags)
-                .WithMany(t => t.Users)
+            modelBuilder.Entity<Tag>()
+                .HasMany(t => t.Users)
+                .WithMany(u => u.Tags)
                 .UsingEntity(
-                    "UserTag",
-                    l => l.HasOne(typeof(User)).WithMany().HasForeignKey("UserId").HasPrincipalKey(nameof(User.Id)).OnDelete(DeleteBehavior.ClientSetNull),
-                    r => r.HasOne(typeof(Tag)).WithMany().HasForeignKey("TagId").HasPrincipalKey(nameof(Tag.Id)).OnDelete(DeleteBehavior.ClientSetNull),
-                    j => j.HasKey("UserId", "TagId")
+                    "TagUser",
+                    l => l.HasOne(typeof(Tag)).WithMany().HasForeignKey("TagId").HasPrincipalKey(nameof(Tag.Id)).OnDelete(DeleteBehavior.ClientSetNull),
+                    r => r.HasOne(typeof(User)).WithMany().HasForeignKey("UserId").HasPrincipalKey(nameof(User.Id)).OnDelete(DeleteBehavior.ClientSetNull),
+                    j => j.HasKey("TagId", "UserId")
                 );
+
+
 
             modelBuilder.Entity("CVProject").HasData(
                 new { CVsId = 2, ProjectsId = 1 },
@@ -860,11 +862,6 @@ namespace CV_Projekt.Models
                 new { CVsId = 1, ExperienceId = 1 },
                 new { CVsId = 1, ExperienceId = 2 },
                 new { CVsId = 2, ExperienceId = 3 }
-            );
-
-            modelBuilder.Entity("CVTag").HasData(
-                new { CVsId = 1, TagsId = 2 },
-                new { CVsId = 1, TagsId = 3 }
             );
         }
     }
