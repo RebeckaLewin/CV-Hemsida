@@ -1,0 +1,28 @@
+﻿@model Message
+
+<div asp-validation-summary="All" class="text-danger"></div>
+
+<h2>Skriv ett nytt meddelande</h2>
+
+<form asp-action="Add" method="post">
+	<label>Till: @ViewBag.fullName</label>
+	<br />
+	<label>Subject: </label>
+	<input asp-for="Subject" />
+	<br />
+	<label>Message: </label>
+	<input type="text-area" asp-for="Content" />
+	<br />	
+	@* <label>SenderId </label>
+	<input asp-for="SenderId" />
+	<br />	
+	<label>RecieverId </label>
+	<input asp-for="RecieverId" />
+	<br />	 *@
+	<input type="hidden" name="SenderId" value="@ViewBag.Sender" />
+	<input type="hidden" name="ReceiverId" value="@ViewBag.Receiver" />
+	<input type="hidden" name="Date" value="DateTime.Now" />
+	<br />
+	<br />
+	<button type="submit">Skicka</button>
+</form>

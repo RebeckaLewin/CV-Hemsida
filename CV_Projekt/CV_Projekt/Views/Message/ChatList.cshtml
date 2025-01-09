@@ -10,8 +10,9 @@
                           style="background-color:#ff6219; margin-bottom:2rem;"
                           asp-controller="Chat"
                           asp-action="Chat11"
-                          asp-route-id="1">
-                          Visa Meddelanden
+                          asp-route-senderId="@mess.SenderId"
+                          asp-route-receiverId="@mess.RecieverId">
+                          Visa Meddelande
                </a>
 
             </div>

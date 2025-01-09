@@ -33,6 +33,44 @@ namespace CV_Projekt.Controllers
             return View(viewModel);
         }
 
+
+        [HttpGet]
+        public IActionResult Add(string senderId, string recieverId)
+        {
+            Message message = new Message();
+            var sender = _context.Users.Where(u => u.Id.Equals(senderId)).FirstOrDefault();
+            var reciever = _context.Users.Where(u => u.Id.Equals(recieverId)).FirstOrDefault();
+            var firstName = reciever.FirstName;
+            var lastName = reciever.LastName;
+            var fullName = firstName + " " + lastName;
+            ViewBag.fullName = fullName;
+            ViewBag.senderId = senderId;
+            ViewBag.recieverId = recieverId;
+            return View(message);
+        }
+
+        [HttpPost]
+        public IActionResult Add(Message message, string senderId, string recieverId)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Add(message);
+                _context.SaveChanges();
+                return RedirectToAction("Chat11", "Chat");
+            }
+            else
+            {
+                var sender = _context.Users.Where(u => u.Id.Equals(senderId)).FirstOrDefault();
+                var reciever = _context.Users.Where(u => u.Id.Equals(recieverId)).FirstOrDefault();
+                var firstName = reciever.FirstName;
+                var lastName = reciever.LastName;
+                var fullName = firstName + " " + lastName;
+                ViewBag.fullName = fullName;
+                ViewBag.senderId = senderId;
+                ViewBag.recieverId = recieverId;
+                return View(message);
+            }
+        }
         public IActionResult Index()
         {
             return View();
