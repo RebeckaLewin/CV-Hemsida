@@ -24,21 +24,18 @@ namespace CV_Projekt.Models
                 new ContactInformation
                 {
                     Id = 1,
-                    Email = "alicean12@live.se",
                     Phone = "0723892311",
                     Address = "Rullgatan 24A"
                 },
                 new ContactInformation
                 {
                     Id = 2,
-                    Email = "bobbergstrom@gmail.com",
                     Phone = "0724873928",
                     Address = "Johanneslunden 7"
                 },
                 new ContactInformation
                 {
                     Id = 3,
-                    Email = "charliec@live.se",
                     Phone = "0809483729",
                     Address = "Kolagränd 23"
                 },
@@ -46,49 +43,42 @@ namespace CV_Projekt.Models
                 new ContactInformation
                 {
                     Id = 4,
-                    Email = "danield@outlook.com",
                     Phone = "0738452390",
                     Address = "Mossvägen 15"
                 },
                 new ContactInformation
                 {
                     Id = 5,
-                    Email = "emily.evans@hotmail.com",
                     Phone = "0709847328",
                     Address = "Bäckstigen 12B"
                 },
                 new ContactInformation
                 {
                     Id = 6,
-                    Email = "frankfischer@gmail.com",
                     Phone = "0762938475",
                     Address = "Kullavägen 8"
                 },
                 new ContactInformation
                 {
                     Id = 7,
-                    Email = "grace.gustafsson@live.se",
                     Phone = "0701938476",
                     Address = "Tallbacken 4"
                 },
                 new ContactInformation
                 {
                     Id = 8,
-                    Email = "hanna.holm@gmail.com",
                     Phone = "0739487261",
                     Address = "Lärkträdsvägen 10"
                 },
                 new ContactInformation
                 {
                     Id = 9,
-                    Email = "ian.ingemarsson@outlook.com",
                     Phone = "0723847569",
                     Address = "Allegatan 14C"
                 },
                 new ContactInformation
                 {
                     Id = 10,
-                    Email = "julia.jonsson@yahoo.com",
                     Phone = "0768273945",
                     Address = "Stenvägen 5A"
                 }
@@ -100,7 +90,7 @@ namespace CV_Projekt.Models
                     Id = 1.ToString(),
                     FirstName = "Alice",
                     LastName = "Andersson",
-                    UserName = "aliA",
+                    UserName = "alicean12@live.se",
                     InformationId = 1,
                     Password = "P@ssword123",
                     isPrivate = true,
@@ -111,7 +101,7 @@ namespace CV_Projekt.Models
                     Id = 2.ToString(),
                     FirstName = "Bob",
                     LastName = "Bergström",
-                    UserName = "BobbieB",
+                    UserName = "bobbergstrom@gmail.com",
                     InformationId = 2,
                     Password = "P@ssword456",
                     isPrivate = false,
@@ -122,7 +112,7 @@ namespace CV_Projekt.Models
                     Id = 3.ToString(),
                     FirstName = "Charlie",
                     LastName = "Carlsson",
-                    UserName = "Charlie",
+                    UserName = "charliec@live.se",
                     InformationId = 3,
                     Password = "P@ssword789",
                     isPrivate = false,
@@ -133,7 +123,7 @@ namespace CV_Projekt.Models
                     Id = 4.ToString(),
                     FirstName = "Daniel",
                     LastName = "Davidsson",
-                    UserName = "DanD",
+                    UserName = "danield@outlook.com",
                     InformationId = 4,
                     Password = "SecureP@ss1",
                     isPrivate = true,
@@ -144,7 +134,7 @@ namespace CV_Projekt.Models
                     Id = 5.ToString(),
                     FirstName = "Emily",
                     LastName = "Evans",
-                    UserName = "EmEv",
+                    UserName = "emily.evans@hotmail.com",
                     InformationId = 5,
                     Password = "MyP@ssword2",
                     isPrivate = false,
@@ -155,7 +145,7 @@ namespace CV_Projekt.Models
                     Id = 6.ToString(),
                     FirstName = "Frank",
                     LastName = "Fischer",
-                    UserName = "Frankie",
+                    UserName = "frankfischer@gmail.com",
                     InformationId = 6,
                     Password = "StrongP@ss3",
                     isPrivate = true,
@@ -166,7 +156,7 @@ namespace CV_Projekt.Models
                     Id = 7.ToString(),
                     FirstName = "Grace",
                     LastName = "Gustafsson",
-                    UserName = "GracieG",
+                    UserName = "grace.gustafsson@live.se",
                     InformationId = 7,
                     Password = "GracefulP@ss4",
                     isPrivate = false,
@@ -177,7 +167,7 @@ namespace CV_Projekt.Models
                     Id = 8.ToString(),
                     FirstName = "Hanna",
                     LastName = "Holm",
-                    UserName = "HannaH",
+                    UserName = "hanna.holm@gmail.com",
                     InformationId = 8,
                     Password = "H@nnasP@ss5",
                     isPrivate = true,
@@ -188,7 +178,7 @@ namespace CV_Projekt.Models
                     Id = 9.ToString(),
                     FirstName = "Ian",
                     LastName = "Ingemarsson",
-                    UserName = "IanI",
+                    UserName = "ian.ingemarsson@outlook.com",
                     InformationId = 9,
                     Password = "I@nsSecure6",
                     isPrivate = false,
@@ -199,7 +189,7 @@ namespace CV_Projekt.Models
                     Id = 10.ToString(),
                     FirstName = "Julia",
                     LastName = "Jonsson",
-                    UserName = "JulesJ",
+                    UserName = "julia.jonsson@yahoo.com",
                     InformationId = 10,
                     Password = "JuliasP@ss7",
                     isPrivate = true,

@@ -10,9 +10,14 @@ namespace CV_Projekt.Models
 		[Required]
 		[RegularExpression("^[a-zA-ZÅÄÖåäö_-]+$")]
 		public string FirstName { get; set; }
+		/*
+		[Required(ErrorMessage = "Eposten måste anges.")]
+		[RegularExpression("^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,}$", ErrorMessage = "Eposten är inte giltig.")]
+		public string Email { get; set; }*/
 		[Required]
 		[RegularExpression("^[A-Za-zÅÄÖåäö_-]+$")]
 		public string LastName { get; set; }
+		public string Description { get; set; }
 		[Required]
 		public int InformationId { get; set; }
 		[Required]
