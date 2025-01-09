@@ -2,5 +2,6 @@
 {
     public class ChatListViewModel
     {
+        public List<Message> _messages {  get; set; }
     }
 }

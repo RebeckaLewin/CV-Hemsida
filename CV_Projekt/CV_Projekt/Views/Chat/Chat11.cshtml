@@ -1,0 +1,13 @@
+﻿@model Message
+
+<h3> Model.message.Sender.FirstName Model.message.Sender.LastName </h3>
+<h4> Model.message.Subject</h4>
+<h4> Model.message.Context</h4>
+<a  class="btn btn-primary text-light"
+           style="background-color:#ff6219; margin-bottom:2rem;"
+           asp-controller="Chat"
+           asp-action="Add"
+           asp-route-senderId="Model.message.RecieverId"
+           asp-route-recieverId="Model">
+           Visa Meddelanden
+</a>
