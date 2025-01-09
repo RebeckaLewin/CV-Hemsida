@@ -78,10 +78,12 @@
                                         </form>
                                     </li>
                                 }
-
-                                <li>
-                                    <a class="dropdown-item text-black" href="#"><i class="fa-solid fa-gear text-black"></i>Inställningar</a>
-                                </li>
+                                @if(User.Identity.IsAuthenticated)
+                                {
+                                    <li>
+                                        <a class="dropdown-item text-black" href="#"><i class="fa-solid fa-gear text-black"></i>Inställningar</a>
+                                    </li>
+                                }
                             </ul>
                         </li>
                     </ul>
