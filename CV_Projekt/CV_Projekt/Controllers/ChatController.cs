@@ -5,13 +5,11 @@ namespace CV_Projekt.Controllers
 {
     public class ChatController : Controller
     {
-        private CvContext _context
-        private ILogger _logger
+        private CvContext _context;
 
-        public ChatController(CvContext context, ILogger logger)
+        public ChatController(CvContext context)
         {
             _context = context;
-            _logger = logger;
         }
 
         [HttpGet]
