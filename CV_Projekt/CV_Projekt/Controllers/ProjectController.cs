@@ -14,10 +14,7 @@ namespace CV_Projekt.Controllers
 
 		[HttpGet]
 
-		public IActionResult ShowProjectsView()
-		{
-			return View();
-		}
+		
 		public IActionResult ProjectView()
 		{
 			ProjectViewModel pvm = new ProjectViewModel { Users = context.Users.ToList(), Projects = context.Projects.ToList() };
