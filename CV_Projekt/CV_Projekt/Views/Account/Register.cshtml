@@ -141,14 +141,14 @@
                 </div>
             </div>
             <div class="row py-2">
-                <div class="col-md-6">
-                    <input asp-for="isPrivate" class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                    <label class="settingsLbl form-check-label" for="flexCheckDefault">
-						Privat konto <i style="color:grey;">(Bara inloggade användare kan se mig)</i>
-                    </label>
-                </div>
-                <div class="col-md-6 pt-md-0 pt-3">
+                <div class="col-md-6 d-flex align-content-end">
+                    <input asp-for="IsPrivate" class="form-check-input ms-auto" type="checkbox" value="" id="flexCheckDefault">
                     
+                </div>
+                <div class="col-md-6 pt-md-0 pt-3 ">
+						<label class="settingsLbl form-check-label" for="flexCheckDefault">
+							Privat konto <i style="color:grey;">(Bara inloggade användare kan se mig)</i>
+						</label>
                 </div>
             </div>
             <div class="py-3 pb-4 border-bottom">
