@@ -164,7 +164,7 @@
 						<div class="col-sm-8">
 						<div class="ms-3" style="margin-top: 100px;">
 							<h4 style="text-align:center;">CV</h4>
-							<h5 style="text-align:center;">Model.User.FirstName Model.User.LastName</h5>
+									<h5 style="text-align:center;">@Model.User.FirstName @Model.User.LastName</h5>
 							</div>
 						</div>
 							</div>
@@ -187,11 +187,27 @@
 						<div class="col-sm-4">
 					<div class="card-body p-4 text-black">
 						<div class="mb-5  text-body">
-							<h6 class="lead fw-normal mb-1">Skills</h6>
+										<button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-outline-dark text-body" data-mdb-ripple-color="dark" style="z-index: 1;">
+											Till Profil
+										</button>
+							<h6 class="lead fw-normal mb-1">Kontakt</h6>
 							<div class="p-4 bg-body-tertiary">
 
-								<p class="font-italic mb-1">Skill1</p>
-								<p class="font-italic mb-1">Skill2</p>
+											@if (Model.User.ContactInformation != null)
+											{
+												<ul class="list-unstyled">
+													<li>Email: @Model.User.UserName</li>
+													<li>Telefon: @Model.User.ContactInformation.Phone</li>
+													@if (!string.IsNullOrEmpty(Model.User.ContactInformation.Address))
+													{
+														<li>Adress: @Model.User.ContactInformation.Address</li>
+													}
+												</ul>
+											}
+											else
+											{
+												<p class="fw-light">Kontaktinformation saknas</p>
+											}
 								</div>
 							</div>
 							</div>
@@ -214,7 +230,22 @@
 								<div class="mb-5  text-body">
 									<p class="lead fw-normal mb-1"></p>
 									<div class="p-4 bg-body-tertiary">
+											<h6 class="lead fw-normal mb-1">Skills</h6>
+											<div class="p-4 bg-body-tertiary">
 
+												@if (Model.Skills != null && Model.Skills.Any())
+												{
+													<ul class="list-unstyled">
+														@foreach (var skill in Model.Skills)
+														{
+															<li>@skill</li>
+														}
+													</ul>
+												}
+												else
+												{
+													<p class="fw-light">Användaren har inga listade Skills</p>
+												}
 										
 									</div>
 								</div>
