@@ -37,38 +37,28 @@ namespace CV_Projekt.Controllers
         [HttpGet]
         public IActionResult Add(string senderId, string recieverId)
         {
+            Console.WriteLine(recieverId);
             Message message = new Message();
             var sender = _context.Users.Where(u => u.Id.Equals(senderId)).FirstOrDefault();
             var reciever = _context.Users.Where(u => u.Id.Equals(recieverId)).FirstOrDefault();
-            var firstName = reciever.FirstName;
-            var lastName = reciever.LastName;
-            var fullName = firstName + " " + lastName;
-            ViewBag.fullName = fullName;
-            ViewBag.senderId = senderId;
-            ViewBag.recieverId = recieverId;
-            return View(message);
+
+
+            MessageViewModel viewModel = new MessageViewModel { Message = message, Sender = sender, Receiver = reciever };
+            return View(viewModel);
         }
 
         [HttpPost]
-        public IActionResult Add(Message message, string senderId, string recieverId)
+        public IActionResult Add(MessageViewModel viewModel)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(message);
+                _context.Add(viewModel.Message);
                 _context.SaveChanges();
                 return RedirectToAction("Chat11", "Chat");
             }
             else
             {
-                var sender = _context.Users.Where(u => u.Id.Equals(senderId)).FirstOrDefault();
-                var reciever = _context.Users.Where(u => u.Id.Equals(recieverId)).FirstOrDefault();
-                var firstName = reciever.FirstName;
-                var lastName = reciever.LastName;
-                var fullName = firstName + " " + lastName;
-                ViewBag.fullName = fullName;
-                ViewBag.senderId = senderId;
-                ViewBag.recieverId = recieverId;
-                return View(message);
+                return View();
             }
         }
         public IActionResult Index()

@@ -1,17 +1,17 @@
-﻿@model Message
+﻿@model MessageViewModel
 
 <div asp-validation-summary="All" class="text-danger"></div>
 
 <h2>Skriv ett nytt meddelande</h2>
 
 <form asp-action="Add" method="post">
-	<label>Till: @ViewBag.fullName</label>
+	<label>Till: @Model.Receiver.FirstName @Model.Receiver.LastName</label>
 	<br />
 	<label>Subject: </label>
-	<input asp-for="Subject" />
+	<input asp-for="@Model.Message.Subject" />
 	<br />
 	<label>Message: </label>
-	<input type="text-area" asp-for="Content" />
+	<input type="text-area" asp-for="@Model.Message.Content" />
 	<br />	
 	@* <label>SenderId </label>
 	<input asp-for="SenderId" />
@@ -19,8 +19,8 @@
 	<label>RecieverId </label>
 	<input asp-for="RecieverId" />
 	<br />	 *@
-	<input type="hidden" name="SenderId" value="@ViewBag.Sender" />
-	<input type="hidden" name="ReceiverId" value="@ViewBag.Receiver" />
+	<input asp-for="@Model.Sender" type="hidden" value="@Model.Sender" />
+	<input asp-for="@Model.Receiver" type="hidden" value="@Model.Receiver" />
 	<input type="hidden" name="Date" value="DateTime.Now" />
 	<br />
 	<br />
