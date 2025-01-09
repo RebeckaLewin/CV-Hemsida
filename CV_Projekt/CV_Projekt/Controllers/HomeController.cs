@@ -26,11 +26,6 @@ namespace CV_Projekt.Controllers
             var latestProject = _context.Projects.OrderByDescending(p => p.Id)
                 .Take(1)
                 .ToList();
-            
-            var skills = cvs.Where(cv => cv.Skills !=null && cv.Skills.Any())
-                .SelectMany(cv => cv.Skills)
-                .Distinct()
-                .ToList();
 
             var random = new Random();
 
@@ -49,9 +44,7 @@ namespace CV_Projekt.Controllers
                 Users = usersWithCvs,
                 Projects = latestProject,
                 Cvs = cvs,
-                Experiences = experiences,
-                Skills = skills
-                
+                Experiences = experiences,              
             };
             return View(cvvm);
         }
