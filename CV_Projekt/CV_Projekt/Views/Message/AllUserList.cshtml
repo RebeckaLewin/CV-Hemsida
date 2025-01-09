@@ -1,0 +1,17 @@
+﻿@model UserViewModel
+
+@foreach (Message u in Model._users)
+{
+                <div class"card">
+
+                    <a  class="btn btn-primary text-light"
+                              style="background-color:#ff6219; margin-bottom:2rem;"
+                              asp-controller="Meddelande"
+                              asp-action="Add"
+                              asp-route-senderId=""
+                              asp-route-receiverId="@u.id">
+                              @u.FirstName @u.LastName 
+                   </a>
+
+                </div>
+}
