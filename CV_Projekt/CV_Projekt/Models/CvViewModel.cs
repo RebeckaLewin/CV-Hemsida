@@ -1,6 +1,6 @@
 ﻿namespace CV_Projekt.Models
 {
-    public class ProfileViewModel
+    public class CvViewModel
     {
         public CV CV { get; set; }
         public User Owner { get; set; }
