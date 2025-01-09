@@ -6,18 +6,18 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace CV_Projekt.Controllers
 {
-    public class ProfileController : Controller
+    public class CvController : Controller
     {
-        private readonly ILogger<ProfileController> _logger;
+        private readonly ILogger<CvController> _logger;
         private CvContext _context;
 
-        public ProfileController(ILogger<ProfileController> logger, CvContext context)
+        public CvController(ILogger<CvController> logger, CvContext context)
         {
             _logger = logger;
             _context = context;
         }
         [HttpGet]
-        public IActionResult Profile(int id)
+        public IActionResult Cv(int id)
         {
 
             var cv = _context.CVs
@@ -77,7 +77,7 @@ namespace CV_Projekt.Controllers
                 cv.Views++;
                 _context.SaveChanges();
             }
-            return RedirectToAction("Profile", new {id});
+            return RedirectToAction("Cv", new {id});
         }
     }
 }
