@@ -43,7 +43,19 @@ input[type="checkbox"]:checked {
     accent-color: #ff6219;
 }
 
+#selectedParticipantsList {
+    max-height: 150px;
+    overflow-y: auto;
+}
 
+#listgroupdiv {
+    height: 150px;
+}
+
+#dropdownMenu {
+    max-height: 150px;
+    overflow-y: auto;
+}
 
     
 
