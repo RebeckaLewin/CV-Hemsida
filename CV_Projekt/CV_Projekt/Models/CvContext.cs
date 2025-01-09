@@ -215,7 +215,7 @@ namespace CV_Projekt.Models
                     Content = "Hej på dig! Hur är det med dig?",
                     Date = new DateTime(2020, 6, 12),
                     SenderId = 1.ToString(),
-                    RecieverId = 2.ToString()
+                    ReceiverId = 2.ToString()
                 },
                 new Message
                 {
@@ -224,7 +224,7 @@ namespace CV_Projekt.Models
                     Content = "Missade att du skrev, förlåt.",
                     Date = new DateTime(2020, 7, 16),
                     SenderId = 2.ToString(),
-                    RecieverId = 1.ToString()
+                    ReceiverId = 1.ToString()
                 },
                 new Message
                 {
@@ -233,7 +233,7 @@ namespace CV_Projekt.Models
                     Content = "Ska vi ta en lunch imorgon?",
                     Date = new DateTime(2020, 8, 1),
                     SenderId = 3.ToString(),
-                    RecieverId = 1.ToString()
+                    ReceiverId = 1.ToString()
                 },
                 new Message
                 {
@@ -242,7 +242,7 @@ namespace CV_Projekt.Models
                     Content = "Tack för att du hjälpte mig med projektet.",
                     Date = new DateTime(2020, 8, 15),
                     SenderId = 1.ToString(),
-                    RecieverId = 3.ToString()
+                    ReceiverId = 3.ToString()
                 },
                 new Message
                 {
@@ -251,7 +251,7 @@ namespace CV_Projekt.Models
                     Content = "Kan du kika på dokumentet jag skickade?",
                     Date = new DateTime(2020, 9, 10),
                     SenderId = 4.ToString(),
-                    RecieverId = 5.ToString()
+                    ReceiverId = 5.ToString()
                 },
                 new Message
                 {
@@ -260,7 +260,7 @@ namespace CV_Projekt.Models
                     Content = "Jag har lagt till några kommentarer i ditt utkast.",
                     Date = new DateTime(2020, 9, 15),
                     SenderId = 5.ToString(),
-                    RecieverId = 4.ToString()
+                    ReceiverId = 4.ToString()
                 },
                 new Message
                 {
@@ -269,7 +269,7 @@ namespace CV_Projekt.Models
                     Content = "Glöm inte mötet imorgon kl. 10.",
                     Date = new DateTime(2020, 10, 1),
                     SenderId = 6.ToString(),
-                    RecieverId = 7.ToString()
+                    ReceiverId = 7.ToString()
                 },
                 new Message
                 {
@@ -278,7 +278,7 @@ namespace CV_Projekt.Models
                     Content = "Har du hunnit förbereda presentationen?",
                     Date = new DateTime(2020, 10, 20),
                     SenderId = 7.ToString(),
-                    RecieverId = 6.ToString()
+                    ReceiverId = 6.ToString()
                 },
                 new Message
                 {
@@ -287,7 +287,7 @@ namespace CV_Projekt.Models
                     Content = "Grattis på födelsedagen!",
                     Date = new DateTime(2020, 11, 3),
                     SenderId = 8.ToString(),
-                    RecieverId = 9.ToString()
+                    ReceiverId = 9.ToString()
                 },
                 new Message
                 {
@@ -296,7 +296,7 @@ namespace CV_Projekt.Models
                     Content = "Ha en trevlig helg! Vi hörs på måndag.",
                     Date = new DateTime(2020, 11, 6),
                     SenderId = 9.ToString(),
-                    RecieverId = 10.ToString()
+                    ReceiverId = 10.ToString()
                 }
             );
 
@@ -822,9 +822,14 @@ namespace CV_Projekt.Models
                 .OnDelete(DeleteBehavior.ClientSetNull);
 
             modelBuilder.Entity<Message>()
-                .HasOne(m => m.Reciever)
+                .HasOne(m => m.Receiver)
                 .WithMany(r => r.RecievedMessages)
                 .OnDelete(DeleteBehavior.ClientSetNull);
+
+            modelBuilder.Entity<CV>()
+                .HasOne(cv => cv.Owner)
+                .WithOne()
+                .OnDelete(DeleteBehavior.ClientNoAction);
 
             modelBuilder.Entity<CV>()
               .HasMany(cv => cv.Experiences)

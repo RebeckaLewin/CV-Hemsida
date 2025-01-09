@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace CV_Projekt.Migrations
 {
     /// <inheritdoc />
-    public partial class migration1 : Migration
+    public partial class _1 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -83,11 +83,11 @@ namespace CV_Projekt.Migrations
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: false),
                     InformationId = table.Column<int>(type: "int", nullable: false),
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     isPrivate = table.Column<bool>(type: "bit", nullable: false),
                     isActive = table.Column<bool>(type: "bit", nullable: false),
+                    UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedEmail = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -215,8 +215,7 @@ namespace CV_Projekt.Migrations
                         name: "FK_CVs_AspNetUsers_OwnerId",
                         column: x => x.OwnerId,
                         principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -257,14 +256,14 @@ namespace CV_Projekt.Migrations
                     Content = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: false),
                     Date = table.Column<DateTime>(type: "datetime2", nullable: false),
                     SenderId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    RecieverId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                    ReceiverId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Messages", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Messages_AspNetUsers_RecieverId",
-                        column: x => x.RecieverId,
+                        name: "FK_Messages_AspNetUsers_ReceiverId",
+                        column: x => x.ReceiverId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id");
                     table.ForeignKey(
@@ -444,16 +443,16 @@ namespace CV_Projekt.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "InformationId", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "Password", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName", "isActive", "isPrivate" },
                 values: new object[,]
                 {
-                    { "1", 0, "a9ab8063-5eac-4e24-ba38-9b00f5c8b6a3", null, false, "Alice", 1, "Andersson", false, null, null, null, "P@ssword123", null, null, false, "e72283c6-4295-4acb-a6c9-7436dfe8115d", false, "aliA", true, true },
-                    { "10", 0, "adb50ef6-3eb8-4207-aaa6-960c639bf6e4", null, false, "Julia", 10, "Jonsson", false, null, null, null, "JuliasP@ss7", null, null, false, "c53669af-3638-482f-978e-49160e3ce75c", false, "JulesJ", false, true },
-                    { "2", 0, "7e8f18a3-6c24-4293-8d25-7123a227ca22", null, false, "Bob", 2, "Bergström", false, null, null, null, "P@ssword456", null, null, false, "a5ddef64-8522-47f7-a942-9f8632f555a8", false, "BobbieB", true, false },
-                    { "3", 0, "34db7cca-32fb-49c8-96ec-c2fce8c132f9", null, false, "Charlie", 3, "Carlsson", false, null, null, null, "P@ssword789", null, null, false, "bdcde9bd-0ca6-4963-929a-71ed6ce24b36", false, "Charlie", false, false },
-                    { "4", 0, "fe3c1c62-a5a1-419c-9e3f-afcebbfced7d", null, false, "Daniel", 4, "Davidsson", false, null, null, null, "SecureP@ss1", null, null, false, "4807dc7f-e0e3-485c-a7a1-e5eb013c320c", false, "DanD", true, true },
-                    { "5", 0, "a702ca9b-ad16-49f0-8a03-a5eed37e658d", null, false, "Emily", 5, "Evans", false, null, null, null, "MyP@ssword2", null, null, false, "b1520053-2369-4ab4-a8b2-12146d660bb3", false, "EmEv", true, false },
-                    { "6", 0, "f53dcd51-1c07-4ac9-8cb9-701efed2fd8e", null, false, "Frank", 6, "Fischer", false, null, null, null, "StrongP@ss3", null, null, false, "bfe65845-62e8-46cb-b6c9-665609952814", false, "Frankie", true, true },
-                    { "7", 0, "56dafb13-d4c8-430f-80ad-b8782a21588f", null, false, "Grace", 7, "Gustafsson", false, null, null, null, "GracefulP@ss4", null, null, false, "9080b141-af80-4ab9-a2de-876f52a7b4cd", false, "GracieG", false, false },
-                    { "8", 0, "01c5a424-a6db-4606-b218-feae53d18ad6", null, false, "Hanna", 8, "Holm", false, null, null, null, "H@nnasP@ss5", null, null, false, "b96ebc82-2139-448a-9288-a5f1d64f25b7", false, "HannaH", true, true },
-                    { "9", 0, "706c401b-a2ec-4304-b167-b2614086b875", null, false, "Ian", 9, "Ingemarsson", false, null, null, null, "I@nsSecure6", null, null, false, "4dd359d4-16f4-4cb2-9e1b-8bbbac74d97a", false, "IanI", true, false }
+                    { "1", 0, "f71e7537-3e13-44c1-8afe-830c11616afe", null, false, "Alice", 1, "Andersson", false, null, null, null, "P@ssword123", null, null, false, "47437cf8-ebd3-4fdd-9ad8-42af4fc580b3", false, "aliA", true, true },
+                    { "10", 0, "0ae0c131-005f-4364-b72d-d04ca0e0e2b9", null, false, "Julia", 10, "Jonsson", false, null, null, null, "JuliasP@ss7", null, null, false, "47e05ad2-d9ef-4885-b69f-4e0307d078dc", false, "JulesJ", false, true },
+                    { "2", 0, "af63064f-efde-4c06-8b0b-080468006cfc", null, false, "Bob", 2, "Bergström", false, null, null, null, "P@ssword456", null, null, false, "ee3f2d7d-fe70-40cb-a69a-8cae7d62fc50", false, "BobbieB", true, false },
+                    { "3", 0, "07a9f802-2d95-4ca6-89de-9feebfe265d3", null, false, "Charlie", 3, "Carlsson", false, null, null, null, "P@ssword789", null, null, false, "b6d77379-d1ea-498e-a1b6-c184a84fb0c1", false, "Charlie", false, false },
+                    { "4", 0, "82eb0301-a4ff-4cf7-8ce9-57222c46aa64", null, false, "Daniel", 4, "Davidsson", false, null, null, null, "SecureP@ss1", null, null, false, "2009d46e-306d-481d-81e6-e76a7ae808b2", false, "DanD", true, true },
+                    { "5", 0, "dea02ae1-1bfc-40e6-9760-793d357b9322", null, false, "Emily", 5, "Evans", false, null, null, null, "MyP@ssword2", null, null, false, "6d38033d-3e13-4dcf-a819-8efa8239bcae", false, "EmEv", true, false },
+                    { "6", 0, "a1284e51-8374-42a8-8e69-53b4b7bbe551", null, false, "Frank", 6, "Fischer", false, null, null, null, "StrongP@ss3", null, null, false, "2d8bd4db-2bf6-4a4d-af2c-e65101fb9ff7", false, "Frankie", true, true },
+                    { "7", 0, "30a6be8c-de6a-4a4e-a632-b85ef444f162", null, false, "Grace", 7, "Gustafsson", false, null, null, null, "GracefulP@ss4", null, null, false, "0f8136e5-55bf-4263-b993-68f1cde9249f", false, "GracieG", false, false },
+                    { "8", 0, "4d930554-9745-42fe-a0fd-e519e4702cb2", null, false, "Hanna", 8, "Holm", false, null, null, null, "H@nnasP@ss5", null, null, false, "13062cde-62db-4476-8735-6cc7ccd01b7b", false, "HannaH", true, true },
+                    { "9", 0, "9539a8b7-0e6b-49ae-9c90-1d40b4689832", null, false, "Ian", 9, "Ingemarsson", false, null, null, null, "I@nsSecure6", null, null, false, "f1d6c581-7625-460d-bafa-8ac03d335b52", false, "IanI", true, false }
                 });
 
             migrationBuilder.InsertData(
@@ -525,7 +524,7 @@ namespace CV_Projekt.Migrations
 
             migrationBuilder.InsertData(
                 table: "Messages",
-                columns: new[] { "Id", "Content", "Date", "RecieverId", "SenderId", "Subject" },
+                columns: new[] { "Id", "Content", "Date", "ReceiverId", "SenderId", "Subject" },
                 values: new object[,]
                 {
                     { 1, "Hej på dig! Hur är det med dig?", new DateTime(2020, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified), "2", "1", "En hälsning" },
@@ -642,7 +641,8 @@ namespace CV_Projekt.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_CVs_OwnerId",
                 table: "CVs",
-                column: "OwnerId");
+                column: "OwnerId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_CVTag_TagsId",
@@ -655,9 +655,9 @@ namespace CV_Projekt.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Messages_RecieverId",
+                name: "IX_Messages_ReceiverId",
                 table: "Messages",
-                column: "RecieverId");
+                column: "ReceiverId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Messages_SenderId",
