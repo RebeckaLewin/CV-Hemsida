@@ -81,7 +81,7 @@ input[type="checkbox"]:checked {
 .cv-list-group {
     height: 200px; 
     overflow-y: auto; 
-    border: 1px solid #dcdcdc; 
+    border: 1px solid #ff6219; 
     border-radius: 5px;
     padding: 10px; 
     background-color: #f8f9fa; 
