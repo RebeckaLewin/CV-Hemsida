@@ -1,1 +1,11 @@
 ﻿@model ProfileProjectViewModel
+
+
+<p>@Model.User.FirstName @Model.User.LastName</p>
+
+@foreach (var projCre in Model.CreatedProjects)
+{
+	<p>@projCre.Title</p>
+	<p>@projCre.Description</p>
+}
+

@@ -1,5 +1,6 @@
 ﻿using CV_Projekt.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace CV_Projekt.Controllers
 {
@@ -21,15 +22,16 @@ namespace CV_Projekt.Controllers
             {
                 return NotFound();
             }
+            
+            var projCreated = _context.Projects
+                .Where(p => p.CreatorId == id)
+                .ToList();
 
             var projPart = _context.Projects
                 .Where(p => p.Participants.
                 Any(u => u.Id == id))
                 .ToList();
 
-            var projCreated = _context.Projects
-                .Where(p => p.CreatorId == id)
-                .ToList();
 
             ProfileProjectViewModel ppvm = new ProfileProjectViewModel
             {
