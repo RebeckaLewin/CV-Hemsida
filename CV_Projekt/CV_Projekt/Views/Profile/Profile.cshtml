@@ -12,8 +12,10 @@
     </form>
 </div>
 
-<button class="btn btn-primary">
-    <a asp-controller="ProfileProject" asp-action="ProfileProject" asp-rout-id="@Model.User.Id">
+<button class="btn btn-primary"
+        asp-controller="ProfileProject" 
+        asp-action="ProfileProject"
+        asp-route-id="@Model.User.Id">
         PROJEKT
-    </a>
+    
 </button>

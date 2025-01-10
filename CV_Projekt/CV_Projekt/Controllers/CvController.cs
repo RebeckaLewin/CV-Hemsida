@@ -17,20 +17,21 @@ namespace CV_Projekt.Controllers
             _context = context;
         }
         
-        public IActionResult CV()
+        public IActionResult CV(int id)
         {
-            var cv = _context.CVs.Where(cv => cv.OwnerId.Equals("1")).FirstOrDefault();
+            var cv = _context.CVs.Where(cv => cv.Id == id)
+                .FirstOrDefault();
             if (cv == null)
             {
                 return NotFound();
             }
-
-            var user = _context.Users.Where(u => u.Id.Equals("1")).FirstOrDefault();
+            var user = _context.Users.Where(u => u.Id == cv.OwnerId)
+                .FirstOrDefault();
             if (user == null)
             {
                 return NotFound();
             }
-            
+
 
             var work = _context.Experiences
                 .Where(e => e.UserId.Equals(user.Id) && e is Work)
