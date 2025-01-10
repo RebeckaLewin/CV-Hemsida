@@ -37,12 +37,13 @@ namespace CV_Projekt.Controllers
         [HttpGet]
         public IActionResult Add(string senderId, string receiverId)
         {
-            Message message = new Message();
             var sender = _context.Users.Where(u => u.Id.Equals(senderId)).FirstOrDefault();
             var receiver = _context.Users.Where(u => u.Id.Equals(receiverId)).FirstOrDefault();
+            Message message = new Message() { Receiver = receiver, Sender = sender };
 
 
-            MessageViewModel viewModel = new MessageViewModel { Message = message, Sender = sender, Receiver = receiver };
+
+            MessageViewModel viewModel = new MessageViewModel { Message = message };
             return View(viewModel);
         }
 
@@ -53,7 +54,7 @@ namespace CV_Projekt.Controllers
             {
                 _context.Add(viewModel.Message);
                 _context.SaveChanges();
-                return RedirectToAction("Chat11", "Chat", new { senderId = viewModel.Message.SenderId, receiverId = viewModel.Message.ReceiverId } );
+                return RedirectToAction("Chat11", "Chat", new { senderId = viewModel.Message.ReceiverId, receiverId = viewModel.Message.SenderId } );
             }
             else
             {

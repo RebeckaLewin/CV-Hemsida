@@ -16,11 +16,11 @@ namespace CV_Projekt.Controllers
         public IActionResult Chat11(string senderId, string receiverId)
         {
 
-            var recMes = _context.Messages
-                .Where(m => m.ReceiverId.Equals(receiverId) && m.SenderId.Equals(senderId))
+            var sentMes = _context.Messages
+                .Where(m => m.ReceiverId.Equals(senderId) && m.SenderId.Equals(receiverId))
                 .OrderBy(m => m.Date)
                 .ToList();
-            var sentMes = _context.Messages
+            var recMes = _context.Messages
                 .Where(m => m.ReceiverId.Equals(receiverId) && m.SenderId.Equals(senderId))
                 .OrderBy(m => m.Date)
                 .ToList();
