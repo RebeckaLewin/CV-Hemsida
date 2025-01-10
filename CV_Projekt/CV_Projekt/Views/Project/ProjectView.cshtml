@@ -4,58 +4,6 @@
 	ViewData["Title"] = "Projekt";
 }
 
-@* <div asp-validation-summary="All" class="text-danger"></div>
-
-<h1>Projekt</h1>
-
-<form asp-action="ProjectView" method="post">
-	<input asp-for="ProjectToSave.Title" type="text" />
-	<br />
-	<input asp-for="ProjectToSave.StartDate" type="date" />
-	<br />
-	<input asp-for="ProjectToSave.EndDate" type="date" />
-	<br />
-	<textarea asp-for="ProjectToSave.Description"></textarea>
-	<br />
-	<input value="@User.Identity" asp-for="ProjectToSave.CreatorId" type="text" />
-	<button type="submit">Skapa</button>
-</form>
-
-<div>
-	<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-	Lägg till
-	</button>
-	<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-		@foreach (var project in Model.Users)
-		{
-			<a class="dropdown-item" href="#">@project.FirstName @project.LastName</a>
-		}
-	</div>
-	</div>
-
-	<input type="checkbox" asp-for="IsUpdating" />
-
-	<div class="dropdown">
-		<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-		Välj projekt
-		</button>
-		<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-			@foreach (var project in Model.Projects)
-			{
-				<a class="dropdown-item" href="#">@project.Title</a>
-			}
-		</div>
-	</div>
-
-	<select onchange="">
-		<option value="">Välj projekt</option>
-		@foreach (var project in Model.Projects)
-		{
-			<option value="@project">@project.Title</option>
-		}
-	</select> *@
-
-
 <body class="bodyUserProfileSettings"
       style="margin: 0 0 5rem 0;
             padding: 0;
@@ -103,12 +51,7 @@
                         <input value="@User.Identity" asp-for="ProjectToSave.CreatorId" type="text" class="bg-light form-control">
                 </div>
                     <div class="col-md-6 pt-md-0 pt-3">
-                        <div>
-                            @* <label class="settingsLbl" for="addParticipants"></label>
-                            <button class="btn border border-light dropdown-toggle" type="button" id="dropdownMenuButton" style="background-color:#fff; color:#ff6219;" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Lägg till Projektdeltagare
-                            </button> *@
-                            </div>
+                        
                             </div>
                             </div>
                 <div class="row py-2">
