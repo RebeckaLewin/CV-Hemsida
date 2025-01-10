@@ -17,16 +17,21 @@
 <div class="card mb-3">
             <img class="card-img-top" src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(107).webp" alt="Card image cap" style="max-height: 180px; width:100%; object-fit: cover;">
     <div class="card-body">
-        
-          <h5 class="card-title" style="color:#ff6219;">ProjektTitel</h5>
-          <p class="card-text">Nån typ av beskrivning</p>
+        @foreach (var proj in Model.Projects)
+        {
+          <h5 class="card-title" style="color:#ff6219;">@proj.Title</h5>
+
+          <p class="card-text">@proj.Description</p>
           <h6 class="card-title" style="color:#ff6219;">Skapare</h6>
-          <p class="card-text">Creator</p>
+                    <p class="card-text">@proj.Creator.FirstName @proj.Creator.LastName </p>
           <h6 class="card-title" style="color:#ff6219;">Deltagare</h6>
-        <ul class="list-group list-group-flush">
-            <li class="list-group-item">Deltagare Deltagarsson</li>
-            
-        </ul>
+            @foreach (var user in Model.Users)
+            {
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">@user.FirstName @user.LastName</li>
+                </ul>
+            }
+        }
     </div>
 </div>
 </div>

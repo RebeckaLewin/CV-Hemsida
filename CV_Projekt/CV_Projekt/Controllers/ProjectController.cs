@@ -1,5 +1,6 @@
 ﻿using CV_Projekt.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace CV_Projekt.Controllers
 {
@@ -14,7 +15,24 @@ namespace CV_Projekt.Controllers
 
 		[HttpGet]
 
-		
+		public IActionResult ShowProjectsView() 
+		{
+			var projects = context.Projects
+				.Include(p => p.Participants)
+				.ToList();
+
+			var projCreator = context.Users
+				.Where(u => projects.Select(p => p.CreatorId)
+				.Contains(u.Id))
+				.ToList();
+
+			var proj = new ProjectViewModel()
+			{
+				Projects = projects,
+				Creator = projCreator
+			};
+			return View(proj);
+		}
 		public IActionResult Add()
 		{
 			User loggedInUser = context.Users.Where(u => u.UserName.Equals(User.Identity.Name)).FirstOrDefault();

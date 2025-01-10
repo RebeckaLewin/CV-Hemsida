@@ -27,10 +27,5 @@ namespace CV_Projekt.Models
 		public bool ReceiverDelete { get; set; }
 		public bool SenderDelete { get; set; }
 
-		public Message() 
-		{
-            ReceiverDelete = false;
-            SenderDelete = false;
-        }
 	}
 }
