@@ -15,8 +15,13 @@ namespace CV_Projekt.Controllers
         }
 
         [HttpGet]
-        public IActionResult ChatList(string id)
+        public IActionResult ChatList()
         {
+
+            var identity = _context.Users.Where(u => u.UserName.Equals(User.Identity.Name)).FirstOrDefault();
+            var id = identity.Id;
+            ViewBag.Id = id;
+
             var recMes = _context.Messages
                 .Where(m => m.ReceiverId.Equals(id))
                 .Where(m => m.isRead.Equals(false))
@@ -27,8 +32,6 @@ namespace CV_Projekt.Controllers
             {
                 ReceivedMessages = recMes
             };
-
-            ViewBag.Id = id;
 
             return View(viewModel);
         }
@@ -66,15 +69,20 @@ namespace CV_Projekt.Controllers
         [HttpGet]
         public IActionResult AllUserList()
         {
-            var allUsers = _context.Users.ToList();
+
+            var identity = _context.Users.Where(u => u.UserName.Equals(User.Identity.Name)).FirstOrDefault();
+            var id = identity.Id;
+            ViewBag.Id = id;
+
+            List<User> notAllUsers = new List<User> { identity };
+            var allUsers = _context.Users.Except(notAllUsers).ToList();
 
             var viewModel = new UserViewModel
             {
                 _users = allUsers
             };
 
-            var identity = _context.Users.Where(u => u.UserName.Equals(User.Identity.Name)).FirstOrDefault();
-            ViewBag.Id = identity.Id;
+            
 
             return View(viewModel);
         }
