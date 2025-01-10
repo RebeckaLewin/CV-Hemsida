@@ -35,14 +35,14 @@ namespace CV_Projekt.Controllers
 
 
         [HttpGet]
-        public IActionResult Add(string senderId, string recieverId)
+        public IActionResult Add(string senderId, string receiverId)
         {
             Message message = new Message();
             var sender = _context.Users.Where(u => u.Id.Equals(senderId)).FirstOrDefault();
-            var reciever = _context.Users.Where(u => u.Id.Equals(recieverId)).FirstOrDefault();
+            var receiver = _context.Users.Where(u => u.Id.Equals(receiverId)).FirstOrDefault();
 
 
-            MessageViewModel viewModel = new MessageViewModel { Message = message, Sender = sender, Receiver = reciever };
+            MessageViewModel viewModel = new MessageViewModel { Message = message, Sender = sender, Receiver = receiver };
             return View(viewModel);
         }
 
