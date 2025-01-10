@@ -1,4 +1,4 @@
-﻿@model ProjectViewModel
+﻿@model CvViewModel
 
 @{
     ViewData["Title"] = "Skapa CV";
@@ -86,17 +86,58 @@
             <div class="row py-2">
                     <h6>Lägg till utbildning</h6>
                 <div class="col-md-6">
-                    <label class="settingsLbl" for="projDescription">Utbildning</label>
+                    <label class="settingsLbl" for="eduTitle">Program</label>
                     <input id="educationTitle" type="text" class="bg-light form-control">
 
                 </div>
                 <div class="col-md-6 pt-md-0 pt-3">
-                     <label class="settingsLbl" for="enddate">Utbildningsbeskrivning</label>
+                     <label class="settingsLbl" for="eduDesc">Utbildningsbeskrivning</label>
                      <input id="educationDescription" type="text" class="bg-light form-control">
-                        <button id="addEducation" type="button" class="btn border border-light button mr-3 text-light" style="background-color:#ff6219;">Lägg till Utbildning</button>
+                      
                      
                 </div>
             </div>
+                <div class="row py-2">
+                   
+                    <div class="col-md-6">
+						<label class="settingsLbl" for="eduLevel">Nivå</label>
+						<input id="educationLevel" type="text" class="bg-light form-control">
+
+                    </div>
+                    <div class="col-md-6 pt-md-0 pt-3">
+						<label class="settingsLbl" for="startdate">Startdatum</label>
+						<input id="educationStart" type="date" class="bg-light form-control">
+                      
+
+                    </div>
+                </div>
+                <div class="row py-2">
+                   
+                    <div class="col-md-6">
+                        <label class="settingsLbl" for="eduLocation">Stad</label>
+                        <input id="educationLocation" type="text" class="bg-light form-control">
+
+                    </div>
+                    <div class="col-md-6 pt-md-0 pt-3">
+						<label class="settingsLbl" for="enddate">Slutdatum</label>
+						<input id="educationEnd" type="date" class="bg-light form-control">
+                        
+
+                    </div>
+                </div>
+
+                <div class="row py-2">
+                   
+                    <div class="col-md-6">
+						<button id="addEducation" type="button" class="btn border border-light button mr-3 text-light" style="background-color:#ff6219;">Lägg till Utbildning</button>
+
+                    </div>
+                    <div class="col-md-6 pt-md-0 pt-3">
+
+                        
+
+                    </div>
+                </div>
                 <div class="row py-2">
                     <h6>Tillagda utbildningar:</h6>
                     <div class="col-md-12">
@@ -107,14 +148,54 @@
                 <div class="row py-2">
                     <h6>Lägg till annan erfarenhet</h6>
                     <div class="col-md-6">
-                        <label class="settingsLbl" for="projDescription">Annan erfarenhet</label>
+                        <label class="settingsLbl" for="otherTitle">Annan erfarenhet</label>
                         <input id="otherExpTitle" type="text" class="bg-light form-control">
 
                     </div>
                     <div class="col-md-6 pt-md-0 pt-3">
-                        <label class="settingsLbl" for="enddate">Beskrivning</label>
+                        <label class="settingsLbl" for="otherDesc">Beskrivning</label>
                         <input id="otherExpDescription" type="text" class="bg-light form-control">
-                        <button id="addOtherExp" type="button" class="btn border border-light button mr-3 text-light" style="background-color:#ff6219;">Lägg till erfarenhet</button>
+                       
+
+                    </div>
+                </div>
+                <div class="row py-2">
+                   
+                    <div class="col-md-6">
+                        <label class="settingsLbl" for="otherType">Typ av erfarenhet</label>
+                        <input id="otherExpType" type="text" class="bg-light form-control">
+
+                    </div>
+                    <div class="col-md-6 pt-md-0 pt-3">
+                        <label class="settingsLbl" for="startdate">Startdatum</label>
+                        <input id="otherExpStart" type="date" class="bg-light form-control">
+                       
+
+                    </div>
+                </div>
+                <div class="row py-2">
+                   
+                    <div class="col-md-6">
+                        <label class="settingsLbl" for="otherLocation">Stad</label>
+                        <input id="otherExpLocation" type="text" class="bg-light form-control">
+
+                    </div>
+                    <div class="col-md-6 pt-md-0 pt-3">
+                        <label class="settingsLbl" for="enddate">Slutdatum</label>
+                        <input id="otherExpEnd" type="date" class="bg-light form-control">
+                      
+
+                    </div>
+                </div>
+                <div class="row py-2">
+                    <h6></h6>
+                    <div class="col-md-6">
+						<button id="addOtherExp" type="button" class="btn border border-light button mr-3 text-light" style="background-color:#ff6219;">Lägg till erfarenhet</button>
+
+                    </div>
+                    <div class="col-md-6 pt-md-0 pt-3">
+                        
+                      
 
                     </div>
                 </div>
@@ -128,13 +209,25 @@
                 <div class="row py-2">
                     <h6>Lägg till skills</h6>
                     <div class="col-md-6">
-                        <label class="settingsLbl" for="projDescription">Skill</label>
+                        <label class="settingsLbl" for="skillTtl">Skill</label>
                         <input id="skillTitle" type="text" class="bg-light form-control">
 
                     </div>
                     <div class="col-md-6 pt-md-0 pt-3">
                       
-                        <button id="addSkill" type="button" class="btn border border-light button mr-3 text-light" style="background-color:#ff6219;">Lägg till skill</button>
+                     
+
+                    </div>
+                </div>
+                <div class="row py-2">
+                   
+                    <div class="col-md-6">
+						<button id="addSkill" type="button" class="btn border border-light button mr-3 text-light" style="background-color:#ff6219;">Lägg till skill</button>
+
+                    </div>
+                    <div class="col-md-6 pt-md-0 pt-3">
+
+                       
 
                     </div>
                 </div>
@@ -158,73 +251,98 @@
         </div>
     </div>
     <script>
-                    
-        function addItem(input1Id, input2Id, input3Id, input4Id, input5Id, input6Id, listId, hasDescription = true) {
+        function addItem(input1Id, input2Id, input3Id, input4Id, input5Id, input6Id, input7Id, input8Id, input9Id, listId, hasDescription = true, hasRole = false, hasStart = false, hasEnd = false, hasLocation = false) {
             const input1 = document.getElementById(input1Id);
             const input2 = hasDescription ? document.getElementById(input2Id) : null;
-            const input3 = document.getElementById(input3Id);
-            const input4 = document.getElementById(input4Id);
-            const input5 = document.getElementById(input5Id);
-            const input6 = document.getElementById(input6Id);
+            const input3 = hasRole ? document.getElementById(input3Id) : null;
+            const input4 = hasStart ? document.getElementById(input4Id) : null;
+            const input5 = hasLocation ? document.getElementById(input5Id) : null;
+            const input6 = hasEnd ? document.getElementById(input6Id) : null;
+            const input7 = document.getElementById(input7Id);
+            const input8 = document.getElementById(input8Id);
+            const input9 = document.getElementById(input9Id);
             const list = document.getElementById(listId);
 
             const title = input1.value.trim();
-            const description = hasDescription ? input2.value.trim() : null;
-            const role = input3.value.trim();
-            const start = input4.value.trim();
-            const location = input5.value.trim();
-            const end = input6.value.trim();
+            const description = hasDescription && input2 ? input2.value.trim() : '';
+            const role = hasRole && input3 ? input3.value.trim() : '';
+            const start = hasStart && input4 ? input4.value.trim() : '';
+            const location = hasLocation && input5 ? input5.value.trim() : '';
+            const end = hasEnd && input6 ? input6.value.trim() : '';
+            const programme = input7 ? input7.value.trim() : '';
+            const level = input8 ? input8.value.trim() : '';
+            const type = input9 ? input9.value.trim() : '';
 
            
-            if (title === '' || (hasDescription && description === '') || role === '' || start === '' || location === '' || end === '') {
+            if (title === '' || (hasDescription && description === '') || (hasStart && start === '') || (hasLocation && location === '') || (hasEnd && end === '') || (hasRole && role === '')) {
                 alert('Fyll i alla obligatoriska fält!');
                 return;
             }
 
-          
             const listItem = document.createElement('li');
             listItem.className = 'list-group-item d-flex justify-content-between align-items-center';
+            let datesHtml = '';
+
+        
+            if (start && end) {
+                datesHtml = `${start} - ${end}<br>`;
+            } else if (start) {
+                datesHtml = `${start}<br>`;
+            } else if (end) {
+                datesHtml = `${end}<br>`;
+            }
+
             listItem.innerHTML = `
                 <div>
-                    <strong>${title}</strong></br><i>${role}</i>${hasDescription ? `: ${description}` : ''}</br>${location}</br>${start} - ${end}</br>
+                    <strong>${title}</strong><br>
+                    ${hasRole ? `<i>${role}</i><br>` : ''}
+                    ${description ? `${description}<br>` : ''}
+                    ${programme ? `Program: ${programme}<br>` : ''}
+                    ${level ? `Nivå: ${level}<br>` : ''}
+                    ${type ? `Typ: ${type}<br>` : ''}
+                    ${location}<br>
+                    ${datesHtml}
                 </div>
-                <button class="btn btn-sm remove-btn" style="background-color:#fff; color:#ff6219;"><i class="fa-solid fa-xmark"></i></button>`;
+                <button class="btn btn-sm remove-btn" style="background-color:#fff; color:#ff6219;"><i class="fa-solid fa-xmark"></i></button>
+            `;
 
-           
             listItem.querySelector('.remove-btn').addEventListener('click', function () {
                 list.removeChild(listItem);
             });
 
-           
             list.appendChild(listItem);
 
-           
+          
             input1.value = '';
-            if (hasDescription) input2.value = '';
-            input3.value = '';
-            input4.value = '';
-            input5.value = '';
-            input6.value = '';
+            if (hasDescription && input2) input2.value = '';
+            if (hasRole && input3) input3.value = '';
+            if (hasStart && input4) input4.value = '';
+            if (hasLocation && input5) input5.value = '';
+            if (hasEnd && input6) input6.value = '';
+            if (input7) input7.value = '';
+            if (input8) input8.value = '';
+            if (input9) input9.value = '';
         }
 
-       
+      
         document.getElementById('addWork').addEventListener('click', function () {
-            addItem('workTitle','workRole', 'workDescription', 'workLocation', 'workStart', 'workEnd', 'workList');
+            addItem('workTitle', 'workDescription', 'workRole', 'workStart', 'workLocation', 'workEnd', null, null, null, 'workList', true, true, true, true, true);
         });
 
+       
         document.getElementById('addEducation').addEventListener('click', function () {
-            addItem('educationTitle', 'educationDescription', 'educationList');
+            addItem('educationTitle', 'educationDescription', null, 'educationStart', 'educationLocation', 'educationEnd', 'educationProgramme', 'educationLevel', null, 'educationList', true, false, true, true, true);
         });
 
+      
         document.getElementById('addOtherExp').addEventListener('click', function () {
-            addItem('otherExpTitle', 'otherExpDescription', 'otherExpList');
+            addItem('otherExpTitle', 'otherExpDescription', null, 'otherExpStart', 'otherExpLocation', 'otherExpEnd', null, null, 'otherExpType', 'otherExpList', true, false, true, true, true);
         });
 
+       
         document.getElementById('addSkill').addEventListener('click', function () {
-            addItem('skillTitle', null, 'skillList', false);
+            addItem('skillTitle', null, null, null, null, null, null, null, null, 'skillList', false, false, false, false, false);
         });
-
-
-
     </script>
+
 </body>
