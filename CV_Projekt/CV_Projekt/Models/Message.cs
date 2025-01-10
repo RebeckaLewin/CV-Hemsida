@@ -23,5 +23,14 @@ namespace CV_Projekt.Models
 		public virtual User? Sender { get; set; }
 		[ForeignKey(nameof(ReceiverId))]
 		public virtual User? Receiver { get; set; }
+
+		public bool ReceiverDelete { get; set; }
+		public bool SenderDelete { get; set; }
+
+		public Message() 
+		{
+            ReceiverDelete = false;
+            SenderDelete = false;
+        }
 	}
 }
