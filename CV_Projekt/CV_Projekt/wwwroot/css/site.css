@@ -1,9 +1,16 @@
 html {
   font-size: 14px;
 }
+.footer {
+    margin-top: 5rem;
+}
 
 body {
+    background-image: url("https://images.pexels.com/photos/1624496/pexels-photo-1624496.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2");
     background-color: dimgrey;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 .footer-shared {
     color: lightgrey;
