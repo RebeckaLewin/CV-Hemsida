@@ -29,18 +29,21 @@
                     </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto">
-                        <li class="nav-item">
-                            <a class="nav-link text-white" href="/UserProfile/UserProfile">
-                                <i class="fa-solid fa-user"></i>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-white" href="#">
-                                <i class="fa-solid fa-envelope text-light position-relative">
-                                    <span class="badge rounded-pill badge-notification bg-danger position-absolute top-0 left-0 translate-middle" style="font-size:0.5rem;">1</span>
-                                </i>
-                            </a>
-                        </li>
+                        @if(User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item">
+                                <a asp-controller="Profile" asp-action="UserProfile" class="nav-link text-white">
+                                    <i class="fa-solid fa-user"></i>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white" href="#">
+                                    <i class="fa-solid fa-envelope text-light position-relative">
+                                        <span class="badge rounded-pill badge-notification bg-danger position-absolute top-0 left-0 translate-middle" style="font-size:0.5rem;">1</span>
+                                    </i>
+                                </a>
+                            </li>
+                        }
                         <li class="nav-item dropdown hidden-arrow">
                             <a data-mdb-dropdown-init class="nav-link dropdown-toggle text-black"
                                href="#" 
