@@ -16,7 +16,10 @@ namespace CV_Projekt.Controllers
             _logger = logger;
             _context = context;
         }
-        
+        public IActionResult CreateCv()
+        {
+            return View();
+        }
         public IActionResult CV()
         {
             var cv = _context.CVs.Where(cv => cv.OwnerId.Equals("1")).FirstOrDefault();

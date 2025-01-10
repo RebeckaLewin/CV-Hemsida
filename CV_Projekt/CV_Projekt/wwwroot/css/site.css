@@ -78,10 +78,15 @@ input[type="checkbox"]:checked {
         color: #ff6219;
         
     }
-    #home-tab #work-tab #education-tab #other-tab #project-tab {
-        color: black;
-    }
-
+.cv-list-group {
+    height: 200px; 
+    overflow-y: auto; 
+    border: 1px solid #dcdcdc; 
+    border-radius: 5px;
+    padding: 10px; 
+    background-color: #f8f9fa; 
+    list-style-type: none;
+}
 
    
 
