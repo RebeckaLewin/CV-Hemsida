@@ -138,7 +138,20 @@ namespace CV_Projekt.Controllers
 					ModelState.AddModelError("", "De angivna lösenorden matchar inte.");
 					return View(viewModel);
 				}
-				context.Users.Update(viewModel.User);
+				User userToUpdate = context.Users.Where(u => u.UserName.Equals(User.Identity.Name)).FirstOrDefault();
+
+				userToUpdate.FirstName = viewModel.User.FirstName;
+				userToUpdate.LastName = viewModel.User.LastName;
+				userToUpdate.UserName = viewModel.User.UserName;
+				userToUpdate.Password = viewModel.User.Password;
+
+				userToUpdate.isPrivate = viewModel.User.isPrivate;
+				userToUpdate.isActive = viewModel.User.isActive;
+
+				userToUpdate.ContactInformation.Address = viewModel.User.ContactInformation.Address;
+				userToUpdate.ContactInformation.Phone = viewModel.User.ContactInformation.Phone;
+
+				context.Users.Update(userToUpdate);
 				context.SaveChanges();
 				RedirectToAction("UserProfile", "UserProfile");
 			}
