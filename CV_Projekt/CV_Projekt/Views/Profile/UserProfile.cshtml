@@ -15,7 +15,7 @@
                             </button>
                             <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-outline-dark text-body" data-mdb-ripple-color="dark" style="z-index: 1;">
                                 <i class="fa-solid fa-file-circle-plus"></i>
-                                <a>Skapa CV</a>
+                                <a asp-controller="Cv" asp-action="CreateCv" asp-route-id="@Model.User.Id">Skapa CV</a>
                             </button>
                             <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-outline-dark text-body" data-mdb-ripple-color="dark" style="z-index: 1;">
                                 <i class="fa-solid fa-envelope text-black position-relative">
