@@ -2,16 +2,16 @@
 
 <div asp-validation-summary="All" class="text-danger"></div>
 
-<h2>Skriv ett nytt meddelande</h2>
+<h2 style="color:#FFF;">Skriv ett nytt meddelande</h2>
 
 <form asp-action="Add" method="post">
-	<label>Till: @Model.Receiver.FirstName @Model.Receiver.LastName</label>
+	<label style="color:#FFF;">Till: @Model.Receiver.FirstName @Model.Receiver.LastName</label>
 	<br />
-	<label>Subject: </label>
+	<label style="color:#FFF;">Subject: </label>
 	<input asp-for="@Model.Message.Subject" />
 	<br />
-	<label>Message: </label>
-	<input type="text-area" asp-for="@Model.Message.Content" />
+	<label style="color:#FFF;">Message: </label>
+	<input type="textarea" asp-for="@Model.Message.Content" />
 	<br />	
 	@* <label>SenderId </label>
 	<input asp-for="SenderId" />

@@ -334,6 +334,9 @@ namespace CV_Projekt.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("isRead")
+                        .HasColumnType("bit");
+
                     b.HasKey("Id");
 
                     b.HasIndex("ReceiverId");
@@ -350,7 +353,8 @@ namespace CV_Projekt.Migrations
                             Date = new DateTime(2020, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ReceiverId = "2",
                             SenderId = "1",
-                            Subject = "En hälsning"
+                            Subject = "En hälsning",
+                            isRead = false
                         },
                         new
                         {
@@ -359,7 +363,8 @@ namespace CV_Projekt.Migrations
                             Date = new DateTime(2020, 7, 16, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ReceiverId = "1",
                             SenderId = "2",
-                            Subject = "Missade"
+                            Subject = "Missade",
+                            isRead = false
                         },
                         new
                         {
@@ -368,7 +373,8 @@ namespace CV_Projekt.Migrations
                             Date = new DateTime(2020, 8, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ReceiverId = "1",
                             SenderId = "3",
-                            Subject = "Lunch?"
+                            Subject = "Lunch?",
+                            isRead = false
                         },
                         new
                         {
@@ -377,7 +383,8 @@ namespace CV_Projekt.Migrations
                             Date = new DateTime(2020, 8, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ReceiverId = "3",
                             SenderId = "1",
-                            Subject = "Tack!"
+                            Subject = "Tack!",
+                            isRead = false
                         },
                         new
                         {
@@ -386,7 +393,8 @@ namespace CV_Projekt.Migrations
                             Date = new DateTime(2020, 9, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ReceiverId = "5",
                             SenderId = "4",
-                            Subject = "Fråga"
+                            Subject = "Fråga",
+                            isRead = false
                         },
                         new
                         {
@@ -395,7 +403,8 @@ namespace CV_Projekt.Migrations
                             Date = new DateTime(2020, 9, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ReceiverId = "4",
                             SenderId = "5",
-                            Subject = "Feedback"
+                            Subject = "Feedback",
+                            isRead = false
                         },
                         new
                         {
@@ -404,7 +413,8 @@ namespace CV_Projekt.Migrations
                             Date = new DateTime(2020, 10, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ReceiverId = "7",
                             SenderId = "6",
-                            Subject = "Möte"
+                            Subject = "Möte",
+                            isRead = false
                         },
                         new
                         {
@@ -413,7 +423,8 @@ namespace CV_Projekt.Migrations
                             Date = new DateTime(2020, 10, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ReceiverId = "6",
                             SenderId = "7",
-                            Subject = "Presentation"
+                            Subject = "Presentation",
+                            isRead = false
                         },
                         new
                         {
@@ -422,7 +433,8 @@ namespace CV_Projekt.Migrations
                             Date = new DateTime(2020, 11, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ReceiverId = "9",
                             SenderId = "8",
-                            Subject = "Grattis!"
+                            Subject = "Grattis!",
+                            isRead = false
                         },
                         new
                         {
@@ -431,7 +443,8 @@ namespace CV_Projekt.Migrations
                             Date = new DateTime(2020, 11, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ReceiverId = "10",
                             SenderId = "9",
-                            Subject = "Trevlig helg"
+                            Subject = "Trevlig helg",
+                            isRead = false
                         });
                 });
 
@@ -734,7 +747,7 @@ namespace CV_Projekt.Migrations
                         {
                             Id = "1",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "08ae0a35-d6fd-4a52-92ac-da04cc630228",
+                            ConcurrencyStamp = "e04b1804-3de8-4e52-bbd2-e5b3cb52158d",
                             EmailConfirmed = false,
                             FirstName = "Alice",
                             InformationId = 1,
@@ -742,7 +755,7 @@ namespace CV_Projekt.Migrations
                             LockoutEnabled = false,
                             Password = "P@ssword123",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "39cff57b-71f1-4e0b-87b3-6c2f51a85a15",
+                            SecurityStamp = "59b350b4-cc0a-431d-aca2-e854f60cb5e6",
                             TwoFactorEnabled = false,
                             UserName = "alicean12@live.se",
                             isActive = true,
@@ -752,7 +765,7 @@ namespace CV_Projekt.Migrations
                         {
                             Id = "2",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "1ed7bc05-98c8-448a-8453-1993bf6ea991",
+                            ConcurrencyStamp = "ab155666-30b2-4f32-a4f0-719c34e7eba9",
                             EmailConfirmed = false,
                             FirstName = "Bob",
                             InformationId = 2,
@@ -760,7 +773,7 @@ namespace CV_Projekt.Migrations
                             LockoutEnabled = false,
                             Password = "P@ssword456",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "cb4f84e2-a2f5-4fbe-aa3c-0f73f6d50c21",
+                            SecurityStamp = "e9e58c71-66d5-4b34-9b24-4ff98b73aa74",
                             TwoFactorEnabled = false,
                             UserName = "bobbergstrom@gmail.com",
                             isActive = true,
@@ -770,7 +783,7 @@ namespace CV_Projekt.Migrations
                         {
                             Id = "3",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "ca284af4-ac23-4ed7-b746-0c1fa2097b96",
+                            ConcurrencyStamp = "68418a56-ab05-41e5-93a9-d4ec623a8f9c",
                             EmailConfirmed = false,
                             FirstName = "Charlie",
                             InformationId = 3,
@@ -778,7 +791,7 @@ namespace CV_Projekt.Migrations
                             LockoutEnabled = false,
                             Password = "P@ssword789",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "9fba9708-c772-4dbc-83a4-f4f9eef6cdd1",
+                            SecurityStamp = "3fc74874-ea4e-4000-910a-80ff3c0b7bab",
                             TwoFactorEnabled = false,
                             UserName = "charliec@live.se",
                             isActive = false,
@@ -788,7 +801,7 @@ namespace CV_Projekt.Migrations
                         {
                             Id = "4",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "9201b6e4-1669-492c-9725-540bcbe6c8b9",
+                            ConcurrencyStamp = "14e30502-a9dc-4dcd-b07b-30faea90cc5c",
                             EmailConfirmed = false,
                             FirstName = "Daniel",
                             InformationId = 4,
@@ -796,7 +809,7 @@ namespace CV_Projekt.Migrations
                             LockoutEnabled = false,
                             Password = "SecureP@ss1",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "ae5d29de-109e-492a-b467-50c9a97288a2",
+                            SecurityStamp = "0bbf59cb-d8f2-4227-bb04-aa71ec660430",
                             TwoFactorEnabled = false,
                             UserName = "danield@outlook.com",
                             isActive = true,
@@ -806,7 +819,7 @@ namespace CV_Projekt.Migrations
                         {
                             Id = "5",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "ede4033e-edc0-449a-ab22-469e21f83192",
+                            ConcurrencyStamp = "d2519ded-6b34-4a06-88ee-05e0242f82f5",
                             EmailConfirmed = false,
                             FirstName = "Emily",
                             InformationId = 5,
@@ -814,7 +827,7 @@ namespace CV_Projekt.Migrations
                             LockoutEnabled = false,
                             Password = "MyP@ssword2",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "f2b01416-85e9-40ee-bf93-24a256b3282f",
+                            SecurityStamp = "13b0486e-95a2-4a6b-9923-1a3789e49a9a",
                             TwoFactorEnabled = false,
                             UserName = "emily.evans@hotmail.com",
                             isActive = true,
@@ -824,7 +837,7 @@ namespace CV_Projekt.Migrations
                         {
                             Id = "6",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "9e0cae15-dc0a-4b9f-bced-ec46edba4c28",
+                            ConcurrencyStamp = "da2d8d1e-8592-4c70-bde5-64d25e939258",
                             EmailConfirmed = false,
                             FirstName = "Frank",
                             InformationId = 6,
@@ -832,7 +845,7 @@ namespace CV_Projekt.Migrations
                             LockoutEnabled = false,
                             Password = "StrongP@ss3",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "c3882472-10aa-4b1c-b2e3-ec6631060491",
+                            SecurityStamp = "5096af2b-8d58-4980-aca8-5ddabf3fc043",
                             TwoFactorEnabled = false,
                             UserName = "frankfischer@gmail.com",
                             isActive = true,
@@ -842,7 +855,7 @@ namespace CV_Projekt.Migrations
                         {
                             Id = "7",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "69d65d17-aebc-4f55-a971-f63b6ff5709e",
+                            ConcurrencyStamp = "6bb440ab-ebac-4a8b-8d2d-aa9efd0b5a14",
                             EmailConfirmed = false,
                             FirstName = "Grace",
                             InformationId = 7,
@@ -850,7 +863,7 @@ namespace CV_Projekt.Migrations
                             LockoutEnabled = false,
                             Password = "GracefulP@ss4",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "0695e4e9-dc52-4bf3-aaa4-5560a22bda91",
+                            SecurityStamp = "c924a80e-be48-4793-8330-e2d039fd8854",
                             TwoFactorEnabled = false,
                             UserName = "grace.gustafsson@live.se",
                             isActive = false,
@@ -860,7 +873,7 @@ namespace CV_Projekt.Migrations
                         {
                             Id = "8",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "d12d8e41-75ac-44a8-91a5-c72643f96dba",
+                            ConcurrencyStamp = "335f7540-28e5-4990-9991-324c31bb6129",
                             EmailConfirmed = false,
                             FirstName = "Hanna",
                             InformationId = 8,
@@ -868,7 +881,7 @@ namespace CV_Projekt.Migrations
                             LockoutEnabled = false,
                             Password = "H@nnasP@ss5",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "330d3b90-cf67-4699-a4b7-1e26ffc9a6f7",
+                            SecurityStamp = "2b93ee56-83c2-479b-871f-5f98d9253955",
                             TwoFactorEnabled = false,
                             UserName = "hanna.holm@gmail.com",
                             isActive = true,
@@ -878,7 +891,7 @@ namespace CV_Projekt.Migrations
                         {
                             Id = "9",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "ca88468c-2bd1-4ff8-89ad-12e79e7f500a",
+                            ConcurrencyStamp = "41beaaec-d6be-4e32-941e-13a6747077a1",
                             EmailConfirmed = false,
                             FirstName = "Ian",
                             InformationId = 9,
@@ -886,7 +899,7 @@ namespace CV_Projekt.Migrations
                             LockoutEnabled = false,
                             Password = "I@nsSecure6",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "f0d9fa1a-cd0a-4232-b934-29e9fb54710f",
+                            SecurityStamp = "d0b43371-8c71-409b-ae86-aa05ca718444",
                             TwoFactorEnabled = false,
                             UserName = "ian.ingemarsson@outlook.com",
                             isActive = true,
@@ -896,7 +909,7 @@ namespace CV_Projekt.Migrations
                         {
                             Id = "10",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "2a19d442-8fe2-4931-aacb-85dd0f96ce8c",
+                            ConcurrencyStamp = "a876ae10-6b18-44bc-a048-32c45c50b632",
                             EmailConfirmed = false,
                             FirstName = "Julia",
                             InformationId = 10,
@@ -904,7 +917,7 @@ namespace CV_Projekt.Migrations
                             LockoutEnabled = false,
                             Password = "JuliasP@ss7",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "d910681f-e643-4d6b-ada6-520320ce5aaf",
+                            SecurityStamp = "1e1b34d4-db31-41ac-bfdc-ba3fed6a9973",
                             TwoFactorEnabled = false,
                             UserName = "julia.jonsson@yahoo.com",
                             isActive = false,

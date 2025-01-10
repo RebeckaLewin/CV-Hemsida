@@ -26,7 +26,7 @@ namespace CV_Projekt.Controllers
                 .ToList();
             var firstName = _context.Users.Where(u => u.Id.Equals(senderId)).Select(u => u.FirstName).FirstOrDefault();
             var lastName = _context.Users.Where(u => u.Id.Equals(senderId)).Select(u => u.LastName).FirstOrDefault();
-            var fullName = firstName + lastName;
+            var fullName = firstName + " " + lastName;
 
             ViewBag.FullName = fullName;
             ViewBag.SenderId = senderId;

@@ -1,7 +1,7 @@
 ﻿@model ChatListViewModel
 
 <div class="row">
-<h2>Meddelanden från @ViewBag.FullName</h2>
+<h2 style="color:#FFF;">Meddelanden</h2>
 
 <a  class="btn btn-primary text-light"
            style="background-color:#ff6219; margin-bottom:2rem;"
@@ -24,16 +24,16 @@
 @foreach (Message mess in @Model.ReceivedMessages)
 {
     <div class="card">
-        <h4> @mess.Sender.FirstName @mess.Sender.LastName</h4>
+        <h4>Från: @mess.Sender.FirstName   @mess.Sender.LastName</h4>
         <h4> @mess.Subject</h4>
         <h5> @mess.Content</h5>
     </div>
 }
-<h2> Skickade Meddelanden till @ViewBag.FullName</h2>
+<h2 style="color:#FFF;"> Skickade Meddelanden</h2>
 @foreach (Message mess in @Model.SentMessages)
 {
     <div class="card">
-        <h4> @mess.Receiver.FirstName @mess.Receiver.LastName </h4>
+            <h4>Till: @mess.Sender.FirstName   @mess.Sender.LastName</h4>
         <h4> @mess.Subject</h4>
         <h5> @mess.Content</h5>
     </div>
