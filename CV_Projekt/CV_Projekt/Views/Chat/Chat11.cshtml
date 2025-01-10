@@ -1,21 +1,41 @@
-﻿@model Message
+﻿@model ChatListViewModel
 
-<h3> @Model.Sender.FirstName @Model.Sender.LastName </h3>
-<h4> @Model.Subject</h4>
-<h4> @Model.Content</h4>
+<div class="row">
+<h2>Meddelanden från @ViewBag.FullName</h2>
+
 <a  class="btn btn-primary text-light"
            style="background-color:#ff6219; margin-bottom:2rem;"
            asp-controller="Message"
            asp-action="Add"
-           asp-route-senderId="@Model.ReceiverId"
-           asp-route-recieverId="@Model.SenderId">
-           Svara
+           asp-route-senderId="@ViewBag.ReceiverId"
+           asp-route-recieverId="@ViewBag.SenderId">
+           Skriv meddelande till @ViewBag.FullName
 </a>
 
 <a  class="btn btn-primary text-light"
            style="background-color:#ff6219; margin-bottom:2rem;"
            asp-controller="Message"
            asp-action="ChatList"
-           asp-route-id="@Model.ReceiverId">
+           asp-route-id="@ViewBag.ReceiverId">
            Tillbaka
 </a>
+</div>
+
+@foreach (Message mess in @Model.ReceivedMessages)
+{
+    <div class="card">
+        <h4> @mess.Sender.FirstName @mess.Sender.LastName</h4>
+        <h4> @mess.Subject</h4>
+        <h5> @mess.Content</h5>
+    </div>
+}
+<h2> Skickade Meddelanden till @ViewBag.FullName</h2>
+@foreach (Message mess in @Model.SentMessages)
+{
+    <div class="card">
+        <h4> @mess.Receiver.FirstName @mess.Receiver.LastName </h4>
+        <h4> @mess.Subject</h4>
+        <h5> @mess.Content</h5>
+    </div>
+}
+

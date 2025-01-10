@@ -15,22 +15,30 @@ namespace CV_Projekt.Controllers
         [HttpGet]
         public IActionResult Chat11(string senderId, string receiverId)
         {
-            //var messages = _context.Messages
-            //    .Where(m => (m.SenderId.Equals(senderId) && m.RecieverId.Equals(receiverId)) ||
-            //                (m.SenderId.Equals(receiverId) && m.RecieverId.Equals(senderId)))
-            //                .OrderBy(m => m.Date)
-            //                .Take(5)
-            //                .ToList();
 
-            var message = _context.Messages
+            var recMes = _context.Messages
                 .Where(m => m.ReceiverId.Equals(receiverId) && m.SenderId.Equals(senderId))
                 .OrderBy(m => m.Date)
-                .FirstOrDefault();
+                .ToList();
+            var sentMes = _context.Messages
+                .Where(m => m.ReceiverId.Equals(receiverId) && m.SenderId.Equals(senderId))
+                .OrderBy(m => m.Date)
+                .ToList();
+            var firstName = _context.Users.Where(u => u.Id.Equals(senderId)).Select(u => u.FirstName).FirstOrDefault();
+            var lastName = _context.Users.Where(u => u.Id.Equals(senderId)).Select(u => u.LastName).FirstOrDefault();
+            var fullName = firstName + lastName;
 
+            ViewBag.FullName = fullName;
             ViewBag.SenderId = senderId;
             ViewBag.ReceiverId = receiverId;
 
-            return View(message);
+            var viewModel = new ChatListViewModel
+            {
+                ReceivedMessages = recMes,
+                SentMessages = sentMes
+            };
+
+            return View(viewModel);
         }
         public IActionResult Index()
         {

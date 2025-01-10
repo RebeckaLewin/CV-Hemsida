@@ -17,22 +17,19 @@ namespace CV_Projekt.Controllers
         [HttpGet]
         public IActionResult ChatList(string id)
         {
-            var receivedMessages = _context.Messages
+            var recMes = _context.Messages
                 .Where(m => m.ReceiverId.Equals(id))
+                .Where(m => !m.isRead)
                 .OrderByDescending(m => m.Date)
                 .ToList();
-            var sentMessages = _context.Messages
-                .Where(m => m.SenderId.Equals(id))
-                .OrderByDescending(m => m.Date)
-                .ToList();
-
-            //var mesRec = recMes.DistinctBy(r => r.SenderId).ToList();
            
             var viewModel = new ChatListViewModel
             {
-                RecievedMessages = receivedMessages,   
-                SentMessages = sentMessages,
+                ReceivedMessages = recMes
             };
+
+            ViewBag.Id = id;
+
             return View(viewModel);
         }
 
@@ -40,7 +37,6 @@ namespace CV_Projekt.Controllers
         [HttpGet]
         public IActionResult Add(string senderId, string recieverId)
         {
-            Console.WriteLine(recieverId);
             Message message = new Message();
             var sender = _context.Users.Where(u => u.Id.Equals(senderId)).FirstOrDefault();
             var reciever = _context.Users.Where(u => u.Id.Equals(recieverId)).FirstOrDefault();
@@ -65,6 +61,38 @@ namespace CV_Projekt.Controllers
                 return RedirectToAction("Add", new { senderId = viewModel.Message.SenderId, recieverId = viewModel.Message.ReceiverId });
             }
         }
+
+        [HttpGet]
+        public IActionResult AllUserList()
+        {
+            var allUsers = _context.Users.ToList();
+
+            var viewModel = new UserViewModel
+            {
+                _users = allUsers
+            };
+
+
+
+            return View(viewModel);
+        }
+
+        //[HttpGet]
+        //public IActionResult SentChatList(string id)
+        //{
+        //    var sentMes = _context.Messages
+        //        .Where(m => m.SenderId.Equals(id))
+        //        .OrderByDescending(m => m.Date)
+        //        .ToList();
+
+        //    var mesSent = sentMes.DistinctBy(r => r.ReceiverId).ToList();
+
+        //    var viewModel = new ChatListViewModel
+        //    {
+        //        RecievedMessages = mesSent
+        //    };
+        //    return View(viewModel);
+        //}
         public IActionResult Index()
         {
             return View();
