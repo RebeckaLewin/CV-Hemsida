@@ -1524,12 +1524,12 @@ namespace CV_Projekt.Migrations
 
             modelBuilder.Entity("CV_Projekt.Models.Project", b =>
                 {
-                    b.HasOne("CV_Projekt.Models.User", "Creator")
+                    b.HasOne("CV_Projekt.Models.User", "CreatorId")
                         .WithMany("CreatedProjects")
                         .HasForeignKey("CreatorId")
                         .IsRequired();
 
-                    b.Navigation("Creator");
+                    b.Navigation("CreatorId");
                 });
 
             modelBuilder.Entity("CV_Projekt.Models.User", b =>
