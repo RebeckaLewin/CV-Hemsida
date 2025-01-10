@@ -5,7 +5,7 @@
 <h2 style="color:#FFF;">Skriv ett nytt meddelande</h2>
 
 <form asp-action="Add" method="post">
-	<label style="color:#FFF;">Till: @Model.Receiver.FirstName @Model.Receiver.LastName</label>
+	<label style="color:#FFF;">Till: @Model.Message.Receiver.FirstName @Model.Message.Receiver.LastName</label>
 	<br />
 	<label style="color:#FFF;">Subject: </label>
 	<input asp-for="@Model.Message.Subject" />
@@ -19,8 +19,8 @@
 	<label>RecieverId </label>
 	<input asp-for="RecieverId" />
 	<br />	 *@
-	<input asp-for="@Model.Message.SenderId" type="hidden" value="@Model.Sender.Id" />
-	<input asp-for="@Model.Message.ReceiverId" type="hidden" value="@Model.Receiver.Id" />
+	<input asp-for="@Model.Message.SenderId" type="hidden" value="@Model.Message.Sender.Id" />
+	<input asp-for="@Model.Message.ReceiverId" type="hidden" value="@Model.Message.Receiver.Id" />
 	<input asp-for="@Model.Message.Date" type="hidden" name="Date" value="DateTime.Now" />
 	<br />
 	<br />
