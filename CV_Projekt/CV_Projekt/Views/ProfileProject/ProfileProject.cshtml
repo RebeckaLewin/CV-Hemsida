@@ -9,3 +9,14 @@
 	<p>@projCre.Description</p>
 }
 
+@foreach (var projPart in Model.ProjectParticipant)
+{
+	<p>@projPart.Title</p>
+	<p>@projPart.Description</p>
+}
+
+<div class="d-flex justify-content-center mt-2">
+	<a asp-controller="Profile" asp-action="Profile" asp-route-id="@Model.User.Id" class="btn btn-primary">VISA PROFIL</a>
+</div>
+
+
