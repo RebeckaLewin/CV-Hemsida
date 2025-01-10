@@ -130,7 +130,6 @@ namespace CV_Projekt.Controllers
 		[HttpPost]
 		public IActionResult Settings(SettingsViewModel viewModel)
 		{
-			Debug.WriteLine(viewModel.User.Password.Length);
 			if(ModelState.IsValid)
 			{
 				if (!viewModel.User.Password.Equals(viewModel.ConfirmedPassword))

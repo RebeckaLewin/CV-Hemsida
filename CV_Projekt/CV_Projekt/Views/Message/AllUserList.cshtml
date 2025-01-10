@@ -1,0 +1,19 @@
+﻿@model UserViewModel
+
+<h2>Vem vill du skriva till?</h2>
+
+@foreach (User user in @Model._users)
+{
+                <div class"card">
+
+                    <a  class="btn btn-primary text-light"
+                              style="background-color:#ff6219; margin-bottom:2rem;"
+                              asp-controller="Message"
+                              asp-action="Add"
+                              asp-route-senderId="@ViewBag.Id"
+                              asp-route-receiverId="@user.Id">
+                              @user.FirstName @user.LastName 
+                   </a>
+
+                </div>
+}

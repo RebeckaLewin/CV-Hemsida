@@ -17,36 +17,32 @@ namespace CV_Projekt.Controllers
         [HttpGet]
         public IActionResult ChatList(string id)
         {
-            var receivedMessages = _context.Messages
+            var recMes = _context.Messages
                 .Where(m => m.ReceiverId.Equals(id))
+                .Where(m => m.isRead.Equals(false))
                 .OrderByDescending(m => m.Date)
                 .ToList();
-            var sentMessages = _context.Messages
-                .Where(m => m.SenderId.Equals(id))
-                .OrderByDescending(m => m.Date)
-                .ToList();
-
-            //var mesRec = recMes.DistinctBy(r => r.SenderId).ToList();
            
             var viewModel = new ChatListViewModel
             {
-                RecievedMessages = receivedMessages,   
-                SentMessages = sentMessages,
+                ReceivedMessages = recMes
             };
+
+            ViewBag.Id = id;
+
             return View(viewModel);
         }
 
 
         [HttpGet]
-        public IActionResult Add(string senderId, string recieverId)
+        public IActionResult Add(string senderId, string receiverId)
         {
-            Console.WriteLine(recieverId);
             Message message = new Message();
             var sender = _context.Users.Where(u => u.Id.Equals(senderId)).FirstOrDefault();
-            var reciever = _context.Users.Where(u => u.Id.Equals(recieverId)).FirstOrDefault();
+            var receiver = _context.Users.Where(u => u.Id.Equals(receiverId)).FirstOrDefault();
 
 
-            MessageViewModel viewModel = new MessageViewModel { Message = message, Sender = sender, Receiver = reciever };
+            MessageViewModel viewModel = new MessageViewModel { Message = message, Sender = sender, Receiver = receiver };
             return View(viewModel);
         }
 
@@ -65,6 +61,23 @@ namespace CV_Projekt.Controllers
                 return RedirectToAction("Add", new { senderId = viewModel.Message.SenderId, recieverId = viewModel.Message.ReceiverId });
             }
         }
+
+        [HttpGet]
+        public IActionResult AllUserList()
+        {
+            var allUsers = _context.Users.ToList();
+
+            var viewModel = new UserViewModel
+            {
+                _users = allUsers
+            };
+
+            var identity = _context.Users.Where(u => u.UserName.Equals(User.Identity.Name)).FirstOrDefault();
+            ViewBag.Id = identity.Id;
+
+            return View(viewModel);
+        }
+
         public IActionResult Index()
         {
             return View();

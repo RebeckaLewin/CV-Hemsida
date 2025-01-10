@@ -18,21 +18,10 @@ namespace CV_Projekt.Models
 		[Required]
 		public string? ReceiverId { get; set; }
 		[Required]
-		public bool ReceiverHasDeleted { get; set; }
-		[Required]
-		public bool SenderHasDeleted { get; set; }
-
-		[Required]
-		bool isRead { get; set; }
+		public bool isRead { get; set; }
 		[ForeignKey(nameof(SenderId))]
 		public virtual User? Sender { get; set; }
 		[ForeignKey(nameof(ReceiverId))]
 		public virtual User? Receiver { get; set; }
-
-		public Message()
-		{
-			ReceiverHasDeleted = false;
-			SenderHasDeleted = false;
-		}
 	}
 }

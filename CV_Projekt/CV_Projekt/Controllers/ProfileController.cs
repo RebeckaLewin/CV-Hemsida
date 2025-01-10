@@ -41,5 +41,15 @@ namespace CV_Projekt.Controllers
             };
             return View(pvm);
         }
+
+        [HttpGet]
+        public IActionResult UserProfile()
+        {
+            UserProfileViewModel viewModel = new UserProfileViewModel();
+            viewModel.User = _context.Users.Where(u => u.UserName.Equals(User.Identity.Name)).FirstOrDefault();
+            viewModel.Projects = _context.Projects.ToList();
+            viewModel.Tags = _context.Tags.ToList();
+            return View(viewModel);
+        }
     }
 }
