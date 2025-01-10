@@ -107,5 +107,40 @@ namespace CV_Projekt.Controllers
 			}
 			return View(new RegisterViewModel());
 		}
+
+		[HttpGet]
+		public IActionResult Settings()
+		{
+			User aUser = new User();
+			try
+			{
+				aUser = context.Users.Where(u => u.UserName.Equals(User.Identity.Name)).FirstOrDefault();
+				if (aUser == null)
+				{
+					throw new Exception(message: "Användare med den angivna eposten saknas.");
+				}
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine(ex.Message);
+			}
+			return View(aUser);
+		}
+
+		[HttpPost]
+		public IActionResult Settings(User aUser)
+		{
+			if(ModelState.IsValid)
+			{
+				context.Users.Update(aUser);
+				context.SaveChanges();
+				RedirectToAction("UserProfile", "UserProfile");
+			}
+			else
+			{
+				aUser = new User();
+			}
+			return View(aUser);
+		}
 	}
 }
