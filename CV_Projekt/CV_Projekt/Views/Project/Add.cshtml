@@ -23,7 +23,7 @@
             Lägg till Projekt
         </h4>
         <div class="py-2">
-            <form asp-action="ProjectView" method="post">
+            <form asp-action="Add" method="post">
             <div class="row py-2">
                 <div class="col-md-6">
                     <label class="settingsLbl" for="title">Projektets Titel</label>
@@ -48,7 +48,8 @@
             <div class="row py-2">
                 <div class="col-md-6 ">
                     <label class="settingsLbl" for="projCreator">Skapare av projekt</label>
-                        <input value="@User.Identity" asp-for="ProjectToSave.CreatorId" type="text" class="bg-light form-control">
+                        <input value="@Model.ProjectToSave.Creator.Id" asp-for="ProjectToSave.CreatorId" type="text" class="bg-light form-control" hidden>
+                        <input value="@Model.ProjectToSave.Creator.FirstName @Model.ProjectToSave.Creator.LastName" disabled/>
                 </div>
                     <div class="col-md-6 pt-md-0 pt-3">
                         

@@ -15,29 +15,28 @@ namespace CV_Projekt.Controllers
 		[HttpGet]
 
 		
-		public IActionResult ProjectView()
+		public IActionResult Add()
 		{
-			ProjectViewModel pvm = new ProjectViewModel { Users = context.Users.ToList(), Projects = context.Projects.ToList() };
-			return View(pvm);
+			User loggedInUser = context.Users.Where(u => u.UserName.Equals(User.Identity.Name)).FirstOrDefault();
+			Project newProject = new Project();
+			newProject.Creator = loggedInUser;
+			ProjectViewModel viewModel = new ProjectViewModel { Users = context.Users.ToList(), ProjectToSave = newProject };
+			return View(viewModel);
 		}
 
 		[HttpPost]
-		public IActionResult ProjectView(ProjectViewModel viewModel)
+		public IActionResult Add(ProjectViewModel viewModel)
 		{
 			if (ModelState.IsValid)
 			{
-				if(viewModel.IsUpdating)
-				{
-					context.Projects.Update(viewModel.ProjectToSave);
-				}
-				else
-				{
-					context.Add(viewModel.ProjectToSave);
-				}
+				context.Add(viewModel.ProjectToSave);
 				context.SaveChanges();
 			}
-			ProjectViewModel pvm = new ProjectViewModel { Users = context.Users.ToList(), Projects = context.Projects.ToList() };
-			return View(pvm);
+			User loggedInUser = context.Users.Where(u => u.UserName.Equals(User.Identity.Name)).FirstOrDefault();
+			Project newProject = new Project();
+			newProject.Creator = loggedInUser;
+			ProjectViewModel newViewModel = new ProjectViewModel { Users = context.Users.ToList(), ProjectToSave = newProject };
+			return View(newViewModel);
 		}
 	}
 }
