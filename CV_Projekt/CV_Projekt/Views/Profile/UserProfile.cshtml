@@ -1,4 +1,4 @@
-﻿@model UserProfileViewModel
+﻿@model ProfileViewModel
 
 <section class="h-100">
     <div class="container py-5 h-100">
@@ -59,7 +59,7 @@
                                     <div class="card-body" style="background-color: dimgray; color: lightgray" >
                                         <h5 class="card-header bg-dark" style="text-align:center;">Mitt CV</h5>
                                          
-                                        @foreach(var exp in Model.Experiences) { 
+                                        @foreach(var exp in Model.Experience) { 
                                             @if(exp is Work work)
                                             {
                                                 <h6 class="card-header" style="background-color:#ff6219; text-align:center;">Arbetslivserfarenhet</h6>
@@ -90,7 +90,7 @@
                             <p class="mb-0"><a href="#!" class="text-muted">Visa alla</a></p>
                         </div>
                         <div class="container">
-                            @foreach (var proj in Model.ProjectCollaborator)
+                            @foreach (var proj in Model.User.JoinedProjects)
                             {
                                 <div class="row g-2">
                                 <div class="card col mb-2">
@@ -130,6 +130,33 @@
                             </div>
                             }
                         </div>
+
+                            <div class="row g-2">
+                                @foreach (var project in Model.User.CreatedProjects)
+                                {
+                                    <div class="card col mb-2">
+                                        <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(112).webp" alt="image 1"
+                                             class="card-img-top w-100 rounded-3">
+                                        <div class="card-body">
+                                            <p class="card-text">@project.Title</p>
+                                            <p class="card-text">@project.Description</p>
+                                        </div>
+                                    </div>
+                                }
+                                @foreach (var project in Model.User.JoinedProjects)
+                                {
+                                    <div class="card col mb-2">
+                                        <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(112).webp" alt="image 1"
+                                             class="card-img-top w-100 rounded-3">
+                                        <div class="card-body">
+                                            <p class="card-text">@project.Title</p>
+                                            <p class="card-text">@project.Description</p>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                    
+                    
                     </div>
                 </div>
             </div>
