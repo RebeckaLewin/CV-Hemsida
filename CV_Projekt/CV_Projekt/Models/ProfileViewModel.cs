@@ -10,5 +10,7 @@
 
         public List<Experience> Experience { get; set; }
 
+        public CV CV { get; set; }
+
     }
 }
