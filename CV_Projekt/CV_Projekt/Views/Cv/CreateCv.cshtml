@@ -1,0 +1,230 @@
+﻿@model ProjectViewModel
+
+@{
+    ViewData["Title"] = "Skapa CV";
+}
+
+<body class="bodyUserProfileSettings"
+      style="margin: 0 0 5rem 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            background-color: dimgrey;">
+    <div class="wrapper my-sm-5"
+         style="background-color:#fff;
+                padding: 30px 50px;
+                border: 1px solid #ff6219;
+                border-radius: 15px;
+                margin: 10px auto;
+                max-width: 600px;">
+        <h4 class="pb-4 border-bottom"
+            style="letter-spacing: -1px;
+                   font-weight: 400;">
+            Skapa CV
+        </h4>
+        <div class="py-2">
+            <form  method="post">
+            <div class="row py-2">
+                <h6>Lägg till arbete</h6>
+                <div class="col-md-6">
+                    <label class="settingsLbl" for="title">Arbetsplats</label>
+                    <input id="workTitle" type="text" class="bg-light form-control">
+                        
+                </div>
+                <div class="col-md-6 pt-md-0 pt-3">
+                    <label class="settingsLbl" for="workDesc">Arbetsbeskrivning</label>
+                    <input id="workDescription" type="text" class="bg-light form-control">
+                  
+                </div>
+            </div>
+                <div class="row py-2">
+                    
+                    <div class="col-md-6">
+                        <label class="settingsLbl" for="startdate">Arbetsroll</label>
+                        <input id="workRole" type="text" class="bg-light form-control">
+
+                    </div>
+                    <div class="col-md-6 pt-md-0 pt-3">
+                        <label class="settingsLbl" for="startdate">Startdatum</label>
+                        <input id="workStart" type="date" class="bg-light form-control">
+                        
+                    </div>
+                    </div>
+                    <div class="row py-2">
+                        
+                        <div class="col-md-6">
+                            <label class="settingsLbl" for="title">Stad</label>
+                            <input id="workLocation" type="text" class="bg-light form-control">
+
+                        </div>
+                        <div class="col-md-6 pt-md-0 pt-3">
+                            <label class="settingsLbl" for="enddate">Slutdatum</label>
+                            <input id="workEnd" type="date" class="bg-light form-control">
+                            
+                        </div>
+                    </div>
+                <div class="row py-2">
+
+                    <div class="col-md-6">
+                        <button id="addWork" type="button" class="btn border border-light button mr-3 text-light" style="background-color:#ff6219;">Lägg till arbete</button>
+
+                    </div>
+                    <div class="col-md-6 pt-md-0 pt-3">
+                        
+
+                    </div>
+                </div>
+                
+                <div class="row py-2">
+                    <h6>Tillagda arbeten:</h6>
+                    <div class="col-md-12">
+                        <ul id="workList" class="list-group cv-list-group">
+                            
+                        </ul>
+                    </div>
+                </div>
+            <div class="row py-2">
+                    <h6>Lägg till utbildning</h6>
+                <div class="col-md-6">
+                    <label class="settingsLbl" for="projDescription">Utbildning</label>
+                    <input id="educationTitle" type="text" class="bg-light form-control">
+
+                </div>
+                <div class="col-md-6 pt-md-0 pt-3">
+                     <label class="settingsLbl" for="enddate">Utbildningsbeskrivning</label>
+                     <input id="educationDescription" type="text" class="bg-light form-control">
+                        <button id="addEducation" type="button" class="btn border border-light button mr-3 text-light" style="background-color:#ff6219;">Lägg till Utbildning</button>
+                     
+                </div>
+            </div>
+                <div class="row py-2">
+                    <h6>Tillagda utbildningar:</h6>
+                    <div class="col-md-12">
+                        <ul id="educationList" class="list-group cv-list-group">
+                        </ul>
+                    </div>
+                </div>
+                <div class="row py-2">
+                    <h6>Lägg till annan erfarenhet</h6>
+                    <div class="col-md-6">
+                        <label class="settingsLbl" for="projDescription">Annan erfarenhet</label>
+                        <input id="otherExpTitle" type="text" class="bg-light form-control">
+
+                    </div>
+                    <div class="col-md-6 pt-md-0 pt-3">
+                        <label class="settingsLbl" for="enddate">Beskrivning</label>
+                        <input id="otherExpDescription" type="text" class="bg-light form-control">
+                        <button id="addOtherExp" type="button" class="btn border border-light button mr-3 text-light" style="background-color:#ff6219;">Lägg till erfarenhet</button>
+
+                    </div>
+                </div>
+                <div class="row py-2">
+                    <h6>Tillagda erfarenheter:</h6>
+                    <div class="col-md-12">
+                        <ul id="otherExpList" class="list-group cv-list-group">
+                        </ul>
+                    </div>
+                </div>
+                <div class="row py-2">
+                    <h6>Lägg till skills</h6>
+                    <div class="col-md-6">
+                        <label class="settingsLbl" for="projDescription">Skill</label>
+                        <input id="skillTitle" type="text" class="bg-light form-control">
+
+                    </div>
+                    <div class="col-md-6 pt-md-0 pt-3">
+                      
+                        <button id="addSkill" type="button" class="btn border border-light button mr-3 text-light" style="background-color:#ff6219;">Lägg till skill</button>
+
+                    </div>
+                </div>
+                <div class="row py-2">
+                    <h6>Tillagda skills:</h6>
+                    <div class="col-md-12">
+                        <ul id="skillList" class="list-group cv-list-group">
+                        </ul>
+                    </div>
+                </div>
+
+          
+                
+
+            <div class="py-3 pb-4 border-bottom">
+                <button type="submit" class="btn border border-light button mr-3 text-light" style="background-color:#ff6219;">Skapa CV</button>
+                <button class="btn button" style="border:solid 1px #ff6219; background-color: #fff;; color: #ff6219">Avbryt</button>
+            </div>
+
+            </form>
+        </div>
+    </div>
+    <script>
+                    
+        function addItem(input1Id, input2Id, input3Id, input4Id, input5Id, input6Id, listId, hasDescription = true) {
+            const input1 = document.getElementById(input1Id);
+            const input2 = hasDescription ? document.getElementById(input2Id) : null;
+            const input3 = document.getElementById(input3Id);
+            const input4 = document.getElementById(input4Id);
+            const input5 = document.getElementById(input5Id);
+            const input6 = document.getElementById(input6Id);
+            const list = document.getElementById(listId);
+
+            const title = input1.value.trim();
+            const description = hasDescription ? input2.value.trim() : null;
+            const role = input3.value.trim();
+            const start = input4.value.trim();
+            const location = input5.value.trim();
+            const end = input6.value.trim();
+
+           
+            if (title === '' || (hasDescription && description === '') || role === '' || start === '' || location === '' || end === '') {
+                alert('Fyll i alla obligatoriska fält!');
+                return;
+            }
+
+          
+            const listItem = document.createElement('li');
+            listItem.className = 'list-group-item d-flex justify-content-between align-items-center';
+            listItem.innerHTML = `
+                <div>
+                    <strong>${title}</strong></br><i>${role}</i>${hasDescription ? `: ${description}` : ''}</br>${location}</br>${start} - ${end}</br>
+                </div>
+                <button class="btn btn-sm remove-btn" style="background-color:#fff; color:#ff6219;"><i class="fa-solid fa-xmark"></i></button>`;
+
+           
+            listItem.querySelector('.remove-btn').addEventListener('click', function () {
+                list.removeChild(listItem);
+            });
+
+           
+            list.appendChild(listItem);
+
+           
+            input1.value = '';
+            if (hasDescription) input2.value = '';
+            input3.value = '';
+            input4.value = '';
+            input5.value = '';
+            input6.value = '';
+        }
+
+       
+        document.getElementById('addWork').addEventListener('click', function () {
+            addItem('workTitle','workRole', 'workDescription', 'workLocation', 'workStart', 'workEnd', 'workList');
+        });
+
+        document.getElementById('addEducation').addEventListener('click', function () {
+            addItem('educationTitle', 'educationDescription', 'educationList');
+        });
+
+        document.getElementById('addOtherExp').addEventListener('click', function () {
+            addItem('otherExpTitle', 'otherExpDescription', 'otherExpList');
+        });
+
+        document.getElementById('addSkill').addEventListener('click', function () {
+            addItem('skillTitle', null, 'skillList', false);
+        });
+
+
+
+    </script>
+</body>

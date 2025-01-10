@@ -107,5 +107,54 @@ namespace CV_Projekt.Controllers
 			}
 			return View(new RegisterViewModel());
 		}
+
+		[HttpGet]
+		public IActionResult Settings()
+		{
+			SettingsViewModel viewModel = new SettingsViewModel();
+			try
+			{
+				viewModel.User = context.Users.Where(u => u.UserName.Equals(User.Identity.Name)).FirstOrDefault();
+				if (viewModel.User == null)
+				{
+					throw new Exception(message: "Användare med den angivna eposten saknas.");
+				}
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine(ex.Message);
+			}
+			return View(viewModel);
+		}
+
+		[HttpPost]
+		public IActionResult Settings(SettingsViewModel viewModel)
+		{
+			if(ModelState.IsValid)
+			{
+				if (!viewModel.User.Password.Equals(viewModel.ConfirmedPassword))
+				{
+					ModelState.AddModelError("", "De angivna lösenorden matchar inte.");
+					return View(viewModel);
+				}
+				User userToUpdate = context.Users.Where(u => u.UserName.Equals(User.Identity.Name)).FirstOrDefault();
+
+				userToUpdate.FirstName = viewModel.User.FirstName;
+				userToUpdate.LastName = viewModel.User.LastName;
+				userToUpdate.UserName = viewModel.User.UserName;
+				userToUpdate.Password = viewModel.User.Password;
+
+				userToUpdate.isPrivate = viewModel.User.isPrivate;
+				userToUpdate.isActive = viewModel.User.isActive;
+
+				userToUpdate.ContactInformation.Address = viewModel.User.ContactInformation.Address;
+				userToUpdate.ContactInformation.Phone = viewModel.User.ContactInformation.Phone;
+
+				context.Users.Update(userToUpdate);
+				context.SaveChanges();
+				RedirectToAction("UserProfile", "UserProfile");
+			}
+			return View(viewModel);
+		}
 	}
 }

@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using Azure.Identity;
 using CV_Projekt.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
@@ -38,15 +39,22 @@ namespace CV_Projekt.Controllers
                 .Take(4)
                 .Distinct()
                 .ToList();
+
+            User loggedInUser = new User();
+			if (User.Identity.IsAuthenticated)
+            {
+				loggedInUser = _context.Users.Where(u => u.UserName.Equals(User.Identity.Name)).FirstOrDefault();
+			}
             
-            HomeViewModel cvvm = new HomeViewModel
+            HomeViewModel viewModel = new HomeViewModel
             {
                 Users = usersWithCvs,
                 Projects = latestProject,
                 Cvs = cvs,
-                Experiences = experiences,              
+                Experiences = experiences, 
+                LoggedInUser = loggedInUser
             };
-            return View(cvvm);
+            return View(viewModel);
         }
 
         public IActionResult Privacy()
