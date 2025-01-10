@@ -19,26 +19,13 @@
 }
 
 <a class="btn btn-primary text-light"
-           style="background-color:#ff6219; margin-bottom:2rem;"
-           asp-controller="Message"
-           asp-action="AllUserList"
-           asp-route-id="@ViewBag.Id">
-           Skriv Nytt Meddelande
-        </a>
+               style="background-color:#ff6219; margin-bottom:2rem;"
+               asp-controller="Message"
+               asp-action="AllUserList"
+               asp-route-id="@ViewBag.Id">
+               Skriv Nytt Meddelande
+            </a>
+
+        
 
 
-@* <br />
-<h2>Skickade meddelanden</h2>
-@foreach (var message in Model.SentMessages)
-{
-    <h3> Till: @message.Receiver.FirstName @message.Receiver.LastName </h3>
-    <h4> @message.Subject</h4>
-    <a class="btn btn-primary text-light"
-       style="background-color:#ff6219; margin-bottom:2rem;"
-       asp-controller="Chat"
-       asp-action="Chat11"
-       asp-route-senderId="@message.SenderId"
-       asp-route-receiverId="@message.ReceiverId">
-        Visa Meddelande
-    </a>
-} *@

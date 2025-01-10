@@ -19,7 +19,7 @@ namespace CV_Projekt.Controllers
         {
             var recMes = _context.Messages
                 .Where(m => m.ReceiverId.Equals(id))
-                .Where(m => !m.isRead)
+                .Where(m => m.isRead.Equals(false))
                 .OrderByDescending(m => m.Date)
                 .ToList();
            
@@ -72,27 +72,12 @@ namespace CV_Projekt.Controllers
                 _users = allUsers
             };
 
-
+            var identity = _context.Users.Where(u => u.UserName.Equals(User.Identity.Name)).FirstOrDefault();
+            ViewBag.Id = identity.Id;
 
             return View(viewModel);
         }
 
-        //[HttpGet]
-        //public IActionResult SentChatList(string id)
-        //{
-        //    var sentMes = _context.Messages
-        //        .Where(m => m.SenderId.Equals(id))
-        //        .OrderByDescending(m => m.Date)
-        //        .ToList();
-
-        //    var mesSent = sentMes.DistinctBy(r => r.ReceiverId).ToList();
-
-        //    var viewModel = new ChatListViewModel
-        //    {
-        //        RecievedMessages = mesSent
-        //    };
-        //    return View(viewModel);
-        //}
         public IActionResult Index()
         {
             return View();

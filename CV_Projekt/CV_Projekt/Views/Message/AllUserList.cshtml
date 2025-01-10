@@ -2,7 +2,7 @@
 
 <h2>Vem vill du skriva till?</h2>
 
-@foreach (Message u in Model._users)
+@foreach (User user in @Model._users)
 {
                 <div class"card">
 
@@ -10,10 +10,9 @@
                               style="background-color:#ff6219; margin-bottom:2rem;"
                               asp-controller="Meddelande"
                               asp-action="Add"
-                              //Användaren!!!
                               asp-route-senderId="@ViewBag.Id"
-                              asp-route-receiverId="@u.id">
-                              @u.FirstName @u.LastName 
+                              asp-route-receiverId="@user.Id">
+                              @user.FirstName @user.LastName 
                    </a>
 
                 </div>
