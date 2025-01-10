@@ -1,9 +1,7 @@
 html {
   font-size: 14px;
 }
-.footer {
-    margin-top: 5rem;
-}
+
 
 body {
     background-image: url("https://images.pexels.com/photos/1624496/pexels-photo-1624496.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2");
@@ -25,7 +23,7 @@ i {
     margin: 0 0 2rem 0;
 }
 a:link {
-    color: lightgray;   
+    color: #ff6219; 
 }
 a:visited {
     color: #ff6219;

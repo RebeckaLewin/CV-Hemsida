@@ -58,7 +58,9 @@
                             <ul class="dropdown-menu dropdown-menu-end dropdown-menu-lg-end" id="funka" aria-labelledby="navbarDropdown">
                                 <li>
                                     <a class="dropdown-item text-black" href="/Search/SearchWindow"><i class="fa-solid fa-magnifying-glass text-black"></i>Sök</a>
-                                </li>
+								</li>
+                                @if (!User.Identity.IsAuthenticated)
+								{
                                 <li>
                                     <a class="dropdown-item text-black" href="#">
                                         <i class="fa-solid fa-envelope text-black position-relative">
@@ -67,8 +69,7 @@
 									Meddelanden
                                     </a>
 								</li>
-                                @if(!User.Identity.IsAuthenticated)
-                                {
+                                
                                     <li>
                                         <a class="dropdown-item text-black" href="/Account/LogIn"><i class="fa-solid fa-lock text-black"></i>Logga In</a>
                                     </li>

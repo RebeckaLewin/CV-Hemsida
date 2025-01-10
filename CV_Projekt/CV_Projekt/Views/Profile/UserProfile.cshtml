@@ -13,11 +13,11 @@
                             <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-outline-dark text-body" data-mdb-ripple-color="dark" style="z-index: 1;">
 								<i class="fa-solid fa-gear"></i> <a asp-controller="Account" asp-action="Settings" asp-rout-id="@Model.User.Id">Ändra Profil</a>
                             </button>
-                            <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-outline-dark text-body" data-mdb-ripple-color="dark" style="z-index: 1;">
+                            <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-outline-dark text-body" data-mdb-ripple-color="dark" style="z-index: 1; margin-top:0.5rem;" >
                                 <i class="fa-solid fa-file-circle-plus"></i>
                                 <a asp-controller="Cv" asp-action="CreateCv" asp-route-id="@Model.User.Id">Skapa CV</a>
                             </button>
-                            <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-outline-dark text-body" data-mdb-ripple-color="dark" style="z-index: 1;">
+                            <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-outline-dark text-body" data-mdb-ripple-color="dark" style="z-index: 1; margin:0.5rem 0 0.5rem 0">
                                 <i class="fa-solid fa-envelope text-black position-relative">
                                     <span class="badge rounded-pill badge-notification bg-danger position-absolute top-0 left-0 translate-middle" style="font-size:0.5rem;">1</span>
                                 </i>
@@ -47,7 +47,7 @@
                     </div>
                     <div class="card-body p-4 text-black">
                         <div class="mb-5  text-body">
-                            <p class="lead fw-normal mb-1">Kontaktinformation</p>
+                            <p class="lead fw-normal my-1">Kontaktinformation</p>
                             <div class="p-4 bg-body-tertiary">
                                 
                                 <p class="font-italic mb-1">@Model.User.ContactInformation.Address</p>
