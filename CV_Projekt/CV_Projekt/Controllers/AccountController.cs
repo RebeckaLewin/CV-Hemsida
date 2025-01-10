@@ -111,11 +111,11 @@ namespace CV_Projekt.Controllers
 		[HttpGet]
 		public IActionResult Settings()
 		{
-			User aUser = new User();
+			SettingsViewModel viewModel = new SettingsViewModel();
 			try
 			{
-				aUser = context.Users.Where(u => u.UserName.Equals(User.Identity.Name)).FirstOrDefault();
-				if (aUser == null)
+				viewModel.User = context.Users.Where(u => u.UserName.Equals(User.Identity.Name)).FirstOrDefault();
+				if (viewModel.User == null)
 				{
 					throw new Exception(message: "Användare med den angivna eposten saknas.");
 				}
@@ -124,23 +124,25 @@ namespace CV_Projekt.Controllers
 			{
 				Console.WriteLine(ex.Message);
 			}
-			return View(aUser);
+			return View(viewModel);
 		}
 
 		[HttpPost]
-		public IActionResult Settings(User aUser)
+		public IActionResult Settings(SettingsViewModel viewModel)
 		{
+			Debug.WriteLine(viewModel.User.Password.Length);
 			if(ModelState.IsValid)
 			{
-				context.Users.Update(aUser);
+				if (!viewModel.User.Password.Equals(viewModel.ConfirmedPassword))
+				{
+					ModelState.AddModelError("", "De angivna lösenorden matchar inte.");
+					return View(viewModel);
+				}
+				context.Users.Update(viewModel.User);
 				context.SaveChanges();
 				RedirectToAction("UserProfile", "UserProfile");
 			}
-			else
-			{
-				aUser = new User();
-			}
-			return View(aUser);
+			return View(viewModel);
 		}
 	}
 }

@@ -22,7 +22,7 @@ namespace CV_Projekt.Models
 		public int InformationId { get; set; }
 		[Required]
 		[DataType(DataType.Password)]
-		[Range(6, 20, ErrorMessage = "Lösenordet får endast vara mellan 6 till 20 tecken.")]
+		[Length(6, 20, ErrorMessage = "Lösenordet får endast vara mellan 6 till 20 tecken.")]
 		public string Password { get; set; }
 		[Required]
 

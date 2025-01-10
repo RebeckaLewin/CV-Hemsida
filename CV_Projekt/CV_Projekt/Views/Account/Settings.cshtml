@@ -1,4 +1,4 @@
-﻿@model User
+﻿@model SettingsViewModel
 
 <body class="bodyUserProfileSettings" 
       style="margin: 0;
@@ -19,7 +19,11 @@
             Ändra Profil
     </h4>
 
+    <div asp-validation-summary="All" class="text-danger">here there be errors</div>
+
+
     <form method="post" asp-action="Settings">
+        <input asp-for="User.ContactInformation.Id" value="@Model.User.ContactInformation.Id" hidden />
         <div class="d-flex align-items-start py-3 border-bottom">
             <img src="https://images.pexels.com/photos/1037995/pexels-photo-1037995.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
                      class="img" alt="" 
@@ -38,47 +42,48 @@
                 <button class="btn p-2" style="background-color:#fff; color:#ff6219; border-color:#ff6219 ">Ladda upp foto</button>
             </div>
         </div>
-        <input asp-for="Id" type="text" value="@Model.Id" hidden/>
+        <input asp-for="User.Id" type="text" value="@Model.User.Id" hidden/>
         <div class="py-2">
             <div class="row py-2">
                 <div class="col-md-6">
                     <label class="settingsLbl"for="firstname">Förnamn</label>
-                        <input asp-for="FirstName" type="text" class="bg-light form-control" value="@Model.FirstName">
+                        <input asp-for="User.FirstName" type="text" class="bg-light form-control" value="@Model.User.FirstName">
                 </div>
                 <div class="col-md-6 pt-md-0 pt-3">
                     <label class="settingsLbl" for="lastname">Efternamn</label>
-                    <input asp-for="LastName" type="text" class="bg-light form-control" value="@Model.LastName">
+                    <input asp-for="User.LastName" type="text" class="bg-light form-control" value="@Model.User.LastName">
                 </div>
             </div>
             <div class="row py-2">
                 <div class="col-md-6">
                     <label class="settingsLbl" for="email">Epost</label>
-                    <input asp-for="UserName" type="text" class="bg-light form-control" value="@Model.UserName">
+                    <input asp-for="User.UserName" type="text" class="bg-light form-control" value="@Model.User.UserName">
                 </div>
                 <div class="col-md-6 pt-md-0 pt-3">
                     <label class="settingsLbl" for="phone">Telefonnummer</label>
-                    <input asp-for="ContactInformation.Phone" type="tel" class="bg-light form-control" value="@Model.ContactInformation.Phone">
+                    <input asp-for="User.ContactInformation.Phone" type="tel" class="bg-light form-control" value="@Model.User.ContactInformation.Phone">
                 </div>
+                <input asp-for="User.ContactInformation.Address" value="@Model.User.ContactInformation.Address" hidden />
             </div>
             <div class="row py-2">
                 <div class="col-md-6">
                     <label class="settingsLbl" for="passwordchange">Nytt Lösenord</label>
-                    <input asp-for="Password" type="password" class="bg-light form-control" placeholder="Minst 6 tecken långt">
+                    <input asp-for="User.Password" type="password" class="bg-light form-control" value="@Model.User.Password" placeholder="Minst 6 tecken långt">
                 </div>
                 <div class="col-md-6 pt-md-0 pt-3">
                     <label class="settingsLbl" for="confirmpasswordchange">Bekräfta Lösenord</label>
-                    <input type="password" class="bg-light form-control" placeholder="**********">
+                    <input asp-for="ConfirmedPassword" type="password" class="bg-light form-control" value="@Model.User.Password">
                 </div>
             </div>
             <div class="row py-2">
                 <div class="col-md-6">
-                        <input asp-for="@Model.isPrivate" class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <input asp-for="User.isPrivate" class="form-check-input" type="checkbox" value="@Model.User.isPrivate" id="flexCheckDefault">
                         <label class="settingsLbl form-check-label" for="flexCheckDefault">
                             Privat
                         </label>
                 </div>
                 <div class="col-md-6 pt-md-0 pt-3">
-                        <input asp-for="isActive" class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <input asp-for="User.isActive" class="form-check-input" type="checkbox" value="@Model.User.isActive" id="flexCheckDefault">
                         <label class="settingsLbl form-check-label" for="flexCheckDefault">
                             Offentlig
                         </label>
