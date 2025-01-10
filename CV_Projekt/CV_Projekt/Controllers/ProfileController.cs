@@ -18,7 +18,8 @@ namespace CV_Projekt.Controllers
                 .FirstOrDefault(u => u.Id == id);
                     
 
-            var cvs = _context.CVs.Where(cv => cv.OwnerId == id);
+            var cv = _context.CVs
+                .FirstOrDefault(c => c.OwnerId == id);
 
             var projCreated = _context.Projects
                 .Where(p => p.CreatorId == id)
@@ -35,7 +36,8 @@ namespace CV_Projekt.Controllers
                 User = user,
                 ProjectParticipant = projColl,
                 ProjectCreator = projCreated,
-                Experience = exp
+                Experience = exp,
+                CV = cv
             };
             return View(pvm);
         }

@@ -6,9 +6,7 @@ namespace CV_Projekt.Models
     {
         [Required]
         public Message Message { get; set; }
-        [Required]
-        public User Sender { get; set; }
-        [Required]
-        public User Receiver { get; set; }
+        public User? Sender { get; set; }
+        public User? Receiver { get; set; }
     }
 }

@@ -17,18 +17,21 @@ namespace CV_Projekt.Controllers
         [HttpGet]
         public IActionResult ChatList(string id)
         {
-            
-            var recMes = _context.Messages
+            var receivedMessages = _context.Messages
                 .Where(m => m.ReceiverId.Equals(id))
-                .Include(m => m.Sender)
-                .OrderBy(m => m.Date)
+                .OrderByDescending(m => m.Date)
+                .ToList();
+            var sentMessages = _context.Messages
+                .Where(m => m.SenderId.Equals(id))
+                .OrderByDescending(m => m.Date)
                 .ToList();
 
-            var mesRec = recMes.DistinctBy(r => r.SenderId).ToList();
+            //var mesRec = recMes.DistinctBy(r => r.SenderId).ToList();
            
             var viewModel = new ChatListViewModel
             {
-                _messages = mesRec
+                RecievedMessages = receivedMessages,   
+                SentMessages = sentMessages,
             };
             return View(viewModel);
         }
@@ -54,11 +57,12 @@ namespace CV_Projekt.Controllers
             {
                 _context.Add(viewModel.Message);
                 _context.SaveChanges();
-                return RedirectToAction("Chat11", "Chat");
+                return RedirectToAction("Chat11", "Chat", new { senderId = viewModel.Message.SenderId, receiverId = viewModel.Message.ReceiverId } );
             }
             else
             {
-                return RedirectToAction("Add", new { senderId = viewModel.Sender.Id, recieverId = viewModel.Receiver.Id });
+                Console.WriteLine(ModelState.ErrorCount.ToString());
+                return RedirectToAction("Add", new { senderId = viewModel.Message.SenderId, recieverId = viewModel.Message.ReceiverId });
             }
         }
         public IActionResult Index()

@@ -1,19 +1,32 @@
 ﻿@model ChatListViewModel
 
-@foreach (Message mess in Model._messages)
+<h2>Inkorg</h2>
+@foreach (var message in Model.RecievedMessages)
 {
-            <div class"card">
+    <h3> Från: @message.Sender.FirstName @message.Sender.LastName </h3>
+    <h4> @message.Subject</h4>
+    <a class="btn btn-primary text-light"
+       style="background-color:#ff6219; margin-bottom:2rem;"
+       asp-controller="Chat"
+       asp-action="Chat11"
+       asp-route-senderId="@message.SenderId"
+       asp-route-receiverId="@message.ReceiverId">
+        Visa Meddelande
+    </a>
+}
 
-                <h3> @mess.Sender.FirstName @mess.Sender.LastName </h3>
-                <h4> @mess.Subject</h4>
-                <a  class="btn btn-primary text-light"
-                          style="background-color:#ff6219; margin-bottom:2rem;"
-                          asp-controller="Chat"
-                          asp-action="Chat11"
-                          asp-route-senderId="@mess.SenderId"
-                          asp-route-receiverId="@mess.ReceiverId">
-                          Visa Meddelande
-               </a>
-
-            </div>
+<br />
+<h2>Skickade meddelanden</h2>
+@foreach (var message in Model.SentMessages)
+{
+    <h3> Till: @message.Receiver.FirstName @message.Receiver.LastName </h3>
+    <h4> @message.Subject</h4>
+    <a class="btn btn-primary text-light"
+       style="background-color:#ff6219; margin-bottom:2rem;"
+       asp-controller="Chat"
+       asp-action="Chat11"
+       asp-route-senderId="@message.SenderId"
+       asp-route-receiverId="@message.ReceiverId">
+        Visa Meddelande
+    </a>
 }

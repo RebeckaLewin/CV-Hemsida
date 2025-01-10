@@ -19,7 +19,8 @@ namespace CV_Projekt.Controllers
             if(!string.IsNullOrEmpty(searchTerm))
             {
                 users = _context.Users
-                    .Where(u => u.FirstName.ToLower().Contains(searchTerm.ToLower()) || u.LastName.ToLower().Contains(searchTerm.ToLower()))
+                    .Where(u => u.FirstName.ToLower().Contains(searchTerm.ToLower()) || u.LastName.ToLower().Contains(searchTerm.ToLower())
+                     && (User.Identity.IsAuthenticated || !u.isPrivate) && u.isActive)
                     .ToList();
 
                 ViewData["SearchedName"] = searchTerm;
