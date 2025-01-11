@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace CV_Projekt.Models.Viewmodels
+namespace CV_Projekt.Models
 {
 	public class RegisterViewModel
 	{

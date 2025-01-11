@@ -1,13 +1,12 @@
 using System.Diagnostics;
 using Azure.Identity;
 using CV_Projekt.Models;
-using CV_Projekt.Models.Viewmodels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 
 namespace CV_Projekt.Controllers
 {
-	public class HomeController : Controller
+    public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
         private CvContext _context;

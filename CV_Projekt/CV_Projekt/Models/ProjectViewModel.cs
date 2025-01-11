@@ -1,4 +1,4 @@
-﻿namespace CV_Projekt.Models.Viewmodels
+﻿namespace CV_Projekt.Models
 {
 	public class ProjectViewModel
 	{

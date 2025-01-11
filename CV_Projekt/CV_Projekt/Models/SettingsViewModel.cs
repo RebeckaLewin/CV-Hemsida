@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace CV_Projekt.Models.Viewmodels
+namespace CV_Projekt.Models
 {
 	public class SettingsViewModel
 	{

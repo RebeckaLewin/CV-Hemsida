@@ -1,12 +1,11 @@
 ﻿using CV_Projekt.Models;
-using CV_Projekt.Models.Viewmodels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 
 namespace CV_Projekt.Controllers
 {
-	public class MessageController : Controller
+    public class MessageController : Controller
     {
         private CvContext _context;
 

@@ -1,11 +1,10 @@
 ﻿using CV_Projekt.Models;
-using CV_Projekt.Models.Viewmodels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace CV_Projekt.Controllers
 {
-	public class ProfileProjectController : Controller
+    public class ProfileProjectController : Controller
     {
         private CvContext _context;
 
