@@ -1,4 +1,5 @@
 ﻿using CV_Projekt.Models;
+using CV_Projekt.Models.Viewmodels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CV_Projekt.Controllers

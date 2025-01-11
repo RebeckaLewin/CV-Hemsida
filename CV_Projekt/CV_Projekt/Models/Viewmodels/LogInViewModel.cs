@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace CV_Projekt.Models
+namespace CV_Projekt.Models.Viewmodels
 {
 	public class LogInViewModel
 	{
