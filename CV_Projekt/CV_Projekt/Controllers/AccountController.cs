@@ -85,6 +85,7 @@ namespace CV_Projekt.Controllers
 				User newUser = new User
 				{
 					UserName = viewModel.Email.Trim(),
+					Email = viewModel.Email.Trim(),
 					FirstName = viewModel.FirstName,
 					LastName = viewModel.LastName,
 					Password = viewModel.Password,
