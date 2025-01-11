@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace CV_Projekt.Migrations
 {
     /// <inheritdoc />
-    public partial class migration1 : Migration
+    public partial class initialMig : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -87,8 +87,7 @@ namespace CV_Projekt.Migrations
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     isPrivate = table.Column<bool>(type: "bit", nullable: false),
                     isActive = table.Column<bool>(type: "bit", nullable: false),
-                    Picture = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
-                    PictureFormat = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PictureUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -455,19 +454,19 @@ namespace CV_Projekt.Migrations
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
-                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Description", "Email", "EmailConfirmed", "FirstName", "InformationId", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "Password", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "Picture", "PictureFormat", "SecurityStamp", "TwoFactorEnabled", "UserName", "isActive", "isPrivate" },
+                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Description", "Email", "EmailConfirmed", "FirstName", "InformationId", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "Password", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "PictureUrl", "SecurityStamp", "TwoFactorEnabled", "UserName", "isActive", "isPrivate" },
                 values: new object[,]
                 {
-                    { "1", 0, "35c1769a-9afa-434b-b980-acf92179017d", null, null, false, "Alice", 1, "Andersson", false, null, null, null, "P@ssword123", null, null, false, null, null, "1150b34b-6a87-44e2-848a-9f3dcd83325b", false, "alicean12@live.se", true, true },
-                    { "10", 0, "7ce448df-8335-4bcc-a7d1-063b82d6bcd8", null, null, false, "Julia", 10, "Jonsson", false, null, null, null, "JuliasP@ss7", null, null, false, null, null, "4a1eab66-5f05-4a2e-b790-63b3755982a5", false, "julia.jonsson@yahoo.com", false, true },
-                    { "2", 0, "1f328acc-4fd2-4289-953b-e0a24024b734", null, null, false, "Bob", 2, "Bergström", false, null, null, null, "P@ssword456", null, null, false, null, null, "7afdb30e-c786-4bcd-b16e-5aab04eb996c", false, "bobbergstrom@gmail.com", true, false },
-                    { "3", 0, "c4329377-9305-45a3-add9-83577ff201c1", null, null, false, "Charlie", 3, "Carlsson", false, null, null, null, "P@ssword789", null, null, false, null, null, "c608ef7b-1b52-4899-a188-702245173df6", false, "charliec@live.se", false, false },
-                    { "4", 0, "deeac507-2cc0-46da-a519-5a58a15335d4", null, null, false, "Daniel", 4, "Davidsson", false, null, null, null, "SecureP@ss1", null, null, false, null, null, "4b91a928-e4ee-450b-8aca-e7a9647cb4d8", false, "danield@outlook.com", true, true },
-                    { "5", 0, "27ea9690-57c4-4811-b367-d9de80e25299", null, null, false, "Emily", 5, "Evans", false, null, null, null, "MyP@ssword2", null, null, false, null, null, "7910d49a-166c-4f15-9325-c502abf62ef3", false, "emily.evans@hotmail.com", true, false },
-                    { "6", 0, "32a33fb2-2a8f-4f83-8b36-935de85238a3", null, null, false, "Frank", 6, "Fischer", false, null, null, null, "StrongP@ss3", null, null, false, null, null, "79c60abc-c0af-485e-bcd6-0d72f63509db", false, "frankfischer@gmail.com", true, true },
-                    { "7", 0, "246ce8c1-d947-4ea3-ae52-506e9da20b9f", null, null, false, "Grace", 7, "Gustafsson", false, null, null, null, "GracefulP@ss4", null, null, false, null, null, "60d64094-f60e-4ad7-a3b1-bb7618f8aadf", false, "grace.gustafsson@live.se", false, false },
-                    { "8", 0, "b2bc616a-2cdc-4ae3-8c6e-c3749385a958", null, null, false, "Hanna", 8, "Holm", false, null, null, null, "H@nnasP@ss5", null, null, false, null, null, "c8bc4cab-047e-440f-b7db-8c9974c273ff", false, "hanna.holm@gmail.com", true, true },
-                    { "9", 0, "3fd0d21e-1298-41b3-aa49-6d17b20491d2", null, null, false, "Ian", 9, "Ingemarsson", false, null, null, null, "I@nsSecure6", null, null, false, null, null, "0baf17a0-ce1e-4151-8a52-5f7be0e8cb45", false, "ian.ingemarsson@outlook.com", true, false }
+                    { "1", 0, "9024defa-b8b5-4dbb-b5a4-9ba93a68c613", null, null, false, "Alice", 1, "Andersson", false, null, null, null, "P@ssword123", null, null, false, null, "919ca441-2176-46b3-b88c-4bd404a7e970", false, "alicean12@live.se", true, true },
+                    { "10", 0, "f34dc349-8862-4250-a3ca-ef1ff87c6c21", null, null, false, "Julia", 10, "Jonsson", false, null, null, null, "JuliasP@ss7", null, null, false, null, "9181b51c-2c11-4a33-9db6-480522448c20", false, "julia.jonsson@yahoo.com", false, true },
+                    { "2", 0, "5e5216e3-ea17-4621-8d4e-dd6dd55b7a0f", null, null, false, "Bob", 2, "Bergström", false, null, null, null, "P@ssword456", null, null, false, null, "9cc196ed-1a44-4514-bd2d-a90fc16d9ad2", false, "bobbergstrom@gmail.com", true, false },
+                    { "3", 0, "7927c211-e57e-40fc-8014-14a7d130bd76", null, null, false, "Charlie", 3, "Carlsson", false, null, null, null, "P@ssword789", null, null, false, null, "8518fe45-a4a4-4adb-94e0-4c75e5e52e21", false, "charliec@live.se", false, false },
+                    { "4", 0, "3bda1104-8262-4f80-adcd-5f737ba86842", null, null, false, "Daniel", 4, "Davidsson", false, null, null, null, "SecureP@ss1", null, null, false, null, "5ec66818-38d2-4a83-8de5-30235c3a235f", false, "danield@outlook.com", true, true },
+                    { "5", 0, "4422b4bb-1f23-4a13-9c83-235e9e8e70ce", null, null, false, "Emily", 5, "Evans", false, null, null, null, "MyP@ssword2", null, null, false, null, "0e8ed640-14b5-4f84-a482-21d391a1adfd", false, "emily.evans@hotmail.com", true, false },
+                    { "6", 0, "c8ef8b0b-25c0-4bec-9618-8761be3b0d82", null, null, false, "Frank", 6, "Fischer", false, null, null, null, "StrongP@ss3", null, null, false, null, "9ba247dc-3cc7-4c58-ba55-be4c9b7eec36", false, "frankfischer@gmail.com", true, true },
+                    { "7", 0, "51843770-f0a6-4203-a346-0296642377b3", null, null, false, "Grace", 7, "Gustafsson", false, null, null, null, "GracefulP@ss4", null, null, false, null, "5541c362-92c1-4db0-8c8c-5197de9d3712", false, "grace.gustafsson@live.se", false, false },
+                    { "8", 0, "354949a0-0230-452f-aefb-b22cf6e3c77f", null, null, false, "Hanna", 8, "Holm", false, null, null, null, "H@nnasP@ss5", null, null, false, null, "30cf6564-bcb9-4f7a-a1c5-423b23c2f19a", false, "hanna.holm@gmail.com", true, true },
+                    { "9", 0, "cb1f1874-9128-4b3a-9184-823336a914e4", null, null, false, "Ian", 9, "Ingemarsson", false, null, null, null, "I@nsSecure6", null, null, false, null, "9e6b7b38-5296-40a9-a28a-a99a4fce1d8a", false, "ian.ingemarsson@outlook.com", true, false }
                 });
 
             migrationBuilder.InsertData(

@@ -30,8 +30,7 @@ namespace CV_Projekt.Models
 		[Required]
 		public bool isActive { get; set; }
 
-		public byte[]? Picture { get; set; }
-		public string? PictureFormat { get; set; }
+		public string? PictureUrl { get; set; }
 
 		public virtual List<Message>? RecievedMessages { get; set; } = new List<Message>();
 		public virtual List<Message>? SentMessages { get; set; } = new List<Message>();

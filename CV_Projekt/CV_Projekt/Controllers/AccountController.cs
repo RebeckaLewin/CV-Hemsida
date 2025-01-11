@@ -151,6 +151,8 @@ namespace CV_Projekt.Controllers
 				userToUpdate.ContactInformation.Address = viewModel.User.ContactInformation.Address;
 				userToUpdate.ContactInformation.Phone = viewModel.User.ContactInformation.Phone;
 
+				userToUpdate.PictureUrl = viewModel.User.PictureUrl;
+
 				context.Users.Update(userToUpdate);
 				context.SaveChanges();
 				RedirectToAction("UserProfile", "UserProfile");
