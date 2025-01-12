@@ -73,5 +73,24 @@ namespace CV_Projekt.Controllers
 			ProjectViewModel newViewModel = new ProjectViewModel { Users = context.Users.ToList(), ProjectToSave = newProject };
 			return View(newViewModel);
 		}
+
+		[HttpPost]
+		public IActionResult AddParticipant(int projectId) 
+		{
+			var currentUser = context.Users
+				.FirstOrDefault(u => u.UserName == User.Identity.Name);
+
+			var project = context.Projects.
+				Include(p => p.Participants)
+				.FirstOrDefault();
+			if (!project.Participants.Any(u => u.Id == currentUser.Id) && project.CreatorId != currentUser.Id)
+			{
+				context.Attach(currentUser);
+				project.Participants.Add(currentUser);
+				context.SaveChanges();
+			}
+
+			return RedirectToAction("Project", new {id = projectId});
+		}
 	}
 }

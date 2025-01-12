@@ -1,15 +1,36 @@
 ﻿@model ProjectViewModel
 
-<p>@Model.Project.Title</p>
 
-<p>@Model.Project.Description</p>
+<div class="card">
+    <div class="card-body">
+        <p>@Model.Project.Title</p>
 
-<p>@Model.Creator.FirstName @Model.Creator.LastName</p>
+        <p>@Model.Project.Description</p>
+        <p>Grundare:</p>
+        <p>@Model.Creator.FirstName @Model.Creator.LastName</p>
+        <p>Medarbetare:</p>
+        @foreach (var part in Model.Project.Participants)
+        {
+            <p>@part.FirstName @part.LastName</p>
+        }
 
-@foreach (var part in Model.Project.Participants)
-{
-	<p>@part.FirstName @part.LastName</p>
-}
+        @if (User.Identity.IsAuthenticated)
+        {
+            @if (User.Identity.Name != Model.Creator.UserName && !Model.Project.Participants.Any(p => p.Id == User.Identity.Name))
+            {
+                <div class="mt-4">
+                    <form asp-controller="Project" asp-action="AddParticipant" method="post">
+                        <input type="hidden" name="projectId" value="@Model.Project.Id" />
+                        <button type="submit" class="btn btn-primary">
+                            Registrera som deltagare
+                        </button>
+                    </form>
+                </div>
+            }
+        }
+    </div>
+</div>
+
 
 <div class="center mt-4">
     <button class="btn text-light" style="background-color:#ff6219; margin-bottom:2rem" onclick="history.back()">
