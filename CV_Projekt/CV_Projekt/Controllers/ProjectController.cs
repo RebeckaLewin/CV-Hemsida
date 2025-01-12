@@ -14,8 +14,25 @@ namespace CV_Projekt.Controllers
 		}
 
 		[HttpGet]
+        public IActionResult Project(int id)
+        {
+            var project = context.Projects
+				.Where(p => p.Id == id)
+                .Include(p => p.Participants)
+                .FirstOrDefault();
 
-		public IActionResult ShowProjectsView() 
+            var projCreator = context.Users
+                .Where(u => u.Id == project.CreatorId)
+                .FirstOrDefault();
+
+            var proj = new ProjectViewModel()
+            {
+                Project = project,
+                Creator = projCreator
+            };
+            return View(proj);
+        }
+        public IActionResult ShowProjectsView() 
 		{
 			var projects = context.Projects
 				.Include(p => p.Participants)
@@ -29,7 +46,7 @@ namespace CV_Projekt.Controllers
 			var proj = new ProjectViewModel()
 			{
 				Projects = projects,
-				Creator = projCreator
+				Creators = projCreator
 			};
 			return View(proj);
 		}

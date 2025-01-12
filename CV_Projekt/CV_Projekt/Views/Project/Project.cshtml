@@ -1,0 +1,18 @@
+﻿@model ProjectViewModel
+
+<p>@Model.Project.Title</p>
+
+<p>@Model.Project.Description</p>
+
+<p>@Model.Creator.FirstName @Model.Creator.LastName</p>
+
+@foreach (var part in Model.Project.Participants)
+{
+	<p>@part.FirstName @part.LastName</p>
+}
+
+<div class="center mt-4">
+    <button class="btn text-light" style="background-color:#ff6219; margin-bottom:2rem" onclick="history.back()">
+        Tillbaka
+    </button>
+</div>
