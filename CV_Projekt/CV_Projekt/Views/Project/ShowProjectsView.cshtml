@@ -25,11 +25,16 @@
           <h6 class="card-title" style="color:#ff6219;">Skapare</h6>
                     <p class="card-text">@proj.Creator.FirstName @proj.Creator.LastName </p>
           <h6 class="card-title" style="color:#ff6219;">Deltagare</h6>
-            @foreach (var user in Model.Users)
+            @if (proj.Participants != null && proj.Participants.Any())
             {
+                @foreach (var part in proj.Participants)
+                {
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item">@user.FirstName @user.LastName</li>
+                    <li class="list-group-item">@part.FirstName @part.LastName</li>
                 </ul>
+                }
+            } else {
+                <p class="card-text">Inga deltagare hittades</p>
             }
         }
     </div>
