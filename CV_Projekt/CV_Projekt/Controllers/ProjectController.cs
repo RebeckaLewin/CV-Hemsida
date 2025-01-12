@@ -1,6 +1,7 @@
 ﻿using CV_Projekt.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 
 namespace CV_Projekt.Controllers
 {
@@ -77,15 +78,14 @@ namespace CV_Projekt.Controllers
 		[HttpPost]
 		public IActionResult AddParticipant(int projectId) 
 		{
-			var currentUser = context.Users
-				.FirstOrDefault(u => u.UserName == User.Identity.Name);
+			var currentUser = context.Users.Where(u => u.UserName.Equals(User.Identity.Name)).FirstOrDefault();
 
-			var project = context.Projects.
+
+            var project = context.Projects.
 				Include(p => p.Participants)
 				.FirstOrDefault();
 			if (!project.Participants.Any(u => u.Id == currentUser.Id) && project.CreatorId != currentUser.Id)
 			{
-				context.Attach(currentUser);
 				project.Participants.Add(currentUser);
 				context.SaveChanges();
 			}
