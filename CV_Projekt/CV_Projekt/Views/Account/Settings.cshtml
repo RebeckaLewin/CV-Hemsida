@@ -21,17 +21,16 @@
 
     <div asp-validation-summary="All" class="text-danger">here there be errors</div>
 
-    <form method="post" asp-action="Settings">
+    <form method="post" asp-action="Settings" enctype="multipart/form-data">
         <input asp-for="User.ContactInformation.Id" value="@Model.User.ContactInformation.Id" hidden />
         <input asp-for="User.Id" type="text" value="@Model.User.Id" hidden/>
             <div class="d-flex align-items-start py-3 border-bottom">
-                <img id="profilePic" src=""
+                <img id="profilePic" src="@Url.Content(Model.User.PictureUrl)"
                      class="img" alt=""
                      style="width: 100px;
                             height: 100px;
                             border-radius: 6px;
                             object-fit: cover" />
-                <input id="pictureUrl" value="#profilePic.src" disabled />
                 <div class="pl-sm-4 pl-2 m-2" id="img-section">
                     <b style="font-size: 14px;">
                         Ändra Profilbild
@@ -41,7 +40,7 @@
                             margin-bottom: 10px;
                             text-align: justify;">
                     </p>
-                    <input id="pictureInput" type="file" accept="image/png, image/jpeg" class="btn p-2" style="background-color:#fff; color:#ff6219; border-color:#ff6219 ">
+                    <input asp-for="ImageFile" id="pictureInput" type="file" accept="image/png, image/jpeg" class="btn p-2" style="background-color:#fff; color:#ff6219; border-color:#ff6219 ">
                 </div>
             </div>
         <div class="py-2">
@@ -111,8 +110,6 @@
 
     let profilePicture = document.getElementById('profilePic');
 
-    profilePicture.src = localStorage.getItem('@User.Identity.Name');
-
     let pictureUrl = document.getElementById('pictureUrl');
     let imageInput = document.getElementById('pictureInput');
 
@@ -126,7 +123,6 @@
         
         let display_file = (e) => {
             profilePicture.src = e.target.result;
-            localStorage.setItem('@User.Identity.Name', e.target.result);
         };
 
         let on_reader_load = ( fl ) => {
