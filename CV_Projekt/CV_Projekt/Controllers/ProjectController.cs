@@ -82,7 +82,8 @@ namespace CV_Projekt.Controllers
 
 
             var project = context.Projects.
-				Include(p => p.Participants)
+				Where(p => p.Id == projectId)
+				.Include(p => p.Participants)
 				.FirstOrDefault();
 			if (!project.Participants.Any(u => u.Id == currentUser.Id) && project.CreatorId != currentUser.Id)
 			{

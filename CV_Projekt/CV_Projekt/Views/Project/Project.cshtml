@@ -16,7 +16,7 @@
 
         @if (User.Identity.IsAuthenticated)
         {
-            @if (User.Identity.Name != Model.Creator.UserName && !Model.Project.Participants.Any(p => p.Id == User.Identity.Name))
+            @if (User.Identity.Name != Model.Creator.UserName && !Model.Project.Participants.Any(p => p.UserName == User.Identity.Name))
             {
                 <div class="mt-4">
                     <form asp-controller="Project" asp-action="AddParticipant" method="post">
