@@ -10,7 +10,7 @@
     <div class="wrapper my-sm-5" 
          style="background-color:#fff;
                 padding: 30px 50px;
-                border: 1px solid #ff6219;
+                border: 2px solid #ff6219;
                 border-radius: 15px;
                 margin: 10px auto;
                 max-width: 600px;">
@@ -38,7 +38,7 @@
 						<input asp-for="@Model.Message.Date" type="hidden" name="Date" value="DateTime.Now" />
 						<input asp-for="@Model.Message.isRead" type="hidden" value="false" />
 						
-                        <div style="text-align:right;">
+                        <div style="text-align:right; margin-top: 1rem;">
 						<a class="btn" style="background-color:#fff; color:#ff6219; border: 1px solid #ff6219; margin-bottom:1rem; "><i class="fa-solid fa-pen"></i>Skicka meddelande</a>
 						</div>
 					</form>
