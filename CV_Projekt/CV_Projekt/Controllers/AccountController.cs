@@ -38,7 +38,7 @@ namespace CV_Projekt.Controllers
 					viewModel.UserName,
 					viewModel.Password,
 					isPersistent: viewModel.RememberMe,
-					lockoutOnFailure: true
+					lockoutOnFailure: false
 					);
 				if (result.Succeeded)
 				{

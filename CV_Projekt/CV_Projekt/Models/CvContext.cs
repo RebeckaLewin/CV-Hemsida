@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 
 namespace CV_Projekt.Models
 {
@@ -84,14 +86,14 @@ namespace CV_Projekt.Models
                 }
             );
 
-            modelBuilder.Entity<User>().HasData(
-                new User
+            List<User> newUsers = [new User
                 {
                     Id = 1.ToString(),
                     FirstName = "Alice",
                     LastName = "Andersson",
                     UserName = "alicean12@live.se",
-                    InformationId = 1,
+                    Email = "alicean12@live.se",
+					InformationId = 1,
                     Password = "P@ssword123",
                     isPrivate = true,
                     isActive = true,
@@ -102,7 +104,8 @@ namespace CV_Projekt.Models
                     FirstName = "Bob",
                     LastName = "Bergström",
                     UserName = "bobbergstrom@gmail.com",
-                    InformationId = 2,
+                    Email = "bobbergstrom@gmail.com",
+					InformationId = 2,
                     Password = "P@ssword456",
                     isPrivate = false,
                     isActive = true,
@@ -113,7 +116,8 @@ namespace CV_Projekt.Models
                     FirstName = "Charlie",
                     LastName = "Carlsson",
                     UserName = "charliec@live.se",
-                    InformationId = 3,
+                    Email = "charliec@live.se",
+					InformationId = 3,
                     Password = "P@ssword789",
                     isPrivate = false,
                     isActive = false,
@@ -124,7 +128,8 @@ namespace CV_Projekt.Models
                     FirstName = "Daniel",
                     LastName = "Davidsson",
                     UserName = "danield@outlook.com",
-                    InformationId = 4,
+                    Email = "danield@outlook.com",
+					InformationId = 4,
                     Password = "SecureP@ss1",
                     isPrivate = true,
                     isActive = true,
@@ -135,7 +140,8 @@ namespace CV_Projekt.Models
                     FirstName = "Emily",
                     LastName = "Evans",
                     UserName = "emily.evans@hotmail.com",
-                    InformationId = 5,
+                    Email = "emily.evans@hotmail.com",
+					InformationId = 5,
                     Password = "MyP@ssword2",
                     isPrivate = false,
                     isActive = true,
@@ -146,7 +152,8 @@ namespace CV_Projekt.Models
                     FirstName = "Frank",
                     LastName = "Fischer",
                     UserName = "frankfischer@gmail.com",
-                    InformationId = 6,
+                    Email = "frankfischer@gmail.com",
+					InformationId = 6,
                     Password = "StrongP@ss3",
                     isPrivate = true,
                     isActive = true,
@@ -157,7 +164,8 @@ namespace CV_Projekt.Models
                     FirstName = "Grace",
                     LastName = "Gustafsson",
                     UserName = "grace.gustafsson@live.se",
-                    InformationId = 7,
+                    Email = "grace.gustafsson@live.se",
+					InformationId = 7,
                     Password = "GracefulP@ss4",
                     isPrivate = false,
                     isActive = false,
@@ -168,7 +176,8 @@ namespace CV_Projekt.Models
                     FirstName = "Hanna",
                     LastName = "Holm",
                     UserName = "hanna.holm@gmail.com",
-                    InformationId = 8,
+                    Email = "hanna.holm@gmail.com",
+					InformationId = 8,
                     Password = "H@nnasP@ss5",
                     isPrivate = true,
                     isActive = true,
@@ -179,7 +188,8 @@ namespace CV_Projekt.Models
                     FirstName = "Ian",
                     LastName = "Ingemarsson",
                     UserName = "ian.ingemarsson@outlook.com",
-                    InformationId = 9,
+                    Email = "ian.ingemarsson@outlook.com",
+					InformationId = 9,
                     Password = "I@nsSecure6",
                     isPrivate = false,
                     isActive = true,
@@ -190,14 +200,35 @@ namespace CV_Projekt.Models
                     FirstName = "Julia",
                     LastName = "Jonsson",
                     UserName = "julia.jonsson@yahoo.com",
-                    InformationId = 10,
+                    Email = "julia.jonsson@yahoo.com",
+					InformationId = 10,
                     Password = "JuliasP@ss7",
                     isPrivate = true,
                     isActive = false,
-                }
-            );
+                }];
 
-            modelBuilder.Entity<Message>().HasData(
+			var hasher = new PasswordHasher<User>();
+			foreach (var user in newUsers)
+			{
+				user.PasswordHash = hasher.HashPassword(user, user.Password);
+                user.NormalizedEmail = user.Email.Normalize();
+                user.NormalizedUserName = user.UserName.Normalize();
+			}
+
+			modelBuilder.Entity<User>().HasData(
+               newUsers[0],
+               newUsers[1],
+			   newUsers[2],
+			   newUsers[3],
+			   newUsers[4],
+			   newUsers[5],
+			   newUsers[6],
+			   newUsers[7],
+			   newUsers[8],
+			   newUsers[9]
+			);
+
+			modelBuilder.Entity<Message>().HasData(
                 new Message
                 {
                     Id = 1,
