@@ -1,154 +1,12 @@
 ﻿@model CvViewModel
 
-@* 
-<div class="card">
-	<div class="card-header">
-		<h3>@Model.User.FirstName @Model.User.LastName </h3>
-	</div>
-	<div class="card-body">
-		<div class="row">
-			<div class="col-md-8">
-				<h5>Projekt jag har skapat:</h5>
-				<section class="mb-4">
-					@if (Model.ProjectsCreated != null && Model.ProjectsCreated.Any())
-					{
-						<ul class="list-unstyled">
-						@foreach (var proj in Model.ProjectsCreated)
-						{
-							<li class="list-unstyled">@proj.Title</li>
-						}
-						</ul>
-					} else {
-						<p class="fw-light">Användaren har inga skapade projekt</p>
-					}
-				</section>
-
-				<section class="mb-4">
-					<h5>Projekt jag har jobbat med:</h5>
-					@if (Model.ProjectCollaborator != null && Model.ProjectCollaborator.Any())
-					{
-						<ul class="list-unstyled">
-							@foreach (var proj in Model.ProjectCollaborator)
-							{
-								<li>@proj.Title</li>
-							}
-						</ul>
-					}
-					else
-					{
-						<p class="fw-light">Inga projektsammarbeten hittades.</p>
-					}
-				</section>
-
-				<section class="mb-4">
-					<h5>Tidigare Erfarenheter:</h5>
-					@if (Model.Experiences != null && Model.Experiences.Any())
-					{
-						<ul class="list-unstyled">
-							@foreach (var exp in Model.Experiences)
-							{
-								
-								<li>
-									@exp.Location
-									@if (exp.Description != null)
-									{
-										<p class="fw-light">@exp.Description</p>
-									}
-									else
-									{
-										<p class="fw-light">Beskrivning saknas.</p>
-									}
-								</li>
-								@if (exp is Education edu)
-								{
-									<div class="education-details">
-										<p class="fw-light">Nivå:@edu.Level</p>
-										<p class="fw-light">Inriktning: @edu.Program</p>
-									</div>
-								}
-							}
-						</ul>
-					}
-					else
-					{
-						<p class="fw-light">Inga tidgare erfarenheter hittades</p>
-					}
-				</section>
-				
-				
-				<section class="mb-4">
-					<h5>Färdigheter Inkluderar:</h5>
-					@if (Model.Skills != null && Model.Skills.Any())
-					{
-						<ul class="list-unstyled">
-							@foreach (var skill in Model.Skills)
-							{
-								<li>@skill</li>
-							}
-						</ul>
-					}
-					else
-					{
-						<p class="fw-light">Användaren har inga färdigheter listade</p>
-					}
-				</section>
-			</div>
-		
-			<div class="col-md-4">
-				<section class="mb-4">
-					<h5>
-						<i class="fas fa-hashtag fa-2x" aria-hidden="true" aria-label="Taggar"></i>
-					</h5>
-					@if (Model.Tags != null && Model.Tags.Any())
-					{
-						<ul class="list-unstyled">
-						@foreach (var tag in Model.Tags)
-						{
-							<li>@tag.Descriptor</li>
-						}
-						</ul>
-					} else {
-						<p class="fw-light">Inga taggar tillagda</p>
-					} 	
-				</section>
-
-				<section class="mb-4">
-					<h5 class="text-decoration-underline">Kontaktinformation</h5>
-					@if (Model.User.ContactInformation != null)
-					{
-						<ul class="list-unstyled">
-							<li>Email: @Model.User.UserName</li>
-							<li>Telefon: @Model.User.ContactInformation.Phone</li>
-							@if (!string.IsNullOrEmpty(Model.User.ContactInformation.Address))
-							{
-								<li>Adress: @Model.User.ContactInformation.Address</li>
-							}
-						</ul>
-					} else {
-						<p class="fw-light">Kontaktinformation saknas</p>
-					}
-				</section>
-			</div>
-		</div>
-	</div>
-</div>
-
-<div class="d-flex justify-content-center mt-2">
-	<a asp-controller="Home" asp-action="Index" class="btn btn-primary">Startsida</a>
-</div>*@
-
-<div class="d-flex justify-content-center mt-2">
-	<a asp-controller="Profile" asp-action="Profile" asp-route-id="@Model.Owner.Id" class="btn btn-primary">VISA PROFIL</a>
-</div> 
-
-
 
 <section class="h-100">
 	<div class="container py-5 h-100">
 		<div class="row d-flex justify-content-center">
 			
 			<div class="col col-lg-9 col-xl-8">
-				<div class="card" style="border: 2px solid #ff6219; background-color:lightgrey; ">
+				<div class="card bg-dark" style="border: 2px solid #ff6219; ">
 					<div class="container">
 						<div class="row">
 							<div class="col-sm-4">
@@ -162,48 +20,32 @@
 							
 						</div>
 						<div class="col-sm-8">
-						<div class="ms-3" style="margin-top: 100px;">
+						<div class="ms-3 text-light" style="margin-top: 100px;">
 							<h4 style="text-align:center;">CV</h4>
 									<h5 style="text-align:center;">@Model.Owner.FirstName @Model.Owner.LastName</h5>
 							</div>
 						</div>
 							</div>
 						
-					@* <div class="p-4 text-black bg-body-tertiary">
-						<div class="d-flex justify-content-end text-center py-1 text-body">
-							<div>
-								<p class="mb-1 h5">21</p>
-								<p class="small text-muted mb-0">Projekt</p>
-							</div>
-							<div class="px-3">
-								<p class="mb-1 h5">1026</p>
-								<p class="small text-muted mb-0">Antal visningar</p>
-							</div>
-							
-						</div>
-					</div> *@
-					
+				
 					<div class="row">
-						<div class="col-sm-4">
+						<div class="col-sm-5">
 					<div class="card-body p-4 text-black">
 						<div class="mb-5  text-body">
-										<button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-outline-dark text-body" data-mdb-ripple-color="dark" style="z-index: 1;"
-										asp-Controller="Profile"
-										asp-action="Profile"
-										asp-route-id="@Model.Owner.Id">
-											Till Profil
-										</button>
-							<h6 class="lead fw-normal mb-1">Kontakt</h6>
-							<div class="p-4 bg-body-tertiary">
+										<div class="d-flex justify-content-center mt-2" style="margin-bottom:2rem;">
+											<a asp-controller="Profile" asp-action="Profile" asp-route-id="@Model.Owner.Id" class="btn" style="background-color:#ff6219; color:#fff;">Till Profil</a>
+										</div>
+										<h6 class="lead fw-normal mb-1" style="color:#ff6219;">Kontakt</h6>
+							<div class="p-1 bg-body-tertiary">
 
 											@if (Model.Owner.ContactInformation != null)
 											{
-												<ul class="list-unstyled">
-													<li>Email: @Model.Owner.UserName</li>
-													<li>Telefon: @Model.Owner.ContactInformation.Phone</li>
+												<ul class="list-unstyled formatted-list">
+													<li class="formatted-li"><b>Email:</b><span style="white-space: nowrap;">@Model.Owner.UserName</span> </li>
+													<li class="formatted-li"><b>Telefon:</b><span style="white-space: nowrap; "> @Model.Owner.ContactInformation.Phone</span></li>
 													@if (!string.IsNullOrEmpty(Model.Owner.ContactInformation.Address))
 													{
-														<li>Adress: @Model.Owner.ContactInformation.Address</li>
+														<li class="formatted-li"><b>Adress:</b> <span style="white-space: nowrap;">@Model.Owner.ContactInformation.Address</span> </li>
 													}
 												</ul>
 											}
@@ -211,66 +53,69 @@
 											{
 												<p class="fw-light">Kontaktinformation saknas</p>
 											}
+
+											<h6 class="lead fw-normal mb-1" style="color:#ff6219;">Skills</h6>
+										
+
+											@if (Model.Skills != null && Model.Skills.Any())
+											{
+												<ul class="list-unstyled formatted-list">
+													@foreach (var skill in Model.Skills)
+													{
+														<li class="formatted-li" style="white-space: nowrap;">@skill</li>
+													}
+												</ul>
+											}
+											else
+											{
+												<p class="fw-light">Användaren har inga listade Skills</p>
+											}
+
+										</div>
+									</div>
 								</div>
 							</div>
-							</div>
-							</div>
 							
-								<div class="card col-sm-8 mb-2">
+								<div class="card col-sm-7 mb-2 experience-container">
 									<div class="card-body text-black">
 									
 										<h6 class="card-header" style="background-color:#fff; color:#ff6219; text-align:center;">Arbetslivserfarenhet</h6>
 										@foreach (var work in Model.Work)
 										{
-											<p class="card-text">@work.Description</p>
+											<div class="experience-item">
+												<p class="card-text">@work.Description</p>
+												<p class="card-text"><i>@work.StartDate.ToString("yyyy-MM-dd") - @work.EndDate.ToString("yyyy-MM-dd")</i></p>
+											</div>
 										}
 										</div>
 										</div>
+									
 									</div>
-
 					<div class="row">
-						<div class="col-sm-4">
-							<div class="card-body p-4 text-black">
-								<div class="mb-5  text-body">
-									<p class="lead fw-normal mb-1"></p>
-									<div class="p-4 bg-body-tertiary">
-											<h6 class="lead fw-normal mb-1">Skills</h6>
-											<div class="p-4 bg-body-tertiary">
-
-												@if (Model.Skills != null && Model.Skills.Any())
-												{
-													<ul class="list-unstyled">
-														@foreach (var skill in Model.Skills)
-														{
-															<li>@skill</li>
-														}
-													</ul>
-												}
-												else
-												{
-													<p class="fw-light">Användaren har inga listade Skills</p>
-												}
-										
-									</div>
-								</div>
-							</div>
+						<div class="col-sm-5">
+							
 						</div>
+						
 
-						<div class="card col-sm-8 mb-2">
+						<div class="card col-sm-7 mb-2 experience-container">
 							<div class="card-body text-black">
 								
 								<h6 class="card-header" style="background-color:#fff; color:#ff6219; text-align:center;">Utbildningar</h6>
 								
 										@foreach (var education in Model.Educations)
 										{
-											<p class="card-text">@education.Description</p>
+											<div class="experience-item">
+												<p class="card-text">@education.Description</p>
+												<p class="card-text"><i>@education.StartDate.ToString("yyyy-MM-dd") - @education.EndDate.ToString("yyyy-MM-dd")</i></p>
+											</div>
 										}
 							</div>
 						</div>
 					</div>
+					
 
 					<div class="row">
-						<div class="col-sm-4">
+						<div class="col-sm-5">
 							<div class="card-body p-4 text-black">
 								<div class="mb-5  text-body">
 									<p class="lead fw-normal mb-1"></p>
@@ -280,22 +125,26 @@
 							</div>
 						</div>
 
-						<div class="card col-sm-8 mb-2">
+						<div class="card col-sm-7 mb-2 experience-container">
 							<div class="card-body text-black">
 								
 								<h6 class="card-header" style="background-color:#fff; color:#ff6219; text-align:center;">Andra Erfarenheter</h6>
 										@foreach (var other in Model.OtherExperiences)
 										{
-											<p class="card-text">@other.Description</p>
+											<div class="experience-item">
+												<p class="card-text">@other.Description</p>
+												<p class="card-text"><i>@other.StartDate.ToString("yyyy-MM-dd") - @other.EndDate.ToString("yyyy-MM-dd")</i></p>
+											</div>
 										}
 							</div>
 						</div>
 					</div>
-					</div>
+					
 									
 
 								</div>
 							</div>
+						</div>
 						</div>
 						</div>
 					
