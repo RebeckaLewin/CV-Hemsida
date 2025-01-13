@@ -20,7 +20,10 @@
                         <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(107).webp" alt="image 1"
                              class="card-img-top w-100 rounded-3">
                         <div class="scrollable-content" style="max-height: 80%; overflow-y: auto; padding-bottom: 10px;">
-                        <div class="card-header font-weight-bold bg-dark text-light">@user.FirstName @user.LastName</div>
+
+                            <a asp-controller="Profile" asp-action="Profile" asp-route-id="@user.Id" style="text-decoration: none" class="text-black">
+                                <div class="card-header font-weight-bold bg-dark text-light">@user.FirstName @user.LastName</div>
+                            </a>
                         @foreach (var exp in Model.Experiences.Where(e => e.UserId == user.Id))
                         {
                             <div>
