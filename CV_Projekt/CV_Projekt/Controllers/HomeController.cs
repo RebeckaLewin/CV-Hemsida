@@ -25,8 +25,7 @@ namespace CV_Projekt.Controllers
             var experiences = _context.Experiences.ToList();
 
             var latestProject = _context.Projects.OrderByDescending(p => p.Id)
-                .Take(1)
-                .ToList();
+                .FirstOrDefault();
 
             var random = new Random();
 
@@ -49,7 +48,7 @@ namespace CV_Projekt.Controllers
             HomeViewModel viewModel = new HomeViewModel
             {
                 Users = usersWithCvs,
-                Projects = latestProject,
+                LatestProject = latestProject,
                 Cvs = cvs,
                 Experiences = experiences, 
                 LoggedInUser = loggedInUser

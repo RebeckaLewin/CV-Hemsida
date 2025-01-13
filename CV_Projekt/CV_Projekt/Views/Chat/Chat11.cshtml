@@ -33,7 +33,7 @@
 @foreach (Message mess in @Model.SentMessages)
 {
     <div class="card">
-            <h4>Till: @mess.Receiver.FirstName   @mess.Receiver.LastName</h4>
+            <h4>Till: @mess.Sender.FirstName   @mess.Sender.LastName</h4>
         <h4> @mess.Subject</h4>
         <h5> @mess.Content</h5>
     </div>

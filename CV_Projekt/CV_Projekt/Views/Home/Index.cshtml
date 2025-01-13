@@ -3,10 +3,11 @@
     ViewData["Title"] = "Home Page";
 }
 
+@*
 @if(User.Identity.IsAuthenticated)
 {
     <h1>Välkommen @Model.LoggedInUser.FirstName!</h1>
-}
+}*@
 
 <br />
 <div class="container">
@@ -61,13 +62,12 @@
                                 </ul>
                             }
                             
-                                <div class="text-center position-absolute bottom-0 start-0 w-100">
-                                    <form asp-controller="Cv" asp-action="IncrementCvViews" method="post">
-                                        <input type="hidden" name="id" value="@cv.Id"/>
-                                        <button type="submit" class="btn text-light"
+                            <div class="text-center position-absolute bottom-0 start-0 w-100">
+                                <form method="get" asp-controller="Cv" asp-action="CV" asp-route-id="@cv.Id">
+                                     <button type="submit" class="btn text-light"
                                                 style="background-color:#ff6219; margin-bottom:2rem;">
                                                 Visa CV
-                                        </button>
+                                     </button>
                                 </form>
                             </div>
 
@@ -95,30 +95,29 @@
     <div class="row justify-content-center">
         <div class="col-md-4">
                 <div class="card">
-                    @foreach(var proj in Model.Projects)
+                    @if(Model.LatestProject !=null)
                     {
-                        var projectOwner = Model.Users.FirstOrDefault(u => u.Id == proj.CreatorId);
+                        @* var projectOwner = Model.Users.FirstOrDefault(u => u.Id == proj.CreatorId); *@
                         <div class="card-body position-relative">
-                        <div class="card-header">@proj.Title</div>
-                        <div class="card-text">@proj.Description</div>
+                        <div class="card-header">@Model.LatestProject.Title</div>
+                        <div class="card-text">@Model.LatestProject.Description</div>
                         <div class="card-text fw-light">Datum:</div>
-                        <div class="card-text fw-light">Start: @proj.StartDate.ToString("yy-MM-dd") Slut: @proj.EndDate.ToString("yy-MM-dd")</div>
-                        <div class="card-text fw-light">Projektägare:</div>
-                        @if (projectOwner != null) 
+                        <div class="card-text fw-light">Start: @Model.LatestProject.StartDate.ToString("yy-MM-dd") Slut: @Model.LatestProject.EndDate.ToString("yy-MM-dd")</div>
+                        @* <div class="card-text fw-light">Projektägare:</div> *@
+                        @* @if (projectOwner != null) 
                         {
                             <div class="card-text fw-light">@projectOwner.FirstName @projectOwner.LastName</div>
                         } else {
                             <div class="card-text fw-light">Ingen projektägare hittades.</div>
-                        }
+                        } *@
                         </div>
                     }
                     <div class="text-center">
-                        @* Placeholder för en länk som skall leda till projektet *@
-                        <a href="#" class="btn text-light"
+                        <a  class="btn text-light"
                             style="background-color:#ff6219; margin-bottom:2rem;"
-                        @* asp-controller="Profile"
-                        asp-action="Index"
-                        asp-route-id="@()" *@>
+                        asp-controller="Project"
+                        asp-action="Project"
+                        asp-route-id="@Model.LatestProject.Id">
                         Visa detta projekt
                         </a>
                     </div>
@@ -130,7 +129,10 @@
 
 
 <div class="d-flex justify-content-center mt-2">
-    <a asp-controller="Project" asp-action="Add" class="btn text-light" style="background-color:#ff6219; margin:1rem;">Gå till projektsida</a>
+    @if (User.Identity.IsAuthenticated)
+    {
+        <a asp-controller="Project" asp-action="Add" class="btn text-light" style="background-color:#ff6219; margin:1rem;">Skapa nytt projekt</a>
+    }
 
     @if(!User.Identity.IsAuthenticated)
     {
@@ -143,4 +145,20 @@
         </form>
     }
 </div>
-
+<div>
+    <a  class="btn btn-primary text-light"
+    style="background-color:#ff6219; margin-bottom:2rem;"
+    asp-controller="Message"
+    asp-action="ChatList"
+    asp-route-id="1">
+        Visa Meddelanden
+    </a>
+</div>
+<div>
+    <a class="btn btn-primary text-light"
+       style="background-color:#ff6219; margin-bottom:2rem;"
+       asp-controller="Project"
+       asp-action="ShowProjectsView">
+        Visa Alla Projekt
+    </a>
+</div>
