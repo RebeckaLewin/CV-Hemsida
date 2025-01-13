@@ -31,7 +31,7 @@
                     @foreach (var user in Model.Users)
                     {
                         <li>
-                        <a asp-controller="Profile" asp-action="Profile" asp-route-aUserName="@user.UserName" style="text-decoration: none" class="text-black">
+                        <a asp-controller="Profile" asp-action="Profile" asp-route-id="@user.Id" style="text-decoration: none" class="text-black">
                                 @user.FirstName @user.LastName
                             </a>
                         </li>

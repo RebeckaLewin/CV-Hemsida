@@ -176,16 +176,32 @@ namespace CV_Projekt.Controllers
 				userToUpdate.ContactInformation.Address = viewModel.User.ContactInformation.Address;
 				userToUpdate.ContactInformation.Phone = viewModel.User.ContactInformation.Phone;
 
-				userToUpdate.PictureUrl = profileImageURL;
+				if(!profileImageURL.Equals(string.Empty))
+				{
+					userToUpdate.PictureUrl = profileImageURL;
+				}
 
 				context.Users.Update(userToUpdate);
 				context.SaveChanges();
 
 				viewModel.User = userToUpdate;
 
-				RedirectToAction("UserProfile", "UserProfile", viewModel);
+				RedirectToAction("Profile", "Profile", viewModel);
 			}
 			return View(viewModel);
+		}
+
+		[HttpPost]
+		public IActionResult SetDisabled(SettingsViewModel viewModel)
+		{
+			viewModel.User.isActive = !viewModel.User.isActive;
+
+			string id = User.FindFirstValue(ClaimTypes.NameIdentifier);
+			User userToUpdate = context.Users.Where(u => u.Id.Equals(id)).FirstOrDefault();
+
+			userToUpdate.isActive = viewModel.User.isActive;
+			context.SaveChanges();
+			return RedirectToAction("Settings", viewModel);
 		}
 	}
 }
