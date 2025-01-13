@@ -16,7 +16,8 @@ namespace CV_Projekt.Controllers
             _logger = logger;
             _context = context;
         }
-        
+
+        [HttpGet]
         public IActionResult CV(int id)
         {
             var cv = _context.CVs.Where(cv => cv.Id == id)
@@ -25,13 +26,16 @@ namespace CV_Projekt.Controllers
             {
                 return NotFound();
             }
+
+            cv.Views++;
+            _context.SaveChanges();
+
             var user = _context.Users.Where(u => u.Id == cv.OwnerId)
                 .FirstOrDefault();
             if (user == null)
             {
                 return NotFound();
             }
-
 
             var work = _context.Experiences
                 .Where(e => e.UserId.Equals(user.Id) && e is Work)
@@ -53,19 +57,6 @@ namespace CV_Projekt.Controllers
                 OtherExperiences = other,
             };
             return View(userCv);
-        }
-
-        [HttpPost]
-        public IActionResult IncrementCvViews(int id)
-        {
-            var cv = _context.CVs.FirstOrDefault(c => c.Id == id);
-            var views = _context.CVs;
-            if (cv != null)
-            {
-                cv.Views++;
-                _context.SaveChanges();
-            }
-            return RedirectToAction("Cv", new {id});
         }
     }
 }
