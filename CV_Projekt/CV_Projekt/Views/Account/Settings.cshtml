@@ -63,8 +63,18 @@
                     <label class="settingsLbl" for="phone">Telefonnummer</label>
                     <input asp-for="User.ContactInformation.Phone" type="tel" class="bg-light form-control" value="@Model.User.ContactInformation.Phone">
                 </div>
-                <input asp-for="User.ContactInformation.Address" value="@Model.User.ContactInformation.Address" hidden />
+               
             </div>
+                <div class="row py-2">
+                    <div class="col-md-6">
+                        <label class="settingsLbl" for="address">Adress</label>
+                        <input asp-for="User.ContactInformation.Address" type="text" class="bg-light form-control" value="@Model.User.ContactInformation.Address">
+                    </div>
+                    <div class="col-md-6 pt-md-0 pt-3">
+                        
+                    </div>
+                   
+                </div>
             <div class="row py-2">
                 <div class="col-md-6">
                     <label class="settingsLbl" for="passwordchange">Nytt Lösenord</label>
