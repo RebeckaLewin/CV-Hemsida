@@ -1,5 +1,158 @@
 ﻿@model ProfileViewModel
 
+
+
+<section class="h-100">
+	<div class="container py-5 h-100">
+		<div class="row d-flex justify-content-center">
+			
+			<div class="col col-lg-9 col-xl-8">
+				<div class="card bg-dark" style="border: 2px solid #ff6219; ">
+					<div class="container">
+						<div class="row">
+							<div class="col-sm-4">
+					<div class="rounded-top text-dark d-flex flex-row" >
+						<div class="ms-4 mt-5 d-flex flex-column">
+										<img src="@Url.Content(Model.User.PictureUrl)"
+								 alt="Generic placeholder image" class="img-fluid img-thumbnail mt-4 mb-2"
+											 style="width: 150px; z-index: 1; box-shadow:2px 2px 4px dimgray">
+									</div>
+									</div>
+							
+						</div>
+						<div class="col-sm-8">
+						<div class="ms-3 text-light" style="margin-top: 100px;">
+									<h4 style="text-align:center;">@Model.User.FirstName @Model.User.LastName</h4>
+									<h5 style="text-align:center;"><i>@Model.User.UserName</i></h5>
+							</div>
+						</div>
+							</div>
+						
+				
+					<div class="row">
+						<div class="col-sm-5">
+					<div class="card-body p-4 text-black">
+						<div class="mb-5  text-body">
+										<div class="d-flex flex-column justify-content-center mt-2" style="margin-bottom:2rem;">
+
+                                            <a asp-controller="Account" asp-action="Settings" asp-route-id="@Model.User.Id" class="btn" style="background-color:#fff; color:#ff6219; margin-bottom:1rem;"><i class="fa-solid fa-gear"></i>Ändra Profil</a>
+
+                                            <a asp-controller="Cv" asp-action="CreateCv" asp-route-id="@Model.User.Id" class="btn" style="background-color:#fff; color:#ff6219; margin-bottom:1rem;"><i class="fa-solid fa-file-circle-plus"></i>Skapa CV</a>
+                                           
+                                            <a asp-controller="Message" asp-action="ChatList" asp-route-id="@Model.User.Id" class ="btn" style="background-color:#fff; color:#ff6219;">
+                                                <i class="fa-solid fa-envelope position-relative">
+                                                    <span class="badge rounded-pill badge-notification bg-danger position-absolute top-0 left-0 translate-middle" style="font-size:0.5rem;">1</span>
+												</i>Meddelanden
+											</a>
+                                           
+										</div>
+										<h6 class="lead fw-normal mb-1" style="color:#ff6219;">Kontakt</h6>
+										<div class="p-1 bg-body-tertiary">
+
+											@if (@Model.User.ContactInformation != null)
+											{
+												<ul class="list-unstyled formatted-list">
+													<li class="formatted-li"><b>Email:</b> <span style="white-space: nowrap;">@Model.User.UserName</span> </li>
+													<li class="formatted-li"><b>Telefon:</b> <span style="white-space: nowrap; ">@Model.User.ContactInformation.Phone</span></li>
+													@if (!string.IsNullOrEmpty(@Model.User.ContactInformation.Address))
+													{
+														<li class="formatted-li"><b>Adress:</b> <span style="white-space: nowrap;">@Model.User.ContactInformation.Address</span> </li>
+													}
+												</ul>
+											}
+											else
+											{
+												<p class="fw-light">Kontaktinformation saknas</p>
+											}
+
+											
+										
+
+								
+
+										</div>
+									</div>
+								</div>
+							</div>
+							
+								<div class="card col-sm-7 mb-2 proj-container">
+									<div class="card-body text-black">
+                                    <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(112).webp" alt="image 1"
+                                         class="card-img-top w-100 rounded-3">
+										<h6 class="card-header" style="background-color:#fff; color:#ff6219; text-align:center;">Projekt jag medverkar i</h6>
+
+										@foreach (var proj in Model.User.JoinedProjects)
+										{
+											<div class="proj-item">
+												<p class="card-text">@proj.Title</p>
+											<p class="card-text"><i>@proj.Description</i></p>
+											</div>
+										}
+										</div>
+										</div>
+									
+									</div>
+					<div class="row">
+						<div class="col-sm-5">
+							
+						</div>
+						
+
+						<div class="card col-sm-7 mb-2 proj-container">
+							<div class="card-body text-black">
+									<img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(112).webp" alt="image 1"
+										 class="card-img-top w-100 rounded-3">
+								<h6 class="card-header" style="background-color:#fff; color:#ff6219; text-align:center;">Projekt jag skapat</h6>
+
+                                    @foreach (var project in Model.User.CreatedProjects)
+                                    {
+                                       
+                                            
+                                            <div class="proj-item">
+                                                <p class="card-text">@project.Title</p>
+                                                <p class="card-text"><i>@project.Description</i></p>
+                                            </div>
+                                       
+                                    }
+							</div>
+						</div>
+					</div>
+					
+
+					
+					
+									
+
+								</div>
+							</div>
+						</div>
+						</div>
+						</div>
+					
+				
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@* 
 <section class="h-100">
     <div class="container py-5 h-100">
         <div class="row d-flex justify-content-center">
@@ -25,8 +178,8 @@
                             </button>
                         </div>
                         <div class="ms-3" style="margin-top: 130px;">
-                            <h5>@Model.User.FirstName @Model.User.LastName</h5>
-                            <p>@Model.User.UserName</p>
+                            <h5 style="text-align:center;">@Model.User.FirstName @Model.User.LastName</h5>
+                            <p style="text-align:center;">@Model.User.UserName</p>
                         </div>
                     </div>
                     <div class="p-4 text-black bg-body-tertiary">
@@ -39,10 +192,7 @@
                                 <p class="mb-1 h5">1026</p>
                                 <p class="small text-muted mb-0">Antal visningar</p>
                             </div>
-                            @* <div>
-                                <p class="mb-1 h5">478</p>
-                                <p class="small text-muted mb-0"></p>
-                            </div> *@
+                           
                         </div>
                     </div>
                     <div class="card-body p-4 text-black">
@@ -130,4 +280,4 @@
         </div>
         </div>
     </div>
-</section>
+</section> *@
