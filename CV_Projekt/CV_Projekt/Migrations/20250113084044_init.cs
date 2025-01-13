@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace CV_Projekt.Migrations
 {
     /// <inheritdoc />
-    public partial class migration1 : Migration
+    public partial class init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -259,7 +259,9 @@ namespace CV_Projekt.Migrations
                     Date = table.Column<DateTime>(type: "datetime2", nullable: false),
                     SenderId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     ReceiverId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    isRead = table.Column<bool>(type: "bit", nullable: false)
+                    isRead = table.Column<bool>(type: "bit", nullable: false),
+                    ReceiverDelete = table.Column<bool>(type: "bit", nullable: false),
+                    SenderDelete = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -386,34 +388,20 @@ namespace CV_Projekt.Migrations
                 name: "ProjectUser",
                 columns: table => new
                 {
-                    ProjectId = table.Column<int>(type: "int", nullable: false),
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     JoinedProjectsId = table.Column<int>(type: "int", nullable: false),
                     ParticipantsId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ProjectUser", x => new { x.ProjectId, x.UserId });
+                    table.PrimaryKey("PK_ProjectUser", x => new { x.JoinedProjectsId, x.ParticipantsId });
                     table.ForeignKey(
                         name: "FK_ProjectUser_AspNetUsers_ParticipantsId",
                         column: x => x.ParticipantsId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_ProjectUser_AspNetUsers_UserId",
-                        column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_ProjectUser_Projects_JoinedProjectsId",
                         column: x => x.JoinedProjectsId,
-                        principalTable: "Projects",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_ProjectUser_Projects_ProjectId",
-                        column: x => x.ProjectId,
                         principalTable: "Projects",
                         principalColumn: "Id");
                 });
@@ -458,16 +446,16 @@ namespace CV_Projekt.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Description", "Email", "EmailConfirmed", "FirstName", "InformationId", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "Password", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "Picture", "PictureFormat", "SecurityStamp", "TwoFactorEnabled", "UserName", "isActive", "isPrivate" },
                 values: new object[,]
                 {
-                    { "1", 0, "35c1769a-9afa-434b-b980-acf92179017d", null, null, false, "Alice", 1, "Andersson", false, null, null, null, "P@ssword123", null, null, false, null, null, "1150b34b-6a87-44e2-848a-9f3dcd83325b", false, "alicean12@live.se", true, true },
-                    { "10", 0, "7ce448df-8335-4bcc-a7d1-063b82d6bcd8", null, null, false, "Julia", 10, "Jonsson", false, null, null, null, "JuliasP@ss7", null, null, false, null, null, "4a1eab66-5f05-4a2e-b790-63b3755982a5", false, "julia.jonsson@yahoo.com", false, true },
-                    { "2", 0, "1f328acc-4fd2-4289-953b-e0a24024b734", null, null, false, "Bob", 2, "Bergström", false, null, null, null, "P@ssword456", null, null, false, null, null, "7afdb30e-c786-4bcd-b16e-5aab04eb996c", false, "bobbergstrom@gmail.com", true, false },
-                    { "3", 0, "c4329377-9305-45a3-add9-83577ff201c1", null, null, false, "Charlie", 3, "Carlsson", false, null, null, null, "P@ssword789", null, null, false, null, null, "c608ef7b-1b52-4899-a188-702245173df6", false, "charliec@live.se", false, false },
-                    { "4", 0, "deeac507-2cc0-46da-a519-5a58a15335d4", null, null, false, "Daniel", 4, "Davidsson", false, null, null, null, "SecureP@ss1", null, null, false, null, null, "4b91a928-e4ee-450b-8aca-e7a9647cb4d8", false, "danield@outlook.com", true, true },
-                    { "5", 0, "27ea9690-57c4-4811-b367-d9de80e25299", null, null, false, "Emily", 5, "Evans", false, null, null, null, "MyP@ssword2", null, null, false, null, null, "7910d49a-166c-4f15-9325-c502abf62ef3", false, "emily.evans@hotmail.com", true, false },
-                    { "6", 0, "32a33fb2-2a8f-4f83-8b36-935de85238a3", null, null, false, "Frank", 6, "Fischer", false, null, null, null, "StrongP@ss3", null, null, false, null, null, "79c60abc-c0af-485e-bcd6-0d72f63509db", false, "frankfischer@gmail.com", true, true },
-                    { "7", 0, "246ce8c1-d947-4ea3-ae52-506e9da20b9f", null, null, false, "Grace", 7, "Gustafsson", false, null, null, null, "GracefulP@ss4", null, null, false, null, null, "60d64094-f60e-4ad7-a3b1-bb7618f8aadf", false, "grace.gustafsson@live.se", false, false },
-                    { "8", 0, "b2bc616a-2cdc-4ae3-8c6e-c3749385a958", null, null, false, "Hanna", 8, "Holm", false, null, null, null, "H@nnasP@ss5", null, null, false, null, null, "c8bc4cab-047e-440f-b7db-8c9974c273ff", false, "hanna.holm@gmail.com", true, true },
-                    { "9", 0, "3fd0d21e-1298-41b3-aa49-6d17b20491d2", null, null, false, "Ian", 9, "Ingemarsson", false, null, null, null, "I@nsSecure6", null, null, false, null, null, "0baf17a0-ce1e-4151-8a52-5f7be0e8cb45", false, "ian.ingemarsson@outlook.com", true, false }
+                    { "1", 0, "f913e4d1-76eb-43da-ab8d-ec65570c3101", null, null, false, "Alice", 1, "Andersson", false, null, null, null, "P@ssword123", null, null, false, null, null, "b1ffc7bb-da70-4f49-9fe2-0fcbd586ace4", false, "alicean12@live.se", true, true },
+                    { "10", 0, "6b8d5ec9-f0ef-4528-a331-8e0510a1c615", null, null, false, "Julia", 10, "Jonsson", false, null, null, null, "JuliasP@ss7", null, null, false, null, null, "94be92c2-4de8-4e00-8403-1bcfb83be44c", false, "julia.jonsson@yahoo.com", false, true },
+                    { "2", 0, "94850e4e-4cea-49e5-a0b6-21fa949e28cb", null, null, false, "Bob", 2, "Bergström", false, null, null, null, "P@ssword456", null, null, false, null, null, "93ff70eb-e061-45a1-9bd1-1769ef3bab87", false, "bobbergstrom@gmail.com", true, false },
+                    { "3", 0, "570bfbfd-d637-4ba8-be86-dd76da5f4abc", null, null, false, "Charlie", 3, "Carlsson", false, null, null, null, "P@ssword789", null, null, false, null, null, "bd48f91a-ca80-429a-9afb-38a6e73e125d", false, "charliec@live.se", false, false },
+                    { "4", 0, "f3d378d6-34ed-4317-bc10-f4173dc92e35", null, null, false, "Daniel", 4, "Davidsson", false, null, null, null, "SecureP@ss1", null, null, false, null, null, "4d9ab2fe-31dc-489b-9ec2-fd3c2a6972a9", false, "danield@outlook.com", true, true },
+                    { "5", 0, "4f264f15-4414-47fe-99cb-1cd10136a61f", null, null, false, "Emily", 5, "Evans", false, null, null, null, "MyP@ssword2", null, null, false, null, null, "f97e3872-c91c-4095-afb8-7bf2791cd1b0", false, "emily.evans@hotmail.com", true, false },
+                    { "6", 0, "022f5561-fdf8-4425-a0ce-bd3a45e8d865", null, null, false, "Frank", 6, "Fischer", false, null, null, null, "StrongP@ss3", null, null, false, null, null, "e516d414-d05f-4c44-8355-9e390ac2a281", false, "frankfischer@gmail.com", true, true },
+                    { "7", 0, "55a3e7bb-9ede-4e0a-8e31-9ec28639845e", null, null, false, "Grace", 7, "Gustafsson", false, null, null, null, "GracefulP@ss4", null, null, false, null, null, "a4601d58-4bda-483b-9644-f3601f0e8324", false, "grace.gustafsson@live.se", false, false },
+                    { "8", 0, "742a4faf-d367-4e26-9652-41145769b5b8", null, null, false, "Hanna", 8, "Holm", false, null, null, null, "H@nnasP@ss5", null, null, false, null, null, "9f4ab1f3-122c-4cb1-bd37-668185f1ca6b", false, "hanna.holm@gmail.com", true, true },
+                    { "9", 0, "f36d5f4c-26b0-4ad2-9fdf-6b72b75347ea", null, null, false, "Ian", 9, "Ingemarsson", false, null, null, null, "I@nsSecure6", null, null, false, null, null, "be73400e-58a3-49ab-af11-ce16989c8294", false, "ian.ingemarsson@outlook.com", true, false }
                 });
 
             migrationBuilder.InsertData(
@@ -539,19 +527,19 @@ namespace CV_Projekt.Migrations
 
             migrationBuilder.InsertData(
                 table: "Messages",
-                columns: new[] { "Id", "Content", "Date", "ReceiverId", "SenderId", "Subject", "isRead" },
+                columns: new[] { "Id", "Content", "Date", "ReceiverDelete", "ReceiverId", "SenderDelete", "SenderId", "Subject", "isRead" },
                 values: new object[,]
                 {
-                    { 1, "Hej på dig! Hur är det med dig?", new DateTime(2020, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified), "2", "1", "En hälsning", false },
-                    { 2, "Missade att du skrev, förlåt.", new DateTime(2020, 7, 16, 0, 0, 0, 0, DateTimeKind.Unspecified), "1", "2", "Missade", false },
-                    { 3, "Ska vi ta en lunch imorgon?", new DateTime(2020, 8, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "1", "3", "Lunch?", false },
-                    { 4, "Tack för att du hjälpte mig med projektet.", new DateTime(2020, 8, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "3", "1", "Tack!", false },
-                    { 5, "Kan du kika på dokumentet jag skickade?", new DateTime(2020, 9, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), "5", "4", "Fråga", false },
-                    { 6, "Jag har lagt till några kommentarer i ditt utkast.", new DateTime(2020, 9, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "4", "5", "Feedback", false },
-                    { 7, "Glöm inte mötet imorgon kl. 10.", new DateTime(2020, 10, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "7", "6", "Möte", false },
-                    { 8, "Har du hunnit förbereda presentationen?", new DateTime(2020, 10, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), "6", "7", "Presentation", false },
-                    { 9, "Grattis på födelsedagen!", new DateTime(2020, 11, 3, 0, 0, 0, 0, DateTimeKind.Unspecified), "9", "8", "Grattis!", false },
-                    { 10, "Ha en trevlig helg! Vi hörs på måndag.", new DateTime(2020, 11, 6, 0, 0, 0, 0, DateTimeKind.Unspecified), "10", "9", "Trevlig helg", false }
+                    { 1, "Hej på dig! Hur är det med dig?", new DateTime(2020, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "2", false, "1", "En hälsning", false },
+                    { 2, "Missade att du skrev, förlåt.", new DateTime(2020, 7, 16, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "1", false, "2", "Missade", false },
+                    { 3, "Ska vi ta en lunch imorgon?", new DateTime(2020, 8, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "1", false, "3", "Lunch?", false },
+                    { 4, "Tack för att du hjälpte mig med projektet.", new DateTime(2020, 8, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "3", false, "1", "Tack!", false },
+                    { 5, "Kan du kika på dokumentet jag skickade?", new DateTime(2020, 9, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "5", false, "4", "Fråga", false },
+                    { 6, "Jag har lagt till några kommentarer i ditt utkast.", new DateTime(2020, 9, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "4", false, "5", "Feedback", false },
+                    { 7, "Glöm inte mötet imorgon kl. 10.", new DateTime(2020, 10, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "7", false, "6", "Möte", false },
+                    { 8, "Har du hunnit förbereda presentationen?", new DateTime(2020, 10, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "6", false, "7", "Presentation", false },
+                    { 9, "Grattis på födelsedagen!", new DateTime(2020, 11, 3, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "9", false, "8", "Grattis!", false },
+                    { 10, "Ha en trevlig helg! Vi hörs på måndag.", new DateTime(2020, 11, 6, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "10", false, "9", "Trevlig helg", false }
                 });
 
             migrationBuilder.InsertData(
@@ -671,19 +659,9 @@ namespace CV_Projekt.Migrations
                 column: "CreatorId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ProjectUser_JoinedProjectsId",
-                table: "ProjectUser",
-                column: "JoinedProjectsId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_ProjectUser_ParticipantsId",
                 table: "ProjectUser",
                 column: "ParticipantsId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ProjectUser_UserId",
-                table: "ProjectUser",
-                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_TagUser_TagsId",
