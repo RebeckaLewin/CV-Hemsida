@@ -62,20 +62,27 @@ input[type="checkbox"]:checked {
     overflow-y: auto;
 }
 
+.formatted-list .formatted-li {
+    margin-bottom: 10px;
+    line-height: 1.6;
+    font-size: 14px;
+    color:#fff;
+}   
+
+.experience-item {
+    border-bottom: 1px solid #ff6219;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+}
+
+.experience-container {
     
+    padding: 10px;
+    border: 1px solid #ff6219;
+}
 
 
-    .profile-work .a {
-        text-decoration: none;
-        color: #495057;
-        font-weight: 600;
-        font-size: 14px;
-    }
-    .profile-work .a:hover {
-       
-        color: #ff6219;
-        
-    }
+  
 .cv-list-group {
     height: 200px; 
     overflow-y: auto; 
