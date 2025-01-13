@@ -18,6 +18,8 @@
 
         private int Views { get; set; }
 
+
+        public CvViewModel() : base() { }
 		public CvViewModel(CvContext context, string id) : base(context, id) { }
 
 	}

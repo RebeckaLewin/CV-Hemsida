@@ -9,6 +9,7 @@
 
         public List<Experience> Experiences { get; set; }
 
-        public HomeViewModel(CvContext context, string id) : base(context, id) { }
+		public HomeViewModel() : base() { }
+		public HomeViewModel(CvContext context, string id) : base(context, id) { }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using CV_Projekt.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace CV_Projekt.Controllers
 {
@@ -25,7 +26,8 @@ namespace CV_Projekt.Controllers
 
                 ViewData["SearchedName"] = searchTerm;
             }
-            var svm = new SearchViewModel
+			var loggedInId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+			var svm = new SearchViewModel(_context, loggedInId)
             {
                 Users = users
             };

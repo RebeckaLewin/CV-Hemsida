@@ -26,7 +26,9 @@ namespace CV_Projekt.Controllers
                 .Where(u => u.Id == project.CreatorId)
                 .FirstOrDefault();
 
-            var proj = new ProjectViewModel()
+			var loggedInId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+			var proj = new ProjectViewModel(context, loggedInId)
             {
                 Project = project,
                 Creator = projCreator
@@ -44,7 +46,9 @@ namespace CV_Projekt.Controllers
 				.Contains(u.Id))
 				.ToList();
 
-			var proj = new ProjectViewModel()
+			var loggedInId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+			var proj = new ProjectViewModel(context, loggedInId)
 			{
 				Projects = projects,
 				Creators = projCreator
@@ -53,10 +57,11 @@ namespace CV_Projekt.Controllers
 		}
 		public IActionResult Add()
 		{
-			User loggedInUser = context.Users.Where(u => u.UserName.Equals(User.Identity.Name)).FirstOrDefault();
+			var loggedInId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+			User loggedInUser = context.Users.Where(u => u.Id.Equals(loggedInId)).FirstOrDefault();
 			Project newProject = new Project();
 			newProject.Creator = loggedInUser;
-			ProjectViewModel viewModel = new ProjectViewModel { Users = context.Users.ToList(), ProjectToSave = newProject };
+			ProjectViewModel viewModel = new ProjectViewModel(context, loggedInId) { Users = context.Users.ToList(), ProjectToSave = newProject };
 			return View(viewModel);
 		}
 
@@ -68,10 +73,11 @@ namespace CV_Projekt.Controllers
 				context.Add(viewModel.ProjectToSave);
 				context.SaveChanges();
 			}
-			User loggedInUser = context.Users.Where(u => u.UserName.Equals(User.Identity.Name)).FirstOrDefault();
+			var loggedInId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+			User loggedInUser = context.Users.Where(u => u.Id.Equals(loggedInId)).FirstOrDefault();
 			Project newProject = new Project();
 			newProject.Creator = loggedInUser;
-			ProjectViewModel newViewModel = new ProjectViewModel { Users = context.Users.ToList(), ProjectToSave = newProject };
+			ProjectViewModel newViewModel = new ProjectViewModel(context, loggedInId) { Users = context.Users.ToList(), ProjectToSave = newProject };
 			return View(newViewModel);
 		}
 

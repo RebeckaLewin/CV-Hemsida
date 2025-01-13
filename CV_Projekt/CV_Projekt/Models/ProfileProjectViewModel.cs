@@ -7,6 +7,8 @@
 
         public List<Project> ProjectParticipant { get; set; }
 
+
+        public ProfileProjectViewModel() : base() { }
 		public ProfileProjectViewModel(CvContext context, string id) : base(context, id) { }
 	}
 }

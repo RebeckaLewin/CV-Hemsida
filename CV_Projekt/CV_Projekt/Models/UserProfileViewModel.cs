@@ -8,6 +8,7 @@
         //public List<string> Skills { get; set; }
         public List<Tag> Tags { get; set; }
 
+        public UserProfileViewModel() : base() { }
 		public UserProfileViewModel(CvContext context, string id) : base(context, id) { }
 	}
 }

@@ -1,6 +1,7 @@
 ﻿using CV_Projekt.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 
 namespace CV_Projekt.Controllers
 {
@@ -32,8 +33,9 @@ namespace CV_Projekt.Controllers
                 Any(u => u.Id == id))
                 .ToList();
 
+			var loggedInId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            ProfileProjectViewModel ppvm = new ProfileProjectViewModel
+			ProfileProjectViewModel ppvm = new ProfileProjectViewModel(_context, loggedInId)
             {
                 User = user,
                 ProjectParticipant = projPart,

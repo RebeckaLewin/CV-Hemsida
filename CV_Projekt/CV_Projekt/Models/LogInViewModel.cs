@@ -11,6 +11,7 @@ namespace CV_Projekt.Models
 		public string Password { get; set; }
 		public bool RememberMe { get; set; }
 
+		public LogInViewModel() : base() { }
 		public LogInViewModel(CvContext context, string id) : base(context, id) { }
 	}
 }

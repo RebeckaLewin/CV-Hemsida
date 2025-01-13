@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
+using System.Security.Claims;
 using System.Security.Cryptography;
 
 namespace CV_Projekt.Controllers
@@ -28,8 +29,10 @@ namespace CV_Projekt.Controllers
                 .Where(m => m.isRead.Equals(false))
                 .OrderByDescending(m => m.Date)
                 .ToList();
-           
-            var viewModel = new ChatListViewModel
+
+			var loggedInId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+			var viewModel = new ChatListViewModel(_context, loggedInId)
             {
                 ReceivedMessages = recMes
             };
@@ -99,7 +102,9 @@ namespace CV_Projekt.Controllers
             var allUsers = _context.Users.ToList();
             var notMeUsers = allUsers.Except(notAllUsers).ToList();
 
-            var viewModel = new UserViewModel
+			var loggedInId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+			var viewModel = new UserViewModel(_context, loggedInId)
             {
                 _users = notMeUsers
             };

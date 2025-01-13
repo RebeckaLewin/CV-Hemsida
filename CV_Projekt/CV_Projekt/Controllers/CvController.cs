@@ -19,18 +19,18 @@ namespace CV_Projekt.Controllers
         }
 
         [HttpGet]
-        public IActionResult CV(int id)
+        public IActionResult Inspect(string id)
         {
-            var cv = _context.CVs.Where(cv => cv.Id == id)
+			var user = _context.Users.Where(u => u.Id.Equals(id))
+	                   .FirstOrDefault();
+			if (user == null)
+			{
+				return NotFound();
+			}
+
+			var cv = _context.CVs.Where(cv => cv.Owner == user)
                 .FirstOrDefault();
             if (cv == null)
-            {
-                return NotFound();
-            }
-
-            var user = _context.Users.Where(u => u.Id == cv.OwnerId)
-                .FirstOrDefault();
-            if (user == null)
             {
                 return NotFound();
             }
@@ -53,7 +53,7 @@ namespace CV_Projekt.Controllers
                 .Where(e => e.UserId.Equals(user.Id) && e is OtherExperience)
                 .ToList();
 
-            var viewModel = new CvViewModel
+            var viewModel = new CvViewModel(_context, loggedInId)
             {
                 CV = cv,
                 Owner = user,

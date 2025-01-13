@@ -16,5 +16,7 @@ namespace CV_Projekt.Models
 
 		[ForeignKey(nameof(OwnerId))]
 		public virtual User? Owner { get; set; }
+
+		public CV() { Views = 0; }
 	}
 }

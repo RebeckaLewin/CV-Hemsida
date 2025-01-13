@@ -26,6 +26,7 @@ namespace CV_Projekt.Models
 		[Required]
 		public bool IsPrivate { get; set; }
 
+		public RegisterViewModel() : base() { }
 		public RegisterViewModel(CvContext context, string id) : base(context, id) { }
 	}
 }

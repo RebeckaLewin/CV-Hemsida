@@ -4,6 +4,7 @@
     {
         public List<User> _users {  get; set; }
 
+        public UserViewModel() : base() { }
 		public UserViewModel(CvContext context, string id) : base(context, id) { }
 	}
 }

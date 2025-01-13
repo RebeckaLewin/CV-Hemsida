@@ -9,6 +9,7 @@ namespace CV_Projekt.Models
 
 		public IFormFile? ImageFile { get; set; }
 
+		public SettingsViewModel() : base() { }
 		public SettingsViewModel(CvContext context, string id) : base(context, id) { }
 	}
 }

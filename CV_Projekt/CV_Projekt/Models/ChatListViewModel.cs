@@ -10,6 +10,7 @@ namespace CV_Projekt.Models
         public User Sender { get; set; }
         public Message Message { get; set; }
 
+        public ChatListViewModel() : base() { }
 		public ChatListViewModel(CvContext context, string id) : base(context, id) { }
 
 	}

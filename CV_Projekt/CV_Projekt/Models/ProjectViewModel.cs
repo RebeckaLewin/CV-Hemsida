@@ -11,6 +11,7 @@
 
 		public User Creator { get; set; }
 
+		public ProjectViewModel() : base() { }
 		public ProjectViewModel(CvContext context, string id) : base(context, id) { }
 	}
 }

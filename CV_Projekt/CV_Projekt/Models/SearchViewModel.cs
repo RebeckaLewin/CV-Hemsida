@@ -6,6 +6,7 @@
 
         public List<CV> CVs { get; set; }
 
+        public SearchViewModel() : base() { }
 		public SearchViewModel(CvContext context, string id) : base(context, id) { }
 	}
 }

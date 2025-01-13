@@ -26,7 +26,7 @@ namespace CV_Projekt.Controllers
 		[HttpGet]
 		public IActionResult LogIn()
 		{
-			LogInViewModel viewModel = new LogInViewModel();
+			LogInViewModel viewModel = new LogInViewModel(context, null);
 			return View(viewModel);
 		}
 
@@ -63,7 +63,7 @@ namespace CV_Projekt.Controllers
 		[HttpGet]
 		public IActionResult Register()
 		{
-			RegisterViewModel viewModel = new RegisterViewModel();
+			RegisterViewModel viewModel = new RegisterViewModel(context, null);
 			return View(viewModel);
 		}
 
@@ -94,12 +94,16 @@ namespace CV_Projekt.Controllers
 					FirstName = viewModel.FirstName,
 					LastName = viewModel.LastName,
 					Password = viewModel.Password,
-					ContactInformation = contactInformation
+					ContactInformation = contactInformation,
+					PictureUrl = "~/images/profilepic_default.jpg",
 				};
-				Debug.WriteLine(viewModel.Password);
 				var result = await userManager.CreateAsync(newUser, newUser.Password);
 				if (result.Succeeded)
 				{
+					CV newCV = new CV { Owner = newUser };
+					context.CVs.Add(newCV);
+					context.SaveChanges();
+
 					await signInManager.SignInAsync(newUser, isPersistent: true);
 					return RedirectToAction("Index", "Home");
 				}
@@ -111,7 +115,7 @@ namespace CV_Projekt.Controllers
 					}
 				}
 			}
-			return View(new RegisterViewModel());
+			return View(new RegisterViewModel(context, null));
 		}
 
 		[HttpGet]
@@ -121,7 +125,6 @@ namespace CV_Projekt.Controllers
 			SettingsViewModel viewModel = new SettingsViewModel(context, id);
 			try
 			{
-
 				viewModel.User = context.Users.Where(u => u.Id.Equals(id)).FirstOrDefault();
 				if (viewModel.User == null)
 				{

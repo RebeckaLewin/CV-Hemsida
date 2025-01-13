@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace CV_Projekt.Models
 {
-	public class BaseViewModel
+	public abstract class BaseViewModel
 	{
 		public int UnreadMessages { get; set; }
 
