@@ -11,43 +11,20 @@ namespace CV_Projekt.Controllers
         {
             _context = context;
         }
+
         [HttpGet]
-        public IActionResult Profile(string id)
+        public IActionResult Profile(string aUserName)
         {
-            var user = _context.Users
-                .FirstOrDefault(u => u.Id == id);
-                    
-
-            var cv = _context.CVs
-                .FirstOrDefault(c => c.OwnerId == id);
-
-            var projCreated = _context.Projects
-                .Where(p => p.CreatorId == id)
-                .ToList();
-            var projColl = _context.Projects
-                .Where(p => p.Participants.Any(u => u.Id == user.Id))
-                .ToList();
-            var exp = _context.Experiences
-                .Where(e => e.UserId == id)
-                .ToList();
-            
-            var pvm = new ProfileViewModel
+            ProfileViewModel viewModel = new ProfileViewModel();
+            if (aUserName == null)
             {
-                User = user,
-                ProjectParticipant = projColl,
-                ProjectCreator = projCreated,
-                Experience = exp,
-                CV = cv
-            };
-            return View(pvm);
-        }
-
-        [HttpGet]
-        public IActionResult UserProfile()
-        {
-            UserProfileViewModel viewModel = new UserProfileViewModel();
-            viewModel.User = _context.Users.Where(u => u.UserName.Equals(User.Identity.Name)).FirstOrDefault();
-            viewModel.Projects = _context.Projects.ToList();
+                viewModel.User = _context.Users.Where(u => u.UserName.Equals(User.Identity.Name)).FirstOrDefault();
+			}
+            else
+            {
+				viewModel.User = _context.Users.Where(u => u.UserName.Equals(aUserName)).FirstOrDefault();
+			}
+			viewModel.Projects = _context.Projects.ToList();
             viewModel.Tags = _context.Tags.ToList();
             return View(viewModel);
         }

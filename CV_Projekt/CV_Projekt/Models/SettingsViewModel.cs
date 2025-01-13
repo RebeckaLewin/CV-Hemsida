@@ -6,5 +6,7 @@ namespace CV_Projekt.Models
 	{
 		public User User { get; set; }
 		public string ConfirmedPassword { get; set; } = string.Empty;
+
+		public IFormFile? ImageFile { get; set; }
 	}
 }

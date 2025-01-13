@@ -41,7 +41,6 @@ namespace CV_Projekt.Controllers
             var sender = _context.Users.Where(u => u.Id.Equals(senderId)).FirstOrDefault();
             var receiver = _context.Users.Where(u => u.Id.Equals(receiverId)).FirstOrDefault();
 
-
             MessageViewModel viewModel = new MessageViewModel { Message = message, Sender = sender, Receiver = receiver };
             return View(viewModel);
         }
