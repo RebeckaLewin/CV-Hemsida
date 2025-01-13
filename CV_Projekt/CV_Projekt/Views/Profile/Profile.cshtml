@@ -1,5 +1,5 @@
 ﻿@model ProfileViewModel
-
+@using System.Security.Claims
 <section class="h-100">
     <div class="container py-5 h-100">
         <div class="row d-flex justify-content-center">
@@ -17,12 +17,22 @@
                                 <i class="fa-solid fa-file-circle-plus"></i>
                                 <a asp-controller="Cv" asp-action="CreateCv" asp-route-id="@Model.User.Id">Skapa CV</a>
                             </button>
-                            <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-outline-dark text-body" data-mdb-ripple-color="dark" style="z-index: 1; margin:0.5rem 0 0.5rem 0">
-                                <i class="fa-solid fa-envelope text-black position-relative">
-                                    <span class="badge rounded-pill badge-notification bg-danger position-absolute top-0 left-0 translate-middle" style="font-size:0.5rem;">1</span>
-                                </i>
-                                Meddelanden
-                            </button>
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                    <a asp-controller="Message" asp-action="Add" asp-route-receiverId="@Model.User.Id" asp-route-senderId="@User.FindFirstValue(ClaimTypes.NameIdentifier)" class ="btn" style="background-color:#fff; color:#ff6219;">
+                                <i class="fa-solid fa-envelope position-relative">
+                                <span class="badge rounded-pill badge-notification bg-danger position-absolute top-0 left-0 translate-middle" style="font-size:0.5rem;">1</span>
+                                </i>Skicka Meddelande Till @Model.User.FirstName   @Model.User.LastName
+                                </a>
+                            }
+                            else
+                            {
+                                <a asp-controller="Message" asp-action="AddAnon" asp-route-id="@Model.User.Id" class ="btn" style="background-color:#fff; color:#ff6219;">
+                                <i class="fa-solid fa-envelope position-relative">
+                                <span class="badge rounded-pill badge-notification bg-danger position-absolute top-0 left-0 translate-middle" style="font-size:0.5rem;">1</span>
+                                </i>Meddelanden
+                                </a>
+                            }
                         </div>
                         <div class="ms-3" style="margin-top: 130px;">
                             <h5>@Model.User.FirstName @Model.User.LastName</h5>
