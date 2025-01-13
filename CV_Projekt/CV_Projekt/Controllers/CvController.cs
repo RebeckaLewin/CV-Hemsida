@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Security.Claims;
 using CV_Projekt.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -27,15 +28,20 @@ namespace CV_Projekt.Controllers
                 return NotFound();
             }
 
-            cv.Views++;
-            _context.SaveChanges();
-
             var user = _context.Users.Where(u => u.Id == cv.OwnerId)
                 .FirstOrDefault();
             if (user == null)
             {
                 return NotFound();
             }
+
+            var loggedInId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if(!user.Id.Equals(loggedInId))
+            {
+				cv.Views++;
+				_context.SaveChanges();
+			}
 
             var work = _context.Experiences
                 .Where(e => e.UserId.Equals(user.Id) && e is Work)
@@ -47,7 +53,7 @@ namespace CV_Projekt.Controllers
                 .Where(e => e.UserId.Equals(user.Id) && e is OtherExperience)
                 .ToList();
 
-            var userCv = new CvViewModel
+            var viewModel = new CvViewModel
             {
                 CV = cv,
                 Owner = user,
@@ -55,8 +61,10 @@ namespace CV_Projekt.Controllers
                 Work = work,
                 Educations = educations,
                 OtherExperiences = other,
+                Projects = _context.Projects.ToList()
             };
-            return View(userCv);
+
+            return View(viewModel);
         }
     }
 }
