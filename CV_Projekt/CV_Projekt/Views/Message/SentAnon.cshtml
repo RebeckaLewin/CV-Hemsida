@@ -1,0 +1,20 @@
+﻿@model MessageViewModel
+
+<div class="card">
+
+	<h3>Skickat till @Model.Receiver.FirstName   @Model.Receiver.LastName</h3>
+	
+	<div class="row">
+		@Model.Message.Subject
+	</div>
+
+	<p>@Model.Message.Content</p>
+
+	<a class="btn btn-primary text-light"
+			   style="background-color:#ff6219; margin-bottom:2rem;"
+			   asp-controller="Home"
+			   asp-action="Index">
+			   Startsida
+			</a>
+
+</div>

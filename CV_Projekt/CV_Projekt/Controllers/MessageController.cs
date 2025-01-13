@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
+using System.Security.Cryptography;
 
 namespace CV_Projekt.Controllers
 {
@@ -105,6 +106,50 @@ namespace CV_Projekt.Controllers
 
             
 
+            return View(viewModel);
+        }
+        
+        [HttpGet]
+        public IActionResult AddAnon(string id)
+        {
+			var receiver = _context.Users.Where(u => u.Id.Equals(id)).FirstOrDefault();
+			Message message = new Message();
+
+			MessageViewModel viewModel = new MessageViewModel { Message = message, Receiver = receiver, Sender = null };
+			return View(viewModel);
+		}
+
+		[HttpPost]
+		public IActionResult AddAnon(MessageViewModel viewModel)
+		{
+			if (ModelState.IsValid)
+			{
+                var subject = Subject(viewModel.Message.Subject, viewModel.Name, viewModel.Email);
+                var message = viewModel.Message;
+                message.Subject = subject;
+				_context.Add(message);
+				_context.SaveChanges();
+				return RedirectToAction("SentAnon", viewModel);
+			}
+			else
+			{
+				Console.WriteLine(ModelState.ErrorCount.ToString());
+				return RedirectToAction("AddAnon", new {id = viewModel.Message.ReceiverId });
+			}
+		}
+
+		public string Subject(string subject, string name, string email)
+        {
+            var firstLine = "<h3> Från: " + name + "</h3>";
+            var secondLine = "<h4> Email: " + email + "</h4>";
+            var thirdLine = "<h4> Ämne: " + subject + "</h4>";
+            var subjectWhole = firstLine + Environment.NewLine + secondLine + Environment.NewLine + thirdLine;
+            return (subjectWhole);
+        }
+
+        [HttpGet]
+        public IActionResult SentAnon(MessageViewModel viewModel)
+        {
             return View(viewModel);
         }
 
