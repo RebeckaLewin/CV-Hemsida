@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
+using System.Security.Claims;
 using System.Security.Cryptography;
 
 namespace CV_Projekt.Controllers
@@ -92,9 +93,9 @@ namespace CV_Projekt.Controllers
         public IActionResult AllUserList()
         {
 
-            var identity = _context.Users.Where(u => u.UserName.Equals(User.Identity.Name)).FirstOrDefault();
-            var id = identity.Id;
-            ViewBag.Id = id;
+            var identity = _context.Users.Where(u => u.Id.Equals(User.FindFirstValue(ClaimTypes.NameIdentifier))).FirstOrDefault();
+            
+            ViewBag.Id = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
 
             List<User> notAllUsers = new List<User> { identity };
