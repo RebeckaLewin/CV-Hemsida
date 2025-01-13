@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Cryptography.KeyDerivation;
+using Microsoft.AspNetCore.Identity;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -30,8 +31,7 @@ namespace CV_Projekt.Models
 		[Required]
 		public bool isActive { get; set; }
 
-		public byte[]? Picture { get; set; }
-		public string? PictureFormat { get; set; }
+		public string? PictureUrl { get; set; }
 
 		public virtual List<Message>? RecievedMessages { get; set; } = new List<Message>();
 		public virtual List<Message>? SentMessages { get; set; } = new List<Message>();

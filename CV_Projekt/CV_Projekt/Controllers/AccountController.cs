@@ -2,6 +2,10 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using System.Web;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.AspNetCore.Http;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace CV_Projekt.Controllers
 {
@@ -34,7 +38,7 @@ namespace CV_Projekt.Controllers
 					viewModel.UserName,
 					viewModel.Password,
 					isPersistent: viewModel.RememberMe,
-					lockoutOnFailure: true
+					lockoutOnFailure: false
 					);
 				if (result.Succeeded)
 				{
@@ -125,19 +129,36 @@ namespace CV_Projekt.Controllers
 			{
 				Console.WriteLine(ex.Message);
 			}
+
 			return View(viewModel);
 		}
 
 		[HttpPost]
 		public IActionResult Settings(SettingsViewModel viewModel)
 		{
-			if(ModelState.IsValid)
+			if (ModelState.IsValid)
 			{
 				if (!viewModel.User.Password.Equals(viewModel.ConfirmedPassword))
 				{
 					ModelState.AddModelError("", "De angivna lösenorden matchar inte.");
 					return View(viewModel);
 				}
+
+				string profileImageURL = "";
+
+				if(viewModel.ImageFile != null)
+				{
+					string fileName = "profilepic_" + "test" + Path.GetExtension(viewModel.ImageFile.FileName).ToLower();
+					string newFilePath = "..\\CV_Projekt\\wwwroot\\images\\" + fileName;
+
+					using (FileStream fs = new FileStream(newFilePath, FileMode.Create))
+					{
+						viewModel.ImageFile.CopyTo(fs);
+					}
+
+					profileImageURL = "~/images/" + fileName;
+				}
+
 				User userToUpdate = context.Users.Where(u => u.UserName.Equals(User.Identity.Name)).FirstOrDefault();
 
 				userToUpdate.FirstName = viewModel.User.FirstName;
@@ -151,9 +172,14 @@ namespace CV_Projekt.Controllers
 				userToUpdate.ContactInformation.Address = viewModel.User.ContactInformation.Address;
 				userToUpdate.ContactInformation.Phone = viewModel.User.ContactInformation.Phone;
 
+				userToUpdate.PictureUrl = profileImageURL;
+
 				context.Users.Update(userToUpdate);
 				context.SaveChanges();
-				RedirectToAction("UserProfile", "UserProfile");
+
+				viewModel.User = userToUpdate;
+
+				RedirectToAction("UserProfile", "UserProfile", viewModel);
 			}
 			return View(viewModel);
 		}

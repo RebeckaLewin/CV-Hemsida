@@ -3,14 +3,7 @@
     public class ProfileViewModel
     {
         public User User { get; set; } 
-
-        public List<Project> ProjectParticipant { get; set; }
-
-        public List<Project> ProjectCreator { get; set; }
-
-        public List<Experience> Experience { get; set; }
-
-        public CV CV { get; set; }
-
+        public List<Project> Projects { get; set; }
+        public List<Tag> Tags { get; set; }
     }
 }
