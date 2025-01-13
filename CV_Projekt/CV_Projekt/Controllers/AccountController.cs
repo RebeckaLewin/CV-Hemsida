@@ -6,6 +6,7 @@ using System.Web;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.AspNetCore.Http;
 using static System.Net.Mime.MediaTypeNames;
+using System.Security.Claims;
 
 namespace CV_Projekt.Controllers
 {
@@ -119,7 +120,8 @@ namespace CV_Projekt.Controllers
 			SettingsViewModel viewModel = new SettingsViewModel();
 			try
 			{
-				viewModel.User = context.Users.Where(u => u.UserName.Equals(User.Identity.Name)).FirstOrDefault();
+				var id = User.FindFirstValue(ClaimTypes.NameIdentifier);
+				viewModel.User = context.Users.Where(u => u.Id.Equals(id)).FirstOrDefault();
 				if (viewModel.User == null)
 				{
 					throw new Exception(message: "Användare med den angivna eposten saknas.");
@@ -144,11 +146,13 @@ namespace CV_Projekt.Controllers
 					return View(viewModel);
 				}
 
+				var id = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
 				string profileImageURL = "";
 
 				if(viewModel.ImageFile != null)
 				{
-					string fileName = "profilepic_" + "test" + Path.GetExtension(viewModel.ImageFile.FileName).ToLower();
+					string fileName = "profilepic_" + id + Path.GetExtension(viewModel.ImageFile.FileName).ToLower();
 					string newFilePath = "..\\CV_Projekt\\wwwroot\\images\\" + fileName;
 
 					using (FileStream fs = new FileStream(newFilePath, FileMode.Create))
@@ -159,7 +163,7 @@ namespace CV_Projekt.Controllers
 					profileImageURL = "~/images/" + fileName;
 				}
 
-				User userToUpdate = context.Users.Where(u => u.UserName.Equals(User.Identity.Name)).FirstOrDefault();
+				User userToUpdate = context.Users.Where(u => u.Id.Equals(id)).FirstOrDefault();
 
 				userToUpdate.FirstName = viewModel.User.FirstName;
 				userToUpdate.LastName = viewModel.User.LastName;
