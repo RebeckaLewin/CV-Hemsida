@@ -5,21 +5,21 @@
 <h2 style="color:#FFF;">Skriv ett nytt meddelande</h2>
 
 <form asp-action="Add" method="post">
-	<label style="color:#FFF;">Till: @Model.Receiver.FirstName @Model.Receiver.LastName</label>
+	<label style="color:#FFF;">Till: @Model.Receiver.FirstName   @Model.Receiver.LastName</label>
 	<br />
-	<label style="color:#FFF;">Ämne: </label>
+	<label style="color:#FFF;">Subject: </label>
 	<input asp-for="@Model.Message.Subject" />
 	<br />
 	<label style="color:#FFF;">Meddelande: </label>
 	<input type="textarea" asp-for="@Model.Message.Content" />
-	<br />	
-	@* <label>SenderId </label>
-	<input asp-for="SenderId" />
-	<br />	
-	<label>RecieverId </label>
-	<input asp-for="RecieverId" />
-	<br />	 *@
-	<input asp-for="@Model.Message.SenderId" type="hidden" value="@Model.Sender.Id" />
+	<br />
+	<label style="color:#FFF;">Namn: </label>
+	<input asp-for="@Model.Name" />
+	<br />
+	<label style="color:#FFF;">Email: </label>
+	<input asp-for="@Model.Email" />
+	<br />
+	<input asp-for="@Model.Message.SenderId" type="hidden" value="null" />
 	<input asp-for="@Model.Message.ReceiverId" type="hidden" value="@Model.Receiver.Id" />
 	<input asp-for="@Model.Message.Date" type="hidden" name="Date" value="DateTime.Now" />
 	<input asp-for="@Model.Message.isRead" type="hidden" value="false" />
