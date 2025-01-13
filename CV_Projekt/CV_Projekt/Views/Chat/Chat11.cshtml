@@ -27,6 +27,15 @@
         <h4>Från: @mess.Sender.FirstName   @mess.Sender.LastName</h4>
         <h4> @mess.Subject</h4>
         <h5> @mess.Content</h5>
+        <form asp-action="RemoveMessage" asp-route-messageId="@mess.Id" method="post" onsubmit="return confirmDelete();">
+                <button type="submit" class="btn btn-primary text-light"
+               style="background-color:#ff6219; margin-bottom:2rem;">Ta Bort</button>
+        </form>
+        <script>
+        function confirmDelete() {
+            return confirm("Är du säker på att du vill ta bort detta objekt?");
+        }
+        </script>
     </div>
 }
 <h2 style="color:#FFF;"> Skickade Meddelanden</h2>

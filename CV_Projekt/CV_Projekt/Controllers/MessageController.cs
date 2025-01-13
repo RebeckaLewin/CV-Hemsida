@@ -26,12 +26,14 @@ namespace CV_Projekt.Controllers
             var recMes = _context.Messages
                 .Where(m => m.ReceiverId.Equals(id))
                 .Where(m => m.isRead.Equals(false))
-                .OrderByDescending(m => m.Date)
+                .OrderBy(m => m.Date)
                 .ToList();
+
+            var recMes1 = recMes.DistinctBy(r => r.SenderId).ToList();
            
             var viewModel = new ChatListViewModel
             {
-                ReceivedMessages = recMes
+                ReceivedMessages = recMes1
             };
 
             return View(viewModel);
@@ -152,6 +154,7 @@ namespace CV_Projekt.Controllers
         {
             return View(viewModel);
         }
+
 
         public IActionResult Index()
         {
