@@ -67,9 +67,9 @@ namespace CV_Projekt.Controllers
             var receiver = _context.Users.Where(u => u.Id.Equals(receiverId)).FirstOrDefault();
             Message message = new Message();
 
+            var loggedInUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-
-            MessageViewModel viewModel = new MessageViewModel { Message = message, Receiver = receiver, Sender = sender };
+            MessageViewModel viewModel = new MessageViewModel(_context, loggedInUserId) { Message = message, Receiver = receiver, Sender = sender };
             return View(viewModel);
         }
 
@@ -120,7 +120,7 @@ namespace CV_Projekt.Controllers
 			var receiver = _context.Users.Where(u => u.Id.Equals(id)).FirstOrDefault();
 			Message message = new Message();
 
-			MessageViewModel viewModel = new MessageViewModel { Message = message, Receiver = receiver, Sender = null };
+			MessageViewModel viewModel = new MessageViewModel(_context, null) { Message = message, Receiver = receiver, Sender = null };
 			return View(viewModel);
 		}
 

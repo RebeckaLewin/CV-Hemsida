@@ -3,6 +3,7 @@ using System.Security.Claims;
 using CV_Projekt.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.IdentityModel.Tokens;
 
 namespace CV_Projekt.Controllers
@@ -65,6 +66,32 @@ namespace CV_Projekt.Controllers
             };
 
             return View(viewModel);
+        }
+
+        [HttpGet]
+        public IActionResult Update(string id)
+        {
+			var cv = _context.CVs.Where(cv => cv.OwnerId == id)
+				.FirstOrDefault();
+			if (cv == null)
+			{
+				return NotFound();
+			}
+
+            UpdateCvViewModel viewModel = new UpdateCvViewModel(_context, id) { Cv = cv };
+
+            return View(viewModel);
+		}
+
+        [HttpPost]
+        public IActionResult AddExperience(UpdateCvViewModel viewModel)
+        {
+			viewModel.Cv = _context.CVs.Where(cv => cv.Id == viewModel.Cv.Id).FirstOrDefault();
+			if (viewModel.Cv != null)
+            {
+				viewModel.Cv.Experiences.Add(viewModel.WorkToAdd);
+			}
+            return View("Update", viewModel);
         }
     }
 }
