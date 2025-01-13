@@ -139,6 +139,65 @@
 							</div>
 						</div>
 					</div>
+						<div class="row">
+							<div class="col-sm-5">
+								<div class="card-body p-4 text-black">
+									<div class="mb-5  text-body">
+										<p class="lead fw-normal mb-1"></p>
+										<div class="p-4 bg-body-tertiary">
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="card col-sm-7 mb-2 experience-container">
+								<div class="card-body text-black">
+
+								
+									<h6 class="card-header" style="background-color:#fff; color:#ff6219; text-align:center;">Projekt jag skapat</h6>
+
+									@foreach (var project in Model.Owner.JoinedProjects)
+									{
+
+
+										<div class="proj-item">
+											<p class="card-text">@project.Title</p>
+											<p class="card-text"><i>@project.Description</i></p>
+										</div>
+
+									}
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-5">
+								<div class="card-body p-4 text-black">
+									<div class="mb-5  text-body">
+										<p class="lead fw-normal mb-1"></p>
+										<div class="p-4 bg-body-tertiary">
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="card col-sm-7 mb-2 experience-container">
+								<div class="card-body text-black">
+
+									<h6 class="card-header" style="background-color:#fff; color:#ff6219; text-align:center;">Projekt jag skapat</h6>
+
+									@foreach (var project in Model.Owner.CreatedProjects)
+									{
+
+
+										<div class="proj-item">
+											<p class="card-text">@project.Title</p>
+											<p class="card-text"><i>@project.Description</i></p>
+										</div>
+
+									}
+								</div>
+							</div>
+						</div>
 					
 									
 
