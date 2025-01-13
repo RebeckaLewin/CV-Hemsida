@@ -107,10 +107,5 @@ namespace CV_Projekt.Controllers
 
             return View(viewModel);
         }
-
-        public IActionResult Index()
-        {
-            return View();
-        }
     }
 }

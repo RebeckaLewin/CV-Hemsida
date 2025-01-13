@@ -2,7 +2,7 @@
 
 namespace CV_Projekt.Models
 {
-	public class LogInViewModel
+	public class LogInViewModel : BaseViewModel
 	{
 		[Required(ErrorMessage = "Du måste ange ett användarnamn.")]
 		public string UserName { get; set; }
@@ -10,5 +10,7 @@ namespace CV_Projekt.Models
 		[DataType(DataType.Password)]
 		public string Password { get; set; }
 		public bool RememberMe { get; set; }
+
+		public LogInViewModel(CvContext context, string id) : base(context, id) { }
 	}
 }

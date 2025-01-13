@@ -1,6 +1,6 @@
 ﻿namespace CV_Projekt.Models
 {
-	public class ProjectViewModel
+	public class ProjectViewModel : BaseViewModel
 	{
 		public List<User> Creators { get; set; } = new List<User>();
 		public List<Project> Projects { get; set; }
@@ -11,6 +11,6 @@
 
 		public User Creator { get; set; }
 
-
+		public ProjectViewModel(CvContext context, string id) : base(context, id) { }
 	}
 }

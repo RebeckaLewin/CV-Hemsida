@@ -117,10 +117,11 @@ namespace CV_Projekt.Controllers
 		[HttpGet]
 		public IActionResult Settings()
 		{
-			SettingsViewModel viewModel = new SettingsViewModel();
+			var id = User.FindFirstValue(ClaimTypes.NameIdentifier);
+			SettingsViewModel viewModel = new SettingsViewModel(context, id);
 			try
 			{
-				var id = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
 				viewModel.User = context.Users.Where(u => u.Id.Equals(id)).FirstOrDefault();
 				if (viewModel.User == null)
 				{
