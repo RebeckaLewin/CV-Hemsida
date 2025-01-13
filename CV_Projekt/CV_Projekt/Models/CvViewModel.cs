@@ -10,6 +10,8 @@
         public List<Experience> Educations { get; set; }
         public List<Experience> OtherExperiences { get; set; }
 
+        public List<Project> Projects { get; set; }
+
         public ContactInformation Info { get; set; }
 
         public List<string> Skills { get; set; }
