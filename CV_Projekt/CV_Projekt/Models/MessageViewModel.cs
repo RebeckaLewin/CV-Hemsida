@@ -2,13 +2,13 @@
 
 namespace CV_Projekt.Models
 {
-    public class MessageViewModel : BaseViewModel
+    public class MessageViewModel
     {
         [Required]
         public Message Message { get; set; }
         public User? Sender { get; set; }
         public User? Receiver { get; set; }
-
-		public MessageViewModel(CvContext context, string id) : base(context, id) { }
-	}
+        public string Name { get; set; }
+        public string Email { get; set; }
+    }
 }

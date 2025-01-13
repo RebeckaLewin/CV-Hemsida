@@ -81,6 +81,10 @@ input[type="checkbox"]:checked {
     border: 1px solid #ff6219;
 }
 
+.proj-container {
+    max-height: 250px;
+}
+
 
   
 .cv-list-group {
@@ -95,15 +99,7 @@ input[type="checkbox"]:checked {
 
    
 
-.profile-tab .lbl {
-    font-weight: 600;
-    color: #ff6219;
-}
 
-.profile-tab .p-tab {
-    font-weight: 600;
-    color: #0062cc;
-}
 settingsLbl 
 {
     margin-bottom: 0;

@@ -31,9 +31,9 @@
 				
 					<div class="row">
 						<div class="col-sm-5">
-					<div class="card-body p-4 text-black">
+					<div class="card-body p-2 text-black">
 						<div class="mb-5  text-body">
-										<div class="d-flex flex-column justify-content-center mt-2" style="margin-bottom:2rem;">
+										<div class="d-flex flex-column justify-content-center mt-2" style="margin-bottom:1rem;">
 
 											<a asp-controller="Cv" asp-action="Cv" asp-route-id="@Model.User.Id" class="btn" style="background-color:#fff; color:#ff6219; margin-bottom:1rem;"><i class="fa-solid fa-file-lines"></i>Visa CV</a>
                                            
@@ -41,83 +41,89 @@
 
                                             <a asp-controller="Cv" asp-action="CreateCv" asp-route-id="@Model.User.Id" class="btn" style="background-color:#fff; color:#ff6219; margin-bottom:1rem;"><i class="fa-solid fa-file-circle-plus"></i>Ändra CV</a>
                                            
-                                            <a asp-controller="Message" asp-action="ChatList" asp-route-id="@Model.User.Id" class ="btn" style="background-color:#fff; color:#ff6219;">
-                                                <i class="fa-solid fa-envelope position-relative">
-                                                    <span class="badge rounded-pill badge-notification bg-danger position-absolute top-0 left-0 translate-middle" style="font-size:0.5rem;">1</span>
-												</i>Meddelanden
+                                            <a asp-controller="Message" asp-action="AddAnon" asp-route-id="@Model.User.Id" class ="btn" style="background-color:#fff; color:#ff6219;">
+                                                <i class="fa-solid fa-envelope position-relative">     
+												</i>Skicka Meddelande
 											</a>
                                            
 										</div>
-										<h6 class="lead fw-normal mb-1" style="color:#ff6219;">Kontakt</h6>
-										<div class="p-1 bg-body-tertiary">
-
-											@if (@Model.User.ContactInformation != null)
-											{
-												<ul class="list-unstyled formatted-list">
-													<li class="formatted-li"><b>Email:</b> <span style="white-space: nowrap;">@Model.User.UserName</span> </li>
-													<li class="formatted-li"><b>Telefon:</b> <span style="white-space: nowrap; ">@Model.User.ContactInformation.Phone</span></li>
-													@if (!string.IsNullOrEmpty(@Model.User.ContactInformation.Address))
-													{
-														<li class="formatted-li"><b>Adress:</b> <span style="white-space: nowrap;">@Model.User.ContactInformation.Address</span> </li>
-													}
-												</ul>
-											}
-											else
-											{
-												<p class="fw-light">Kontaktinformation saknas</p>
-											}
-
-											
 										
-
-								
-
-										</div>
 									</div>
 								</div>
 							</div>
 							
 								<div class="card col-sm-7 mb-2 proj-container">
 									<div class="card-body text-black">
-                                    <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(112).webp" alt="image 1"
-                                         class="card-img-top w-100 rounded-3">
-										<h6 class="card-header" style="background-color:#fff; color:#ff6219; text-align:center;">Projekt jag medverkar i</h6>
+                                    
+										<h6 class="card-header" style="background-color:#fff; color:#ff6219; text-align:center;">Info om mig</h6>
 
-										@foreach (var proj in Model.User.JoinedProjects)
-										{
+										
 											<div class="proj-item">
-												<p class="card-text">@proj.Title</p>
-											<p class="card-text"><i>@proj.Description</i></p>
+												<p class="card-text">@Model.User.Description</p>
+											
 											</div>
-										}
+										
 										</div>
 										</div>
-									
+
+							
 									</div>
 					<div class="row">
 						<div class="col-sm-5">
-							
+								<h6 class="lead fw-normal mb-1" style="color:#ff6219;">Kontakt</h6>
+								<div class="p-1 bg-body-tertiary">
+
+									@if (@Model.User.ContactInformation != null)
+									{
+										<ul class="list-unstyled formatted-list">
+											<li class="formatted-li"><b>Email:</b> <span style="white-space: nowrap;">@Model.User.UserName</span> </li>
+											<li class="formatted-li"><b>Telefon:</b> <span style="white-space: nowrap; ">@Model.User.ContactInformation.Phone</span></li>
+											@if (!string.IsNullOrEmpty(@Model.User.ContactInformation.Address))
+											{
+												<li class="formatted-li"><b>Adress:</b> <span style="white-space: nowrap;">@Model.User.ContactInformation.Address</span> </li>
+											}
+										</ul>
+									}
+									else
+									{
+										<p class="fw-light">Kontaktinformation saknas</p>
+									}
+
+
+
+
+
+
+								</div>
 						</div>
 						
 
-						<div class="card col-sm-7 mb-2 proj-container">
-							<div class="card-body text-black">
-									<img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(112).webp" alt="image 1"
-										 class="card-img-top w-100 rounded-3">
-								<h6 class="card-header" style="background-color:#fff; color:#ff6219; text-align:center;">Projekt jag skapat</h6>
+						<div class="col-sm-7 mb-2 ">
+								<h4 style="color:#ff6219;"><i class="fa-solid fa-hashtag"></i> Taggar</h4>
+								<div class="p-1 bg-body-tertiary">
 
-                                    @foreach (var project in Model.User.CreatedProjects)
-                                    {
-                                       
-                                            
-                                            <div class="proj-item">
-                                                <p class="card-text">@project.Title</p>
-                                                <p class="card-text"><i>@project.Description</i></p>
-                                            </div>
-                                       
-                                    }
+									@if (@Model.User.Tags != null)
+									{
+										@foreach (var tags in Model.User.Tags)
+										{
+											<ul class="list-unstyled formatted-list">
+												<li class="formatted-li" style="white-space: nowrap;">@Model.User.Tags </li>
+											</ul>
+										}
+									}
+									else
+									{
+										<p class="fw-light">Taggar saknas</p>
+									}
+
+
+
+
+
+
+								</div>
+
 							</div>
-						</div>
 					</div>
 					
 

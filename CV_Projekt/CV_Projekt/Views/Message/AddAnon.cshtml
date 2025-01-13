@@ -24,16 +24,23 @@
      <div class="container">
          <div class="row ">
              <div class="col-md-12">
+                    <div asp-validation-summary="All" class="text-danger"></div>
 					<form asp-action="Add" method="post">
 						<h6 class="text-dark" style="color:#FFF;"><b>Till:</b> <i>@Model.Receiver.FirstName @Model.Receiver.LastName</i></h6>
-						
+		
+						<label class="settingsLbl text-dark" style="color:#FFF;">Namn:</label>
+						<input class="bg-light form-control" type="text" asp-for="@Model.Name" />
+
+						<label class="settingsLbl text-dark" style="color:#FFF;">E-post:</label>
+						<input class="bg-light form-control" type="text" asp-for="@Model.Email" />
+
 						<label class="settingsLbl text-dark" style="color:#FFF;">Ämne: </label>
 						<input class="bg-light form-control" type="text" asp-for="@Model.Message.Subject" />
 						
 						<label class="settingsLbl text-dark">Meddelande: </label>
 						<textarea class="bg-light form-control" rows="5" asp-for="@Model.Message.Content"></textarea>
 						
-						<input asp-for="@Model.Message.SenderId" type="hidden" value="@Model.Sender.Id" />
+						<input asp-for="@Model.Message.SenderId" type="hidden" value="null" />
 						<input asp-for="@Model.Message.ReceiverId" type="hidden" value="@Model.Receiver.Id" />
 						<input asp-for="@Model.Message.Date" type="hidden" name="Date" value="DateTime.Now" />
 						<input asp-for="@Model.Message.isRead" type="hidden" value="false" />
@@ -48,22 +55,3 @@
      </div>
     </div>
 </body>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
