@@ -1,12 +1,10 @@
 ﻿namespace CV_Projekt.Models
 {
-    public class SearchViewModel : BaseViewModel
+    public class SearchViewModel
     {
         public List<User> Users { get; set; } = new List<User>();
 
-        public List<CV> CVs { get; set; }
-
-        public SearchViewModel() : base() { }
-		public SearchViewModel(CvContext context, string id) : base(context, id) { }
-	}
+        public List<(User user, List<string> Skills)> UsersWithSkills { get; set; } = new List<(User user, List<string> Skills)>();
+        public List<string> Skills { get; set; } = new List<string>();
+    }
 }
