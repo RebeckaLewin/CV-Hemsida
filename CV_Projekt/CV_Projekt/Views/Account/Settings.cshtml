@@ -21,28 +21,28 @@
 
     <div asp-validation-summary="All" class="text-danger">here there be errors</div>
 
-
-    <form method="post" asp-action="Settings">
+    <form method="post" asp-action="Settings" enctype="multipart/form-data">
         <input asp-for="User.ContactInformation.Id" value="@Model.User.ContactInformation.Id" hidden />
-        <div class="d-flex align-items-start py-3 border-bottom">
-            <img src="https://images.pexels.com/photos/1037995/pexels-photo-1037995.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
-                     class="img" alt="" 
+        <input asp-for="User.Id" type="text" value="@Model.User.Id" hidden/>
+            <div class="d-flex align-items-start py-3 border-bottom">
+                <img id="profilePic" src="@Url.Content(Model.User.PictureUrl)"
+                     class="img" alt=""
                      style="width: 100px;
                             height: 100px;
                             border-radius: 6px;
-                            object-fit: cover">
-                <div class="pl-sm-4 pl-2 m-2" id="img-section" >
-				    <b style ="font-size: 14px;">
-					    Ändra Profilbild</b>
-                <p style="font-size: 12px;
+                            object-fit: cover" />
+                <div class="pl-sm-4 pl-2 m-2" id="img-section">
+                    <b style="font-size: 14px;">
+                        Ändra Profilbild
+                    </b>
+                    <p style="font-size: 12px;
                             color: #777;
                             margin-bottom: 10px;
                             text-align: justify;">
-                 </p>
-                <button class="btn p-2" style="background-color:#fff; color:#ff6219; border-color:#ff6219 ">Ladda upp foto</button>
+                    </p>
+                    <input asp-for="ImageFile" id="pictureInput" type="file" accept="image/png, image/jpeg" class="btn p-2" style="background-color:#fff; color:#ff6219; border-color:#ff6219 ">
+                </div>
             </div>
-        </div>
-        <input asp-for="User.Id" type="text" value="@Model.User.Id" hidden/>
         <div class="py-2">
             <div class="row py-2">
                 <div class="col-md-6">
@@ -106,3 +106,34 @@
         </form>
 	</div>
 </body>
+<script>
+
+    let profilePicture = document.getElementById('profilePic');
+
+    let pictureUrl = document.getElementById('pictureUrl');
+    let imageInput = document.getElementById('pictureInput');
+
+    function select_picture(evt)
+    {
+        let filelist = evt.target.files;
+
+        let aFile = filelist[0];
+
+        let reader = new FileReader();
+        
+        let display_file = (e) => {
+            profilePicture.src = e.target.result;
+        };
+
+        let on_reader_load = ( fl ) => {
+            return display_file;
+        };
+
+        reader.onload = on_reader_load(aFile);
+
+        reader.readAsDataURL(aFile);
+    }
+
+    imageInput.addEventListener('change', select_picture, false);
+
+</script>
