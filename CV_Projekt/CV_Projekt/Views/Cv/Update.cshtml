@@ -19,19 +19,14 @@
                 max-width: 600px;">
         <h4 class="pb-4 border-bottom"
             style="letter-spacing: -1px;
-                   font-weight: 400;">
-            
+                   font-weight: 400;"> 
             Ändra CV
         </h4>
 
-        <form method="post" asp-action="AddExperience">
-            <input asp-for="CvId" value="@Model.CvId" />
-            <input asp-for="OwnerId" value="@Model.OwnerId" />
-            <input asp-for="Work" value="@Model.Work" />
-            <input asp-for="WorkToAdd.UserId" value="@Model.OwnerId"/>
+        <form method="post" asp-action="AddWork">
+            <input asp-for="WorkToAdd.CvId" value="@Model.CvId" hidden />
             <div class="row py-2">
                 <h6>Lägg till arbete</h6>
-                <input asp-for="WorkToAdd.User" value="@Model.OwnerId" hidden/>
                 <div class="col-md-6">
                     <label class="settingsLbl" for="title">Arbetsplats</label>
                     <input asp-for="WorkToAdd.Location" type="text" class="bg-light form-control">
@@ -46,15 +41,15 @@
                     <label class="settingsLbl" for="startdate">Arbetsroll</label>
                     <input asp-for="WorkToAdd.Role" type="text" class="bg-light form-control">
                 </div>
-                <div class="col-md-6 pt-md-0 pt-3">
-                    <label class="settingsLbl" for="startdate">Startdatum</label>
-                    <input asp-for="WorkToAdd.StartDate" type="date" class="bg-light form-control">
+                <div class="col-md-6">
+                    <label class="settingsLbl" for="startdate">Stad</label>
+                    <input asp-for="WorkToAdd.City" type="text" class="bg-light form-control">
                 </div>
             </div>
             <div class="row py-2">
-                <div class="col-md-6">
-                    <label class="settingsLbl" for="title">Stad</label>
-                    <input type="text" class="bg-light form-control">
+                <div class="col-md-6 pt-md-0 pt-3">
+                    <label class="settingsLbl" for="startdate">Startdatum</label>
+                    <input asp-for="WorkToAdd.StartDate" type="date" class="bg-light form-control">
                 </div>
                 <div class="col-md-6 pt-md-0 pt-3">
                     <label class="settingsLbl" for="enddate">Slutdatum</label>
@@ -74,7 +69,157 @@
                     <ul class="list-group cv-list-group">
                         @foreach(var work in Model.Work)
                         {
-                            <li>@work.Description</li>
+                            <li>
+                                <button asp-action="RemoveExperience" asp-route-id="@work.Id">Ta bort</button>
+                                <b>@work.Description</b>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </form>
+
+        <form method="post" asp-action="AddEducation">
+            <input asp-for="EducationToAdd.CvId" value="@Model.CvId" hidden />
+            <div class="row py-2">
+                <h6>Lägg till utbildning</h6>
+                <div class="col-md-6">
+                    <label  class="settingsLbl" for="eduTitle">Program</label>
+                    <input asp-for="EducationToAdd.Program" type="text" class="bg-light form-control">
+                </div>
+                <div class="col-md-6 pt-md-0 pt-3">
+                    <label class="settingsLbl" for="eduDesc">Utbildningsbeskrivning</label>
+                    <input asp-for="EducationToAdd.Description" type="text" class="bg-light form-control">
+                </div>
+            </div>
+            <div class="row py-2">
+                <div class="col-md-6">
+                    <label class="settingsLbl" for="eduLevel">Nivå</label>
+                    <input asp-for="EducationToAdd.Level" type="text" class="bg-light form-control">
+                </div>
+                <div class="col-md-6 pt-md-0 pt-3">
+                    <label class="settingsLbl" for="startdate">Startdatum</label>
+                    <input asp-for="EducationToAdd.StartDate" type="date" class="bg-light form-control">
+                </div>
+            </div>
+            <div class="row py-2">
+                <div class="col-md-6">
+                    <label class="settingsLbl" for="eduLocation">Stad</label>
+                    <input asp-for="EducationToAdd.City" type="text" class="bg-light form-control">
+                </div>
+                <div class="col-md-6 pt-md-0 pt-3">
+                    <label class="settingsLbl" for="enddate">Slutdatum</label>
+                    <input asp-for="EducationToAdd.EndDate" type="date" class="bg-light form-control">
+                </div>
+            </div>
+            <div class="row py-2">
+                <div class="col-md-6">
+                    <label class="settingsLbl" for="eduLocation">Skola</label>
+                    <input asp-for="EducationToAdd.Location" type="text" class="bg-light form-control">
+                </div>
+            </div>
+            <div class="row py-2">
+                <div class="col-md-6">
+                    <button type="submit" id="addEducation" class="btn border border-light button mr-3 text-light" style="background-color:#ff6219;">Lägg till Utbildning</button>
+                </div>
+                <div class="col-md-6 pt-md-0 pt-3">
+                </div>
+            </div>
+            <div class="row py-2">
+                <h6>Tillagda utbildningar:</h6>
+                <div class="col-md-12">
+                    <ul id="educationList" class="list-group cv-list-group">
+                        @foreach(Education edu in Model.Educations)
+                        {
+                            <button asp-action="RemoveExperience" asp-route-id="@edu.Id">Ta bort</button>
+                            <li>@edu.Program</li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </form>
+
+        <form method="post" asp-action="AddOtherExperience">
+            <input asp-for="OtherToAdd.CvId" value="@Model.CvId" hidden />
+            <div class="row py-2">
+                <h6>Lägg till annan erfarenhet</h6>
+                <div class="col-md-6">
+                    <label class="settingsLbl" for="otherTitle">Var?</label>
+                    <input asp-for="OtherToAdd.Location" type="text" class="bg-light form-control">
+                </div>
+                <div class="col-md-6 pt-md-0 pt-3">
+                    <label class="settingsLbl" for="otherDesc">Beskrivning</label>
+                    <input asp-for="OtherToAdd.Description" type="text" class="bg-light form-control">
+                </div>
+            </div>
+            <div class="row py-2">
+                <div class="col-md-6">
+                    <label class="settingsLbl" for="otherType">Typ av erfarenhet</label>
+                    <input asp-for="OtherToAdd.Type" type="text" class="bg-light form-control">
+                </div>
+                <div class="col-md-6 pt-md-0 pt-3">
+                    <label class="settingsLbl" for="startdate">Startdatum</label>
+                    <input asp-for="OtherToAdd.StartDate" type="date" class="bg-light form-control">
+                </div>
+            </div>
+            <div class="row py-2">
+                <div class="col-md-6">
+                    <label class="settingsLbl" for="otherLocation">Stad</label>
+                    <input asp-for="OtherToAdd.City" type="text" class="bg-light form-control">
+                </div>
+                <div class="col-md-6 pt-md-0 pt-3">
+                    <label class="settingsLbl" for="enddate">Slutdatum</label>
+                    <input asp-for="OtherToAdd.EndDate" type="date" class="bg-light form-control">
+                </div>
+            </div>
+            <div class="row py-2">
+                <h6></h6>
+                <div class="col-md-6">
+                    <button type="submit" class="btn border border-light button mr-3 text-light" style="background-color:#ff6219;">Lägg till erfarenhet</button>
+                </div>
+                <div class="col-md-6 pt-md-0 pt-3">
+                </div>
+            </div>
+            <div class="row py-2">
+                <h6>Tillagda erfarenheter:</h6>
+                <div class="col-md-12">
+                    <ul id="otherExpList" class="list-group cv-list-group">
+                        @foreach(OtherExperience otherExp in Model.Other)
+                        {
+                            <button asp-action="RemoveExperience" asp-route-id="@otherExp.Id">Ta bort</button>
+                            <li>@otherExp.Type</li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </form>
+
+        <form method="post" asp-action="AddSkill">
+            <input asp-for="CvId" value="@Model.CvId" />
+            <div class="row py-2">
+                <h6>Lägg till skills</h6>
+                <div class="col-md-6">
+                    <label class="settingsLbl" for="skillTtl">Skill</label>
+                    <input asp-for="SkillToAdd" type="text" class="bg-light form-control">
+                </div>
+                <div class="col-md-6 pt-md-0 pt-3">
+                </div>
+            </div>
+            <div class="row py-2">
+                <div class="col-md-6">
+                    <button type="submit" class="btn border border-light button mr-3 text-light" style="background-color:#ff6219;">Lägg till skill</button>
+                </div>
+                <div class="col-md-6 pt-md-0 pt-3">
+                </div>
+            </div>
+            <div class="row py-2">
+                <h6>Tillagda skills:</h6>
+                <div class="col-md-12">
+                    <ul id="skillList" class="list-group cv-list-group">
+                        @for(int i = 0; i < Model.Skills.Count(); i++)
+                        {
+                            <button asp-action="RemoveSkill" asp-route-id="@Model.CvId" asp-route-index="@i">Ta bort</button>
+                            <li>@Model.Skills[i]</li>
                         }
                     </ul>
                 </div>
@@ -82,7 +227,16 @@
         </form>
 
 
+
         @*
+        <div class="row py-2">
+            <h6>Tillagda skills:</h6>
+            <div class="col-md-12">
+                <ul id="skillList" class="list-group cv-list-group">
+                </ul>
+            </div>
+        </div>
+
         <div class="py-2">
             <form  method="post">
                 <input asp-for="Cv.Id" value="@Model.Cv.Id" hidden />
@@ -214,9 +368,7 @@
                     </div>
                     <div class="col-md-6 pt-md-0 pt-3">
                         <label class="settingsLbl" for="otherDesc">Beskrivning</label>
-                        <input id="otherExpDescription" type="text" class="bg-light form-control">
-                       
-
+                        <input id="otherExpDescription" type="text" class="bg-light form-control">                     
                     </div>
                 </div>
                 <div class="row py-2">

@@ -24,7 +24,7 @@
                             <a asp-controller="Profile" asp-action="Profile" asp-route-id="@user.Id" style="text-decoration: none" class="text-black">
                                 <div class="card-header font-weight-bold bg-dark text-light">@user.FirstName @user.LastName</div>
                             </a>
-                        @foreach (var exp in Model.Experiences.Where(e => e.UserId == user.Id))
+                        @foreach (var exp in Model.Experiences.Where(e => e.CvId == Model.Cvs.Where(cv => cv.OwnerId.Equals(user.Id)).FirstOrDefault().Id))
                         {
                             <div>
                                 <br />

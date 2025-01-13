@@ -25,65 +25,6 @@ namespace CV_Projekt.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("CVExperience", b =>
-                {
-                    b.Property<int>("ExperienceId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CVsId")
-                        .HasColumnType("int");
-
-                    b.HasKey("ExperienceId", "CVsId");
-
-                    b.HasIndex("CVsId");
-
-                    b.ToTable("CVExperience");
-
-                    b.HasData(
-                        new
-                        {
-                            ExperienceId = 1,
-                            CVsId = 1
-                        },
-                        new
-                        {
-                            ExperienceId = 2,
-                            CVsId = 1
-                        },
-                        new
-                        {
-                            ExperienceId = 3,
-                            CVsId = 2
-                        });
-                });
-
-            modelBuilder.Entity("CVProject", b =>
-                {
-                    b.Property<int>("CVsId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ProjectsId")
-                        .HasColumnType("int");
-
-                    b.HasKey("CVsId", "ProjectsId");
-
-                    b.HasIndex("ProjectsId");
-
-                    b.ToTable("CVProject");
-
-                    b.HasData(
-                        new
-                        {
-                            CVsId = 2,
-                            ProjectsId = 1
-                        },
-                        new
-                        {
-                            CVsId = 2,
-                            ProjectsId = 2
-                        });
-                });
-
             modelBuilder.Entity("CV_Projekt.Models.CV", b =>
                 {
                     b.Property<int>("Id")
@@ -96,6 +37,9 @@ namespace CV_Projekt.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<int?>("ProjectId")
+                        .HasColumnType("int");
+
                     b.PrimitiveCollection<string>("Skills")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -107,6 +51,8 @@ namespace CV_Projekt.Migrations
 
                     b.HasIndex("OwnerId")
                         .IsUnique();
+
+                    b.HasIndex("ProjectId");
 
                     b.ToTable("CVs");
 
@@ -274,6 +220,13 @@ namespace CV_Projekt.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("City")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("CvId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
@@ -286,18 +239,15 @@ namespace CV_Projekt.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Location")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("CvId");
 
                     b.ToTable("Experiences");
 
@@ -770,7 +720,7 @@ namespace CV_Projekt.Migrations
                         {
                             Id = "1",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "0ebb0e2a-1b90-4dad-b514-5fae7aef135a",
+                            ConcurrencyStamp = "597cd8de-2a6a-4640-9993-ff953adbba20",
                             Email = "alicean12@live.se",
                             EmailConfirmed = false,
                             FirstName = "Alice",
@@ -780,10 +730,10 @@ namespace CV_Projekt.Migrations
                             NormalizedEmail = "alicean12@live.se",
                             NormalizedUserName = "alicean12@live.se",
                             Password = "P@ssword123",
-                            PasswordHash = "AQAAAAIAAYagAAAAEJcrGUKmshoaD4IPyo/4w/L4G3aEt8WoS0+svsEFKW222j2bYuhBxVXnOdV8prIKog==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEHnCErEz8cVYJv30s8VkWA4o7jaUuRK85SiBpWRd64G4yqJDTyFZ7UnC1CUAWmJSSg==",
                             PhoneNumberConfirmed = false,
                             PictureUrl = "~/images/profilepic_default.jpg",
-                            SecurityStamp = "4000cd08-4307-4781-b1d4-60f3f28e7a59",
+                            SecurityStamp = "b4a4ffaf-003f-4c86-8443-45a6cd39a948",
                             TwoFactorEnabled = false,
                             UserName = "alicean12@live.se",
                             isActive = true,
@@ -793,7 +743,7 @@ namespace CV_Projekt.Migrations
                         {
                             Id = "2",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "937c927f-3c09-4d00-9c4a-d3dcb52e6668",
+                            ConcurrencyStamp = "5d28be6a-149d-42f6-938b-05b75aaa90ac",
                             Email = "bobbergstrom@gmail.com",
                             EmailConfirmed = false,
                             FirstName = "Bob",
@@ -803,10 +753,10 @@ namespace CV_Projekt.Migrations
                             NormalizedEmail = "bobbergstrom@gmail.com",
                             NormalizedUserName = "bobbergstrom@gmail.com",
                             Password = "P@ssword456",
-                            PasswordHash = "AQAAAAIAAYagAAAAEObR9Zi43Tb6DDw/OUUzg8pJ8zNL+iBit56bFJZTLnzEpiT9GUusMkylKRYr4/JFFw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEALp1ckCuzQH3IQonG2Z+m13SN1ML5ZX0BiN6+VYYs21PIT1C4c40iFVYF0zMcV/wQ==",
                             PhoneNumberConfirmed = false,
                             PictureUrl = "~/images/profilepic_default.jpg",
-                            SecurityStamp = "a6ceb44b-ba05-4094-9261-f49aa7c105cd",
+                            SecurityStamp = "be9283df-3a54-42eb-a21f-67692ec2a4b4",
                             TwoFactorEnabled = false,
                             UserName = "bobbergstrom@gmail.com",
                             isActive = true,
@@ -816,7 +766,7 @@ namespace CV_Projekt.Migrations
                         {
                             Id = "3",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "157906f7-39cb-4e5b-8a55-36b8fec4e69d",
+                            ConcurrencyStamp = "1aa8f815-eddd-4e1b-86bd-69a93539efa8",
                             Email = "charliec@live.se",
                             EmailConfirmed = false,
                             FirstName = "Charlie",
@@ -826,10 +776,10 @@ namespace CV_Projekt.Migrations
                             NormalizedEmail = "charliec@live.se",
                             NormalizedUserName = "charliec@live.se",
                             Password = "P@ssword789",
-                            PasswordHash = "AQAAAAIAAYagAAAAEMMpMF37F7WxDFZRbcgJOMoAteINNqlU1PlARKr797PjoqXHX5+TROQ9sqoOYEeyJA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEBX5tBeSVnL5RLKXrIl64VJfi5y7NQeGmo4qBX5Exkg7uy61TWkxkricB5OupjSvFw==",
                             PhoneNumberConfirmed = false,
                             PictureUrl = "~/images/profilepic_default.jpg",
-                            SecurityStamp = "1435960b-c0af-4816-994e-2f53560cd5da",
+                            SecurityStamp = "241a9e7b-73ea-42d1-8577-36e66ea5301b",
                             TwoFactorEnabled = false,
                             UserName = "charliec@live.se",
                             isActive = false,
@@ -839,7 +789,7 @@ namespace CV_Projekt.Migrations
                         {
                             Id = "4",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "57f18d99-4946-493c-a0d1-55d01799cd15",
+                            ConcurrencyStamp = "9fc94d01-627f-4aaf-9436-36cedcd968d8",
                             Email = "danield@outlook.com",
                             EmailConfirmed = false,
                             FirstName = "Daniel",
@@ -849,10 +799,10 @@ namespace CV_Projekt.Migrations
                             NormalizedEmail = "danield@outlook.com",
                             NormalizedUserName = "danield@outlook.com",
                             Password = "SecureP@ss1",
-                            PasswordHash = "AQAAAAIAAYagAAAAEBgYFFgXy9ZT09XomZ3BO6h83Qvlb+NmVE6W/eZbqrSXuw0ZUOC3oGEzJguSWvkMlg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEJr1b7vYVIwLuqvHNRzpMnyo+4XcbeecoUqBzOx8kpso52S99Q503cf4n7/zHCH3Tw==",
                             PhoneNumberConfirmed = false,
                             PictureUrl = "~/images/profilepic_default.jpg",
-                            SecurityStamp = "f2a4a8e8-5b57-4d76-9d85-a95a4f29cd9b",
+                            SecurityStamp = "a136e73c-f2b0-4813-8c10-867a76439e11",
                             TwoFactorEnabled = false,
                             UserName = "danield@outlook.com",
                             isActive = true,
@@ -862,7 +812,7 @@ namespace CV_Projekt.Migrations
                         {
                             Id = "5",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "f803435d-09d3-459a-bdbd-c1c4cd16e4f6",
+                            ConcurrencyStamp = "326dbf48-3290-40d1-afb8-f3d37d12c5c0",
                             Email = "emily.evans@hotmail.com",
                             EmailConfirmed = false,
                             FirstName = "Emily",
@@ -872,10 +822,10 @@ namespace CV_Projekt.Migrations
                             NormalizedEmail = "emily.evans@hotmail.com",
                             NormalizedUserName = "emily.evans@hotmail.com",
                             Password = "MyP@ssword2",
-                            PasswordHash = "AQAAAAIAAYagAAAAEHMQRRlMD+Ge2oaJBRZfNBTITGYyZd5JHs3kaiSRYOJsu94OtDSmvxNrecmCUyfxxQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEM8d7yhr9loayPAx9kE14Z/SlRF529j+uMAwU7GZ/VqFmnlHEuETCKvdq116+qy0eg==",
                             PhoneNumberConfirmed = false,
                             PictureUrl = "~/images/profilepic_default.jpg",
-                            SecurityStamp = "f1fad701-f17d-42d7-9d33-fc92478422ff",
+                            SecurityStamp = "66f20704-aca4-4c19-853a-305a4ad06fe8",
                             TwoFactorEnabled = false,
                             UserName = "emily.evans@hotmail.com",
                             isActive = true,
@@ -885,7 +835,7 @@ namespace CV_Projekt.Migrations
                         {
                             Id = "6",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "bbc01c41-5fa8-42d9-ae71-a3e4bdf8e925",
+                            ConcurrencyStamp = "4070949b-37bf-4241-b119-728056c846ec",
                             Email = "frankfischer@gmail.com",
                             EmailConfirmed = false,
                             FirstName = "Frank",
@@ -895,10 +845,10 @@ namespace CV_Projekt.Migrations
                             NormalizedEmail = "frankfischer@gmail.com",
                             NormalizedUserName = "frankfischer@gmail.com",
                             Password = "StrongP@ss3",
-                            PasswordHash = "AQAAAAIAAYagAAAAEPyMFfC6FUql+2UgIzirQQvX3n483yDR+f8w0+M9TBseTK3EAaP9ah6DylHlc0Apng==",
+                            PasswordHash = "AQAAAAIAAYagAAAAELB1lLIW7HSD9Y0KDLtykInU5nXUHz9R47ZaM2kWKIll4LWK5XzO2I/Y755sB7YDBQ==",
                             PhoneNumberConfirmed = false,
                             PictureUrl = "~/images/profilepic_default.jpg",
-                            SecurityStamp = "f156f199-2027-4ba4-8434-d2c51d4b0d6c",
+                            SecurityStamp = "f606f40b-2eac-4960-be22-753077112bc2",
                             TwoFactorEnabled = false,
                             UserName = "frankfischer@gmail.com",
                             isActive = true,
@@ -908,7 +858,7 @@ namespace CV_Projekt.Migrations
                         {
                             Id = "7",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "d1f1266f-8af4-4131-971f-59ddde76b7c2",
+                            ConcurrencyStamp = "d7271dcf-465c-44a0-ba6d-4ade8cb8e577",
                             Email = "grace.gustafsson@live.se",
                             EmailConfirmed = false,
                             FirstName = "Grace",
@@ -918,10 +868,10 @@ namespace CV_Projekt.Migrations
                             NormalizedEmail = "grace.gustafsson@live.se",
                             NormalizedUserName = "grace.gustafsson@live.se",
                             Password = "GracefulP@ss4",
-                            PasswordHash = "AQAAAAIAAYagAAAAEDcmQaA+i7RnxsqWyj1M2buY8VjLPXqer8KV88P7I5SUV5VV/niENw5lmLAHvAql9A==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEPjdyy/Ge2nSnJGJ4MdLJe0uCM2JOMcHkxviFzopgCommW5cRcsAO+sC5NFqhbnmdg==",
                             PhoneNumberConfirmed = false,
                             PictureUrl = "~/images/profilepic_default.jpg",
-                            SecurityStamp = "ee079e1d-92df-476a-8e4e-208884c042b2",
+                            SecurityStamp = "ef56c537-0e6c-4030-b8a1-1383952692aa",
                             TwoFactorEnabled = false,
                             UserName = "grace.gustafsson@live.se",
                             isActive = false,
@@ -931,7 +881,7 @@ namespace CV_Projekt.Migrations
                         {
                             Id = "8",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "db5723e2-5c0f-4beb-968e-6065e8fcdba6",
+                            ConcurrencyStamp = "e772d4a4-423c-44ef-9ed0-7e122e62a42c",
                             Email = "hanna.holm@gmail.com",
                             EmailConfirmed = false,
                             FirstName = "Hanna",
@@ -941,10 +891,10 @@ namespace CV_Projekt.Migrations
                             NormalizedEmail = "hanna.holm@gmail.com",
                             NormalizedUserName = "hanna.holm@gmail.com",
                             Password = "H@nnasP@ss5",
-                            PasswordHash = "AQAAAAIAAYagAAAAEIUWjsQGipj/Drf6MyHwK3ujDXxxxoJkhD986MFtoqUIdbe5GjQpoNBzXpFr2e33XA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAENdZpF+SpUYN8LCEmDFMjxPT2wmz6rQ739bL6uJ19YtaDggSs3MCGooq2aFhUZl0Uw==",
                             PhoneNumberConfirmed = false,
                             PictureUrl = "~/images/profilepic_default.jpg",
-                            SecurityStamp = "ec2eaa81-5769-4156-91cb-86dfad3302f4",
+                            SecurityStamp = "b0fdf0a5-0f57-4a0a-a3e7-596fd2280b7d",
                             TwoFactorEnabled = false,
                             UserName = "hanna.holm@gmail.com",
                             isActive = true,
@@ -954,7 +904,7 @@ namespace CV_Projekt.Migrations
                         {
                             Id = "9",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "4f3cab3b-9304-4d42-a078-6b771c21bf20",
+                            ConcurrencyStamp = "162eac35-e51b-4153-90a6-7f4b97de8ee4",
                             Email = "ian.ingemarsson@outlook.com",
                             EmailConfirmed = false,
                             FirstName = "Ian",
@@ -964,10 +914,10 @@ namespace CV_Projekt.Migrations
                             NormalizedEmail = "ian.ingemarsson@outlook.com",
                             NormalizedUserName = "ian.ingemarsson@outlook.com",
                             Password = "I@nsSecure6",
-                            PasswordHash = "AQAAAAIAAYagAAAAEKMff19Z7KoXIOCxpppWdYR7P8oycUHL15EdEbHMfei/VjqGpPBym6NrcgsRkUyAQA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEAX682T46+G9RgtjfFX25+rF0/xcXXWEtCFJ+durJIo6gBhomOXRqQDX6dMSGNdhcA==",
                             PhoneNumberConfirmed = false,
                             PictureUrl = "~/images/profilepic_default.jpg",
-                            SecurityStamp = "61270a1c-51e8-43f1-a9fb-ea204d1bb601",
+                            SecurityStamp = "dc2600aa-526e-412a-997d-8ca9a4363c28",
                             TwoFactorEnabled = false,
                             UserName = "ian.ingemarsson@outlook.com",
                             isActive = true,
@@ -977,7 +927,7 @@ namespace CV_Projekt.Migrations
                         {
                             Id = "10",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "9788a63e-3ed2-41e9-8f00-bb3d0da8ad86",
+                            ConcurrencyStamp = "3879b47d-7d68-4163-a143-d38d3d3e183f",
                             Email = "julia.jonsson@yahoo.com",
                             EmailConfirmed = false,
                             FirstName = "Julia",
@@ -987,10 +937,10 @@ namespace CV_Projekt.Migrations
                             NormalizedEmail = "julia.jonsson@yahoo.com",
                             NormalizedUserName = "julia.jonsson@yahoo.com",
                             Password = "JuliasP@ss7",
-                            PasswordHash = "AQAAAAIAAYagAAAAEONnH4GwfenyiLsu8Dw/2hQXSLudQGtjYRvcq3k2tyPRDoogBATno+Mqflg+whzuuw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEPt3Eu3r7j/m1Rig7Jlhq3flimE8O2cxqQmu0RXJowOD5QZEuH60priB2DCTAwZ7pw==",
                             PhoneNumberConfirmed = false,
                             PictureUrl = "~/images/profilepic_default.jpg",
-                            SecurityStamp = "863e5e56-fdfb-4e7f-ab27-d48f6ebef9cf",
+                            SecurityStamp = "e4199611-fc8c-415e-8232-24eff624ef56",
                             TwoFactorEnabled = false,
                             UserName = "julia.jonsson@yahoo.com",
                             isActive = false,
@@ -1190,99 +1140,108 @@ namespace CV_Projekt.Migrations
                         new
                         {
                             Id = 21,
+                            City = "Örebro",
+                            CvId = 2,
                             Description = "",
                             EndDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Location = "Karolinska Gymnasiet",
                             StartDate = new DateTime(2016, 4, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            UserId = "2",
                             Level = "Gymnasial",
                             Program = "Vård och omsorg"
                         },
                         new
                         {
                             Id = 22,
+                            City = "Uppsala",
+                            CvId = 3,
                             Description = "",
                             EndDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Location = "Uppsala Universitet",
                             StartDate = new DateTime(2010, 2, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            UserId = "3",
                             Level = "Kandidat",
                             Program = "Arkelogi"
                         },
                         new
                         {
                             Id = 23,
+                            City = "Lund",
+                            CvId = 4,
                             Description = "Specialisering inom hållbar utveckling",
                             EndDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Location = "Lund Universitet",
                             StartDate = new DateTime(2018, 9, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            UserId = "4",
                             Level = "Master",
                             Program = "Miljövetenskap"
                         },
                         new
                         {
                             Id = 24,
+                            City = "Göteborg",
+                            CvId = 5,
                             Description = "Fokus på produktutveckling",
                             EndDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Location = "Chalmers Tekniska Högskola",
                             StartDate = new DateTime(2021, 1, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            UserId = "5",
                             Level = "Master",
                             Program = "Maskinteknik"
                         },
                         new
                         {
                             Id = 25,
+                            City = "Göteborg",
+                            CvId = 6,
                             Description = "Med inriktning på etnologi",
                             EndDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Location = "Göteborg Universitet",
                             StartDate = new DateTime(2015, 8, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            UserId = "6",
                             Level = "Kandidat",
                             Program = "Kulturvetenskap"
                         },
                         new
                         {
                             Id = 26,
+                            City = "Stockholm",
+                            CvId = 7,
                             Description = "Med fokus på artificiell intelligens",
                             EndDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Location = "KTH Royal Institute of Technology",
                             StartDate = new DateTime(2020, 3, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            UserId = "7",
                             Level = "Master",
                             Program = "Datavetenskap"
                         },
                         new
                         {
                             Id = 27,
+                            City = "Stockholm",
+                            CvId = 8,
                             Description = "Specialisering inom internationell handel",
                             EndDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Location = "Stockholms Universitet",
                             StartDate = new DateTime(2017, 5, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            UserId = "8",
                             Level = "Kandidat",
                             Program = "Ekonomi"
                         },
                         new
                         {
                             Id = 28,
+                            City = "Umeå",
+                            CvId = 9,
                             Description = "Studier inom ekologi och naturvård",
                             EndDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Location = "Umeå Universitet",
                             StartDate = new DateTime(2019, 8, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            UserId = "9",
                             Level = "Kandidat",
                             Program = "Biologi"
                         },
                         new
                         {
                             Id = 29,
+                            City = "Linköping",
+                            CvId = 10,
                             Description = "Forskning inom kvantmekanik",
                             EndDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Location = "Linköping Universitet",
                             StartDate = new DateTime(2023, 1, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            UserId = "10",
                             Level = "Doktorand",
                             Program = "Teknisk fysik"
                         });
@@ -1302,99 +1261,109 @@ namespace CV_Projekt.Migrations
                         new
                         {
                             Id = 1,
-                            EndDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            City = "Örebro",
+                            CvId = 1,
+                            EndDate = new DateTime(2017, 8, 21, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Location = "Örebro kommun",
                             StartDate = new DateTime(2016, 8, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            UserId = "2",
                             Type = "Praktik"
                         },
                         new
                         {
                             Id = 2,
+                            City = "Sköllersta",
+                            CvId = 1,
                             Description = "En kurs i drejeri",
                             EndDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Location = "Kävesta Folkhögskola",
                             StartDate = new DateTime(2021, 8, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            UserId = "1",
                             Type = "Kurs"
                         },
                         new
                         {
                             Id = 3,
+                            City = "Örebro",
+                            CvId = 2,
                             EndDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Location = "Röda korset Örebro",
                             StartDate = new DateTime(2022, 8, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            UserId = "1",
                             Type = "Volentärarbete"
                         },
                         new
                         {
                             Id = 4,
+                            City = "Linköping",
+                            CvId = 2,
                             Description = "Sommarjobb som forskningsassistent",
                             EndDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Location = "Linköping universitet",
                             StartDate = new DateTime(2018, 6, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            UserId = "3",
                             Type = "Sommarjobb"
                         },
                         new
                         {
                             Id = 5,
+                            City = "Stockholm",
+                            CvId = 4,
                             Description = "Praktik inom medicinsk forskning",
                             EndDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Location = "Karolinska Institutet",
                             StartDate = new DateTime(2020, 1, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            UserId = "4",
                             Type = "Praktik"
                         },
                         new
                         {
                             Id = 6,
+                            City = "Malmö",
+                            CvId = 5,
                             Description = "Deltog i hjälparbete för flyktingar",
                             EndDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Location = "Svenska Röda Korset",
                             StartDate = new DateTime(2022, 11, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            UserId = "5",
                             Type = "Volentärarbete"
                         },
                         new
                         {
                             Id = 7,
+                            City = "Göteborg",
+                            CvId = 6,
                             Description = "Kurs i hållbart byggande",
                             EndDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Location = "Chalmers Tekniska Högskola",
                             StartDate = new DateTime(2019, 9, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            UserId = "6",
                             Type = "Kurs"
                         },
                         new
                         {
                             Id = 8,
+                            City = "Örebro",
+                            CvId = 7,
                             Description = "Projektarbete inom AI-utveckling",
                             EndDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Location = "Örebro Universitet",
                             StartDate = new DateTime(2023, 2, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            UserId = "7",
                             Type = "Projektarbete"
                         },
                         new
                         {
                             Id = 9,
+                            City = "Kiruna",
+                            CvId = 8,
                             Description = "Volontärarbete inom miljöskydd",
                             EndDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Location = "Naturskyddsföreningen",
                             StartDate = new DateTime(2020, 5, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            UserId = "8",
                             Type = "Volentärarbete"
                         },
                         new
                         {
                             Id = 10,
+                            City = "Uppsala",
+                            CvId = 9,
                             Description = "Deltog i en workshop om ledarskap",
                             EndDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Location = "Uppsala Universitet",
                             StartDate = new DateTime(2021, 10, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            UserId = "9",
                             Type = "Workshop"
                         });
                 });
@@ -1413,133 +1382,113 @@ namespace CV_Projekt.Migrations
                         new
                         {
                             Id = 11,
+                            City = "Örebro",
+                            CvId = 1,
                             Description = "Underhåller ett team i bageri/ungdomsgård",
                             EndDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Location = "Café Deed",
                             StartDate = new DateTime(2020, 6, 29, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            UserId = "1",
                             Role = "Arbetsledare"
                         },
                         new
                         {
                             Id = 12,
+                            City = "Uppsala",
+                            CvId = 2,
                             Description = "Omvårdnad",
                             EndDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Location = "Uppsala Sjukhus",
                             StartDate = new DateTime(2019, 8, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            UserId = "2",
                             Role = "Sjuksköterska"
                         },
                         new
                         {
                             Id = 13,
+                            City = "Generisk stad",
+                            CvId = 3,
                             Description = "Arbetsuppgifter",
                             EndDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Location = "Generiskt Företag",
                             StartDate = new DateTime(2021, 8, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            UserId = "3",
                             Role = "Arbetstitel"
                         },
                         new
                         {
                             Id = 14,
+                            City = "Stockholm",
+                            CvId = 4,
                             Description = "Ansvarig för eventplanering och samordning",
                             EndDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Location = "Stockholms Stad",
                             StartDate = new DateTime(2018, 4, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            UserId = "4",
                             Role = "Eventkoordinator"
                         },
                         new
                         {
                             Id = 15,
+                            City = "Arboga",
+                            CvId = 5,
                             Description = "Utveckling och testning av nya bilmodeller",
                             EndDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Location = "Volvo Cars",
                             StartDate = new DateTime(2022, 1, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            UserId = "5",
                             Role = "Ingenjör"
                         },
                         new
                         {
                             Id = 16,
+                            City = "Stockholm",
+                            CvId = 6,
                             Description = "Forskning inom biomedicin",
                             EndDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Location = "Karolinska Institutet",
                             StartDate = new DateTime(2020, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            UserId = "6",
                             Role = "Forskningsassistent"
                         },
                         new
                         {
                             Id = 17,
+                            City = "Örebro",
+                            CvId = 7,
                             Description = "Hantering av deklarationer och rådgivning",
                             EndDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Location = "Skatteverket",
                             StartDate = new DateTime(2023, 3, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            UserId = "7",
                             Role = "Handläggare"
                         },
                         new
                         {
                             Id = 18,
+                            City = "Köping",
+                            CvId = 8,
                             Description = "Administration och projektstöd",
                             EndDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Location = "Länsstyrelsen",
                             StartDate = new DateTime(2019, 6, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            UserId = "8",
                             Role = "Projektassistent"
                         },
                         new
                         {
                             Id = 19,
+                            City = "Luleå",
+                            CvId = 9,
                             Description = "Undervisning och kursutveckling",
                             EndDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Location = "Luleå Tekniska Universitet",
                             StartDate = new DateTime(2021, 11, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            UserId = "9",
                             Role = "Universitetslärare"
                         },
                         new
                         {
                             Id = 20,
+                            City = "Skellefteå",
+                            CvId = 10,
                             Description = "Patientvård och ledning av vårdteam",
                             EndDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Location = "Norrlands Universitetssjukhus",
                             StartDate = new DateTime(2020, 7, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            UserId = "10",
                             Role = "Läkare"
                         });
-                });
-
-            modelBuilder.Entity("CVExperience", b =>
-                {
-                    b.HasOne("CV_Projekt.Models.CV", null)
-                        .WithMany()
-                        .HasForeignKey("CVsId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("CV_Projekt.Models.Experience", null)
-                        .WithMany()
-                        .HasForeignKey("ExperienceId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("CVProject", b =>
-                {
-                    b.HasOne("CV_Projekt.Models.CV", null)
-                        .WithMany()
-                        .HasForeignKey("CVsId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("CV_Projekt.Models.Project", null)
-                        .WithMany()
-                        .HasForeignKey("ProjectsId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("CV_Projekt.Models.CV", b =>
@@ -1550,18 +1499,22 @@ namespace CV_Projekt.Migrations
                         .OnDelete(DeleteBehavior.ClientNoAction)
                         .IsRequired();
 
+                    b.HasOne("CV_Projekt.Models.Project", null)
+                        .WithMany("CVs")
+                        .HasForeignKey("ProjectId");
+
                     b.Navigation("Owner");
                 });
 
             modelBuilder.Entity("CV_Projekt.Models.Experience", b =>
                 {
-                    b.HasOne("CV_Projekt.Models.User", "User")
+                    b.HasOne("CV_Projekt.Models.CV", "Cv")
                         .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .HasForeignKey("CvId")
+                        .OnDelete(DeleteBehavior.ClientNoAction)
                         .IsRequired();
 
-                    b.Navigation("User");
+                    b.Navigation("Cv");
                 });
 
             modelBuilder.Entity("CV_Projekt.Models.Message", b =>
@@ -1689,6 +1642,11 @@ namespace CV_Projekt.Migrations
                         .HasForeignKey("UsersId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("CV_Projekt.Models.Project", b =>
+                {
+                    b.Navigation("CVs");
                 });
 
             modelBuilder.Entity("CV_Projekt.Models.User", b =>
