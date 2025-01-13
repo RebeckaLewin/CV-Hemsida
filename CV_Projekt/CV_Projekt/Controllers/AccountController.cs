@@ -204,7 +204,9 @@ namespace CV_Projekt.Controllers
 			User userToUpdate = context.Users.Where(u => u.Id.Equals(id)).FirstOrDefault();
 
 			userToUpdate.isActive = viewModel.User.isActive;
+			context.Update(userToUpdate);
 			context.SaveChanges();
+
 			return RedirectToAction("Settings", viewModel);
 		}
 	}

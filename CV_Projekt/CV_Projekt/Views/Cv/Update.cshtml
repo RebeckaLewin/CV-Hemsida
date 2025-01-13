@@ -25,10 +25,13 @@
         </h4>
 
         <form method="post" asp-action="AddExperience">
-            <input asp-for="Cv.Id" value="@Model.Cv.Id" />
+            <input asp-for="CvId" value="@Model.CvId" />
+            <input asp-for="OwnerId" value="@Model.OwnerId" />
+            <input asp-for="Work" value="@Model.Work" />
+            <input asp-for="WorkToAdd.UserId" value="@Model.OwnerId"/>
             <div class="row py-2">
                 <h6>Lägg till arbete</h6>
-                <input asp-for="WorkToAdd.User" value="@Model.Cv.Owner" hidden/>
+                <input asp-for="WorkToAdd.User" value="@Model.OwnerId" hidden/>
                 <div class="col-md-6">
                     <label class="settingsLbl" for="title">Arbetsplats</label>
                     <input asp-for="WorkToAdd.Location" type="text" class="bg-light form-control">
@@ -69,7 +72,7 @@
                 <h6>Tillagda arbeten:</h6>
                 <div class="col-md-12">
                     <ul class="list-group cv-list-group">
-                        @foreach(var work in Model.Cv.Experiences)
+                        @foreach(var work in Model.Work)
                         {
                             <li>@work.Description</li>
                         }

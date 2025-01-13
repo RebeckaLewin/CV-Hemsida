@@ -78,7 +78,14 @@ namespace CV_Projekt.Controllers
 				return NotFound();
 			}
 
-            UpdateCvViewModel viewModel = new UpdateCvViewModel(_context, id) { Cv = cv };
+            UpdateCvViewModel viewModel = new UpdateCvViewModel(_context, id)
+            {
+                CvId = cv.Id.ToString(),
+                OwnerId = cv.OwnerId,
+                Work = cv.Experiences.Where(ex => ex is Work).ToList(),
+                Educations = cv.Experiences.Where(ex => ex is Education).ToList(),
+                Other = cv.Experiences.Where(ex => ex is OtherExperience).ToList()
+            };
 
             return View(viewModel);
 		}
@@ -86,11 +93,10 @@ namespace CV_Projekt.Controllers
         [HttpPost]
         public IActionResult AddExperience(UpdateCvViewModel viewModel)
         {
-			viewModel.Cv = _context.CVs.Where(cv => cv.Id == viewModel.Cv.Id).FirstOrDefault();
-			if (viewModel.Cv != null)
+            if(ModelState.IsValid)
             {
-				viewModel.Cv.Experiences.Add(viewModel.WorkToAdd);
-			}
+                viewModel.Work.Add(viewModel.WorkToAdd);
+            }
             return View("Update", viewModel);
         }
     }
