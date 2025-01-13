@@ -1,5 +1,7 @@
 ﻿using CV_Projekt.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 
 namespace CV_Projekt.Controllers
 {
@@ -13,8 +15,42 @@ namespace CV_Projekt.Controllers
 		}
 
 		[HttpGet]
+        public IActionResult Project(int id)
+        {
+            var project = context.Projects
+				.Where(p => p.Id == id)
+                .Include(p => p.Participants)
+                .FirstOrDefault();
 
-		
+            var projCreator = context.Users
+                .Where(u => u.Id == project.CreatorId)
+                .FirstOrDefault();
+
+            var proj = new ProjectViewModel()
+            {
+                Project = project,
+                Creator = projCreator
+            };
+            return View(proj);
+        }
+        public IActionResult ShowProjectsView() 
+		{
+			var projects = context.Projects
+				.Include(p => p.Participants)
+				.ToList();
+
+			var projCreator = context.Users
+				.Where(u => projects.Select(p => p.CreatorId)
+				.Contains(u.Id))
+				.ToList();
+
+			var proj = new ProjectViewModel()
+			{
+				Projects = projects,
+				Creators = projCreator
+			};
+			return View(proj);
+		}
 		public IActionResult Add()
 		{
 			User loggedInUser = context.Users.Where(u => u.UserName.Equals(User.Identity.Name)).FirstOrDefault();
@@ -37,6 +73,24 @@ namespace CV_Projekt.Controllers
 			newProject.Creator = loggedInUser;
 			ProjectViewModel newViewModel = new ProjectViewModel { Users = context.Users.ToList(), ProjectToSave = newProject };
 			return View(newViewModel);
+		}
+
+		[HttpPost]
+		public IActionResult AddParticipant(int projectId) 
+		{
+			var currentUser = context.Users.Where(u => u.UserName.Equals(User.Identity.Name)).FirstOrDefault();
+
+
+            var project = context.Projects.
+				Include(p => p.Participants)
+				.FirstOrDefault();
+			if (!project.Participants.Any(u => u.Id == currentUser.Id) && project.CreatorId != currentUser.Id)
+			{
+				project.Participants.Add(currentUser);
+				context.SaveChanges();
+			}
+
+			return RedirectToAction("Project", new {id = projectId});
 		}
 	}
 }

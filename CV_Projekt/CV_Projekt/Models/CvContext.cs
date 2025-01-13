@@ -801,9 +801,9 @@ namespace CV_Projekt.Models
                 .WithMany(u => u.JoinedProjects)
                 .UsingEntity(
                     "ProjectUser",
-                    l => l.HasOne(typeof(Project)).WithMany().HasForeignKey("ProjectId").HasPrincipalKey(nameof(Project.Id)).OnDelete(DeleteBehavior.ClientSetNull),
-                    r => r.HasOne(typeof(User)).WithMany().HasForeignKey("UserId").HasPrincipalKey(nameof(User.Id)).OnDelete(DeleteBehavior.ClientSetNull),
-                    j => j.HasKey("ProjectId", "UserId")
+                    l => l.HasOne(typeof(Project)).WithMany().HasForeignKey("JoinedProjectsId").HasPrincipalKey(nameof(Project.Id)).OnDelete(DeleteBehavior.ClientSetNull),
+                    r => r.HasOne(typeof(User)).WithMany().HasForeignKey("ParticipantsId").HasPrincipalKey(nameof(User.Id)).OnDelete(DeleteBehavior.ClientSetNull),
+                    j => j.HasKey("JoinedProjectsId", "ParticipantsId")
                 );
 
             modelBuilder.Entity<Message>()
