@@ -69,13 +69,13 @@ input[type="checkbox"]:checked {
     color:#fff;
 }   
 
-.experience-item {
+.experience-item .proj-item {
     border-bottom: 1px solid #ff6219;
     margin-bottom: 10px;
     padding-bottom: 10px;
 }
 
-.experience-container {
+.experience-container .proj-container {
     
     padding: 10px;
     border: 1px solid #ff6219;
