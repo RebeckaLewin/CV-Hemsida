@@ -24,18 +24,22 @@ namespace CV_Projekt.Controllers
                 .Where(m => m.ReceiverId.Equals(receiverId) && m.SenderId.Equals(senderId))
                 .OrderBy(m => m.Date)
                 .ToList();
+
             var firstName = _context.Users.Where(u => u.Id.Equals(senderId)).Select(u => u.FirstName).FirstOrDefault();
             var lastName = _context.Users.Where(u => u.Id.Equals(senderId)).Select(u => u.LastName).FirstOrDefault();
             var fullName = firstName + " " + lastName;
 
+            var sentUser = _context.Users.Where(u => u.Id.Equals(senderId)).FirstOrDefault();
+            var recUser = _context.Users.Where(u => u.Id.Equals(receiverId)).FirstOrDefault();
+
             ViewBag.FullName = fullName;
-            ViewBag.SenderId = senderId;
-            ViewBag.ReceiverId = receiverId;
 
             var viewModel = new ChatListViewModel
             {
                 ReceivedMessages = recMes,
-                SentMessages = sentMes
+                SentMessages = sentMes,
+                Sender = sentUser,
+                Receiver = recUser
             };
 
             return View(viewModel);

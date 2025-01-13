@@ -7,8 +7,8 @@
            style="background-color:#ff6219; margin-bottom:2rem;"
            asp-controller="Message"
            asp-action="Add"
-           asp-route-senderId="@ViewBag.ReceiverId"
-           asp-route-recieverId="@ViewBag.SenderId">
+           asp-route-senderId="@Model.Receiver.Id"
+           asp-route-receiverId="@Model.Sender.Id">
            Skriv meddelande till @ViewBag.FullName
 </a>
 
@@ -16,7 +16,7 @@
            style="background-color:#ff6219; margin-bottom:2rem;"
            asp-controller="Message"
            asp-action="ChatList"
-           asp-route-id="@ViewBag.ReceiverId">
+           asp-route-id="@Model.Receiver.Id">
            Tillbaka
 </a>
 </div>

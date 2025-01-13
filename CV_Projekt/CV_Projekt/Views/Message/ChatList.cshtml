@@ -7,14 +7,23 @@
     <div class="card">
         <h3> Från: @message.Sender.FirstName @message.Sender.LastName </h3>
         <h4> @message.Subject</h4>
-        <a class="btn btn-primary text-light"
+        @* <a class="btn btn-primary text-light"
            style="background-color:#ff6219; margin-bottom:2rem;"
            asp-controller="Chat"
            asp-action="Chat11"
            asp-route-senderId="@message.SenderId"
            asp-route-receiverId="@message.ReceiverId">
            Visa Meddelande
-        </a>
+        </a> *@
+        <form asp-controller="Message" asp-action="ChatList" method="post">
+            <input asp-for="@Model.Message.Id" type="hidden" value="@message.Id" />
+                <input asp-for="@Model.Message.SenderId" type="hidden" value="@message.Sender.Id" />
+                <input asp-for="@Model.Message.ReceiverId" type="hidden" value="@message.Receiver.Id" />
+                <input asp-for="@Model.Message.isRead" type="hidden" value="True" />
+            <br />
+            <br />
+            <button type="submit">Visa Meddelande</button>
+        </form>
     </div>
 }
 
