@@ -31,9 +31,9 @@
 				
 					<div class="row">
 						<div class="col-sm-5">
-					<div class="card-body p-4 text-black">
+					<div class="card-body p-2 text-black">
 						<div class="mb-5  text-body">
-										<div class="d-flex flex-column justify-content-center mt-2" style="margin-bottom:2rem;">
+										<div class="d-flex flex-column justify-content-center mt-2" style="margin-bottom:1rem;">
 
 											<a asp-controller="Cv" asp-action="Cv" asp-route-id="@Model.User.Id" class="btn" style="background-color:#fff; color:#ff6219; margin-bottom:1rem;"><i class="fa-solid fa-file-lines"></i>Visa CV</a>
                                            
@@ -42,9 +42,8 @@
                                             <a asp-controller="Cv" asp-action="CreateCv" asp-route-id="@Model.User.Id" class="btn" style="background-color:#fff; color:#ff6219; margin-bottom:1rem;"><i class="fa-solid fa-file-circle-plus"></i>Ändra CV</a>
                                            
                                             <a asp-controller="Message" asp-action="ChatList" asp-route-id="@Model.User.Id" class ="btn" style="background-color:#fff; color:#ff6219;">
-                                                <i class="fa-solid fa-envelope position-relative">
-                                                    <span class="badge rounded-pill badge-notification bg-danger position-absolute top-0 left-0 translate-middle" style="font-size:0.5rem;">1</span>
-												</i>Meddelanden
+                                                <i class="fa-solid fa-envelope position-relative">     
+												</i>Skicka Meddelande
 											</a>
                                            
 										</div>
@@ -100,7 +99,7 @@
 						
 
 						<div class="col-sm-7 mb-2 ">
-								<h4 style="color:#ff6219;"><i class="fa-solid fa-hashtag"></i></h4>
+								<h4 style="color:#ff6219;"><i class="fa-solid fa-hashtag"></i> Taggar</h4>
 								<div class="p-1 bg-body-tertiary">
 
 									@if (@Model.User.Tags != null)
