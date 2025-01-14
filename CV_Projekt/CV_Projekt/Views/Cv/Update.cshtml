@@ -26,7 +26,7 @@
         <form method="post" asp-action="AddWork">
             <input asp-for="WorkToAdd.CvId" value="@Model.CvId" hidden />
             <div class="row py-2">
-                <h6>Lägg till arbete</h6>
+                <h6 class="cv-h6"><b>Lägg till arbete</b></h6>
                 <div class="col-md-6">
                     <label class="settingsLbl" for="title">Arbetsplats</label>
                     <input asp-for="WorkToAdd.Location" type="text" class="bg-light form-control">
@@ -64,15 +64,31 @@
                 </div>
             </div>
             <div class="row py-2">
-                <h6>Tillagda arbeten:</h6>
+                <h6 class="cv-h6"><b>Tillagda arbeten:</b></h6>
                 <div class="col-md-12">
                     <ul class="list-group cv-list-group">
                         @foreach(var work in Model.Work)
                         {
                             <li>
-                                <button asp-action="RemoveExperience" asp-route-id="@work.Id">Ta bort</button>
-                                <b>@work.Description</b>
+                            <div class="work-item d-flex justify-content-between align-items-center">
+									<span class="work-name"><b>@work.Description</b></span>
+                                <button asp-action="RemoveExperience"
+                                        asp-route-pid="@work.Id"
+                                        class="btn btn-sm remove-btn"
+                                        style="background-color: #fff;
+                                                color: #ff6219;
+                                                border: 1px solid #ff6219;
+                                                padding: 5px 10px;
+                                                font-size: 14px;
+                                                margin-bottom: 2px;">
+                                    <i class="fa-solid fa-xmark"></i> Ta bort
+                                </button>
+                            </div>
                             </li>
+
+                            
+                       
+                            
                         }
                     </ul>
                 </div>
@@ -82,7 +98,7 @@
         <form method="post" asp-action="AddEducation">
             <input asp-for="EducationToAdd.CvId" value="@Model.CvId" hidden />
             <div class="row py-2">
-                <h6>Lägg till utbildning</h6>
+                <h6 class="cv-h6"><b>Lägg till utbildning</b></h6>
                 <div class="col-md-6">
                     <label  class="settingsLbl" for="eduTitle">Program</label>
                     <input asp-for="EducationToAdd.Program" type="text" class="bg-light form-control">
@@ -91,6 +107,13 @@
                     <label class="settingsLbl" for="eduDesc">Utbildningsbeskrivning</label>
                     <input asp-for="EducationToAdd.Description" type="text" class="bg-light form-control">
                 </div>
+            </div>
+            <div class="row py-2">
+                <div class="col-md-6">
+                    <label class="settingsLbl" for="eduLocation">Skola</label>
+                    <input asp-for="EducationToAdd.Location" type="text" class="bg-light form-control">
+                </div>
+                
             </div>
             <div class="row py-2">
                 <div class="col-md-6">
@@ -112,12 +135,7 @@
                     <input asp-for="EducationToAdd.EndDate" type="date" class="bg-light form-control">
                 </div>
             </div>
-            <div class="row py-2">
-                <div class="col-md-6">
-                    <label class="settingsLbl" for="eduLocation">Skola</label>
-                    <input asp-for="EducationToAdd.Location" type="text" class="bg-light form-control">
-                </div>
-            </div>
+            
             <div class="row py-2">
                 <div class="col-md-6">
                     <button type="submit" id="addEducation" class="btn border border-light button mr-3 text-light" style="background-color:#ff6219;">Lägg till Utbildning</button>
@@ -126,13 +144,27 @@
                 </div>
             </div>
             <div class="row py-2">
-                <h6>Tillagda utbildningar:</h6>
+                <h6 class="cv-h6"><b>Tillagda utbildningar:</b></h6>
                 <div class="col-md-12">
                     <ul id="educationList" class="list-group cv-list-group">
                         @foreach(Education edu in Model.Educations)
                         {
-                            <button asp-action="RemoveExperience" asp-route-id="@edu.Id">Ta bort</button>
-                            <li>@edu.Program</li>
+                            <li>
+                                <div class="edu-item d-flex justify-content-between align-items-center">
+									<span class="edu-name"><b>@edu.Program</b></span>
+                                    <button asp-action="RemoveExperience"
+                                            asp-route-pid="@edu.Id"
+                                            class="btn btn-sm remove-btn"
+                                            style="background-color: #fff;
+                                                color: #ff6219;
+                                                border: 1px solid #ff6219;
+                                                padding: 5px 10px;
+                                                font-size: 14px;
+                                                margin-bottom: 2px;">
+                                        <i class="fa-solid fa-xmark"></i> Ta bort
+                                    </button>
+                                </div>
+                            </li>
                         }
                     </ul>
                 </div>
@@ -142,7 +174,7 @@
         <form method="post" asp-action="AddOtherExperience">
             <input asp-for="OtherToAdd.CvId" value="@Model.CvId" hidden />
             <div class="row py-2">
-                <h6>Lägg till annan erfarenhet</h6>
+                <h6 class="cv-h6"><b>Lägg till annan erfarenhet</b></h6>
                 <div class="col-md-6">
                     <label class="settingsLbl" for="otherTitle">Var?</label>
                     <input asp-for="OtherToAdd.Location" type="text" class="bg-light form-control">
@@ -181,13 +213,27 @@
                 </div>
             </div>
             <div class="row py-2">
-                <h6>Tillagda erfarenheter:</h6>
+                <h6 class="cv-h6"><b>Tillagda erfarenheter:</b></h6>
                 <div class="col-md-12">
                     <ul id="otherExpList" class="list-group cv-list-group">
                         @foreach(OtherExperience otherExp in Model.Other)
                         {
-                            <button asp-action="RemoveExperience" asp-route-id="@otherExp.Id">Ta bort</button>
-                            <li>@otherExp.Type</li>
+                            <li>
+                                <div class="otherExp-item d-flex justify-content-between align-items-center">
+									<span class="otherExp-name"><b>@otherExp.Type</b></span>
+                                    <button asp-action="RemoveExperience"
+                                            asp-route-pid="@otherExp.Id"
+                                            class="btn btn-sm remove-btn"
+                                            style="background-color: #fff;
+                                                color: #ff6219;
+                                                border: 1px solid #ff6219;
+                                                padding: 5px 10px;
+                                                font-size: 14px;
+                                                margin-bottom: 2px;">
+                                        <i class="fa-solid fa-xmark"></i> Ta bort
+                                    </button>
+                                </div>
+                            </li>
                         }
                     </ul>
                 </div>
@@ -197,7 +243,7 @@
         <form method="post" asp-action="AddSkill">
             <input asp-for="CvId" value="@Model.CvId" hidden />
             <div class="row py-2">
-                <h6>Lägg till skills</h6>
+                <h6 class="cv-h6"><b>Lägg till skills</b></h6>
                 <div class="col-md-6">
                     <label class="settingsLbl" for="skillTtl">Skill</label>
                     <input asp-for="SkillToAdd" type="text" class="bg-light form-control">
@@ -213,13 +259,27 @@
                 </div>
             </div>
             <div class="row py-2">
-                <h6>Tillagda skills:</h6>
+				<h6 class="cv-h6"><b>Tillagda skills:</b></h6>
                 <div class="col-md-12">
                     <ul id="skillList" class="list-group cv-list-group">
                         @for(int i = 0; i < Model.Skills.Count(); i++)
                         {
-                            <button asp-action="RemoveSkill" asp-route-id="@Model.CvId" asp-route-index="@i">Ta bort</button>
-                            <li>@Model.Skills[i]</li>
+                            <li>
+                                <div class="skill-item d-flex justify-content-between align-items-center">
+									<span class="skill-name"><b>@Model.Skills[i]</b></span>
+                                    <button asp-action="RemoveExperience"
+                                            asp-route-id="@Model.CvId"
+                                            class="btn btn-sm remove-btn"
+                                            style="background-color: #fff;
+                                                color: #ff6219;
+                                                border: 1px solid #ff6219;
+                                                padding: 5px 10px;
+                                                font-size: 14px;
+                                                margin-bottom: 2px;">
+                                        <i class="fa-solid fa-xmark"></i> Ta bort
+                                    </button>
+                                </div>
+                            </li>
                         }
                     </ul>
                 </div>
