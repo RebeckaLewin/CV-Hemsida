@@ -1,15 +1,16 @@
 ﻿@model SearchViewModel
 
-<div class="d-flex flex-column align-items-cener justify-content-center" style="margin-bottom: 15px;">
+<div class="d-flex flex-column align-items-center justify-content-center" style="margin-top: 30px;">
     <div class="input-group">
-        <form asp-controller="Search" asp-action="SearchWindow" method="get" class="d-flex">
+        <form asp-controller="Search" asp-action="SearchWindow" method="get" class="d-flex align-items-center">
             <input type="search" 
                 class="form-control rounded" 
                 placeholder="Sök" 
                 aria-label="Search" 
                 aria-describedby="search-addon"
                 name="searchTerm"
-                value="@ViewData["SearchedName"]" />
+                value="@ViewData["SearchedName"]"
+                style="height: 30px; margin-right: 10px" />
             <button type="submit"
                 class="btn" 
                 style="background-color:#ff6219; color:#fff; margin:1rem;" 
@@ -21,7 +22,7 @@
 </div>
 
 
-<div class="card" style="width:20rem; height:20rem;">
+<div class="card" style="width:20rem; height:20rem; overflow-y:auto; max-height:20rem;">
     @if (!string.IsNullOrEmpty(ViewData["SearchedName"]?.ToString()))
     {
             <h5 class="mb-3">Sökresultat:</h5>
@@ -39,7 +40,7 @@
                                 <ul class="list-unstyled">
                                     @foreach (var skill in userWithSkills.Skills)
                                     {
-                                        <li>@skill</li>
+                                    <li class="fw-light" style="font-size: 0.85em; padding-left: 20px;">@skill</li>
                                     }
                                 </ul>
                             }
