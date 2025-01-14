@@ -17,14 +17,21 @@ namespace CV_Projekt.Controllers
         public IActionResult Chat11(string senderId, string receiverId)
         {
 
-            var recMes = _context.Messages
+            var allRecMes = _context.Messages
                 .Where(m => m.ReceiverId.Equals(receiverId) && m.SenderId.Equals(senderId))
                 .OrderBy(m => m.Date)
                 .ToList();
-            var sentMes = _context.Messages
-                .Where(m => m.ReceiverId.Equals(receiverId) && m.SenderId.Equals(senderId))
+            var allSentMes = _context.Messages
+                .Where(m => m.ReceiverId.Equals(senderId) && m.SenderId.Equals(receiverId))
                 .OrderBy(m => m.Date)
                 .ToList();
+
+            TurnRead(allRecMes);
+
+            var delRecMes = allRecMes.Where(r => r.ReceiverDelete.Equals(true)).ToList();
+            var delSentMes = allSentMes.Where(s => s.SenderDelete.Equals(true)).ToList();
+            var recMes = allRecMes.Except(delRecMes).ToList();
+            var sentMes = allSentMes.Except(delSentMes).ToList();
 
             var firstName = _context.Users.Where(u => u.Id.Equals(senderId)).Select(u => u.FirstName).FirstOrDefault();
             var lastName = _context.Users.Where(u => u.Id.Equals(senderId)).Select(u => u.LastName).FirstOrDefault();
@@ -37,7 +44,7 @@ namespace CV_Projekt.Controllers
 
             var id = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            var viewModel = new ChatListViewModel(_context, id)
+            var viewModel = new Chat11ViewModel(_context, id)
             {
                 ReceivedMessages = recMes,
                 SentMessages = sentMes,
@@ -46,6 +53,37 @@ namespace CV_Projekt.Controllers
             };
 
             return View(viewModel);
+        }
+
+        [HttpPost]
+        public IActionResult RemoveMessage(int messageId, Chat11ViewModel viewModel)
+        {
+            var message = _context.Messages.Where(m => m.Id.Equals(messageId)).FirstOrDefault();
+            if (message.SenderId.Equals(User.FindFirstValue(ClaimTypes.NameIdentifier)))
+            {
+                message.SenderDelete = true;
+            }
+            if (message.ReceiverId.Equals(User.FindFirstValue(ClaimTypes.NameIdentifier)))
+            {
+                message.ReceiverDelete = true;
+            }
+            _context.Messages.Update(message);
+            _context.SaveChanges();
+            return RedirectToAction("Chat11", viewModel);
+        }
+
+        public void TurnRead(List<Message> messages)
+        {
+            foreach (Message mess in messages)
+            {
+                if (!mess.isRead)
+                {
+                    mess.isRead = true;
+                    _context.Messages.Update(mess);
+                    _context.SaveChanges();
+                }
+            }
+            
         }
         public IActionResult Index()
         {

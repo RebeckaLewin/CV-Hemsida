@@ -24,6 +24,7 @@
      <div class="container">
          <div class="row ">
              <div class="col-md-12">
+
 					<form asp-action="Add" method="post">
 						<h6 class="text-dark" style="color:#FFF;"><b>Till:</b> <i>@Model.Receiver.FirstName @Model.Receiver.LastName</i></h6>
 						
@@ -37,10 +38,11 @@
 						<input asp-for="@Model.Message.ReceiverId" type="hidden" value="@Model.Receiver.Id" />
 						<input asp-for="@Model.Message.Date" type="hidden" name="Date" value="DateTime.Now" />
 						<input asp-for="@Model.Message.isRead" type="hidden" value="false" />
-						
-                        <div style="d-flex justify-content-end; margin-top: 1rem;">
-                            <button type="submit" class="btn border border-light button mr-3 text-light" style="background-color:#ff6219;">Skicka Meddelande</button>
-						</div>
+                        
+					    <button type="submit">Skicka</button>
+                        @* <div style="text-align:right; margin-top: 1rem;">
+						<a class="btn" type="submit" style="background-color:#fff; color:#ff6219; border: 1px solid #ff6219; margin-bottom:1rem; "><i class="fa-solid fa-pen"></i>Skicka meddelande</a>
+						</div> *@
 					</form>
              </div>
 
