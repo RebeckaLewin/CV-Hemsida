@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using System.Security.Claims;
 using Azure.Identity;
 using CV_Projekt.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -42,7 +43,7 @@ namespace CV_Projekt.Controllers
             User loggedInUser = new User();
 			if (User.Identity.IsAuthenticated)
             {
-				loggedInUser = _context.Users.Where(u => u.UserName.Equals(User.Identity.Name)).FirstOrDefault();
+				loggedInUser = _context.Users.Where(u => u.Id.Equals(User.FindFirstValue(ClaimTypes.NameIdentifier))).FirstOrDefault();
 			}
 
             HomeViewModel viewModel = new HomeViewModel(_context, loggedInUser.Id)

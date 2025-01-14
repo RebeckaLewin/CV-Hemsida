@@ -95,10 +95,15 @@ namespace CV_Projekt.Controllers
 			{
 				context.Add(viewModel.ProjectToSave);
 				context.SaveChanges();
+				return RedirectToAction("ShowProjectsView");
 			}
+
 			var loggedInId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 			User loggedInUser = context.Users.Where(u => u.Id.Equals(loggedInId)).FirstOrDefault();
-			return RedirectToAction("Add", "Project");
+			Project newProject = new Project();
+			newProject.Creator = loggedInUser;
+			ProjectViewModel newViewModel = new ProjectViewModel(context, loggedInId) { Users = context.Users.ToList(), ProjectToSave = newProject, Creator = loggedInUser };
+			return View(newViewModel);
 		}
 
 		[HttpPost]
@@ -135,16 +140,17 @@ namespace CV_Projekt.Controllers
 		public IActionResult Update(UpdateProjectViewModel viewModel)
 		{
 			Project projectToUpdate = context.Projects.Where(p => p.Id == viewModel.Project.Id).FirstOrDefault();
+			if (ModelState.IsValid)
+			{
+				projectToUpdate.Title = viewModel.Project.Title;
+				projectToUpdate.Description = viewModel.Project.Description;
+				projectToUpdate.StartDate = viewModel.Project.StartDate;
+				projectToUpdate.EndDate = viewModel.Project.EndDate;
 
-			projectToUpdate.Title = viewModel.Project.Title;
-			projectToUpdate.Description = viewModel.Project.Description;
-			projectToUpdate.StartDate = viewModel.Project.StartDate;
-			projectToUpdate.EndDate = viewModel.Project.EndDate;
-
-			context.Projects.Update(projectToUpdate);
-			context.SaveChanges();
-
-			return RedirectToAction("Update", new { id = projectToUpdate.Id });
+				context.Projects.Update(projectToUpdate);
+				context.SaveChanges();
+			}
+			return View(viewModel);
 		}
 
 		[HttpPost]
