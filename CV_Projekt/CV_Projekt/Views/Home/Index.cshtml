@@ -3,12 +3,6 @@
     ViewData["Title"] = "Home Page";
 }
 
-@*
-@if(User.Identity.IsAuthenticated)
-{
-    <h1>Välkommen @Model.LoggedInUser.FirstName!</h1>
-}*@
-
 <br />
 <div class="container">
     <div class="row row-cols-md-4 g-4 align-items-stretch">
@@ -74,15 +68,6 @@
                                 </form>
                             </div>
 
-                            @* <div class="text-center">
-                                <a  class="btn btn-primary text-light"
-                                style="background-color:#ff6219; margin-bottom:2rem;"
-                                asp-controller="Profile"
-                                asp-action="Profile"
-                                asp-route-id="@cv.Id">
-                                Visa CV
-                                </a>
-                            </div> *@
                         }
                         </div>
                     </div>
