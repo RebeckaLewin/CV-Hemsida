@@ -19,7 +19,7 @@
             Ändra Profil
     </h4>
 
-    <div asp-validation-summary="All" class="text-danger">here there be errors</div>
+    <div asp-validation-summary="All" class="text-danger"></div>
 
     <form method="post" asp-action="Settings" enctype="multipart/form-data">
         <input asp-for="User.ContactInformation.Id" value="@Model.User.ContactInformation.Id" hidden />
@@ -180,7 +180,7 @@
             <form method="post" asp-action="AddTag" asp-route-uid="@Model.User.Id" asp-route-tid="@Model">
                 <input asp-for="User.Id" value="@Model.User.Id" hidden/>
                 <select asp-items="@ViewBag.options" asp-for="TagId"></select>
-                <button type="submit">Lägg till tagg</button>
+                <button type="submit" class="btn border border-light button mr-3 text-light" style="background-color:#ff6219;">Lägg till tagg</button>
             </form>
 
             <h5>Mina taggar</h5>
@@ -194,7 +194,7 @@
                 {
                     @foreach (var tag in Model.User.Tags)
                     {
-                        <button type="submit">Ta bort</button>
+                        <button type="submit" class="btn border border-light button mr-3 text-light" style="background-color:#ff6219;">Ta bort</button>
                         <input asp-for="TagId" value="@tag.Id.ToString()" hidden/>
                         <b>@tag.Descriptor</b>
                     }
