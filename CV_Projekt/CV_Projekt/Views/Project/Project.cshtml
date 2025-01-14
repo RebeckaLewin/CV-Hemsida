@@ -1,5 +1,7 @@
 ﻿@model ProjectViewModel
 
+@using System.Security.Claims
+
 
 <div class="card">
     <div class="card-body">
@@ -25,8 +27,19 @@
                             Registrera som deltagare
                         </button>
                     </form>
+
                 </div>
             }
+        }
+
+        @if (Model.Project.CreatorId.Equals(User.FindFirstValue(ClaimTypes.NameIdentifier)))
+        {
+            <form method="get" asp-action="Update" asp-controller="Project" asp-route-id="@Model.Project.Id">
+                <button type="submit">Ändra projekt</button>
+            </form>
+            <form asp-controller="Project" asp-action="Delete" asp-route-id="@Model.Project.Id">
+                <button type="submit">Radera projekt</button>
+            </form>
         }
     </div>
 </div>

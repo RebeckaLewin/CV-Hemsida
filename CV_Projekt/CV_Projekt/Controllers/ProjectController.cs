@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
+using System.Security.Cryptography;
 
 namespace CV_Projekt.Controllers
 {
@@ -35,6 +36,7 @@ namespace CV_Projekt.Controllers
             };
             return View(proj);
         }
+
         public IActionResult ShowProjectsView() 
 		{
 			var projects = context.Projects
@@ -55,13 +57,15 @@ namespace CV_Projekt.Controllers
 			};
 			return View(proj);
 		}
+
+		[HttpGet]
 		public IActionResult Add()
 		{
 			var loggedInId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 			User loggedInUser = context.Users.Where(u => u.Id.Equals(loggedInId)).FirstOrDefault();
 			Project newProject = new Project();
 			newProject.Creator = loggedInUser;
-			ProjectViewModel viewModel = new ProjectViewModel(context, loggedInId) { Users = context.Users.ToList(), ProjectToSave = newProject };
+			ProjectViewModel viewModel = new ProjectViewModel(context, loggedInId) { Users = context.Users.ToList(), ProjectToSave = newProject, Creator = loggedInUser }; 
 			return View(viewModel);
 		}
 
@@ -75,17 +79,13 @@ namespace CV_Projekt.Controllers
 			}
 			var loggedInId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 			User loggedInUser = context.Users.Where(u => u.Id.Equals(loggedInId)).FirstOrDefault();
-			Project newProject = new Project();
-			newProject.Creator = loggedInUser;
-			ProjectViewModel newViewModel = new ProjectViewModel(context, loggedInId) { Users = context.Users.ToList(), ProjectToSave = newProject };
-			return View(newViewModel);
+			return RedirectToAction("Add", "Project");
 		}
 
 		[HttpPost]
 		public IActionResult AddParticipant(int projectId) 
 		{
 			var currentUser = context.Users.Where(u => u.UserName.Equals(User.Identity.Name)).FirstOrDefault();
-
 
             var project = context.Projects.
 				Where(p => p.Id == projectId)
@@ -98,6 +98,54 @@ namespace CV_Projekt.Controllers
 			}
 
 			return RedirectToAction("Project", new {id = projectId});
+		}
+
+		[HttpGet]
+		public IActionResult Update(int id)
+		{
+			Project projectToEdit = context.Projects.Where(p => p.Id == id).FirstOrDefault();
+
+			string loggedInId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+			UpdateProjectViewModel viewModel = new UpdateProjectViewModel(context, loggedInId) { Project = projectToEdit };
+			return View(viewModel);
+		}
+
+		[HttpPost]
+		public IActionResult Update(UpdateProjectViewModel viewModel)
+		{
+			Project projectToUpdate = context.Projects.Where(p => p.Id == viewModel.Project.Id).FirstOrDefault();
+
+			projectToUpdate.Title = viewModel.Project.Title;
+			projectToUpdate.Description = viewModel.Project.Description;
+			projectToUpdate.StartDate = viewModel.Project.StartDate;
+			projectToUpdate.EndDate = viewModel.Project.EndDate;
+
+			context.Projects.Update(projectToUpdate);
+			context.SaveChanges();
+
+			return RedirectToAction("Update", new { id = projectToUpdate.Id });
+		}
+
+		[HttpPost]
+		public IActionResult RemoveParticipant(int pid, string uid)
+		{
+			Project projectToRemoveFrom = context.Projects.Where(p => p.Id == pid).FirstOrDefault();
+			User userToRemove = context.Users.Where(u => u.Id == uid).FirstOrDefault();
+
+			projectToRemoveFrom.Participants.Remove(userToRemove);
+			context.Update(projectToRemoveFrom);
+			context.SaveChanges();
+
+			return RedirectToAction("Update", new { id = pid });
+		}
+
+		public IActionResult Delete(int id)
+		{
+			Project projectToDelete = context.Projects.Where(p => p.Id == id).FirstOrDefault();
+			context.Projects.Remove(projectToDelete);
+			context.SaveChanges();
+			return RedirectToAction("ShowProjectsView", "Project");
 		}
 	}
 }

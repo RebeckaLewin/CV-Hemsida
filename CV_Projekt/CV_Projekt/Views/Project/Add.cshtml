@@ -31,7 +31,7 @@
                 </div>
                 <div class="col-md-6 pt-md-0 pt-3">
                     <label class="settingsLbl" for="startdate">Startdatum</label>
-                    <input asp-for="ProjectToSave.StartDate" type="date" class="bg-light form-control">
+                    <input asp-for="ProjectToSave.StartDate" type="date" value="@DateTime.Now" class="bg-light form-control">
                 </div>
             </div>
             <div class="row py-2">
@@ -42,14 +42,14 @@
                 </div>
                 <div class="col-md-6 pt-md-0 pt-3">
                      <label class="settingsLbl" for="enddate">Slutdatum</label>
-                     <input asp-for="ProjectToSave.EndDate" type="date" class="bg-light form-control">
+                     <input asp-for="ProjectToSave.EndDate" type="date" value="@DateTime.Now" class="bg-light form-control">
                 </div>
             </div>
             <div class="row py-2">
                 <div class="col-md-6 ">
                     <label class="settingsLbl" for="projCreator">Skapare av projekt</label>
-                        <input value="@Model.ProjectToSave.Creator.Id" asp-for="ProjectToSave.CreatorId" type="text" class="bg-light form-control" hidden>
-                        <input value="@Model.ProjectToSave.Creator.FirstName @Model.ProjectToSave.Creator.LastName" disabled/>
+                        <input asp-for="ProjectToSave.CreatorId" value="@Model.Creator.Id" type="text" class="bg-light form-control" hidden>
+                        <input value="@Model.Creator.FirstName @Model.Creator.LastName" disabled/>
                 </div>
                     <div class="col-md-6 pt-md-0 pt-3">
                         
