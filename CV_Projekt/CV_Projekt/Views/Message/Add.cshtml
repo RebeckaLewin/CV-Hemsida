@@ -1,6 +1,5 @@
 ﻿@model MessageViewModel
 
-
 <body class="bodyUserProfileSettings" 
       style="margin: 0;
             padding: 0;
@@ -33,14 +32,14 @@
 						<label class="settingsLbl text-dark">Meddelande: </label>
 						<textarea class="bg-light form-control" rows="5" asp-for="@Model.Message.Content"></textarea>
 						
-						<input asp-for="@Model.Message.SenderId" type="hidden" value="@Model.Sender.Id" />
-						<input asp-for="@Model.Message.ReceiverId" type="hidden" value="@Model.Receiver.Id" />
-						<input asp-for="@Model.Message.Date" type="hidden" name="Date" value="DateTime.Now" />
-						<input asp-for="@Model.Message.isRead" type="hidden" value="false" />
-						
-                        <div style="d-flex justify-content-end; margin-top: 1rem;">
-                            <button type="submit" class="btn border border-light button mr-3 text-light" style="background-color:#ff6219;">Skicka Meddelande</button>
-						</div>
+						<input asp-for="Message.SenderId" type="hidden" value="@Model.Sender.Id" />
+						<input asp-for="Message.ReceiverId" type="hidden" value="@Model.Receiver.Id" />
+                        <input asp-for="Message.Date" name="Date" value="@DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")" hidden />
+                        
+					    <button type="submit">Skicka</button>
+                        @* <div style="text-align:right; margin-top: 1rem;">
+						<a class="btn" type="submit" style="background-color:#fff; color:#ff6219; border: 1px solid #ff6219; margin-bottom:1rem; "><i class="fa-solid fa-pen"></i>Skicka meddelande</a>
+						</div> *@
 					</form>
              </div>
 
