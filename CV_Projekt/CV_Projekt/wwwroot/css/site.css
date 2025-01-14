@@ -72,6 +72,10 @@ input[type="checkbox"]:checked {
   
 }
 
+.btn-chat:hover {
+    border-block 1px solid #ff6219;
+}
+
 .message-p {
     max-width: 80%; 
     white-space: nowrap; 
