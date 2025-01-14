@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ProfileInformation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <FullName>Linnea Wilcox</FullName>
+  <Email>linnea.jill.olsson@gmail.com</Email>
+  <Address>Varbergagatan 126</Address>
+  <Phone>+46769416362</Phone>
+  <CreatedProjects />
+  <JoinedProjects />
+  <Cv>
+    <Id>11</Id>
+    <OwnerId>d89b8997-552b-474d-b804-55d30c3372af</OwnerId>
+    <Skills />
+    <Views>1</Views>
+  </Cv>
+  <Work />
+  <Education />
+  <OtherExperience />
+</ProfileInformation>
