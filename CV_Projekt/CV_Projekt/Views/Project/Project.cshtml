@@ -3,7 +3,120 @@
 @using System.Security.Claims
 
 
-<div class="card">
+<body class="bodyUserProfileSettings"
+style="margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            background-color: dimgrey;">
+
+    <div class="wrapper my-sm-5"
+    style="background-color:#fff;
+                padding: 30px 50px;
+                border: 1px solid #ff6219;
+                border-radius: 15px;
+                margin: 10px auto;
+                max-width: 600px;"> 
+        <div class="card mb-3">
+            <img class="card-img-top" src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(107).webp" alt="Card image cap" style="max-height: 180px; width:100%; object-fit: cover;">
+
+
+            <div class="card-body" style="border-bottom: 2px solid #ff6219;">
+                <h5 class="card-title" style="color:#ff6219;">@Model.Project.Title</h5>
+                <p class="card-text">@Model.Project.Description</p>
+                <h6 class="card-title" style="color:#ff6219;">Startdatum - Slutdatum</h6>
+                <p class="card-text">@Model.Project.StartDate.ToString("yy-MM-dd") - @Model.Project.EndDate.ToString("yy-MM-dd")</p>
+                <h6 class="card-title" style="color:#ff6219;">Skapare</h6>
+                <p class="card-text">@Model.Creator.FirstName @Model.Creator.LastName</p>
+                <h6 class="card-title" style="color:#ff6219;">Deltagare</h6>
+
+                <div id="selectedParticipantsList" class="participants-list">
+                    @foreach (var participant in Model.Project.Participants)
+                    {
+                        <div class="participant-item d-flex justify-content-between align-items-center">
+                            <p><span class="participant-name">@participant.FirstName @participant.LastName</span></p>
+
+                        </div>
+                    }
+                </div>
+
+
+                @if (User.Identity.IsAuthenticated) 
+                {
+                    @if (User.Identity.Name != Model.Creator.UserName) 
+                    {
+                        <div class="d-flex justify-content-center mb-4">
+                            @if (!Model.Project.Participants.Any(p => p.UserName == User.Identity.Name))
+                            {
+
+                                <form asp-controller="Project" asp-action="AddParticipant" method="post">
+                                    <input type="hidden" name="projectId" value="@Model.Project.Id" />
+                                    <button type="submit" class="btn text-light"
+                                    style="background-color:#ff6219; margin-bottom:2rem;">
+                                        Registrera som deltagare
+                                    </button>
+                                </form>
+                            }
+
+                            else
+                            {
+                                <form asp-controller="Project" asp-action="RemoveParticipant" asp-route-pid="@Model.Project.Id" asp-route-uid="@User.FindFirstValue(ClaimTypes.NameIdentifier)" asp-route-edit="false" method="post">
+                                    <button type="submit" class="btn text-light"
+                                            style="background-color:#ff6219; margin-bottom:2rem;">
+                                        Gå ur projekt
+                                    </button>
+                                </form>
+                            }
+                        </div>
+                    }
+                }
+
+                @if (Model.Project.CreatorId.Equals(User.FindFirstValue(ClaimTypes.NameIdentifier))) 
+                {
+                    <div class="d-flex justify-content-center mb-4 gap-3">
+                    <form method="get" asp-action="Update" asp-controller="Project" asp-route-id="@Model.Project.Id">
+                        <button type="submit" class="btn text-light"
+                                style="background-color:#ff6219; margin-bottom:2rem;">
+                            Ändra projekt
+                        </button>
+                    </form>
+
+                    <form method="get" asp-action="Delete" asp-controller="Project" asp-route-id="@Model.Project.Id">
+                        <button type="submit" class="btn text-light"
+                                style="background-color:#ff6219; margin-bottom:2rem;">
+                            Ta bort projekt
+                        </button>
+                    </form>
+					</div>
+                }
+
+                <div class="d-flex justify-content-start mb-4">
+                    <button asp-action="ShowProjectsView" class="btn text-light" style="background-color:#fff; border: 1px solid #ff6219; color:#ff6219; margin-bottom:2rem" onclick="history.back()">
+                        Tillbaka
+                    </button>
+                </div>
+            
+                   
+        </div>
+        
+    
+</div>
+</div>
+</body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+@* <div class="card">
     <div class="card-body">
         <p>@Model.Project.Title</p>
 
@@ -59,4 +172,4 @@
     <button asp-action="ShowProjectsView" class="btn text-light" style="background-color:#ff6219; margin-bottom:2rem" onclick="history.back()">
         Tillbaka
     </button>
-</div>
+</div> *@
