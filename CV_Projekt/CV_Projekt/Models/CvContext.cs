@@ -433,7 +433,6 @@ namespace CV_Projekt.Models
 				user.PasswordHash = hasher.HashPassword(user, user.Password);
                 user.NormalizedEmail = user.Email.Normalize();
                 user.NormalizedUserName = user.UserName.Normalize();
-                user.PictureUrl = "~/images/profilepic_default.jpg";
 			}
 
 			modelBuilder.Entity<User>().HasData(
