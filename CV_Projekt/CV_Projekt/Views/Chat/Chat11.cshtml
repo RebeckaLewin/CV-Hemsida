@@ -16,7 +16,132 @@
 
 <a  class="btn btn-primary text-light"
            style="background-color:#ff6219; margin-bottom:2rem;"
-           asp-controller="Message"
+           asp-controller="Message"@model Chat11ViewModel
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<div class="row">
+<h2 style="color:#FFF;">Meddelanden</h2>
+
+
+    <section class="h-100">
+        <div class="container py-5 h-100">
+            <div class="row d-flex justify-content-center">
+                <div class="col col-lg-9 col-xl-8">
+                    <div class="card" style="border: 2px solid #ff6219; ">
+                        <section>
+                            <div class="container py-5">
+                                <div class="row d-flex justify-content-center">
+                                    <div class="card" id="chat2">
+                                        <div class="card-header d-flex justify-content-between align-items-center p-3">
+                                            <h5 class="mb-0" style="color: #ff6219;"><b>Inkorg</b></h5>
+                                            <h6 class="mb-0" style="color: #ff6219;">@Model.OtherUser.FirstName @Model.OtherUser.LastName</h6>
+                                        </div>
+                                        <div class="card-body" id="messageCard" style="position: relative; max-height: 500px; overflow-y: auto;">
+                                            @foreach(Message message in @Model.AllMessages)
+                                            {
+                                                @if(message.SenderId.Equals(Model.LoggedInUser.Id))
+                                                {
+                                                    <div class="d-flex flex-row justify-content-end mb-4 pt-1">
+                                                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#deleteMessageSender-@message.Id" style="background-color:#ff6219">
+                                                                <i class="fa-regular fa-trash-can"></i>
+                                                            </button>
+                                                        </div>
+                                                        <div class="d-flex flex-row justify-content-end mb-4 pt-1">
+                                                            <div>
+                                                            <p class="small p-2 me-3 mb-1 text-white rounded-3" style="background-color:#ff6219; max-width: 300px; word-wrap: break-word;">
+                                                                    @message.Content
+                                                                </p>
+                                                                <p class="small me-3 mb-3 rounded-3 text-muted d-flex justify-content-end">@message.Date</p>
+                                                            </div>
+                                                            <img src="@Url.Content(Model.LoggedInUser.PictureUrl)"
+                                                                 alt="avatar 1" style="width: 45px; height: 100%;">
+                                                        </div>
+                                                    <div class="modal fade" id="deleteMessageSender-@message.Id" tabindex="-1" role="dialog" aria-labelledby="deleteMessageSender-@message.Id" aria-hidden="true">
+                                                        <div class="modal-dialog" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title" id="deleteMessageSender-@message.Id">Bekräfta</h5>
+                                                                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    Är du säker på att du vill ta bort meddelandet?
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Behåll</button>
+                                                                    <form method="post" asp-action="RemoveMessage" asp-route-mid="@message.Id" asp-route-oid="@Model.OtherUser.Id">
+                                                                        <button type="submit" class="btn btn-primary" style="background-color:#ff6219; color:#fff">Ta bort</button>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                }
+                                                else {
+                                                        <div class="d-flex flex-row justify-content-start">
+                                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#deleteMessageReceiver-@message.Id" style="background-color:#ff6219">
+                                                            <i class="fa-regular fa-trash-can"></i>
+                                                        </button>
+                                                        </div>
+                                                        <div class="d-flex flex-row justify-content-start">
+                                                            <img src="@Url.Content(Model.OtherUser.PictureUrl)"
+                                                                 alt="avatar 1" style="width: 45px; height: 100%;">
+                                                            <div>
+                                                                <p class="small p-2 ms-3 mb-1 rounded-3" style="background-color:lightgrey; max-width: 300px; word-wrap: break-word;">
+                                                                    @message.Content</p>
+                                                                <div class="row-cols-2">
+                                                                    <p class="small ms-3 mb-3 rounded-3 text-muted">@message.Date</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    <div class="modal fade" id="deleteMessageReceiver-@message.Id" tabindex="-1" role="dialog" aria-labelledby="deleteMessageReceiver-@message.Id" aria-hidden="true">
+                                                        <div class="modal-dialog" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title" id="deleteMessageReceiver-@message.Id">Bekräfta</h5>
+                                                                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    Är du säker på att du vill ta bort meddelandet?
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Behåll</button>
+                                                                    <form method="post" asp-action="RemoveMessage" asp-route-mid="@message.Id" asp-route-oid="@Model.OtherUser.Id">
+                                                                        <button type="submit" class="btn" style="background-color:#ff6219; color:#fff">Ta bort</button>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                }
+                                            }
+                                            <div class="card-footer text-muted d-flex justify-content-end align-items-center p-3">
+                                                <a asp-action="Add" asp-controller="Message" asp-route-oid="@Model.OtherUser.Id" class="btn" style="background-color:#ff6219; color:#fff;"><i class="fas fa-paper-plane"></i>Svara</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                        <a asp-controller="Message" asp-action="Inbox" class="btn" style="color:#ff6219; background-color:#fff; margin-left: 3px;">Tillbaka</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var messageCard = document.getElementById("messageCard");
+            if (messageCard) {
+                messageCard.scrollTop = messageCard.scrollHeight;
+            }
+        });
+    </script>
+
            asp-action="Inbox">
            Tillbaka
 </a>
