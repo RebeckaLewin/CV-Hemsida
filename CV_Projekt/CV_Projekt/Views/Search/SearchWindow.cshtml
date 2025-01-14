@@ -24,16 +24,25 @@
 <div class="card" style="width:20rem; height:20rem;">
     @if (!string.IsNullOrEmpty(ViewData["SearchedName"]?.ToString()))
     {
-        @if (Model.Users != null && Model.Users.Any())
-        {
             <h5 class="mb-3">Sökresultat:</h5>
+        @if (Model.UsersWithSkills != null && Model.UsersWithSkills.Any())
+        {
                 <ul class="list-unstyled">
-                    @foreach (var user in Model.Users)
+                @foreach (var userWithSkills in Model.UsersWithSkills)
                     {
                         <li>
-                        <a asp-controller="Profile" asp-action="Profile" asp-route-id="@user.Id" style="text-decoration: none" class="text-black">
-                                @user.FirstName @user.LastName
+                        <a asp-controller="Profile" asp-action="Profile" asp-route-id="@userWithSkills.user.Id" style="text-decoration: none" class="text-black">
+                            @userWithSkills.user.FirstName @userWithSkills.user.LastName
                             </a>
+                            @if(userWithSkills.Skills.Any())
+                            {
+                                <ul class="list-unstyled">
+                                    @foreach (var skill in userWithSkills.Skills)
+                                    {
+                                        <li>@skill</li>
+                                    }
+                                </ul>
+                            }
                         </li>
                     }
                 </ul>

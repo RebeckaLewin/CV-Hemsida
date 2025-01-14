@@ -1,143 +1,167 @@
 ﻿@model ProfileViewModel
-@using System.Security.Claims
-<section class="h-100">
-    <div class="container py-5 h-100">
-        <div class="row d-flex justify-content-center">
-            <div class="col col-lg-9 col-xl-8">
-                <div class="card">
-                    <div class="rounded-top text-white d-flex flex-row bg-dark" style=" height:200px;">
-                        <div class="ms-4 mt-5 d-flex flex-column" style="width: 150px;">
-                            <img src="@Url.Content(Model.User.PictureUrl)"
-                                 alt="Generic placeholder image" class="img-fluid img-thumbnail mt-4 mb-2"
-                                 style="width: 150px; z-index: 1">
-                            <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-outline-dark text-body" data-mdb-ripple-color="dark" style="z-index: 1;">
-								<i class="fa-solid fa-gear"></i> <a asp-controller="Account" asp-action="Settings" asp-route-id="@Model.User.Id">Ändra Profil</a>
-                            </button>
-                            <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-outline-dark text-body" data-mdb-ripple-color="dark" style="z-index: 1; margin-top:0.5rem;" >
-                                <i class="fa-solid fa-file-circle-plus"></i>
-                                <a asp-controller="Cv" asp-action="CreateCv" asp-route-id="@Model.User.Id">Skapa CV</a>
-                            </button>
-                            @if (User.Identity.IsAuthenticated)
-                            {
-                                    <a asp-controller="Message" asp-action="Add" asp-route-receiverId="@Model.User.Id" asp-route-senderId="@User.FindFirstValue(ClaimTypes.NameIdentifier)" class ="btn" style="background-color:#fff; color:#ff6219;">
-                                <i class="fa-solid fa-envelope position-relative">
-                                <span class="badge rounded-pill badge-notification bg-danger position-absolute top-0 left-0 translate-middle" style="font-size:0.5rem;">1</span>
-                                </i>Skicka Meddelande Till @Model.User.FirstName   @Model.User.LastName
-                                </a>
-                            }
-                            else
-                            {
-                                <a asp-controller="Message" asp-action="AddAnon" asp-route-id="@Model.User.Id" class ="btn" style="background-color:#fff; color:#ff6219;">
-                                <i class="fa-solid fa-envelope position-relative">
-                                <span class="badge rounded-pill badge-notification bg-danger position-absolute top-0 left-0 translate-middle" style="font-size:0.5rem;">1</span>
-                                </i>Meddelanden
-                                </a>
-                            }
-                        </div>
-                        <div class="ms-3" style="margin-top: 130px;">
-                            <h5>@Model.User.FirstName @Model.User.LastName</h5>
-                            <p>@Model.User.UserName</p>
-                        </div>
-                    </div>
-                    <div class="p-4 text-black bg-body-tertiary">
-                        <div class="d-flex justify-content-end text-center py-1 text-body">
-                            <div>
-                                <p class="mb-1 h5">21</p>
-                                <p class="small text-muted mb-0">Projekt</p>
-                            </div>
-                            <div class="px-3">
-                                <p class="mb-1 h5">1026</p>
-                                <p class="small text-muted mb-0">Antal visningar</p>
-                            </div>
-                            @* <div>
-                                <p class="mb-1 h5">478</p>
-                                <p class="small text-muted mb-0"></p>
-                            </div> *@
-                        </div>
-                    </div>
-                    <div class="card-body p-4 text-black">
-                        <div class="mb-5  text-body">
-                            <p class="lead fw-normal my-1">Kontaktinformation</p>
-                            <div class="p-4 bg-body-tertiary">
-                                
-                                <p class="font-italic mb-1">@Model.User.ContactInformation.Address</p>
-                                <p class="font-italic mb-1">@Model.User.ContactInformation.Phone</p>
-                                
-                            </div>
-                        <div class="d-flex justify-content-between align-items-center mb-4 text-body">
-                            <p class="lead fw-normal mb-0">Mina Projekt</p>
-                            <p class="mb-0"><a href="#!" class="text-muted">Visa alla</a></p>
-                        </div>
-                        <div class="container">
-                            @foreach (var proj in Model.User.JoinedProjects)
-                            {
-                                <div class="row g-2">
-                                <div class="card col mb-2">
-                                    <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(112).webp" alt="image 1"
-                                         class="card-img-top w-100 rounded-3">
-                                         <div class="card-body">
-                                             <p class="card-text">@proj.Title</p>
-                                             <p class="card-text">@proj.Description</p>
-                                         </div>
-                                </div>
-                                <div class="col mb-2">
-                                    <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(107).webp" alt="image 1"
-                                         class="card-img-top w-100 rounded-3">
-                                    <div class="card-body">
-                                            <p class="card-text">@proj.Title</p>
-                                            <p class="card-text">@proj.Description</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row g-2">
-                                <div class="col">
-                                    <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(108).webp" alt="image 1"
-                                         class="card-img-top w-100 rounded-3">
-                                    <div class="card-body">
-                                                <p class="card-text">@proj.Title</p>
-                                                <p class="card-text">@proj.Description</p>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(114).webp" alt="image 1"
-                                         class="card-img-top w-100 rounded-3">
-                                    <div class="card-body">
-                                                <p class="card-text">@proj.Title</p>
-                                                <p class="card-text">@proj.Description</p>
-                                    </div>
-                                </div>
-                            </div>
-                            }
-                        </div>
 
-                            <div class="row g-2">
-                                @foreach (var project in Model.User.CreatedProjects)
-                                {
-                                    <div class="card col mb-2">
-                                        <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(112).webp" alt="image 1"
-                                             class="card-img-top w-100 rounded-3">
-                                        <div class="card-body">
-                                            <p class="card-text">@project.Title</p>
-                                            <p class="card-text">@project.Description</p>
-                                        </div>
-                                    </div>
-                                }
-                                @foreach (var project in Model.User.JoinedProjects)
-                                {
-                                    <div class="card col mb-2">
-                                        <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(112).webp" alt="image 1"
-                                             class="card-img-top w-100 rounded-3">
-                                        <div class="card-body">
-                                            <p class="card-text">@project.Title</p>
-                                            <p class="card-text">@project.Description</p>
-                                        </div>
-                                    </div>
-                                }
-                            </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        </div>
-    </div>
+@using System.Security.Claims
+
+<section class="h-100">
+	<div class="container py-5 h-100">
+		<div class="row d-flex justify-content-center">
+			
+			<div class="col col-lg-9 col-xl-8">
+				<div class="card bg-dark" style="border: 2px solid #ff6219; ">
+					<div class="container">
+						<div class="row">
+							<div class="col-sm-4">
+					<div class="rounded-top text-dark d-flex flex-row" >
+						<div class="ms-4 mt-5 d-flex flex-column">
+										<img src="@Url.Content(Model.User.PictureUrl)"
+								 alt="Generic placeholder image" class="img-fluid img-thumbnail mt-4 mb-2"
+											 style="width: 150px; z-index: 1; box-shadow:2px 2px 4px dimgray">
+									</div>
+									</div>
+							
+						</div>
+						<div class="col-sm-8">
+						<div class="ms-3 text-light" style="margin-top: 100px;">
+									<h4 style="text-align:center;">@Model.User.FirstName @Model.User.LastName</h4>
+									<h5 style="text-align:center;"><i>@Model.User.UserName</i></h5>
+							</div>
+						</div>
+							</div>
+						
+				
+					<div class="row">
+						<div class="col-sm-5">
+					<div class="card-body p-2 text-black">
+						<div class="mb-5  text-body">
+										<div class="d-flex flex-column justify-content-center mt-2" style="margin-bottom:1rem;">
+											@if (!Model.User.isPrivate || Model.User.Id.Equals(User.FindFirstValue(ClaimTypes.NameIdentifier)) || User.Identity.IsAuthenticated)
+											{
+												<a asp-controller="Cv" asp-action="Inspect" asp-route-id="@Model.User.Id" class="btn" style="background-color:#fff; color:#ff6219; margin-bottom:1rem;"><i class="fa-solid fa-file-lines"></i>Visa CV</a>
+											}
+                                            @if(Model.User.Id.Equals(User.FindFirstValue(ClaimTypes.NameIdentifier)))
+										    {
+												<div>
+													<a asp-controller="Account" asp-action="Settings" asp-route-id="@Model.User.Id" class="btn" style="background-color:#fff; color:#ff6219; margin-bottom:1rem;"><i class="fa-solid fa-gear"></i>Ändra Profil</a>
+
+													<a asp-controller="Cv" asp-action="Update" asp-route-id="@Model.User.Id" class="btn" style="background-color:#fff; color:#ff6219; margin-bottom:1rem;"><i class="fa-solid fa-file-circle-plus"></i>Ändra CV</a>
+												</div>
+										    }
+                                            <a asp-controller="Message" asp-action="AddAnon" asp-route-id="@Model.User.Id" class ="btn" style="background-color:#fff; color:#ff6219;">
+                                                <i class="fa-solid fa-envelope position-relative">     
+												</i>Skicka Meddelande
+											</a>
+                                           
+										</div>
+										
+									</div>
+								</div>
+							</div>
+							
+								<div class="card col-sm-7 mb-2 proj-container">
+									<div class="card-body text-black">
+                                    
+										<h6 class="card-header" style="background-color:#fff; color:#ff6219; text-align:center;">Info om mig</h6>
+
+										
+											<div class="proj-item">
+												<p class="card-text">@Model.User.Description</p>
+											
+											</div>
+										
+										</div>
+										</div>
+
+							
+									</div>
+					<div class="row">
+						<div class="col-sm-5">
+								<h6 class="lead fw-normal mb-1" style="color:#ff6219;">Kontakt</h6>
+								<div class="p-1 bg-body-tertiary">
+
+									@if (@Model.User.ContactInformation != null)
+									{
+										<ul class="list-unstyled formatted-list">
+											<li class="formatted-li"><b>Email:</b> <span style="white-space: nowrap;">@Model.User.UserName</span> </li>
+											<li class="formatted-li"><b>Telefon:</b> <span style="white-space: nowrap; ">@Model.User.ContactInformation.Phone</span></li>
+											@if (!string.IsNullOrEmpty(@Model.User.ContactInformation.Address))
+											{
+												<li class="formatted-li"><b>Adress:</b> <span style="white-space: nowrap;">@Model.User.ContactInformation.Address</span> </li>
+											}
+										</ul>
+									}
+									else
+									{
+										<p class="fw-light">Kontaktinformation saknas</p>
+									}
+
+
+
+
+
+
+								</div>
+						</div>
+						
+
+						<div class="col-sm-7 mb-2 ">
+								<h4 style="color:#ff6219;"><i class="fa-solid fa-hashtag"></i> Taggar</h4>
+								<div class="p-1 bg-body-tertiary">
+
+									@if (@Model.User.Tags != null)
+									{
+										@foreach (var tags in Model.User.Tags)
+										{
+											<ul class="list-unstyled formatted-list">
+												<li class="formatted-li" style="white-space: nowrap;">@Model.User.Tags </li>
+											</ul>
+										}
+									}
+									else
+									{
+										<p class="fw-light">Taggar saknas</p>
+									}
+
+
+
+
+
+
+								</div>
+
+							</div>
+					</div>
+					
+
+					
+					
+									
+
+								</div>
+							</div>
+						</div>
+						</div>
+						</div>
+					
+				
 </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

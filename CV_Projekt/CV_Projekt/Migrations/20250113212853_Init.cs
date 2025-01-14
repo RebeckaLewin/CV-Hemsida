@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace CV_Projekt.Migrations
 {
     /// <inheritdoc />
-    public partial class init : Migration
+    public partial class Init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -200,54 +200,6 @@ namespace CV_Projekt.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "CVs",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    OwnerId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Skills = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Views = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_CVs", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_CVs_AspNetUsers_OwnerId",
-                        column: x => x.OwnerId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Experiences",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    EndDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Location = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Discriminator = table.Column<string>(type: "nvarchar(21)", maxLength: 21, nullable: false),
-                    Level = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Program = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Type = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Role = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Experiences", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Experiences_AspNetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Messages",
                 columns: table => new
                 {
@@ -336,51 +288,29 @@ namespace CV_Projekt.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "CVExperience",
+                name: "CVs",
                 columns: table => new
                 {
-                    ExperienceId = table.Column<int>(type: "int", nullable: false),
-                    CVsId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    OwnerId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Skills = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Views = table.Column<int>(type: "int", nullable: false),
+                    ProjectId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CVExperience", x => new { x.ExperienceId, x.CVsId });
+                    table.PrimaryKey("PK_CVs", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_CVExperience_CVs_CVsId",
-                        column: x => x.CVsId,
-                        principalTable: "CVs",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        name: "FK_CVs_AspNetUsers_OwnerId",
+                        column: x => x.OwnerId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_CVExperience_Experiences_ExperienceId",
-                        column: x => x.ExperienceId,
-                        principalTable: "Experiences",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "CVProject",
-                columns: table => new
-                {
-                    CVsId = table.Column<int>(type: "int", nullable: false),
-                    ProjectsId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_CVProject", x => new { x.CVsId, x.ProjectsId });
-                    table.ForeignKey(
-                        name: "FK_CVProject_CVs_CVsId",
-                        column: x => x.CVsId,
-                        principalTable: "CVs",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_CVProject_Projects_ProjectsId",
-                        column: x => x.ProjectsId,
+                        name: "FK_CVs_Projects_ProjectId",
+                        column: x => x.ProjectId,
                         principalTable: "Projects",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -402,6 +332,34 @@ namespace CV_Projekt.Migrations
                         name: "FK_ProjectUser_Projects_JoinedProjectsId",
                         column: x => x.JoinedProjectsId,
                         principalTable: "Projects",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Experiences",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CvId = table.Column<int>(type: "int", nullable: false),
+                    StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    EndDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Location = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    City = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Discriminator = table.Column<string>(type: "nvarchar(21)", maxLength: 21, nullable: false),
+                    Level = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Program = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Type = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Role = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Experiences", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Experiences_CVs_CvId",
+                        column: x => x.CvId,
+                        principalTable: "CVs",
                         principalColumn: "Id");
                 });
 
@@ -445,83 +403,33 @@ namespace CV_Projekt.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Description", "Email", "EmailConfirmed", "FirstName", "InformationId", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "Password", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "PictureUrl", "SecurityStamp", "TwoFactorEnabled", "UserName", "isActive", "isPrivate" },
                 values: new object[,]
                 {
-                    { "1", 0, "0ebb0e2a-1b90-4dad-b514-5fae7aef135a", null, "alicean12@live.se", false, "Alice", 1, "Andersson", false, null, "alicean12@live.se", "alicean12@live.se", "P@ssword123", "AQAAAAIAAYagAAAAEJcrGUKmshoaD4IPyo/4w/L4G3aEt8WoS0+svsEFKW222j2bYuhBxVXnOdV8prIKog==", null, false, "~/images/profilepic_default.jpg", "4000cd08-4307-4781-b1d4-60f3f28e7a59", false, "alicean12@live.se", true, true },
-                    { "10", 0, "9788a63e-3ed2-41e9-8f00-bb3d0da8ad86", null, "julia.jonsson@yahoo.com", false, "Julia", 10, "Jonsson", false, null, "julia.jonsson@yahoo.com", "julia.jonsson@yahoo.com", "JuliasP@ss7", "AQAAAAIAAYagAAAAEONnH4GwfenyiLsu8Dw/2hQXSLudQGtjYRvcq3k2tyPRDoogBATno+Mqflg+whzuuw==", null, false, "~/images/profilepic_default.jpg", "863e5e56-fdfb-4e7f-ab27-d48f6ebef9cf", false, "julia.jonsson@yahoo.com", false, true },
-                    { "2", 0, "937c927f-3c09-4d00-9c4a-d3dcb52e6668", null, "bobbergstrom@gmail.com", false, "Bob", 2, "Bergström", false, null, "bobbergstrom@gmail.com", "bobbergstrom@gmail.com", "P@ssword456", "AQAAAAIAAYagAAAAEObR9Zi43Tb6DDw/OUUzg8pJ8zNL+iBit56bFJZTLnzEpiT9GUusMkylKRYr4/JFFw==", null, false, "~/images/profilepic_default.jpg", "a6ceb44b-ba05-4094-9261-f49aa7c105cd", false, "bobbergstrom@gmail.com", true, false },
-                    { "3", 0, "157906f7-39cb-4e5b-8a55-36b8fec4e69d", null, "charliec@live.se", false, "Charlie", 3, "Carlsson", false, null, "charliec@live.se", "charliec@live.se", "P@ssword789", "AQAAAAIAAYagAAAAEMMpMF37F7WxDFZRbcgJOMoAteINNqlU1PlARKr797PjoqXHX5+TROQ9sqoOYEeyJA==", null, false, "~/images/profilepic_default.jpg", "1435960b-c0af-4816-994e-2f53560cd5da", false, "charliec@live.se", false, false },
-                    { "4", 0, "57f18d99-4946-493c-a0d1-55d01799cd15", null, "danield@outlook.com", false, "Daniel", 4, "Davidsson", false, null, "danield@outlook.com", "danield@outlook.com", "SecureP@ss1", "AQAAAAIAAYagAAAAEBgYFFgXy9ZT09XomZ3BO6h83Qvlb+NmVE6W/eZbqrSXuw0ZUOC3oGEzJguSWvkMlg==", null, false, "~/images/profilepic_default.jpg", "f2a4a8e8-5b57-4d76-9d85-a95a4f29cd9b", false, "danield@outlook.com", true, true },
-                    { "5", 0, "f803435d-09d3-459a-bdbd-c1c4cd16e4f6", null, "emily.evans@hotmail.com", false, "Emily", 5, "Evans", false, null, "emily.evans@hotmail.com", "emily.evans@hotmail.com", "MyP@ssword2", "AQAAAAIAAYagAAAAEHMQRRlMD+Ge2oaJBRZfNBTITGYyZd5JHs3kaiSRYOJsu94OtDSmvxNrecmCUyfxxQ==", null, false, "~/images/profilepic_default.jpg", "f1fad701-f17d-42d7-9d33-fc92478422ff", false, "emily.evans@hotmail.com", true, false },
-                    { "6", 0, "bbc01c41-5fa8-42d9-ae71-a3e4bdf8e925", null, "frankfischer@gmail.com", false, "Frank", 6, "Fischer", false, null, "frankfischer@gmail.com", "frankfischer@gmail.com", "StrongP@ss3", "AQAAAAIAAYagAAAAEPyMFfC6FUql+2UgIzirQQvX3n483yDR+f8w0+M9TBseTK3EAaP9ah6DylHlc0Apng==", null, false, "~/images/profilepic_default.jpg", "f156f199-2027-4ba4-8434-d2c51d4b0d6c", false, "frankfischer@gmail.com", true, true },
-                    { "7", 0, "d1f1266f-8af4-4131-971f-59ddde76b7c2", null, "grace.gustafsson@live.se", false, "Grace", 7, "Gustafsson", false, null, "grace.gustafsson@live.se", "grace.gustafsson@live.se", "GracefulP@ss4", "AQAAAAIAAYagAAAAEDcmQaA+i7RnxsqWyj1M2buY8VjLPXqer8KV88P7I5SUV5VV/niENw5lmLAHvAql9A==", null, false, "~/images/profilepic_default.jpg", "ee079e1d-92df-476a-8e4e-208884c042b2", false, "grace.gustafsson@live.se", false, false },
-                    { "8", 0, "db5723e2-5c0f-4beb-968e-6065e8fcdba6", null, "hanna.holm@gmail.com", false, "Hanna", 8, "Holm", false, null, "hanna.holm@gmail.com", "hanna.holm@gmail.com", "H@nnasP@ss5", "AQAAAAIAAYagAAAAEIUWjsQGipj/Drf6MyHwK3ujDXxxxoJkhD986MFtoqUIdbe5GjQpoNBzXpFr2e33XA==", null, false, "~/images/profilepic_default.jpg", "ec2eaa81-5769-4156-91cb-86dfad3302f4", false, "hanna.holm@gmail.com", true, true },
-                    { "9", 0, "4f3cab3b-9304-4d42-a078-6b771c21bf20", null, "ian.ingemarsson@outlook.com", false, "Ian", 9, "Ingemarsson", false, null, "ian.ingemarsson@outlook.com", "ian.ingemarsson@outlook.com", "I@nsSecure6", "AQAAAAIAAYagAAAAEKMff19Z7KoXIOCxpppWdYR7P8oycUHL15EdEbHMfei/VjqGpPBym6NrcgsRkUyAQA==", null, false, "~/images/profilepic_default.jpg", "61270a1c-51e8-43f1-a9fb-ea204d1bb601", false, "ian.ingemarsson@outlook.com", true, false }
+                    { "1", 0, "597cd8de-2a6a-4640-9993-ff953adbba20", null, "alicean12@live.se", false, "Alice", 1, "Andersson", false, null, "alicean12@live.se", "alicean12@live.se", "P@ssword123", "AQAAAAIAAYagAAAAEHnCErEz8cVYJv30s8VkWA4o7jaUuRK85SiBpWRd64G4yqJDTyFZ7UnC1CUAWmJSSg==", null, false, "~/images/profilepic_default.jpg", "b4a4ffaf-003f-4c86-8443-45a6cd39a948", false, "alicean12@live.se", true, true },
+                    { "10", 0, "3879b47d-7d68-4163-a143-d38d3d3e183f", null, "julia.jonsson@yahoo.com", false, "Julia", 10, "Jonsson", false, null, "julia.jonsson@yahoo.com", "julia.jonsson@yahoo.com", "JuliasP@ss7", "AQAAAAIAAYagAAAAEPt3Eu3r7j/m1Rig7Jlhq3flimE8O2cxqQmu0RXJowOD5QZEuH60priB2DCTAwZ7pw==", null, false, "~/images/profilepic_default.jpg", "e4199611-fc8c-415e-8232-24eff624ef56", false, "julia.jonsson@yahoo.com", false, true },
+                    { "2", 0, "5d28be6a-149d-42f6-938b-05b75aaa90ac", null, "bobbergstrom@gmail.com", false, "Bob", 2, "Bergström", false, null, "bobbergstrom@gmail.com", "bobbergstrom@gmail.com", "P@ssword456", "AQAAAAIAAYagAAAAEALp1ckCuzQH3IQonG2Z+m13SN1ML5ZX0BiN6+VYYs21PIT1C4c40iFVYF0zMcV/wQ==", null, false, "~/images/profilepic_default.jpg", "be9283df-3a54-42eb-a21f-67692ec2a4b4", false, "bobbergstrom@gmail.com", true, false },
+                    { "3", 0, "1aa8f815-eddd-4e1b-86bd-69a93539efa8", null, "charliec@live.se", false, "Charlie", 3, "Carlsson", false, null, "charliec@live.se", "charliec@live.se", "P@ssword789", "AQAAAAIAAYagAAAAEBX5tBeSVnL5RLKXrIl64VJfi5y7NQeGmo4qBX5Exkg7uy61TWkxkricB5OupjSvFw==", null, false, "~/images/profilepic_default.jpg", "241a9e7b-73ea-42d1-8577-36e66ea5301b", false, "charliec@live.se", false, false },
+                    { "4", 0, "9fc94d01-627f-4aaf-9436-36cedcd968d8", null, "danield@outlook.com", false, "Daniel", 4, "Davidsson", false, null, "danield@outlook.com", "danield@outlook.com", "SecureP@ss1", "AQAAAAIAAYagAAAAEJr1b7vYVIwLuqvHNRzpMnyo+4XcbeecoUqBzOx8kpso52S99Q503cf4n7/zHCH3Tw==", null, false, "~/images/profilepic_default.jpg", "a136e73c-f2b0-4813-8c10-867a76439e11", false, "danield@outlook.com", true, true },
+                    { "5", 0, "326dbf48-3290-40d1-afb8-f3d37d12c5c0", null, "emily.evans@hotmail.com", false, "Emily", 5, "Evans", false, null, "emily.evans@hotmail.com", "emily.evans@hotmail.com", "MyP@ssword2", "AQAAAAIAAYagAAAAEM8d7yhr9loayPAx9kE14Z/SlRF529j+uMAwU7GZ/VqFmnlHEuETCKvdq116+qy0eg==", null, false, "~/images/profilepic_default.jpg", "66f20704-aca4-4c19-853a-305a4ad06fe8", false, "emily.evans@hotmail.com", true, false },
+                    { "6", 0, "4070949b-37bf-4241-b119-728056c846ec", null, "frankfischer@gmail.com", false, "Frank", 6, "Fischer", false, null, "frankfischer@gmail.com", "frankfischer@gmail.com", "StrongP@ss3", "AQAAAAIAAYagAAAAELB1lLIW7HSD9Y0KDLtykInU5nXUHz9R47ZaM2kWKIll4LWK5XzO2I/Y755sB7YDBQ==", null, false, "~/images/profilepic_default.jpg", "f606f40b-2eac-4960-be22-753077112bc2", false, "frankfischer@gmail.com", true, true },
+                    { "7", 0, "d7271dcf-465c-44a0-ba6d-4ade8cb8e577", null, "grace.gustafsson@live.se", false, "Grace", 7, "Gustafsson", false, null, "grace.gustafsson@live.se", "grace.gustafsson@live.se", "GracefulP@ss4", "AQAAAAIAAYagAAAAEPjdyy/Ge2nSnJGJ4MdLJe0uCM2JOMcHkxviFzopgCommW5cRcsAO+sC5NFqhbnmdg==", null, false, "~/images/profilepic_default.jpg", "ef56c537-0e6c-4030-b8a1-1383952692aa", false, "grace.gustafsson@live.se", false, false },
+                    { "8", 0, "e772d4a4-423c-44ef-9ed0-7e122e62a42c", null, "hanna.holm@gmail.com", false, "Hanna", 8, "Holm", false, null, "hanna.holm@gmail.com", "hanna.holm@gmail.com", "H@nnasP@ss5", "AQAAAAIAAYagAAAAENdZpF+SpUYN8LCEmDFMjxPT2wmz6rQ739bL6uJ19YtaDggSs3MCGooq2aFhUZl0Uw==", null, false, "~/images/profilepic_default.jpg", "b0fdf0a5-0f57-4a0a-a3e7-596fd2280b7d", false, "hanna.holm@gmail.com", true, true },
+                    { "9", 0, "162eac35-e51b-4153-90a6-7f4b97de8ee4", null, "ian.ingemarsson@outlook.com", false, "Ian", 9, "Ingemarsson", false, null, "ian.ingemarsson@outlook.com", "ian.ingemarsson@outlook.com", "I@nsSecure6", "AQAAAAIAAYagAAAAEAX682T46+G9RgtjfFX25+rF0/xcXXWEtCFJ+durJIo6gBhomOXRqQDX6dMSGNdhcA==", null, false, "~/images/profilepic_default.jpg", "dc2600aa-526e-412a-997d-8ca9a4363c28", false, "ian.ingemarsson@outlook.com", true, false }
                 });
 
             migrationBuilder.InsertData(
                 table: "CVs",
-                columns: new[] { "Id", "OwnerId", "Skills", "Views" },
+                columns: new[] { "Id", "OwnerId", "ProjectId", "Skills", "Views" },
                 values: new object[,]
                 {
-                    { 1, "1", "[\"Projektledning\",\"CSS\",\"HTML\"]", 10 },
-                    { 2, "3", "[\"Grafisk design\",\"Pedagogik\"]", 11 },
-                    { 3, "2", "[\"Omv\\u00E5rdnad\",\"Kommunikation\"]", 15 },
-                    { 4, "4", "[\"Eventplanering\",\"Samordning\"]", 8 },
-                    { 5, "5", "[\"Ingenj\\u00F6rskonst\",\"Produktutveckling\"]", 12 },
-                    { 6, "6", "[\"Forskning\",\"Biomedicin\"]", 9 },
-                    { 7, "7", "[\"AI-utveckling\",\"Python\",\"Machine Learning\"]", 20 },
-                    { 8, "8", "[\"Milj\\u00F6skydd\",\"Administration\"]", 14 },
-                    { 9, "9", "[\"Undervisning\",\"Kursutveckling\"]", 18 },
-                    { 10, "10", "[\"Patientv\\u00E5rd\",\"Ledarskap\"]", 25 }
-                });
-
-            migrationBuilder.InsertData(
-                table: "Experiences",
-                columns: new[] { "Id", "Description", "Discriminator", "EndDate", "Location", "StartDate", "Type", "UserId" },
-                values: new object[,]
-                {
-                    { 1, null, "OtherExperience", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Örebro kommun", new DateTime(2016, 8, 30, 0, 0, 0, 0, DateTimeKind.Unspecified), "Praktik", "2" },
-                    { 2, "En kurs i drejeri", "OtherExperience", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Kävesta Folkhögskola", new DateTime(2021, 8, 30, 0, 0, 0, 0, DateTimeKind.Unspecified), "Kurs", "1" },
-                    { 3, null, "OtherExperience", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Röda korset Örebro", new DateTime(2022, 8, 30, 0, 0, 0, 0, DateTimeKind.Unspecified), "Volentärarbete", "1" },
-                    { 4, "Sommarjobb som forskningsassistent", "OtherExperience", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Linköping universitet", new DateTime(2018, 6, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "Sommarjobb", "3" },
-                    { 5, "Praktik inom medicinsk forskning", "OtherExperience", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Karolinska Institutet", new DateTime(2020, 1, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), "Praktik", "4" },
-                    { 6, "Deltog i hjälparbete för flyktingar", "OtherExperience", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Svenska Röda Korset", new DateTime(2022, 11, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Volentärarbete", "5" },
-                    { 7, "Kurs i hållbart byggande", "OtherExperience", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Chalmers Tekniska Högskola", new DateTime(2019, 9, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), "Kurs", "6" },
-                    { 8, "Projektarbete inom AI-utveckling", "OtherExperience", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Örebro Universitet", new DateTime(2023, 2, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), "Projektarbete", "7" },
-                    { 9, "Volontärarbete inom miljöskydd", "OtherExperience", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Naturskyddsföreningen", new DateTime(2020, 5, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "Volentärarbete", "8" },
-                    { 10, "Deltog i en workshop om ledarskap", "OtherExperience", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Uppsala Universitet", new DateTime(2021, 10, 12, 0, 0, 0, 0, DateTimeKind.Unspecified), "Workshop", "9" }
-                });
-
-            migrationBuilder.InsertData(
-                table: "Experiences",
-                columns: new[] { "Id", "Description", "Discriminator", "EndDate", "Location", "Role", "StartDate", "UserId" },
-                values: new object[,]
-                {
-                    { 11, "Underhåller ett team i bageri/ungdomsgård", "Work", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Café Deed", "Arbetsledare", new DateTime(2020, 6, 29, 0, 0, 0, 0, DateTimeKind.Unspecified), "1" },
-                    { 12, "Omvårdnad", "Work", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Uppsala Sjukhus", "Sjuksköterska", new DateTime(2019, 8, 30, 0, 0, 0, 0, DateTimeKind.Unspecified), "2" },
-                    { 13, "Arbetsuppgifter", "Work", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Generiskt Företag", "Arbetstitel", new DateTime(2021, 8, 30, 0, 0, 0, 0, DateTimeKind.Unspecified), "3" },
-                    { 14, "Ansvarig för eventplanering och samordning", "Work", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Stockholms Stad", "Eventkoordinator", new DateTime(2018, 4, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "4" },
-                    { 15, "Utveckling och testning av nya bilmodeller", "Work", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Volvo Cars", "Ingenjör", new DateTime(2022, 1, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), "5" },
-                    { 16, "Forskning inom biomedicin", "Work", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Karolinska Institutet", "Forskningsassistent", new DateTime(2020, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "6" },
-                    { 17, "Hantering av deklarationer och rådgivning", "Work", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Skatteverket", "Handläggare", new DateTime(2023, 3, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), "7" },
-                    { 18, "Administration och projektstöd", "Work", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Länsstyrelsen", "Projektassistent", new DateTime(2019, 6, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), "8" },
-                    { 19, "Undervisning och kursutveckling", "Work", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Luleå Tekniska Universitet", "Universitetslärare", new DateTime(2021, 11, 12, 0, 0, 0, 0, DateTimeKind.Unspecified), "9" },
-                    { 20, "Patientvård och ledning av vårdteam", "Work", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Norrlands Universitetssjukhus", "Läkare", new DateTime(2020, 7, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "10" }
-                });
-
-            migrationBuilder.InsertData(
-                table: "Experiences",
-                columns: new[] { "Id", "Description", "Discriminator", "EndDate", "Level", "Location", "Program", "StartDate", "UserId" },
-                values: new object[,]
-                {
-                    { 21, "", "Education", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Gymnasial", "Karolinska Gymnasiet", "Vård och omsorg", new DateTime(2016, 4, 12, 0, 0, 0, 0, DateTimeKind.Unspecified), "2" },
-                    { 22, "", "Education", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Kandidat", "Uppsala Universitet", "Arkelogi", new DateTime(2010, 2, 2, 0, 0, 0, 0, DateTimeKind.Unspecified), "3" },
-                    { 23, "Specialisering inom hållbar utveckling", "Education", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Master", "Lund Universitet", "Miljövetenskap", new DateTime(2018, 9, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "4" },
-                    { 24, "Fokus på produktutveckling", "Education", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Master", "Chalmers Tekniska Högskola", "Maskinteknik", new DateTime(2021, 1, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), "5" },
-                    { 25, "Med inriktning på etnologi", "Education", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Kandidat", "Göteborg Universitet", "Kulturvetenskap", new DateTime(2015, 8, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), "6" },
-                    { 26, "Med fokus på artificiell intelligens", "Education", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Master", "KTH Royal Institute of Technology", "Datavetenskap", new DateTime(2020, 3, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "7" },
-                    { 27, "Specialisering inom internationell handel", "Education", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Kandidat", "Stockholms Universitet", "Ekonomi", new DateTime(2017, 5, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), "8" },
-                    { 28, "Studier inom ekologi och naturvård", "Education", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Kandidat", "Umeå Universitet", "Biologi", new DateTime(2019, 8, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "9" },
-                    { 29, "Forskning inom kvantmekanik", "Education", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Doktorand", "Linköping Universitet", "Teknisk fysik", new DateTime(2023, 1, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), "10" }
+                    { 1, "1", null, "[\"Projektledning\",\"CSS\",\"HTML\"]", 10 },
+                    { 2, "3", null, "[\"Grafisk design\",\"Pedagogik\"]", 11 },
+                    { 3, "2", null, "[\"Omv\\u00E5rdnad\",\"Kommunikation\"]", 15 },
+                    { 4, "4", null, "[\"Eventplanering\",\"Samordning\"]", 8 },
+                    { 5, "5", null, "[\"Ingenj\\u00F6rskonst\",\"Produktutveckling\"]", 12 },
+                    { 6, "6", null, "[\"Forskning\",\"Biomedicin\"]", 9 },
+                    { 7, "7", null, "[\"AI-utveckling\",\"Python\",\"Machine Learning\"]", 20 },
+                    { 8, "8", null, "[\"Milj\\u00F6skydd\",\"Administration\"]", 14 },
+                    { 9, "9", null, "[\"Undervisning\",\"Kursutveckling\"]", 18 },
+                    { 10, "10", null, "[\"Patientv\\u00E5rd\",\"Ledarskap\"]", 25 }
                 });
 
             migrationBuilder.InsertData(
@@ -559,22 +467,53 @@ namespace CV_Projekt.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "CVExperience",
-                columns: new[] { "CVsId", "ExperienceId" },
+                table: "Experiences",
+                columns: new[] { "Id", "City", "CvId", "Description", "Discriminator", "EndDate", "Location", "StartDate", "Type" },
                 values: new object[,]
                 {
-                    { 1, 1 },
-                    { 1, 2 },
-                    { 2, 3 }
+                    { 1, "Örebro", 1, null, "OtherExperience", new DateTime(2017, 8, 21, 0, 0, 0, 0, DateTimeKind.Unspecified), "Örebro kommun", new DateTime(2016, 8, 30, 0, 0, 0, 0, DateTimeKind.Unspecified), "Praktik" },
+                    { 2, "Sköllersta", 1, "En kurs i drejeri", "OtherExperience", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Kävesta Folkhögskola", new DateTime(2021, 8, 30, 0, 0, 0, 0, DateTimeKind.Unspecified), "Kurs" },
+                    { 3, "Örebro", 2, null, "OtherExperience", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Röda korset Örebro", new DateTime(2022, 8, 30, 0, 0, 0, 0, DateTimeKind.Unspecified), "Volentärarbete" },
+                    { 4, "Linköping", 2, "Sommarjobb som forskningsassistent", "OtherExperience", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Linköping universitet", new DateTime(2018, 6, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "Sommarjobb" },
+                    { 5, "Stockholm", 4, "Praktik inom medicinsk forskning", "OtherExperience", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Karolinska Institutet", new DateTime(2020, 1, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), "Praktik" },
+                    { 6, "Malmö", 5, "Deltog i hjälparbete för flyktingar", "OtherExperience", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Svenska Röda Korset", new DateTime(2022, 11, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Volentärarbete" },
+                    { 7, "Göteborg", 6, "Kurs i hållbart byggande", "OtherExperience", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Chalmers Tekniska Högskola", new DateTime(2019, 9, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), "Kurs" },
+                    { 8, "Örebro", 7, "Projektarbete inom AI-utveckling", "OtherExperience", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Örebro Universitet", new DateTime(2023, 2, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), "Projektarbete" },
+                    { 9, "Kiruna", 8, "Volontärarbete inom miljöskydd", "OtherExperience", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Naturskyddsföreningen", new DateTime(2020, 5, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "Volentärarbete" },
+                    { 10, "Uppsala", 9, "Deltog i en workshop om ledarskap", "OtherExperience", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Uppsala Universitet", new DateTime(2021, 10, 12, 0, 0, 0, 0, DateTimeKind.Unspecified), "Workshop" }
                 });
 
             migrationBuilder.InsertData(
-                table: "CVProject",
-                columns: new[] { "CVsId", "ProjectsId" },
+                table: "Experiences",
+                columns: new[] { "Id", "City", "CvId", "Description", "Discriminator", "EndDate", "Location", "Role", "StartDate" },
                 values: new object[,]
                 {
-                    { 2, 1 },
-                    { 2, 2 }
+                    { 11, "Örebro", 1, "Underhåller ett team i bageri/ungdomsgård", "Work", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Café Deed", "Arbetsledare", new DateTime(2020, 6, 29, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 12, "Uppsala", 2, "Omvårdnad", "Work", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Uppsala Sjukhus", "Sjuksköterska", new DateTime(2019, 8, 30, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 13, "Generisk stad", 3, "Arbetsuppgifter", "Work", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Generiskt Företag", "Arbetstitel", new DateTime(2021, 8, 30, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 14, "Stockholm", 4, "Ansvarig för eventplanering och samordning", "Work", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Stockholms Stad", "Eventkoordinator", new DateTime(2018, 4, 15, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 15, "Arboga", 5, "Utveckling och testning av nya bilmodeller", "Work", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Volvo Cars", "Ingenjör", new DateTime(2022, 1, 10, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 16, "Stockholm", 6, "Forskning inom biomedicin", "Work", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Karolinska Institutet", "Forskningsassistent", new DateTime(2020, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 17, "Örebro", 7, "Hantering av deklarationer och rådgivning", "Work", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Skatteverket", "Handläggare", new DateTime(2023, 3, 20, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 18, "Köping", 8, "Administration och projektstöd", "Work", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Länsstyrelsen", "Projektassistent", new DateTime(2019, 6, 5, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 19, "Luleå", 9, "Undervisning och kursutveckling", "Work", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Luleå Tekniska Universitet", "Universitetslärare", new DateTime(2021, 11, 12, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 20, "Skellefteå", 10, "Patientvård och ledning av vårdteam", "Work", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Norrlands Universitetssjukhus", "Läkare", new DateTime(2020, 7, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Experiences",
+                columns: new[] { "Id", "City", "CvId", "Description", "Discriminator", "EndDate", "Level", "Location", "Program", "StartDate" },
+                values: new object[,]
+                {
+                    { 21, "Örebro", 2, "", "Education", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Gymnasial", "Karolinska Gymnasiet", "Vård och omsorg", new DateTime(2016, 4, 12, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 22, "Uppsala", 3, "", "Education", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Kandidat", "Uppsala Universitet", "Arkelogi", new DateTime(2010, 2, 2, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 23, "Lund", 4, "Specialisering inom hållbar utveckling", "Education", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Master", "Lund Universitet", "Miljövetenskap", new DateTime(2018, 9, 15, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 24, "Göteborg", 5, "Fokus på produktutveckling", "Education", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Master", "Chalmers Tekniska Högskola", "Maskinteknik", new DateTime(2021, 1, 10, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 25, "Göteborg", 6, "Med inriktning på etnologi", "Education", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Kandidat", "Göteborg Universitet", "Kulturvetenskap", new DateTime(2015, 8, 25, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 26, "Stockholm", 7, "Med fokus på artificiell intelligens", "Education", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Master", "KTH Royal Institute of Technology", "Datavetenskap", new DateTime(2020, 3, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 27, "Stockholm", 8, "Specialisering inom internationell handel", "Education", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Kandidat", "Stockholms Universitet", "Ekonomi", new DateTime(2017, 5, 20, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 28, "Umeå", 9, "Studier inom ekologi och naturvård", "Education", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Kandidat", "Umeå Universitet", "Biologi", new DateTime(2019, 8, 15, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 29, "Linköping", 10, "Forskning inom kvantmekanik", "Education", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Doktorand", "Linköping Universitet", "Teknisk fysik", new DateTime(2023, 1, 5, 0, 0, 0, 0, DateTimeKind.Unspecified) }
                 });
 
             migrationBuilder.CreateIndex(
@@ -622,25 +561,20 @@ namespace CV_Projekt.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CVExperience_CVsId",
-                table: "CVExperience",
-                column: "CVsId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_CVProject_ProjectsId",
-                table: "CVProject",
-                column: "ProjectsId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_CVs_OwnerId",
                 table: "CVs",
                 column: "OwnerId",
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Experiences_UserId",
+                name: "IX_CVs_ProjectId",
+                table: "CVs",
+                column: "ProjectId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Experiences_CvId",
                 table: "Experiences",
-                column: "UserId");
+                column: "CvId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Messages_ReceiverId",
@@ -697,10 +631,7 @@ namespace CV_Projekt.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "CVExperience");
-
-            migrationBuilder.DropTable(
-                name: "CVProject");
+                name: "Experiences");
 
             migrationBuilder.DropTable(
                 name: "Messages");
@@ -715,16 +646,13 @@ namespace CV_Projekt.Migrations
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "Experiences");
-
-            migrationBuilder.DropTable(
                 name: "CVs");
 
             migrationBuilder.DropTable(
-                name: "Projects");
+                name: "Tags");
 
             migrationBuilder.DropTable(
-                name: "Tags");
+                name: "Projects");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

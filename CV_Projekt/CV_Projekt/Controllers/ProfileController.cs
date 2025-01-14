@@ -1,5 +1,6 @@
 ﻿using CV_Projekt.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace CV_Projekt.Controllers
 {
@@ -13,17 +14,11 @@ namespace CV_Projekt.Controllers
         }
 
         [HttpGet]
-        public IActionResult Profile(string aUserName)
+        public IActionResult Profile(string id)
         {
-            ProfileViewModel viewModel = new ProfileViewModel();
-            if (aUserName == null)
-            {
-                viewModel.User = _context.Users.Where(u => u.UserName.Equals(User.Identity.Name)).FirstOrDefault();
-			}
-            else
-            {
-				viewModel.User = _context.Users.Where(u => u.UserName.Equals(aUserName)).FirstOrDefault();
-			}
+			var loggedInId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+			ProfileViewModel viewModel = new ProfileViewModel(_context, loggedInId);
+			viewModel.User = _context.Users.Where(u => u.Id.Equals(id)).FirstOrDefault();
 			viewModel.Projects = _context.Projects.ToList();
             viewModel.Tags = _context.Tags.ToList();
             return View(viewModel);

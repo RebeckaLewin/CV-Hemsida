@@ -44,8 +44,8 @@ namespace CV_Projekt.Controllers
             {
 				loggedInUser = _context.Users.Where(u => u.UserName.Equals(User.Identity.Name)).FirstOrDefault();
 			}
-            
-            HomeViewModel viewModel = new HomeViewModel
+
+            HomeViewModel viewModel = new HomeViewModel(_context, loggedInUser.Id)
             {
                 Users = usersWithCvs,
                 LatestProject = latestProject,

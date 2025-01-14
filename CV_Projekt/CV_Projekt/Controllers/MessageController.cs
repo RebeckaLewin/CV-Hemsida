@@ -27,14 +27,14 @@ namespace CV_Projekt.Controllers
             var recMes = _context.Messages
                 .Where(m => m.ReceiverId.Equals(id))
                 .Where(m => m.isRead.Equals(false))
-                .OrderBy(m => m.Date)
+                .OrderByDescending(m => m.Date)
                 .ToList();
 
-            var recMes1 = recMes.DistinctBy(r => r.SenderId).ToList();
-           
-            var viewModel = new ChatListViewModel
+			var loggedInId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+			var viewModel = new ChatListViewModel(_context, loggedInId)
             {
-                ReceivedMessages = recMes1
+                ReceivedMessages = recMes
             };
 
             return View(viewModel);
@@ -67,9 +67,9 @@ namespace CV_Projekt.Controllers
             var receiver = _context.Users.Where(u => u.Id.Equals(receiverId)).FirstOrDefault();
             Message message = new Message();
 
+            var loggedInUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-
-            MessageViewModel viewModel = new MessageViewModel { Message = message, Receiver = receiver, Sender = sender };
+            MessageViewModel viewModel = new MessageViewModel(_context, loggedInUserId) { Message = message, Receiver = receiver, Sender = sender };
             return View(viewModel);
         }
 
@@ -93,16 +93,18 @@ namespace CV_Projekt.Controllers
         public IActionResult AllUserList()
         {
 
-            var identity = _context.Users.Where(u => u.Id.Equals(User.FindFirstValue(ClaimTypes.NameIdentifier))).FirstOrDefault();
-            
-            ViewBag.Id = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var identity = _context.Users.Where(u => u.UserName.Equals(User.Identity.Name)).FirstOrDefault();
+            var id = identity.Id;
+            ViewBag.Id = id;
 
 
             List<User> notAllUsers = new List<User> { identity };
             var allUsers = _context.Users.ToList();
             var notMeUsers = allUsers.Except(notAllUsers).ToList();
 
-            var viewModel = new UserViewModel
+			var loggedInId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+			var viewModel = new UserViewModel(_context, loggedInId)
             {
                 _users = notMeUsers
             };
@@ -118,7 +120,7 @@ namespace CV_Projekt.Controllers
 			var receiver = _context.Users.Where(u => u.Id.Equals(id)).FirstOrDefault();
 			Message message = new Message();
 
-			MessageViewModel viewModel = new MessageViewModel { Message = message, Receiver = receiver, Sender = null };
+			MessageViewModel viewModel = new MessageViewModel(_context, null) { Message = message, Receiver = receiver, Sender = null };
 			return View(viewModel);
 		}
 
@@ -155,7 +157,6 @@ namespace CV_Projekt.Controllers
         {
             return View(viewModel);
         }
-
 
         public IActionResult Index()
         {

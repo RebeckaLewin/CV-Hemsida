@@ -1,29 +1,57 @@
 ﻿@model MessageViewModel
 
-<div asp-validation-summary="All" class="text-danger"></div>
 
-<h2 style="color:#FFF;">Skriv ett nytt meddelande</h2>
+<body class="bodyUserProfileSettings" 
+      style="margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            background-color: dimgrey;">
+    <div class="wrapper my-sm-5" 
+         style="background-color:#fff;
+                padding: 30px 50px;
+                border: 2px solid #ff6219;
+                border-radius: 15px;
+                margin: 10px auto;
+                max-width: 600px;">
+        <h4 class="pb-4 border-bottom" 
+            style="letter-spacing: -1px;
+                   font-weight: 400;
+                   color:#ff6219;
+                   text-align:center;">
+			<b><i class="fa-regular fa-envelope"></i>Skicka Meddelande</b>
+    </h4>
+     <div class="container">
+         <div class="row ">
+             <div class="col-md-12">
+                    <div asp-validation-summary="All" class="text-danger"></div>
+					<form asp-action="Add" method="post">
+						<h6 class="text-dark" style="color:#FFF;"><b>Till:</b> <i>@Model.Receiver.FirstName @Model.Receiver.LastName</i></h6>
+		
+						<label class="settingsLbl text-dark" style="color:#FFF;">Namn:</label>
+						<input class="bg-light form-control" type="text" asp-for="@Model.Name" />
 
-<form asp-action="AddAnon" method="post">
-	<label style="color:#FFF;">Till: @Model.Receiver.FirstName   @Model.Receiver.LastName</label>
-	<br />
-	<label style="color:#FFF;">Subject: </label>
-	<input asp-for="@Model.Message.Subject" />
-	<br />
-	<label style="color:#FFF;">Meddelande: </label>
-	<input type="textarea" asp-for="@Model.Message.Content" />
-	<br />
-	<label style="color:#FFF;">Namn: </label>
-	<input asp-for="@Model.Name" />
-	<br />
-	<label style="color:#FFF;">Email: </label>
-	<input asp-for="@Model.Email" />
-	<br />
-	<input asp-for="@Model.Message.SenderId" type="hidden" value="null" />
-	<input asp-for="@Model.Message.ReceiverId" type="hidden" value="@Model.Receiver.Id" />
-	<input asp-for="@Model.Message.Date" type="hidden" name="Date" value="DateTime.Now" />
-	<input asp-for="@Model.Message.isRead" type="hidden" value="false" />
-	<br />
-	<br />
-	<button type="submit">Skicka</button>
-</form>
+						<label class="settingsLbl text-dark" style="color:#FFF;">E-post:</label>
+						<input class="bg-light form-control" type="text" asp-for="@Model.Email" />
+
+						<label class="settingsLbl text-dark" style="color:#FFF;">Ämne: </label>
+						<input class="bg-light form-control" type="text" asp-for="@Model.Message.Subject" />
+						
+						<label class="settingsLbl text-dark">Meddelande: </label>
+						<textarea class="bg-light form-control" rows="5" asp-for="@Model.Message.Content"></textarea>
+						
+						<input asp-for="@Model.Message.SenderId" type="hidden" value="null" />
+						<input asp-for="@Model.Message.ReceiverId" type="hidden" value="@Model.Receiver.Id" />
+						<input asp-for="@Model.Message.Date" type="hidden" name="Date" value="DateTime.Now" />
+						<input asp-for="@Model.Message.isRead" type="hidden" value="false" />
+						
+                        <div style="text-align:right; margin-top: 1rem;">
+						<a class="btn" style="background-color:#fff; color:#ff6219; border: 1px solid #ff6219; margin-bottom:1rem; "><i class="fa-solid fa-pen"></i>Skicka meddelande</a>
+						</div>
+					</form>
+             </div>
+
+         </div>
+     </div>
+    </div>
+</body>

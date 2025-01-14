@@ -6,6 +6,7 @@ using System.Web;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.AspNetCore.Http;
 using static System.Net.Mime.MediaTypeNames;
+using System.Security.Claims;
 
 namespace CV_Projekt.Controllers
 {
@@ -25,7 +26,7 @@ namespace CV_Projekt.Controllers
 		[HttpGet]
 		public IActionResult LogIn()
 		{
-			LogInViewModel viewModel = new LogInViewModel();
+			LogInViewModel viewModel = new LogInViewModel(context, null);
 			return View(viewModel);
 		}
 
@@ -62,7 +63,7 @@ namespace CV_Projekt.Controllers
 		[HttpGet]
 		public IActionResult Register()
 		{
-			RegisterViewModel viewModel = new RegisterViewModel();
+			RegisterViewModel viewModel = new RegisterViewModel(context, null);
 			return View(viewModel);
 		}
 
@@ -93,12 +94,16 @@ namespace CV_Projekt.Controllers
 					FirstName = viewModel.FirstName,
 					LastName = viewModel.LastName,
 					Password = viewModel.Password,
-					ContactInformation = contactInformation
+					ContactInformation = contactInformation,
+					PictureUrl = "~/images/profilepic_default.jpg",
 				};
-				Debug.WriteLine(viewModel.Password);
 				var result = await userManager.CreateAsync(newUser, newUser.Password);
 				if (result.Succeeded)
 				{
+					CV newCV = new CV { Owner = newUser };
+					context.CVs.Add(newCV);
+					context.SaveChanges();
+
 					await signInManager.SignInAsync(newUser, isPersistent: true);
 					return RedirectToAction("Index", "Home");
 				}
@@ -110,16 +115,17 @@ namespace CV_Projekt.Controllers
 					}
 				}
 			}
-			return View(new RegisterViewModel());
+			return View(new RegisterViewModel(context, null));
 		}
 
 		[HttpGet]
 		public IActionResult Settings()
 		{
-			SettingsViewModel viewModel = new SettingsViewModel();
+			var id = User.FindFirstValue(ClaimTypes.NameIdentifier);
+			SettingsViewModel viewModel = new SettingsViewModel(context, id);
 			try
 			{
-				viewModel.User = context.Users.Where(u => u.UserName.Equals(User.Identity.Name)).FirstOrDefault();
+				viewModel.User = context.Users.Where(u => u.Id.Equals(id)).FirstOrDefault();
 				if (viewModel.User == null)
 				{
 					throw new Exception(message: "Användare med den angivna eposten saknas.");
@@ -144,11 +150,13 @@ namespace CV_Projekt.Controllers
 					return View(viewModel);
 				}
 
+				var id = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
 				string profileImageURL = "";
 
 				if(viewModel.ImageFile != null)
 				{
-					string fileName = "profilepic_" + "test" + Path.GetExtension(viewModel.ImageFile.FileName).ToLower();
+					string fileName = "profilepic_" + id + Path.GetExtension(viewModel.ImageFile.FileName).ToLower();
 					string newFilePath = "..\\CV_Projekt\\wwwroot\\images\\" + fileName;
 
 					using (FileStream fs = new FileStream(newFilePath, FileMode.Create))
@@ -159,7 +167,7 @@ namespace CV_Projekt.Controllers
 					profileImageURL = "~/images/" + fileName;
 				}
 
-				User userToUpdate = context.Users.Where(u => u.UserName.Equals(User.Identity.Name)).FirstOrDefault();
+				User userToUpdate = context.Users.Where(u => u.Id.Equals(id)).FirstOrDefault();
 
 				userToUpdate.FirstName = viewModel.User.FirstName;
 				userToUpdate.LastName = viewModel.User.LastName;
@@ -172,16 +180,34 @@ namespace CV_Projekt.Controllers
 				userToUpdate.ContactInformation.Address = viewModel.User.ContactInformation.Address;
 				userToUpdate.ContactInformation.Phone = viewModel.User.ContactInformation.Phone;
 
-				userToUpdate.PictureUrl = profileImageURL;
+				if(!profileImageURL.Equals(string.Empty))
+				{
+					userToUpdate.PictureUrl = profileImageURL;
+				}
 
 				context.Users.Update(userToUpdate);
 				context.SaveChanges();
 
 				viewModel.User = userToUpdate;
 
-				RedirectToAction("UserProfile", "UserProfile", viewModel);
+				RedirectToAction("Profile", "Profile", viewModel);
 			}
 			return View(viewModel);
+		}
+
+		[HttpPost]
+		public IActionResult SetDisabled(SettingsViewModel viewModel)
+		{
+			viewModel.User.isActive = !viewModel.User.isActive;
+
+			string id = User.FindFirstValue(ClaimTypes.NameIdentifier);
+			User userToUpdate = context.Users.Where(u => u.Id.Equals(id)).FirstOrDefault();
+
+			userToUpdate.isActive = viewModel.User.isActive;
+			context.Update(userToUpdate);
+			context.SaveChanges();
+
+			return RedirectToAction("Settings", viewModel);
 		}
 	}
 }
