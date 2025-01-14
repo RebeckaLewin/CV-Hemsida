@@ -69,15 +69,6 @@
 								</li>
                                 @if (!User.Identity.IsAuthenticated)
 								{
-                                <li>
-                                    <a class="dropdown-item text-black" href="#">
-                                        <i class="fa-solid fa-envelope text-black position-relative">
-                                            <span class="badge rounded-pill badge-notification bg-danger position-absolute top-0 left-0 translate-middle" style="font-size:0.5rem;">@Model.UnreadMessages</span>
-                                        </i>
-									Meddelanden
-                                    </a>
-								</li>
-                                
                                     <li>
                                         <a class="dropdown-item text-black" href="/Account/LogIn"><i class="fa-solid fa-lock text-black"></i>Logga In</a>
                                     </li>
@@ -90,12 +81,7 @@
                                         </form>
                                     </li>
                                 }
-                                @if(User.Identity.IsAuthenticated)
-                                {
-                                    <li>
-                                        <a class="dropdown-item text-black" href="#"><i class="fa-solid fa-gear text-black"></i>Inställningar</a>
-                                    </li>
-                                }
+                               
                             </ul>
                         </li>
                     </ul>
