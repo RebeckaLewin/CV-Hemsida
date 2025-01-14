@@ -87,39 +87,3 @@
     </div>
   
 </body>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-@* <h1>Uppdatera projekt</h1>
-
-<form method="post" asp-action="Update"> 
-	<input asp-for="Project.Id" value="@Model.Project.Id" hidden/>
-	<input asp-for="Project.CreatorId" value="@Model.Project.CreatorId" hidden/>
-
-	<input asp-for="Project.Title" type="text" value="@Model.Project.Title"/>
-	<input asp-for="Project.Description" type="text" value="@Model.Project.Description" />
-	<input asp-for="Project.StartDate" type="date" value="@Model.Project.StartDate" />
-	<input asp-for="Project.EndDate" type="date" value="@Model.Project.EndDate" />
-
-	<button type="submit">Spara ändringar</button>
-</form>
-<ul>
-	@foreach (var participant in Model.Project.Participants)
-	{
-		<button asp-action="RemoveParticipant" asp-route-pid="@Model.Project.Id" asp-route-uid="@participant.Id" asp-route-edit="true">Ta bort</button>
-		<li>@participant.FirstName @participant.LastName</li>
-	}
-</ul> *@
