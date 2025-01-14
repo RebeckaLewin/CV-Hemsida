@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace CV_Projekt.Migrations
 {
     /// <inheritdoc />
-    public partial class Init : Migration
+    public partial class migration1 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -200,15 +200,35 @@ namespace CV_Projekt.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "CVs",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    OwnerId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Skills = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Views = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CVs", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_CVs_AspNetUsers_OwnerId",
+                        column: x => x.OwnerId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Messages",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Subject = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    SenderName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Content = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: false),
                     Date = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    SenderId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    SenderId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     ReceiverId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     isRead = table.Column<bool>(type: "bit", nullable: false),
                     ReceiverDelete = table.Column<bool>(type: "bit", nullable: false),
@@ -255,83 +275,21 @@ namespace CV_Projekt.Migrations
                 name: "TagUser",
                 columns: table => new
                 {
-                    TagId = table.Column<int>(type: "int", nullable: false),
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     TagsId = table.Column<int>(type: "int", nullable: false),
                     UsersId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TagUser", x => new { x.TagId, x.UserId });
-                    table.ForeignKey(
-                        name: "FK_TagUser_AspNetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id");
+                    table.PrimaryKey("PK_TagUser", x => new { x.TagsId, x.UsersId });
                     table.ForeignKey(
                         name: "FK_TagUser_AspNetUsers_UsersId",
                         column: x => x.UsersId,
                         principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_TagUser_Tags_TagId",
-                        column: x => x.TagId,
-                        principalTable: "Tags",
                         principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_TagUser_Tags_TagsId",
                         column: x => x.TagsId,
                         principalTable: "Tags",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "CVs",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    OwnerId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Skills = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Views = table.Column<int>(type: "int", nullable: false),
-                    ProjectId = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_CVs", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_CVs_AspNetUsers_OwnerId",
-                        column: x => x.OwnerId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_CVs_Projects_ProjectId",
-                        column: x => x.ProjectId,
-                        principalTable: "Projects",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ProjectUser",
-                columns: table => new
-                {
-                    JoinedProjectsId = table.Column<int>(type: "int", nullable: false),
-                    ParticipantsId = table.Column<string>(type: "nvarchar(450)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ProjectUser", x => new { x.JoinedProjectsId, x.ParticipantsId });
-                    table.ForeignKey(
-                        name: "FK_ProjectUser_AspNetUsers_ParticipantsId",
-                        column: x => x.ParticipantsId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_ProjectUser_Projects_JoinedProjectsId",
-                        column: x => x.JoinedProjectsId,
-                        principalTable: "Projects",
                         principalColumn: "Id");
                 });
 
@@ -360,6 +318,28 @@ namespace CV_Projekt.Migrations
                         name: "FK_Experiences_CVs_CvId",
                         column: x => x.CvId,
                         principalTable: "CVs",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ProjectUser",
+                columns: table => new
+                {
+                    JoinedProjectsId = table.Column<int>(type: "int", nullable: false),
+                    ParticipantsId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ProjectUser", x => new { x.JoinedProjectsId, x.ParticipantsId });
+                    table.ForeignKey(
+                        name: "FK_ProjectUser_AspNetUsers_ParticipantsId",
+                        column: x => x.ParticipantsId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_ProjectUser_Projects_JoinedProjectsId",
+                        column: x => x.JoinedProjectsId,
+                        principalTable: "Projects",
                         principalColumn: "Id");
                 });
 
@@ -403,50 +383,50 @@ namespace CV_Projekt.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Description", "Email", "EmailConfirmed", "FirstName", "InformationId", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "Password", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "PictureUrl", "SecurityStamp", "TwoFactorEnabled", "UserName", "isActive", "isPrivate" },
                 values: new object[,]
                 {
-                    { "1", 0, "597cd8de-2a6a-4640-9993-ff953adbba20", null, "alicean12@live.se", false, "Alice", 1, "Andersson", false, null, "alicean12@live.se", "alicean12@live.se", "P@ssword123", "AQAAAAIAAYagAAAAEHnCErEz8cVYJv30s8VkWA4o7jaUuRK85SiBpWRd64G4yqJDTyFZ7UnC1CUAWmJSSg==", null, false, "~/images/profilepic_default.jpg", "b4a4ffaf-003f-4c86-8443-45a6cd39a948", false, "alicean12@live.se", true, true },
-                    { "10", 0, "3879b47d-7d68-4163-a143-d38d3d3e183f", null, "julia.jonsson@yahoo.com", false, "Julia", 10, "Jonsson", false, null, "julia.jonsson@yahoo.com", "julia.jonsson@yahoo.com", "JuliasP@ss7", "AQAAAAIAAYagAAAAEPt3Eu3r7j/m1Rig7Jlhq3flimE8O2cxqQmu0RXJowOD5QZEuH60priB2DCTAwZ7pw==", null, false, "~/images/profilepic_default.jpg", "e4199611-fc8c-415e-8232-24eff624ef56", false, "julia.jonsson@yahoo.com", false, true },
-                    { "2", 0, "5d28be6a-149d-42f6-938b-05b75aaa90ac", null, "bobbergstrom@gmail.com", false, "Bob", 2, "Bergström", false, null, "bobbergstrom@gmail.com", "bobbergstrom@gmail.com", "P@ssword456", "AQAAAAIAAYagAAAAEALp1ckCuzQH3IQonG2Z+m13SN1ML5ZX0BiN6+VYYs21PIT1C4c40iFVYF0zMcV/wQ==", null, false, "~/images/profilepic_default.jpg", "be9283df-3a54-42eb-a21f-67692ec2a4b4", false, "bobbergstrom@gmail.com", true, false },
-                    { "3", 0, "1aa8f815-eddd-4e1b-86bd-69a93539efa8", null, "charliec@live.se", false, "Charlie", 3, "Carlsson", false, null, "charliec@live.se", "charliec@live.se", "P@ssword789", "AQAAAAIAAYagAAAAEBX5tBeSVnL5RLKXrIl64VJfi5y7NQeGmo4qBX5Exkg7uy61TWkxkricB5OupjSvFw==", null, false, "~/images/profilepic_default.jpg", "241a9e7b-73ea-42d1-8577-36e66ea5301b", false, "charliec@live.se", false, false },
-                    { "4", 0, "9fc94d01-627f-4aaf-9436-36cedcd968d8", null, "danield@outlook.com", false, "Daniel", 4, "Davidsson", false, null, "danield@outlook.com", "danield@outlook.com", "SecureP@ss1", "AQAAAAIAAYagAAAAEJr1b7vYVIwLuqvHNRzpMnyo+4XcbeecoUqBzOx8kpso52S99Q503cf4n7/zHCH3Tw==", null, false, "~/images/profilepic_default.jpg", "a136e73c-f2b0-4813-8c10-867a76439e11", false, "danield@outlook.com", true, true },
-                    { "5", 0, "326dbf48-3290-40d1-afb8-f3d37d12c5c0", null, "emily.evans@hotmail.com", false, "Emily", 5, "Evans", false, null, "emily.evans@hotmail.com", "emily.evans@hotmail.com", "MyP@ssword2", "AQAAAAIAAYagAAAAEM8d7yhr9loayPAx9kE14Z/SlRF529j+uMAwU7GZ/VqFmnlHEuETCKvdq116+qy0eg==", null, false, "~/images/profilepic_default.jpg", "66f20704-aca4-4c19-853a-305a4ad06fe8", false, "emily.evans@hotmail.com", true, false },
-                    { "6", 0, "4070949b-37bf-4241-b119-728056c846ec", null, "frankfischer@gmail.com", false, "Frank", 6, "Fischer", false, null, "frankfischer@gmail.com", "frankfischer@gmail.com", "StrongP@ss3", "AQAAAAIAAYagAAAAELB1lLIW7HSD9Y0KDLtykInU5nXUHz9R47ZaM2kWKIll4LWK5XzO2I/Y755sB7YDBQ==", null, false, "~/images/profilepic_default.jpg", "f606f40b-2eac-4960-be22-753077112bc2", false, "frankfischer@gmail.com", true, true },
-                    { "7", 0, "d7271dcf-465c-44a0-ba6d-4ade8cb8e577", null, "grace.gustafsson@live.se", false, "Grace", 7, "Gustafsson", false, null, "grace.gustafsson@live.se", "grace.gustafsson@live.se", "GracefulP@ss4", "AQAAAAIAAYagAAAAEPjdyy/Ge2nSnJGJ4MdLJe0uCM2JOMcHkxviFzopgCommW5cRcsAO+sC5NFqhbnmdg==", null, false, "~/images/profilepic_default.jpg", "ef56c537-0e6c-4030-b8a1-1383952692aa", false, "grace.gustafsson@live.se", false, false },
-                    { "8", 0, "e772d4a4-423c-44ef-9ed0-7e122e62a42c", null, "hanna.holm@gmail.com", false, "Hanna", 8, "Holm", false, null, "hanna.holm@gmail.com", "hanna.holm@gmail.com", "H@nnasP@ss5", "AQAAAAIAAYagAAAAENdZpF+SpUYN8LCEmDFMjxPT2wmz6rQ739bL6uJ19YtaDggSs3MCGooq2aFhUZl0Uw==", null, false, "~/images/profilepic_default.jpg", "b0fdf0a5-0f57-4a0a-a3e7-596fd2280b7d", false, "hanna.holm@gmail.com", true, true },
-                    { "9", 0, "162eac35-e51b-4153-90a6-7f4b97de8ee4", null, "ian.ingemarsson@outlook.com", false, "Ian", 9, "Ingemarsson", false, null, "ian.ingemarsson@outlook.com", "ian.ingemarsson@outlook.com", "I@nsSecure6", "AQAAAAIAAYagAAAAEAX682T46+G9RgtjfFX25+rF0/xcXXWEtCFJ+durJIo6gBhomOXRqQDX6dMSGNdhcA==", null, false, "~/images/profilepic_default.jpg", "dc2600aa-526e-412a-997d-8ca9a4363c28", false, "ian.ingemarsson@outlook.com", true, false }
+                    { "1", 0, "205aa572-68d6-4629-95cf-5ea98ea01d5f", null, "alicean12@live.se", false, "Alice", 1, "Andersson", false, null, "alicean12@live.se", "alicean12@live.se", "P@ssword123", "AQAAAAIAAYagAAAAEGTJEZJMI3ZtRjvv8K9lp5ccBgZFr1yEbZ+IHQfOb6GaFT8YTFsfsaqk+3K2apHKAA==", null, false, "~/images/profilepic_default.jpg", "3d9a3c41-11af-4d57-a20f-25bd5c6c5e93", false, "alicean12@live.se", true, true },
+                    { "10", 0, "b556ca13-0082-49da-8da3-9fb00ab2ddc2", null, "julia.jonsson@yahoo.com", false, "Julia", 10, "Jonsson", false, null, "julia.jonsson@yahoo.com", "julia.jonsson@yahoo.com", "JuliasP@ss7", "AQAAAAIAAYagAAAAEGQt+ox2T+atQOz63llZXJrAHQlpEUbX1lN3LxcYYhyaRTlctBfa068bz/oxJ5E4+A==", null, false, "~/images/profilepic_default.jpg", "11e36fc4-ed50-4726-9c68-da7b6c2e3515", false, "julia.jonsson@yahoo.com", false, true },
+                    { "2", 0, "84d783c4-8f59-41db-ab01-9ee71d4aebaf", null, "bobbergstrom@gmail.com", false, "Bob", 2, "Bergström", false, null, "bobbergstrom@gmail.com", "bobbergstrom@gmail.com", "P@ssword456", "AQAAAAIAAYagAAAAEJd5pFljoFXZLQDhNqVAsUOtBfTxUuA5gm0f0VMsV88eDlxKTI01YYiemVpMrjx1zA==", null, false, "~/images/profilepic_default.jpg", "55e33888-4f2e-4a96-b1b9-3180ce7c1062", false, "bobbergstrom@gmail.com", true, false },
+                    { "3", 0, "e9a299ca-117d-40da-b4e9-07924700d5ed", null, "charliec@live.se", false, "Charlie", 3, "Carlsson", false, null, "charliec@live.se", "charliec@live.se", "P@ssword789", "AQAAAAIAAYagAAAAEEo716GWC6fLde1qKsDBjBKsEVOVgdZbIhNqJvhZl/zN2vxrxN1rNsAWALfKAwDVQA==", null, false, "~/images/profilepic_default.jpg", "100973e0-2d46-409f-aa1e-21eaac5a80c3", false, "charliec@live.se", false, false },
+                    { "4", 0, "22fcc992-7dc8-4c78-bac5-05aed1a75453", null, "danield@outlook.com", false, "Daniel", 4, "Davidsson", false, null, "danield@outlook.com", "danield@outlook.com", "SecureP@ss1", "AQAAAAIAAYagAAAAED5aNxYGx46AT1QrY1AFnIVaa0AlhK2iu21iaoLbDZ0ALlMG+pB75zSKDc1w0lrB0Q==", null, false, "~/images/profilepic_default.jpg", "3022960c-1847-4bc6-80c8-3337d97f832c", false, "danield@outlook.com", true, true },
+                    { "5", 0, "f1910840-2c8e-402c-ad39-f31894417c41", null, "emily.evans@hotmail.com", false, "Emily", 5, "Evans", false, null, "emily.evans@hotmail.com", "emily.evans@hotmail.com", "MyP@ssword2", "AQAAAAIAAYagAAAAEEFlamUlYrpYJuNngCfHfRftzrNX04XtIvhFNbfuN3perkuma+gbK69IbUGFcTLmRg==", null, false, "~/images/profilepic_default.jpg", "9efd7dbd-e425-431a-9611-939cbd07e31c", false, "emily.evans@hotmail.com", true, false },
+                    { "6", 0, "3dea3023-0684-423d-a175-9ebd4901d190", null, "frankfischer@gmail.com", false, "Frank", 6, "Fischer", false, null, "frankfischer@gmail.com", "frankfischer@gmail.com", "StrongP@ss3", "AQAAAAIAAYagAAAAEBGrkmc7HkEtQsinz6xFTTqhzVW3zZgjn//6WT2LjJQPETO+48QpZlL2ti9ZwWbSyg==", null, false, "~/images/profilepic_default.jpg", "d317204f-9cb0-4e67-b59d-c440f63bb9ef", false, "frankfischer@gmail.com", true, true },
+                    { "7", 0, "51835c43-73a6-43af-aad9-7b860e089f6f", null, "grace.gustafsson@live.se", false, "Grace", 7, "Gustafsson", false, null, "grace.gustafsson@live.se", "grace.gustafsson@live.se", "GracefulP@ss4", "AQAAAAIAAYagAAAAEJjv2XynB4bNZ8o6ub4Aem2wryf25hFPa8D0ppwKnZcfqMoqP2wA5injbtTgnUXwOw==", null, false, "~/images/profilepic_default.jpg", "a5959d6f-ce72-4ab6-9619-32be12920d49", false, "grace.gustafsson@live.se", false, false },
+                    { "8", 0, "2ac66db1-1d03-4047-8489-920914ffc7a2", null, "hanna.holm@gmail.com", false, "Hanna", 8, "Holm", false, null, "hanna.holm@gmail.com", "hanna.holm@gmail.com", "H@nnasP@ss5", "AQAAAAIAAYagAAAAEGihOl1XPUPlcKUjg0javUSEYkz9szQJSwEUu1aP9m50DPiMpXGoxo4bwYQQswVWIA==", null, false, "~/images/profilepic_default.jpg", "ed36eb17-9ef5-4cc2-8d62-3d59ca9c1da2", false, "hanna.holm@gmail.com", true, true },
+                    { "9", 0, "d8bde5e1-4bac-4014-b7e8-b215ab8b7e77", null, "ian.ingemarsson@outlook.com", false, "Ian", 9, "Ingemarsson", false, null, "ian.ingemarsson@outlook.com", "ian.ingemarsson@outlook.com", "I@nsSecure6", "AQAAAAIAAYagAAAAEFObAELJ1X33GEkqJfWNMe9RAxw+sfGtWfdcqVbsijsxoLiuC+AY7lpn58tt862ZxA==", null, false, "~/images/profilepic_default.jpg", "330501bd-5491-41ae-a60b-6e40be4817d8", false, "ian.ingemarsson@outlook.com", true, false }
                 });
 
             migrationBuilder.InsertData(
                 table: "CVs",
-                columns: new[] { "Id", "OwnerId", "ProjectId", "Skills", "Views" },
+                columns: new[] { "Id", "OwnerId", "Skills", "Views" },
                 values: new object[,]
                 {
-                    { 1, "1", null, "[\"Projektledning\",\"CSS\",\"HTML\"]", 10 },
-                    { 2, "3", null, "[\"Grafisk design\",\"Pedagogik\"]", 11 },
-                    { 3, "2", null, "[\"Omv\\u00E5rdnad\",\"Kommunikation\"]", 15 },
-                    { 4, "4", null, "[\"Eventplanering\",\"Samordning\"]", 8 },
-                    { 5, "5", null, "[\"Ingenj\\u00F6rskonst\",\"Produktutveckling\"]", 12 },
-                    { 6, "6", null, "[\"Forskning\",\"Biomedicin\"]", 9 },
-                    { 7, "7", null, "[\"AI-utveckling\",\"Python\",\"Machine Learning\"]", 20 },
-                    { 8, "8", null, "[\"Milj\\u00F6skydd\",\"Administration\"]", 14 },
-                    { 9, "9", null, "[\"Undervisning\",\"Kursutveckling\"]", 18 },
-                    { 10, "10", null, "[\"Patientv\\u00E5rd\",\"Ledarskap\"]", 25 }
+                    { 1, "1", "[\"Projektledning\",\"CSS\",\"HTML\"]", 10 },
+                    { 2, "3", "[\"Grafisk design\",\"Pedagogik\"]", 11 },
+                    { 3, "2", "[\"Omv\\u00E5rdnad\",\"Kommunikation\"]", 15 },
+                    { 4, "4", "[\"Eventplanering\",\"Samordning\"]", 8 },
+                    { 5, "5", "[\"Ingenj\\u00F6rskonst\",\"Produktutveckling\"]", 12 },
+                    { 6, "6", "[\"Forskning\",\"Biomedicin\"]", 9 },
+                    { 7, "7", "[\"AI-utveckling\",\"Python\",\"Machine Learning\"]", 20 },
+                    { 8, "8", "[\"Milj\\u00F6skydd\",\"Administration\"]", 14 },
+                    { 9, "9", "[\"Undervisning\",\"Kursutveckling\"]", 18 },
+                    { 10, "10", "[\"Patientv\\u00E5rd\",\"Ledarskap\"]", 25 }
                 });
 
             migrationBuilder.InsertData(
                 table: "Messages",
-                columns: new[] { "Id", "Content", "Date", "ReceiverDelete", "ReceiverId", "SenderDelete", "SenderId", "Subject", "isRead" },
+                columns: new[] { "Id", "Content", "Date", "ReceiverDelete", "ReceiverId", "SenderDelete", "SenderId", "SenderName", "isRead" },
                 values: new object[,]
                 {
-                    { 1, "Hej på dig! Hur är det med dig?", new DateTime(2020, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "2", false, "1", "En hälsning", false },
-                    { 2, "Missade att du skrev, förlåt.", new DateTime(2020, 7, 16, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "1", false, "2", "Missade", false },
-                    { 3, "Ska vi ta en lunch imorgon?", new DateTime(2020, 8, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "1", false, "3", "Lunch?", false },
-                    { 4, "Tack för att du hjälpte mig med projektet.", new DateTime(2020, 8, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "3", false, "1", "Tack!", false },
-                    { 5, "Kan du kika på dokumentet jag skickade?", new DateTime(2020, 9, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "5", false, "4", "Fråga", false },
-                    { 6, "Jag har lagt till några kommentarer i ditt utkast.", new DateTime(2020, 9, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "4", false, "5", "Feedback", false },
-                    { 7, "Glöm inte mötet imorgon kl. 10.", new DateTime(2020, 10, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "7", false, "6", "Möte", false },
-                    { 8, "Har du hunnit förbereda presentationen?", new DateTime(2020, 10, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "6", false, "7", "Presentation", false },
-                    { 9, "Grattis på födelsedagen!", new DateTime(2020, 11, 3, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "9", false, "8", "Grattis!", false },
-                    { 10, "Ha en trevlig helg! Vi hörs på måndag.", new DateTime(2020, 11, 6, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "10", false, "9", "Trevlig helg", false }
+                    { 1, "Hej på dig! Hur är det med dig?", new DateTime(2020, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "2", false, "1", "", false },
+                    { 2, "Missade att du skrev, förlåt.", new DateTime(2020, 7, 16, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "1", false, "2", "", false },
+                    { 3, "Ska vi ta en lunch imorgon?", new DateTime(2020, 8, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "1", false, "3", "", false },
+                    { 4, "Tack för att du hjälpte mig med projektet.", new DateTime(2020, 8, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "3", false, "1", "", false },
+                    { 5, "Kan du kika på dokumentet jag skickade?", new DateTime(2020, 9, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "5", false, "4", "", false },
+                    { 6, "Jag har lagt till några kommentarer i ditt utkast.", new DateTime(2020, 9, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "4", false, "5", "", false },
+                    { 7, "Glöm inte mötet imorgon kl. 10.", new DateTime(2020, 10, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "7", false, "6", "", false },
+                    { 8, "Har du hunnit förbereda presentationen?", new DateTime(2020, 10, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "6", false, "7", "", false },
+                    { 9, "Grattis på födelsedagen!", new DateTime(2020, 11, 3, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "9", false, "8", "", false },
+                    { 10, "Ha en trevlig helg! Vi hörs på måndag.", new DateTime(2020, 11, 6, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "10", false, "9", "", false }
                 });
 
             migrationBuilder.InsertData(
@@ -567,11 +547,6 @@ namespace CV_Projekt.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_CVs_ProjectId",
-                table: "CVs",
-                column: "ProjectId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Experiences_CvId",
                 table: "Experiences",
                 column: "CvId");
@@ -595,16 +570,6 @@ namespace CV_Projekt.Migrations
                 name: "IX_ProjectUser_ParticipantsId",
                 table: "ProjectUser",
                 column: "ParticipantsId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_TagUser_TagsId",
-                table: "TagUser",
-                column: "TagsId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_TagUser_UserId",
-                table: "TagUser",
-                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_TagUser_UsersId",
@@ -649,10 +614,10 @@ namespace CV_Projekt.Migrations
                 name: "CVs");
 
             migrationBuilder.DropTable(
-                name: "Tags");
+                name: "Projects");
 
             migrationBuilder.DropTable(
-                name: "Projects");
+                name: "Tags");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
