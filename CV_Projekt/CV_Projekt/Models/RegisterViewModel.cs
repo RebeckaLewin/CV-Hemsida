@@ -2,7 +2,7 @@
 
 namespace CV_Projekt.Models
 {
-	public class RegisterViewModel
+	public class RegisterViewModel : BaseViewModel
 	{
 		[Required(ErrorMessage = "Eposten måste anges.")]
 		[RegularExpression("^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,}$", ErrorMessage = "Eposten är inte giltig.")]
@@ -25,5 +25,8 @@ namespace CV_Projekt.Models
 		public string ConfirmedPassword { get; set; }
 		[Required]
 		public bool IsPrivate { get; set; }
+
+		public RegisterViewModel() : base() { }
+		public RegisterViewModel(CvContext context, string id) : base(context, id) { }
 	}
 }

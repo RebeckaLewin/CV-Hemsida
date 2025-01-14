@@ -380,40 +380,119 @@ namespace CV_Projekt.Models
                 }
             );
 
+
+			modelBuilder.Entity<CV>().HasData(
+				new CV
+				{
+					Id = 1,
+					OwnerId = 1.ToString(),
+					Skills = new List<string> { "Projektledning", "CSS", "HTML" },
+					Views = 10
+				},
+				new CV
+				{
+					Id = 2,
+					OwnerId = 3.ToString(),
+					Skills = new List<string> { "Grafisk design", "Pedagogik" },
+					Views = 11
+				},
+				new CV
+				{
+					Id = 3,
+					OwnerId = 2.ToString(),
+					Skills = new List<string> { "Omvårdnad", "Kommunikation" },
+					Views = 15
+				},
+				new CV
+				{
+					Id = 4,
+					OwnerId = 4.ToString(),
+					Skills = new List<string> { "Eventplanering", "Samordning" },
+					Views = 8
+				},
+				new CV
+				{
+					Id = 5,
+					OwnerId = 5.ToString(),
+					Skills = new List<string> { "Ingenjörskonst", "Produktutveckling" },
+					Views = 12
+				},
+				new CV
+				{
+					Id = 6,
+					OwnerId = 6.ToString(),
+					Skills = new List<string> { "Forskning", "Biomedicin" },
+					Views = 9
+				},
+				new CV
+				{
+					Id = 7,
+					OwnerId = 7.ToString(),
+					Skills = new List<string> { "AI-utveckling", "Python", "Machine Learning" },
+					Views = 20
+				},
+				new CV
+				{
+					Id = 8,
+					OwnerId = 8.ToString(),
+					Skills = new List<string> { "Miljöskydd", "Administration" },
+					Views = 14
+				},
+				new CV
+				{
+					Id = 9,
+					OwnerId = 9.ToString(),
+					Skills = new List<string> { "Undervisning", "Kursutveckling" },
+					Views = 18
+				},
+				new CV
+				{
+					Id = 10,
+					OwnerId = 10.ToString(),
+					Skills = new List<string> { "Patientvård", "Ledarskap" },
+					Views = 25
+				}
+			);
+
             modelBuilder.Entity<OtherExperience>().HasData(
                 new OtherExperience
                 {
                     Id = 1,
                     StartDate = new DateTime(2016, 8, 30),
+                    EndDate = new DateTime(2017, 8, 21),
                     Location = "Örebro kommun",
+                    City = "Örebro",
                     Type = "Praktik",
-                    UserId = 2.ToString()
+                    CvId = 1
                 },
                 new OtherExperience
                 {
                     Id = 2,
                     StartDate = new DateTime(2021, 8, 30),
                     Location = "Kävesta Folkhögskola",
+                    City = "Sköllersta",
                     Description = "En kurs i drejeri",
                     Type = "Kurs",
-                    UserId = 1.ToString()
+                    CvId = 1
                 },
                 new OtherExperience
                 {
                     Id = 3,
                     StartDate = new DateTime(2022, 8, 30),
                     Location = "Röda korset Örebro",
+                    City = "Örebro",
                     Type = "Volentärarbete",
-                    UserId = 1.ToString()
+                    CvId = 2
                 },
                 new OtherExperience
                 {
                     Id = 4,
                     StartDate = new DateTime(2018, 6, 15),
                     Location = "Linköping universitet",
+                    City = "Linköping",
                     Description = "Sommarjobb som forskningsassistent",
                     Type = "Sommarjobb",
-                    UserId = 3.ToString()
+                    CvId = 2
                 },
                 new OtherExperience
                 {
@@ -421,8 +500,9 @@ namespace CV_Projekt.Models
                     StartDate = new DateTime(2020, 1, 10),
                     Location = "Karolinska Institutet",
                     Description = "Praktik inom medicinsk forskning",
+                    City = "Stockholm",
                     Type = "Praktik",
-                    UserId = 4.ToString()
+                    CvId = 4
                 },
                 new OtherExperience
                 {
@@ -430,44 +510,49 @@ namespace CV_Projekt.Models
                     StartDate = new DateTime(2022, 11, 1),
                     Location = "Svenska Röda Korset",
                     Description = "Deltog i hjälparbete för flyktingar",
+                    City = "Malmö",
                     Type = "Volentärarbete",
-                    UserId = 5.ToString()
+                    CvId = 5
                 },
                 new OtherExperience
                 {
                     Id = 7,
                     StartDate = new DateTime(2019, 9, 5),
                     Location = "Chalmers Tekniska Högskola",
+                    City = "Göteborg",
                     Description = "Kurs i hållbart byggande",
                     Type = "Kurs",
-                    UserId = 6.ToString()
+                    CvId = 6
                 },
                 new OtherExperience
                 {
                     Id = 8,
                     StartDate = new DateTime(2023, 2, 20),
                     Location = "Örebro Universitet",
+                    City = "Örebro",
                     Description = "Projektarbete inom AI-utveckling",
                     Type = "Projektarbete",
-                    UserId = 7.ToString()
+                    CvId = 7
                 },
                 new OtherExperience
                 {
                     Id = 9,
                     StartDate = new DateTime(2020, 5, 15),
                     Location = "Naturskyddsföreningen",
+                    City = "Kiruna",
                     Description = "Volontärarbete inom miljöskydd",
                     Type = "Volentärarbete",
-                    UserId = 8.ToString()
+                    CvId = 8
                 },
                 new OtherExperience
                 {
                     Id = 10,
                     StartDate = new DateTime(2021, 10, 12),
                     Location = "Uppsala Universitet",
+                    City = "Uppsala",
                     Description = "Deltog i en workshop om ledarskap",
                     Type = "Workshop",
-                    UserId = 9.ToString()
+                    CvId = 9
                 }
             );
 
@@ -477,90 +562,100 @@ namespace CV_Projekt.Models
                     Id = 11,
                     StartDate = new DateTime(2020, 6, 29),
                     Location = "Café Deed",
+                    City = "Örebro",
                     Description = "Underhåller ett team i bageri/ungdomsgård",
                     Role = "Arbetsledare",
-                    UserId = 1.ToString()
+                    CvId = 1
                 },
                 new Work
                 {
                     Id = 12,
                     StartDate = new DateTime(2019, 8, 30),
                     Location = "Uppsala Sjukhus",
+                    City = "Uppsala",
                     Description = "Omvårdnad",
                     Role = "Sjuksköterska",
-                    UserId = 2.ToString()
+                    CvId = 2
                 },
                 new Work
                 {
                     Id = 13,
                     StartDate = new DateTime(2021, 8, 30),
                     Location = "Generiskt Företag",
+                    City = "Generisk stad",
                     Description = "Arbetsuppgifter",
                     Role = "Arbetstitel",
-                    UserId = 3.ToString()
+                    CvId = 3
                 },
                 new Work
                 {
                     Id = 14,
                     StartDate = new DateTime(2018, 4, 15),
                     Location = "Stockholms Stad",
+                    City = "Stockholm",
                     Description = "Ansvarig för eventplanering och samordning",
                     Role = "Eventkoordinator",
-                    UserId = 4.ToString()
+                    CvId = 4
                 },
                 new Work
                 {
                     Id = 15,
                     StartDate = new DateTime(2022, 1, 10),
                     Location = "Volvo Cars",
+                    City = "Arboga",
                     Description = "Utveckling och testning av nya bilmodeller",
                     Role = "Ingenjör",
-                    UserId = 5.ToString()
+                    CvId = 5
                 },
                 new Work
                 {
                     Id = 16,
                     StartDate = new DateTime(2020, 9, 1),
                     Location = "Karolinska Institutet",
+                    City = "Stockholm",
                     Description = "Forskning inom biomedicin",
                     Role = "Forskningsassistent",
-                    UserId = 6.ToString()
+                    CvId = 6
                 },
                 new Work
                 {
                     Id = 17,
                     StartDate = new DateTime(2023, 3, 20),
                     Location = "Skatteverket",
+                    City = "Örebro",
                     Description = "Hantering av deklarationer och rådgivning",
                     Role = "Handläggare",
-                    UserId = 7.ToString()
+                    CvId = 7
                 },
                 new Work
                 {
                     Id = 18,
                     StartDate = new DateTime(2019, 6, 5),
                     Location = "Länsstyrelsen",
+                    City = "Köping",
                     Description = "Administration och projektstöd",
                     Role = "Projektassistent",
-                    UserId = 8.ToString()
+                    CvId = 8
                 },
                 new Work
                 {
                     Id = 19,
                     StartDate = new DateTime(2021, 11, 12),
                     Location = "Luleå Tekniska Universitet",
+                    City = "Luleå",
                     Description = "Undervisning och kursutveckling",
                     Role = "Universitetslärare",
-                    UserId = 9.ToString()
+                    CvId = 9
                 },
                 new Work
                 {
                     Id = 20,
                     StartDate = new DateTime(2020, 7, 1),
                     Location = "Norrlands Universitetssjukhus",
+                    City = "Skellefteå",
                     Description = "Patientvård och ledning av vårdteam",
                     Role = "Läkare",
-                    UserId = 10.ToString()
+                    CvId = 10
                 }
             );
 
@@ -570,165 +665,102 @@ namespace CV_Projekt.Models
                     Id = 21,
                     StartDate = new DateTime(2016, 4, 12),
                     Location = "Karolinska Gymnasiet",
+                    City = "Örebro",
                     Level = "Gymnasial",
                     Program = "Vård och omsorg",
                     Description = "",
-                    UserId = 2.ToString()
+                    CvId = 2
                 },
                 new Education
                 {
                     Id = 22,
                     StartDate = new DateTime(2010, 2, 02),
                     Location = "Uppsala Universitet",
+                    City = "Uppsala",
                     Level = "Kandidat",
                     Program = "Arkelogi",
                     Description = "",
-                    UserId = 3.ToString()
+                    CvId = 3
                 },
                 new Education
                 {
                     Id = 23,
                     StartDate = new DateTime(2018, 9, 15),
                     Location = "Lund Universitet",
+                    City = "Lund",
                     Level = "Master",
                     Program = "Miljövetenskap",
                     Description = "Specialisering inom hållbar utveckling",
-                    UserId = 4.ToString()
+                    CvId = 4
                 },
                 new Education
                 {
                     Id = 24,
                     StartDate = new DateTime(2021, 1, 10),
                     Location = "Chalmers Tekniska Högskola",
+                    City = "Göteborg",
                     Level = "Master",
                     Program = "Maskinteknik",
                     Description = "Fokus på produktutveckling",
-                    UserId = 5.ToString()
+                    CvId = 5
                 },
                 new Education
                 {
                     Id = 25,
                     StartDate = new DateTime(2015, 8, 25),
                     Location = "Göteborg Universitet",
+                    City = "Göteborg",
                     Level = "Kandidat",
                     Program = "Kulturvetenskap",
                     Description = "Med inriktning på etnologi",
-                    UserId = 6.ToString()
+                    CvId = 6
                 },
                 new Education
                 {
                     Id = 26,
                     StartDate = new DateTime(2020, 3, 1),
                     Location = "KTH Royal Institute of Technology",
+                    City = "Stockholm",
                     Level = "Master",
                     Program = "Datavetenskap",
                     Description = "Med fokus på artificiell intelligens",
-                    UserId = 7.ToString()
+                    CvId = 7
                 },
                 new Education
                 {
                     Id = 27,
                     StartDate = new DateTime(2017, 5, 20),
                     Location = "Stockholms Universitet",
+                    City = "Stockholm",
                     Level = "Kandidat",
                     Program = "Ekonomi",
                     Description = "Specialisering inom internationell handel",
-                    UserId = 8.ToString()
+                    CvId = 8
                 },
                 new Education
                 {
                     Id = 28,
                     StartDate = new DateTime(2019, 8, 15),
                     Location = "Umeå Universitet",
+                    City = "Umeå",
                     Level = "Kandidat",
                     Program = "Biologi",
                     Description = "Studier inom ekologi och naturvård",
-                    UserId = 9.ToString()
+                    CvId = 9
                 },
                 new Education
                 {
                     Id = 29,
                     StartDate = new DateTime(2023, 1, 5),
                     Location = "Linköping Universitet",
+                    City = "Linköping",
                     Level = "Doktorand",
                     Program = "Teknisk fysik",
                     Description = "Forskning inom kvantmekanik",
-                    UserId = 10.ToString()
+                    CvId = 10
                 }
             );
 
-            modelBuilder.Entity<CV>().HasData(
-                new CV
-                {
-                    Id = 1,
-                    OwnerId = 1.ToString(),
-                    Skills = new List<string> { "Projektledning", "CSS", "HTML" },
-                    Views = 10
-                },
-                new CV
-                {
-                    Id = 2,
-                    OwnerId = 3.ToString(),
-                    Skills = new List<string> { "Grafisk design", "Pedagogik" },
-                    Views = 11
-                },
-                new CV
-                {
-                    Id = 3,
-                    OwnerId = 2.ToString(),
-                    Skills = new List<string> { "Omvårdnad", "Kommunikation" },
-                    Views = 15
-                },
-                new CV
-                {
-                    Id = 4,
-                    OwnerId = 4.ToString(),
-                    Skills = new List<string> { "Eventplanering", "Samordning" },
-                    Views = 8
-                },
-                new CV
-                {
-                    Id = 5,
-                    OwnerId = 5.ToString(),
-                    Skills = new List<string> { "Ingenjörskonst", "Produktutveckling" },
-                    Views = 12
-                },
-                new CV
-                {
-                    Id = 6,
-                    OwnerId = 6.ToString(),
-                    Skills = new List<string> { "Forskning", "Biomedicin" },
-                    Views = 9
-                },
-                new CV
-                {
-                    Id = 7,
-                    OwnerId = 7.ToString(),
-                    Skills = new List<string> { "AI-utveckling", "Python", "Machine Learning" },
-                    Views = 20
-                },
-                new CV
-                {
-                    Id = 8,
-                    OwnerId = 8.ToString(),
-                    Skills = new List<string> { "Miljöskydd", "Administration" },
-                    Views = 14
-                },
-                new CV
-                {
-                    Id = 9,
-                    OwnerId = 9.ToString(),
-                    Skills = new List<string> { "Undervisning", "Kursutveckling" },
-                    Views = 18
-                },
-                new CV
-                {
-                    Id = 10,
-                    OwnerId = 10.ToString(),
-                    Skills = new List<string> { "Patientvård", "Ledarskap" },
-                    Views = 25
-                }
-            );
 
             modelBuilder.Entity<Project>().HasData(
                 new Project
@@ -853,6 +885,7 @@ namespace CV_Projekt.Models
                 .WithOne()
                 .OnDelete(DeleteBehavior.ClientNoAction);
 
+            /*
             modelBuilder.Entity<CV>()
               .HasMany(cv => cv.Experiences)
               .WithMany(exp => exp.CVs)
@@ -861,17 +894,12 @@ namespace CV_Projekt.Models
                   l => l.HasOne(typeof(Experience)).WithMany().HasForeignKey("ExperienceId").HasPrincipalKey(nameof(Experience.Id)).OnDelete(DeleteBehavior.Restrict),
                   r => r.HasOne(typeof(CV)).WithMany().HasForeignKey("CVsId").HasPrincipalKey(nameof(CV.Id)).OnDelete(DeleteBehavior.Restrict),
                   j => j.HasKey("ExperienceId", "CVsId")
-              );
+              );*/
 
-            modelBuilder.Entity<CV>()
-                .HasMany(cv => cv.Projects)
-                .WithMany(proj => proj.CVs)
-                .UsingEntity(
-                    "CVProject",
-                    l => l.HasOne(typeof(CV)).WithMany().HasForeignKey("CVsId").HasPrincipalKey(nameof(CV.Id)).OnDelete(DeleteBehavior.Restrict),
-                    r => r.HasOne(typeof(Project)).WithMany().HasForeignKey("ProjectsId").HasPrincipalKey(nameof(Project.Id)).OnDelete(DeleteBehavior.Restrict),
-                    j => j.HasKey("CVsId", "ProjectsId")
-                );
+            modelBuilder.Entity<Experience>()
+                .HasOne(ex => ex.Cv)
+                .WithMany()
+                .OnDelete(DeleteBehavior.ClientNoAction);
 
             modelBuilder.Entity<Tag>()
                 .HasMany(t => t.Users)
@@ -882,19 +910,6 @@ namespace CV_Projekt.Models
                     r => r.HasOne(typeof(User)).WithMany().HasForeignKey("UserId").HasPrincipalKey(nameof(User.Id)).OnDelete(DeleteBehavior.ClientSetNull),
                     j => j.HasKey("TagId", "UserId")
                 );
-
-
-
-            modelBuilder.Entity("CVProject").HasData(
-                new { CVsId = 2, ProjectsId = 1 },
-                new { CVsId = 2, ProjectsId = 2 }
-            );
-
-            modelBuilder.Entity("CVExperience").HasData(
-                new { CVsId = 1, ExperienceId = 1 },
-                new { CVsId = 1, ExperienceId = 2 },
-                new { CVsId = 2, ExperienceId = 3 }
-            );
         }
     }
 }

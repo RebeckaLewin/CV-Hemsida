@@ -1,6 +1,6 @@
 ﻿@model ProfileViewModel
 
-
+@using System.Security.Claims
 
 <section class="h-100">
 	<div class="container py-5 h-100">
@@ -34,13 +34,18 @@
 					<div class="card-body p-2 text-black">
 						<div class="mb-5  text-body">
 										<div class="d-flex flex-column justify-content-center mt-2" style="margin-bottom:1rem;">
+											@if (!Model.User.isPrivate || Model.User.Id.Equals(User.FindFirstValue(ClaimTypes.NameIdentifier)) || User.Identity.IsAuthenticated)
+											{
+												<a asp-controller="Cv" asp-action="Inspect" asp-route-id="@Model.User.Id" class="btn" style="background-color:#fff; color:#ff6219; margin-bottom:1rem;"><i class="fa-solid fa-file-lines"></i>Visa CV</a>
+											}
+                                            @if(Model.User.Id.Equals(User.FindFirstValue(ClaimTypes.NameIdentifier)))
+										    {
+												<div>
+													<a asp-controller="Account" asp-action="Settings" asp-route-id="@Model.User.Id" class="btn" style="background-color:#fff; color:#ff6219; margin-bottom:1rem;"><i class="fa-solid fa-gear"></i>Ändra Profil</a>
 
-											<a asp-controller="Cv" asp-action="Cv" asp-route-id="@Model.User.Id" class="btn" style="background-color:#fff; color:#ff6219; margin-bottom:1rem;"><i class="fa-solid fa-file-lines"></i>Visa CV</a>
-                                           
-											<a asp-controller="Account" asp-action="Settings" asp-route-id="@Model.User.Id" class="btn" style="background-color:#fff; color:#ff6219; margin-bottom:1rem;"><i class="fa-solid fa-gear"></i>Ändra Profil</a>
-
-                                            <a asp-controller="Cv" asp-action="CreateCv" asp-route-id="@Model.User.Id" class="btn" style="background-color:#fff; color:#ff6219; margin-bottom:1rem;"><i class="fa-solid fa-file-circle-plus"></i>Ändra CV</a>
-                                           
+													<a asp-controller="Cv" asp-action="Update" asp-route-id="@Model.User.Id" class="btn" style="background-color:#fff; color:#ff6219; margin-bottom:1rem;"><i class="fa-solid fa-file-circle-plus"></i>Ändra CV</a>
+												</div>
+										    }
                                             <a asp-controller="Message" asp-action="AddAnon" asp-route-id="@Model.User.Id" class ="btn" style="background-color:#fff; color:#ff6219;">
                                                 <i class="fa-solid fa-envelope position-relative">     
 												</i>Skicka Meddelande

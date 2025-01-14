@@ -3,6 +3,8 @@
 
 @using System.Security.Claims;
 
+@model BaseViewModel
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -42,7 +44,10 @@
                             <li class="nav-item">
                                 <a class="nav-link text-white">
                                     <i class="fa-solid fa-envelope text-light position-relative">
-                                        <span class="badge rounded-pill badge-notification bg-danger position-absolute top-0 left-0 translate-middle" style="font-size:0.5rem;">1</span>
+                                        @if(Model.UnreadMessages > 0)
+                                        {
+                                            <span class="badge rounded-pill badge-notification bg-danger position-absolute top-0 left-0 translate-middle" style="font-size:0.5rem;">@Model.UnreadMessages</span>
+                                        }
                                     </i>
                                 </a>
                             </li>
@@ -67,7 +72,7 @@
                                 <li>
                                     <a class="dropdown-item text-black" href="#">
                                         <i class="fa-solid fa-envelope text-black position-relative">
-                                            <span class="badge rounded-pill badge-notification bg-danger position-absolute top-0 left-0 translate-middle" style="font-size:0.5rem;">1</span>
+                                            <span class="badge rounded-pill badge-notification bg-danger position-absolute top-0 left-0 translate-middle" style="font-size:0.5rem;">@Model.UnreadMessages</span>
                                         </i>
 									Meddelanden
                                     </a>

@@ -1,5 +1,6 @@
 ﻿using CV_Projekt.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace CV_Projekt.Controllers
 {
@@ -34,7 +35,9 @@ namespace CV_Projekt.Controllers
 
             ViewBag.FullName = fullName;
 
-            var viewModel = new ChatListViewModel
+            var id = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var viewModel = new ChatListViewModel(_context, id)
             {
                 ReceivedMessages = recMes,
                 SentMessages = sentMes,

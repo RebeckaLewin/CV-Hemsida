@@ -20,8 +20,11 @@
                         <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(107).webp" alt="image 1"
                              class="card-img-top w-100 rounded-3">
                         <div class="scrollable-content" style="max-height: 80%; overflow-y: auto; padding-bottom: 10px;">
-                        <div class="card-header font-weight-bold bg-dark text-light">@user.FirstName @user.LastName</div>
-                        @foreach (var exp in Model.Experiences.Where(e => e.UserId == user.Id))
+
+                            <a asp-controller="Profile" asp-action="Profile" asp-route-id="@user.Id" style="text-decoration: none" class="text-black">
+                                <div class="card-header font-weight-bold bg-dark text-light">@user.FirstName @user.LastName</div>
+                            </a>
+                        @foreach (var exp in Model.Experiences.Where(e => e.CvId == Model.Cvs.Where(cv => cv.OwnerId.Equals(user.Id)).FirstOrDefault().Id))
                         {
                             <div>
                                 <br />
@@ -63,7 +66,7 @@
                             }
                             
                             <div class="text-center position-absolute bottom-0 start-0 w-100">
-                                <form method="get" asp-controller="Cv" asp-action="CV" asp-route-id="@cv.Id">
+                                <form method="get" asp-controller="Cv" asp-action="Inspect" asp-route-id="@cv.OwnerId">
                                      <button type="submit" class="btn text-light"
                                                 style="background-color:#ff6219; margin-bottom:2rem;">
                                                 Visa CV
