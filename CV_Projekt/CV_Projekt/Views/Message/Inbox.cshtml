@@ -1,52 +1,74 @@
 ﻿@model InboxViewModel
 @using System.Security.Claims
 
-<h2 style="color:#FFF;">Inkorg</h2>
-<h3 style="color:#FFF;">Olästa Meddelanden</h3>
+<section class="h-100">
+    <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center">
+            <div class="col col-lg-9 col-xl-8">
+                <div class="card" style="border: 2px solid #ff6219; ">
 
-@foreach (var user in Model.UsersInContact)
+                    <section>
+                        <div class="container py-5">
+                            <div class="row d-flex justify-content-center">
+                                <div class="card" id="chat2">
+                                    <div class="card-header d-flex justify-content-between align-items-center p-3">
+                                        <h5 class="mb-0" style="color: #ff6219;"><b>Inkorg</b></h5>
+                                    </div>
+
+                                    <div class="card-body" data-mdb-perfect-scrollbar-init style="position: relative; height: 500px">
+                                        @foreach (var user in Model.UsersInContact)
 {
-    <div>
-        <a asp-controller="Chat" asp-action="Chat11" asp-route-otherId="@user.Id" class="btn">@user.FirstName @user.LastName</a>
-        @{
-            var unreadCount = 0;
-            for(int i = 0; i < Model.ReceivedMessages.Count; i++)
-            {
-                Message aMessage = Model.ReceivedMessages[i];
-                if(aMessage.SenderId.Equals(user.Id) && !aMessage.isRead)
-                {
-                    unreadCount++;
-                }
-            }
-        }
-        @if(unreadCount > 0)
-        {
-            <span class="badge rounded-pill badge-notification bg-danger" style="font-size:0.5rem;">@unreadCount</span>
-        }
-</div>
-}
+                                            <div class="d-flex flex-row justify-content-start mb-4 pt-1">
+												<a asp-controller="Chat" asp-action="Chat11" asp-route-otherId="@user.Id" class="btn btn-chat" style="color:#ff6219;"><u>@user.FirstName @user.LastName</u></a>
+                                                     @{
+                                                 var unreadCount = 0;
+                                                for(int i = 0; i < Model.ReceivedMessages.Count; i++)
+                                                 {
+                                                     Message aMessage = Model.ReceivedMessages[i];
+                                                         if(aMessage.SenderId.Equals(user.Id) && !aMessage.isRead)
+                                                    {
+                                                        unreadCount++;
+                                                    }
+                                                    }
+                                                                                                }
+                                                                                         @if(unreadCount > 0)
+                                                        {
 
-<h2>Anonyma meddelanden</h2>
-@foreach(Message anonMess in Model.AnonMessages)
-{
-    <form method="post" asp-action="SetToRead" asp-route-mid="@anonMess.Id" >
-        <p>@anonMess.SenderName</p>
-        <p>@anonMess.Content</p>
-        <p>@anonMess.Date</p>
-        <button type="submit">Markera som läst</button>
-    </form>   
-}
+                                                            <i class="fa-solid fa-envelope position-relative" style="color:#ff6219; font-size:16px;">
+                                                        <span class="badge rounded-pill badge-notification bg-danger position-absolute top-0 left-0 translate-middle" style="font-size:0.5rem;">@unreadCount</span>
+                                                            </i>
+                                                        }
+                                                </div>
+                                                }
+                                        <div class="card-header d-flex justify-content-between align-items-center p-3">
+                                            <h5 class="mb-0" style="color: #ff6219;"><b>Anonyma Meddelanden</b></h5>
+                                                                                            </div>
 
-@*
-<a class="btn btn-primary text-light"
-               style="background-color:#ff6219; margin-bottom:2rem;"
-               asp-controller="Message"
-               asp-action="AllUserList"
-               asp-route-id="@ViewBag.Id">
-               Skriv Nytt Meddelande
-            </a>
-*@
+                                                    @foreach(Message anonMess in Model.AnonMessages)
+                                                    {
+                                                        <div class="d-flex flex-row justify-content-start mb-4 pt-1">
+                                                        <form method="post" asp-action="SetToRead" asp-route-mid="@anonMess.Id" >
+													<p class="small p-2 me-3 mb-1 text-white rounded-3" style="background-color:#ff6219;"><b>@anonMess.SenderName</b><br />@anonMess.Content<br /><i>@anonMess.Date</i></p>
+                                                            
+                                                            <button type="submit" style="background-color:#ff6219; color:#fff; margin-top:1rem;">Markera som läst</button>
+                                                        </form>
+                                                        </div>
+                                                    }
+                                         
+                                         </div>
+                                         <div class="d-flex justify-content-center">
+									<a class="btn" style="color:#ff6219; background-color:#fff;border:1px solid #ff6219; margin-left: 3px;">Tillbaka</a>
+									</div>
+                           
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                
 
-        
-
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
