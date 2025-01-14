@@ -152,6 +152,7 @@ namespace CV_Projekt.Models
                     FirstName = "Alice",
                     LastName = "Andersson",
                     Description = "En noggrann och kreativ grafisk designer med ett öga för detaljer.",
+                    PictureUrl = "~/images/Alice.jpg",
                     UserName = "alicean12@live.se",
                     Email = "alicean12@live.se",
 					InformationId = 1,
@@ -165,6 +166,7 @@ namespace CV_Projekt.Models
                     FirstName = "Bob",
                     LastName = "Bergström",
                     Description = "En erfaren systemutvecklare som brinner för innovativa lösningar.",
+                    PictureUrl = "~/images/bob.jpg",
                     UserName = "bobbergstrom@gmail.com",
                     Email = "bobbergstrom@gmail.com",
 					InformationId = 2,
@@ -178,6 +180,7 @@ namespace CV_Projekt.Models
                     FirstName = "Charlie",
                     LastName = "Carlsson",
                     Description = "En entusiastisk frontend-utvecklare som älskar att skapa användarvänliga gränssnitt.",
+                    PictureUrl = "~/images/Charlie.jpg",
                     UserName = "charliec@live.se",
                     Email = "charliec@live.se",
 					InformationId = 3,
@@ -191,6 +194,7 @@ namespace CV_Projekt.Models
                     FirstName = "Daniel",
                     LastName = "Davidsson",
                     Description = "En passionerad IT-projektledare med fokus på samarbete och kvalitet.",
+                    PictureUrl = "~/images/Daniel.jpg",
                     UserName = "danield@outlook.com",
                     Email = "danield@outlook.com",
 					InformationId = 4,
@@ -204,6 +208,7 @@ namespace CV_Projekt.Models
                     FirstName = "Emily",
                     LastName = "Evans",
                     Description = "En social media-expert med erfarenhet av kampanjer och strategier.",
+                    PictureUrl = "~/images/Emily.jpg",
                     UserName = "emily.evans@hotmail.com",
                     Email = "emily.evans@hotmail.com",
 					InformationId = 5,
@@ -217,6 +222,7 @@ namespace CV_Projekt.Models
                     FirstName = "Frank",
                     LastName = "Fischer",
                     Description = "En datasäkerhetsspecialist med djup kunskap inom kryptering och skydd.",
+                    PictureUrl = "~/images/Frank.jpg",
                     UserName = "frankfischer@gmail.com",
                     Email = "frankfischer@gmail.com",
 					InformationId = 6,
@@ -231,6 +237,7 @@ namespace CV_Projekt.Models
                     LastName = "Gustafsson",
                     UserName = "grace.gustafsson@live.se",
                     Description = "En UI/UX-designer som strävar efter att skapa engagerande upplevelser.",
+                    PictureUrl = "~/images/Grace.jpg",
                     Email = "grace.gustafsson@live.se",
 					InformationId = 7,
                     Password = "GracefulP@ss4",
@@ -243,6 +250,7 @@ namespace CV_Projekt.Models
                     FirstName = "Hanna",
                     LastName = "Holm",
                      Description = "En datavetare med specialisering inom artificiell intelligens och maskininlärning.",
+                     PictureUrl = "~/images/Hanna.jpg",
                     UserName = "hanna.holm@gmail.com",
                     Email = "hanna.holm@gmail.com",
 					InformationId = 8,
@@ -256,6 +264,7 @@ namespace CV_Projekt.Models
                     FirstName = "Ian",
                     LastName = "Ingemarsson",
                     Description = "En engagerad produktägare som fokuserar på att möta kundernas behov.",
+                    PictureUrl = "~/images/Ian.jpg",
                     UserName = "ian.ingemarsson@outlook.com",
                     Email = "ian.ingemarsson@outlook.com",
 					InformationId = 9,
@@ -269,6 +278,7 @@ namespace CV_Projekt.Models
                     FirstName = "Julia",
                     LastName = "Jonsson",
                     Description = "En entreprenör med erfarenhet av e-handel och kundservice.",
+                    PictureUrl = "~/images/Julia.jpg",
                     UserName = "julia.jonsson@yahoo.com",
                     Email = "julia.jonsson@yahoo.com",
 					InformationId = 10,
@@ -282,6 +292,7 @@ namespace CV_Projekt.Models
                     FirstName = "Karl",
                     LastName = "Karlsson",
                     Description = "En erfaren utvecklare med passion för backend-programmering.",
+                    PictureUrl = "~/images/Karl.jpg",
                     UserName = "karl.karlsson@gmail.com",
                     Email = "karl.karlsson@gmail.com",
                     InformationId = 11,
@@ -295,6 +306,7 @@ namespace CV_Projekt.Models
                     FirstName = "Linda",
                     LastName = "Lindström",
                     Description = "En kreativ designer som älskar att skapa användarvänliga gränssnitt.",
+                    PictureUrl = "~/images/Linda.jpg",
                     UserName = "linda.lindstrom@live.se",
                     Email = "linda.lindstrom@live.se",
                     InformationId = 12,
@@ -308,6 +320,7 @@ namespace CV_Projekt.Models
                     FirstName = "Martin",
                     LastName = "Magnusson",
                     Description = "En dataanalytiker med erfarenhet av stora datamängder.",
+                    PictureUrl = "~/images/Martin.jpg",
                     UserName = "martin.magnusson@outlook.com",
                     Email = "martin.magnusson@outlook.com",
                     InformationId = 13,
@@ -321,6 +334,7 @@ namespace CV_Projekt.Models
                     FirstName = "Nina",
                     LastName = "Nilsson",
                     Description = "En driven projektledare med fokus på effektivitet och teamarbete.",
+                    PictureUrl = "~/images/Nina.jpg",
                     UserName = "nina.nilsson@hotmail.com",
                     Email = "nina.nilsson@hotmail.com",
                     InformationId = 14,
@@ -334,6 +348,7 @@ namespace CV_Projekt.Models
                     FirstName = "Oscar",
                     LastName = "Olsson",
                     Description = "En systemarkitekt med över 10 års erfarenhet i branschen.",
+                    PictureUrl = "~/images/Oscar.jpg",
                     UserName = "oscar.olsson@gmail.com",
                     Email = "oscar.olsson@gmail.com",
                     InformationId = 15,
@@ -347,6 +362,7 @@ namespace CV_Projekt.Models
                     FirstName = "Petra",
                     LastName = "Persson",
                     Description = "En engagerad tester som brinner för att hitta och lösa buggar.",
+                    PictureUrl = "~/images/Petra.jpg",
                     UserName = "petra.persson@yahoo.com",
                     Email = "petra.persson@yahoo.com",
                     InformationId = 16,
@@ -360,6 +376,7 @@ namespace CV_Projekt.Models
                     FirstName = "Quentin",
                     LastName = "Quist",
                     Description = "En teknisk skribent som gör komplexa idéer lättförståeliga.",
+                    PictureUrl = "~/images/Quentin.jpg",
                     UserName = "quentin.quist@live.se",
                     Email = "quentin.quist@live.se",
                     InformationId = 17,
@@ -373,6 +390,7 @@ namespace CV_Projekt.Models
                     FirstName = "Rebecca",
                     LastName = "Rudolfsson",
                     Description = "En marknadsföringsspecialist med fokus på digitala strategier.",
+                    PictureUrl = "~/images/Rebecca.jpg",
                     UserName = "rebecca.rudolfsson@outlook.com",
                     Email = "rebecca.rudolfsson@outlook.com",
                     InformationId = 18,
@@ -386,6 +404,7 @@ namespace CV_Projekt.Models
                     FirstName = "Stefan",
                     LastName = "Sundberg",
                     Description = "En agil coach som hjälper team att nå sin fulla potential.",
+                    PictureUrl = "~/images/Stefan.jpg",
                     UserName = "stefan.sundberg@gmail.com",
                     Email = "stefan.sundberg@gmail.com",
                     InformationId = 19,
@@ -399,6 +418,7 @@ namespace CV_Projekt.Models
                     FirstName = "Therese",
                     LastName = "Törnqvist",
                     Description = "En front-end-utvecklare med öga för detaljer och design.",
+                    PictureUrl = "~/images/Therese.jpg",
                     UserName = "therese.tornqvist@hotmail.com",
                     Email = "therese.tornqvist@hotmail.com",
                     InformationId = 20,
@@ -1660,17 +1680,6 @@ namespace CV_Projekt.Models
                 .HasOne(cv => cv.Owner)
                 .WithOne()
                 .OnDelete(DeleteBehavior.ClientNoAction);
-
-            /*
-            modelBuilder.Entity<CV>()
-              .HasMany(cv => cv.Experiences)
-              .WithMany(exp => exp.CVs)
-              .UsingEntity(
-                  "CVExperience",
-                  l => l.HasOne(typeof(Experience)).WithMany().HasForeignKey("ExperienceId").HasPrincipalKey(nameof(Experience.Id)).OnDelete(DeleteBehavior.Restrict),
-                  r => r.HasOne(typeof(CV)).WithMany().HasForeignKey("CVsId").HasPrincipalKey(nameof(CV.Id)).OnDelete(DeleteBehavior.Restrict),
-                  j => j.HasKey("ExperienceId", "CVsId")
-              );*/
 
             modelBuilder.Entity<Experience>()
                 .HasOne(ex => ex.Cv)
