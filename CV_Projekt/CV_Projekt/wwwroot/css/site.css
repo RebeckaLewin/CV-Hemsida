@@ -67,6 +67,31 @@ input[type="checkbox"]:checked {
     background-color: #fff;
 }
 
+#chat2 .form-control {
+    border-color: transparent;
+  
+}
+
+.message-p {
+    max-width: 80%; 
+    white-space: nowrap; 
+    overflow: hidden;
+    text-overflow: ellipsis; 
+}
+
+    #chat2 .form-control:focus {
+        border-color: transparent;
+        box-shadow: inset 0px 0px 0px 1px transparent;
+    }
+
+.divider:after,
+.divider:before {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: #eee;
+}
+
 .cv-h6 {
     color: #ff6219;
 }
