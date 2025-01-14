@@ -94,66 +94,7 @@
                 <div class="col-md-6 pt-md-0 pt-3">
                 </div>
             </div>
-                <form method="post" asp-action="AddTag">
-                    <input asp-for="User.Id" value="@Model.User.Id" hidden />
-                    <div class="row py-2">
-                        <h6 class="cv-h6"><b>Lägg till tags</b></h6>
-                        <div class="col-md-6">
-                            <label class="settingsLbl" for="skillTtl">Tags</label>
-                            <input asp-for="User.Id" type="text" class="bg-light form-control">
-                        </div>
-                        <div class="col-md-6 pt-md-0 pt-3">
-                        </div>
-                    </div>
-                    <div class="row py-2">
-                        <div class="col-md-6">
-                            <button type="submit" class="btn border border-light button mr-3 text-light" style="background-color:#ff6219;">Lägg till tag</button>
-                        </div>
-                        <div class="col-md-6 pt-md-0 pt-3">
-                        </div>
-                    </div>
-                    </form>
-				<form method="post" asp-action="RemoveTag" asp-route-uid="@Model.User.Id">
-					<input asp-for="TagId" value="tag.Id.ToString()" hidden />
-                    <div class="row py-2">
-                        <h6 class="cv-h6"><b>Tillagda tags:</b></h6>
-                        <div class="col-md-12">
-                            <ul id="skillList" class="list-group cv-list-group">
-                                @if(Model.User.Tags.Count <= 0){
-                                    <li>
-                                        <div class="tag-item d-flex justify-content-between align-items-center">
-                                            <span class="tag-name"><b>Du har inga taggar.</b></span>
-                                        </div>
-                                    </li>
-                                }
-                                else {
-
-                                
-                        @foreach (var tag in Model.User.Tags)
-                        {
-                            <li>
-                                <div class="tag-item d-flex justify-content-between align-items-center">
-                                    
-                                    <span class="tag-name"><b>@tag.Descriptor</b></span>
-                                    <button asp-action="RemoveTag"
-                                            asp-route-uid="@Model.User.Id"
-                                            class="btn btn-sm remove-btn"
-                                            style="background-color: #fff;
-                                                color: #ff6219;
-                                                border: 1px solid #ff6219;
-                                                padding: 5px 10px;
-                                                font-size: 14px;
-                                                margin-bottom: 2px;">
-                                        <i class="fa-solid fa-xmark"></i> Ta bort
-                                    </button>
-                                </div>
-                            </li>
-                        }
-                        }
-                    </ul>
-                </div>
-                </div>
-                </form>
+               
             <div class="py-3 pb-4 border-bottom">
                 <button class="btn border border-light button mr-3 text-light" style="background-color:#ff6219;" type="submit">Spara Ändringar</button>
                 <button class="btn border border-light button" style="background-color: #fff; color: #ff6219">Avbryt</button>
@@ -179,8 +120,8 @@
         <div>
             <form method="post" asp-action="AddTag" asp-route-uid="@Model.User.Id" asp-route-tid="@Model">
                 <input asp-for="User.Id" value="@Model.User.Id" hidden/>
-                <select asp-items="@ViewBag.options" asp-for="TagId"></select>
-                <button type="submit" class="btn border border-light button mr-3 text-light" style="background-color:#ff6219;">Lägg till tagg</button>
+                <select asp-items="@ViewBag.options" asp-for="TagId" class="bg-light form-control"></select>
+                <button type="submit" class="btn border border-light button mr-3 text-light" style="background-color:#ff6219; margin: 2rem;">Lägg till tagg</button>
             </form>
 
             <h5>Mina taggar</h5>
@@ -196,7 +137,7 @@
                     {
                         <button type="submit" class="btn border border-light button mr-3 text-light" style="background-color:#ff6219;">Ta bort</button>
                         <input asp-for="TagId" value="@tag.Id.ToString()" hidden/>
-                        <b>@tag.Descriptor</b>
+                        <b>@tag.Descriptor</b><br/>
                     }
                 }
             </form>
