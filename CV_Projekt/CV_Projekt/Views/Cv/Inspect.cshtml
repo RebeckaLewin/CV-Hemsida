@@ -1,5 +1,6 @@
 ﻿@model CvViewModel
 
+@using System.Security.Claims
 
 <section class="h-100">
 	<div class="container py-5 h-100">
@@ -23,8 +24,11 @@
 						<div class="ms-3 text-light" style="margin-top: 100px;">
 							<h4 style="text-align:center;">CV</h4>
 									<h5 style="text-align:center;">@Model.Owner.FirstName @Model.Owner.LastName</h5>
-									<h5 style="text-align:right">Visningar</h5>
-									<h6 style="text-align:right"></h6>
+									@if (User.Identity.IsAuthenticated && User.FindFirstValue(ClaimTypes.NameIdentifier) == Model.CV.OwnerId)
+									{
+										<h5 style="text-align:right">Visningar</h5>
+										<h6 style="text-align:right">@Model.CV.Views</h6>
+									}
 							</div>
 						</div>
 							</div>
