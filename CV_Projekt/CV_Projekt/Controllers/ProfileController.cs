@@ -58,7 +58,7 @@ namespace CV_Projekt.Controllers
                 suitableUserId = user.Id;
             }
 
-			return View("Profile", new { id = suitableUserId });
+			return RedirectToAction("Profile", new { id = suitableUserId });
         }
 
         public IActionResult Download()
