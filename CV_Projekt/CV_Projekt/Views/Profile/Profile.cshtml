@@ -107,12 +107,12 @@
 								<h4 style="color:#ff6219;"><i class="fa-solid fa-hashtag"></i> Taggar</h4>
 								<div class="p-1 bg-body-tertiary">
 
-									@if (@Model.User.Tags != null)
+									@if (@Model.User.Tags.Count > 0)
 									{
 										@foreach (var tags in Model.User.Tags)
 										{
 											<ul class="list-unstyled formatted-list">
-												<li class="formatted-li" style="white-space: nowrap;">@Model.User.Tags </li>
+												<li class="formatted-li" style="white-space: nowrap;">@tags.Descriptor</li>
 											</ul>
 										}
 									}
@@ -120,29 +120,17 @@
 									{
 										<p class="fw-light">Taggar saknas</p>
 									}
-
-
-
-
-
-
 								</div>
-
 							</div>
+						</div>
+						<div>
+							<button asp-action="FindSimilarProfile" asp-controller="Profile" asp-route-id="@Model.User.Id">Hitta någon som jag!</button>
+						</div>
 					</div>
-					
-
-					
-					
-									
-
-								</div>
-							</div>
-						</div>
-						</div>
-						</div>
-					
-				
+				</div>
+			</div>
+		</div>
+	</div>							
 </section>
 
 

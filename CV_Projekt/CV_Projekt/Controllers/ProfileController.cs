@@ -23,5 +23,14 @@ namespace CV_Projekt.Controllers
             viewModel.Tags = _context.Tags.ToList();
             return View(viewModel);
         }
-    }
+
+        public IActionResult FindSimilarProfile(string id)
+        {
+            string suitableUserId = "";
+
+            User user = _context.Users.Where(u => u.Id.Equals(id)).FirstOrDefault();
+
+            return View("Profile", new { id = user.Id });
+        }
+	}
 }

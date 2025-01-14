@@ -906,9 +906,9 @@ namespace CV_Projekt.Models
                 .WithMany(u => u.Tags)
                 .UsingEntity(
                     "TagUser",
-                    l => l.HasOne(typeof(Tag)).WithMany().HasForeignKey("TagId").HasPrincipalKey(nameof(Tag.Id)).OnDelete(DeleteBehavior.ClientSetNull),
-                    r => r.HasOne(typeof(User)).WithMany().HasForeignKey("UserId").HasPrincipalKey(nameof(User.Id)).OnDelete(DeleteBehavior.ClientSetNull),
-                    j => j.HasKey("TagId", "UserId")
+                    l => l.HasOne(typeof(Tag)).WithMany().HasForeignKey("TagsId").HasPrincipalKey(nameof(Tag.Id)).OnDelete(DeleteBehavior.ClientSetNull),
+                    r => r.HasOne(typeof(User)).WithMany().HasForeignKey("UsersId").HasPrincipalKey(nameof(User.Id)).OnDelete(DeleteBehavior.ClientSetNull),
+                    j => j.HasKey("TagsId", "UsersId")
                 );
         }
     }
