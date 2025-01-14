@@ -23,6 +23,14 @@ namespace CV_Projekt.Controllers
                 .Include(p => p.Participants)
                 .FirstOrDefault();
 
+			if (project != null) 
+			{
+				project.Participants = project.Participants
+					.Where(part => part.isActive &&
+						(User.Identity.IsAuthenticated || !part.isPrivate))
+					.ToList();
+			}
+
             var projCreator = context.Users
                 .Where(u => u.Id == project.CreatorId)
                 .FirstOrDefault();
@@ -43,7 +51,18 @@ namespace CV_Projekt.Controllers
 				.Include(p => p.Participants)
 				.ToList();
 
-			var projCreator = context.Users
+            if (projects != null)
+            {
+				foreach (var project in projects)
+				{
+					project.Participants = project.Participants
+						.Where(part => part.isActive &&
+							(User.Identity.IsAuthenticated || !part.isPrivate))
+						.ToList();
+				}
+            }
+
+            var projCreator = context.Users
 				.Where(u => projects.Select(p => p.CreatorId)
 				.Contains(u.Id))
 				.ToList();
