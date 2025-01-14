@@ -1,6 +1,109 @@
 ﻿@model UpdateProjectViewModel
 
-<h1>Uppdatera projekt</h1>
+
+
+@{
+	ViewData["Title"] = "Projekt";
+}
+
+<body class="bodyUserProfileSettings"
+      style="margin: 0 0 5rem 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            background-color: dimgrey;">
+    <div class="wrapper my-sm-5"
+         style="background-color:#fff;
+                padding: 30px 50px;
+                border: 1px solid #ff6219;
+                border-radius: 15px;
+                margin: 10px auto;
+                max-width: 600px;">
+        <h4 class="pb-4 border-bottom"
+            style="letter-spacing: -1px;
+                   font-weight: 400;">
+            Uppdatera Projekt
+        </h4>
+        <div class="py-2">
+            <form asp-action="Update" method="post">
+                <input asp-for="Project.Id" value="@Model.Project.Id" hidden />
+                <input asp-for="Project.CreatorId" value="@Model.Project.CreatorId" hidden />
+            <div class="row py-2">
+                <div class="col-md-6">
+                    <label class="settingsLbl" for="title">Projektets Titel</label>
+                        <input asp-for="Project.Title" type="text" value="@Model.Project.Title" class="bg-light form-control">
+                </div>
+                <div class="col-md-6 pt-md-0 pt-3">
+                    <label class="settingsLbl" for="startdate">Startdatum</label>
+                        <input asp-for="Project.StartDate" type="date" value="@Model.Project.StartDate" class="bg-light form-control">
+                </div>
+            </div>
+            <div class="row py-2">
+				<div class="col-md-6">
+					<label class="settingsLbl" for="projDescription">Projektbeskrivning</label>
+                        <input asp-for="Project.Description" type="text" value="@Model.Project.Description" class="bg-light form-control">
+                    
+                </div>
+                <div class="col-md-6 pt-md-0 pt-3">
+                     <label class="settingsLbl" for="enddate">Slutdatum</label>
+                        <input asp-for="Project.EndDate" type="date" value="@Model.Project.EndDate" class="bg-light form-control">
+                </div>
+            </div>
+			</form>
+                <div class="row py-2">
+                <div class="col-md-6">
+                    <label class="settingsLbl" for="participants">Deltagare</label>
+                    <div id="selectedParticipantsList" class="participants-list">
+                        @foreach (var participant in Model.Project.Participants)
+                        {
+                            <div class="participant-item d-flex justify-content-between align-items-center">
+                                <span class="participant-name">@participant.FirstName @participant.LastName</span>
+                                <button asp-action="RemoveParticipant"
+                                        asp-route-pid="@Model.Project.Id"
+                                        asp-route-uid="@participant.Id"
+                                        asp-route-edit="true"
+                                        class="btn btn-sm remove-btn"
+                                        style="background-color: #fff;
+                                                color: #ff6219;
+                                                border: 1px solid #ff6219;
+                                                padding: 5px 10px;
+                                                font-size: 14px;">
+                                    <i class="fa-solid fa-xmark"></i>
+                                </button>
+                            </div>
+                        }
+                    </div>
+                </div>
+
+                </div>
+               
+            <div class="py-3 pb-4 border-bottom">
+                <button type="submit" class="btn border border-light button mr-3 text-light" style="background-color:#ff6219;">Spara Projekt</button>
+                <button asp-action="Project" onclick="history.back()" class="btn border border-light button" style="background-color: #fff; color: #ff6219";>Tillbaka</button>
+            </div>
+           
+           
+        </div>
+    </div>
+  
+</body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@* <h1>Uppdatera projekt</h1>
 
 <form method="post" asp-action="Update"> 
 	<input asp-for="Project.Id" value="@Model.Project.Id" hidden/>
@@ -19,4 +122,4 @@
 		<button asp-action="RemoveParticipant" asp-route-pid="@Model.Project.Id" asp-route-uid="@participant.Id" asp-route-edit="true">Ta bort</button>
 		<li>@participant.FirstName @participant.LastName</li>
 	}
-</ul>
+</ul> *@
