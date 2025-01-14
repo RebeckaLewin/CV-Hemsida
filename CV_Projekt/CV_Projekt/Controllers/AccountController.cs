@@ -7,6 +7,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.AspNetCore.Http;
 using static System.Net.Mime.MediaTypeNames;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Security.Cryptography;
+using System;
 
 namespace CV_Projekt.Controllers
 {
@@ -136,6 +139,11 @@ namespace CV_Projekt.Controllers
 				Console.WriteLine(ex.Message);
 			}
 
+			viewModel.Tags = context.Tags.ToList();
+			List<SelectListItem> tags = context.Tags.Select
+				(x => new SelectListItem { Text = x.Descriptor, Value = x.Id.ToString() }).ToList();
+			ViewBag.options = tags;
+
 			return View(viewModel);
 		}
 
@@ -208,6 +216,36 @@ namespace CV_Projekt.Controllers
 			context.SaveChanges();
 
 			return RedirectToAction("Settings", viewModel);
+		}
+
+		[HttpPost]
+		public IActionResult AddTag(SettingsViewModel viewModel)
+		{
+			if(viewModel.TagId != null && viewModel.User.Id != null)
+			{
+				User user = context.Users.Where(u => u.Id.Equals(viewModel.User.Id)).FirstOrDefault();
+				Tag tag = context.Tags.Where(t => t.Id.ToString() == viewModel.TagId).FirstOrDefault();
+
+				user.Tags.Add(tag);
+				context.Users.Update(user);
+				context.SaveChanges();
+			}
+			return RedirectToAction("Settings", "Account");
+		}
+
+		[HttpPost]
+		public IActionResult RemoveTag(SettingsViewModel viewModel)
+		{
+			if (viewModel.TagId != null && viewModel.User.Id != null)
+			{
+				User user = context.Users.Where(u => u.Id.Equals(viewModel.User.Id)).FirstOrDefault();
+				Tag tag = context.Tags.Where(t => t.Id.ToString() == viewModel.TagId).FirstOrDefault();
+
+				user.Tags.Remove(tag);
+				context.Users.Update(user);
+				context.SaveChanges();
+			}
+			return RedirectToAction("Settings");
 		}
 	}
 }

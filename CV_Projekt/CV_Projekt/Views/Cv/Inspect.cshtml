@@ -2,42 +2,43 @@
 
 @using System.Security.Claims
 
+
 <section class="h-100">
 	<div class="container py-5 h-100">
 		<div class="row d-flex justify-content-center">
-			
+
 			<div class="col col-lg-9 col-xl-8">
 				<div class="card bg-dark" style="border: 2px solid #ff6219; ">
 					<div class="container">
 						<div class="row">
 							<div class="col-sm-4">
-					<div class="rounded-top text-dark d-flex flex-row" >
-						<div class="ms-4 mt-5 d-flex flex-column">
-							<img src="@Url.Content(Model.Owner.PictureUrl)"
-								 alt="Generic placeholder image" class="img-fluid img-thumbnail mt-4 mb-2"
-											 style="width: 150px; z-index: 1; box-shadow:2px 2px 4px dimgray">
+								<div class="rounded-top text-dark d-flex flex-row" >
+									<div class="ms-4 mt-5 d-flex flex-column">
+										<img src="@Url.Content(Model.Owner.PictureUrl)"
+										alt="Generic placeholder image" class="img-fluid img-thumbnail mt-4 mb-2"
+										style="width: 150px; z-index: 1; box-shadow:2px 2px 4px dimgray">
 									</div>
-									</div>
-							
-						</div>
-						<div class="col-sm-8">
-						<div class="ms-3 text-light" style="margin-top: 100px;">
-							<h4 style="text-align:center;">CV</h4>
+								</div>
+
+							</div>
+							<div class="col-sm-8">
+								<div class="ms-3 text-light" style="margin-top: 100px;">
+									<h4 style="text-align:center;">CV</h4>
 									<h5 style="text-align:center;">@Model.Owner.FirstName @Model.Owner.LastName</h5>
-									@if (User.Identity.IsAuthenticated && User.FindFirstValue(ClaimTypes.NameIdentifier) == Model.CV.OwnerId)
+									@if(Model.Owner.Id.Equals(User.FindFirstValue(ClaimTypes.NameIdentifier)))
 									{
-										<h5 style="text-align:right">Visningar</h5>
-										<h6 style="text-align:right">@Model.CV.Views</h6>
+										<h5 style="text-align:right">Visningar: @Model.CV.Views</h5>
 									}
+									<h6 style="text-align:right"></h6>
+								</div>
 							</div>
 						</div>
-							</div>
-						
-				
-					<div class="row">
-						<div class="col-sm-5">
-					<div class="card-body p-4 text-black">
-						<div class="mb-5  text-body">
+
+
+						<div class="row">
+							<div class="col-sm-5">
+								<div class="card-body p-4 text-black">
+									<div class="mb-5  text-body">
 										<div class="d-flex justify-content-center mt-2" style="margin-bottom:2rem;">
 											<a asp-controller="Profile" asp-action="Profile" asp-route-id="@Model.Owner.Id" class="btn" style="background-color:#ff6219; color:#fff;">Till Profil</a>
 										</div>
@@ -60,7 +61,7 @@
 												<p class="fw-light">Kontaktinformation saknas</p>
 											}
 
-											<h6 class="lead fw-normal mb-1" style="color:#ff6219;">Skills</h6>
+											<h6 class="lead fw-normal mb-1" style="color:#ff6219;">Kompetenser</h6>
 										
 
 											@if (Model.Skills != null && Model.Skills.Any())
@@ -74,7 +75,7 @@
 											}
 											else
 											{
-												<p class="fw-light">Användaren har inga listade Skills</p>
+												<p class="fw-light">Användaren har inga listade kompetenser</p>
 											}
 
 										</div>
