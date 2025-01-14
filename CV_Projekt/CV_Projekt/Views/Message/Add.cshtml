@@ -26,12 +26,10 @@
 					<form asp-action="Add" method="post">
 						<h6 class="text-dark" style="color:#FFF;"><b>Till:</b> <i>@Model.Receiver.FirstName @Model.Receiver.LastName</i></h6>
 						
-						<label class="settingsLbl text-dark" style="color:#FFF;">Ämne: </label>
-						<input class="bg-light form-control" type="text" asp-for="@Model.Message.Subject" />
-						
 						<label class="settingsLbl text-dark">Meddelande: </label>
 						<textarea class="bg-light form-control" rows="5" asp-for="@Model.Message.Content"></textarea>
 						
+                        <input asp-for="Message.SenderName" value="@Model.Sender.FirstName @Model.Sender.LastName" hidden/>
 						<input asp-for="Message.SenderId" type="hidden" value="@Model.Sender.Id" />
 						<input asp-for="Message.ReceiverId" type="hidden" value="@Model.Receiver.Id" />
                         <input asp-for="Message.Date" name="Date" value="@DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")" hidden />
@@ -42,7 +40,6 @@
 						</div> *@
 					</form>
              </div>
-
          </div>
      </div>
     </div>
