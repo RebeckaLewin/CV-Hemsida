@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ProfileInformation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <FullName>Alice Andersson</FullName>
+  <Email>alicean12@live.se</Email>
+  <Address>Rullgatan 24A</Address>
+  <Phone>0723892311</Phone>
+  <CreatedProjects>
+    <Project>
+      <Id>1</Id>
+      <StartDate>2010-08-30T00:00:00</StartDate>
+      <EndDate>2011-08-30T00:00:00</EndDate>
+      <Title>Tidtabell för postnord</Title>
+      <Description>En app för att optimera postleveranser.</Description>
+      <CreatorId>1</CreatorId>
+      <Participants />
+    </Project>
+  </CreatedProjects>
+  <JoinedProjects>
+    <Project>
+      <Id>2</Id>
+      <StartDate>2012-01-15T00:00:00</StartDate>
+      <EndDate>2015-03-10T00:00:00</EndDate>
+      <Title>SJ Bokningssystem</Title>
+      <Description>Ett bokningssystem för SJ-resor.</Description>
+      <CreatorId>3</CreatorId>
+      <Participants />
+    </Project>
+    <Project>
+      <Id>3</Id>
+      <StartDate>2015-06-01T00:00:00</StartDate>
+      <EndDate>2016-06-01T00:00:00</EndDate>
+      <Title>Miljödatabas</Title>
+      <Description>En databas för miljöövervakning och analys.</Description>
+      <CreatorId>2</CreatorId>
+      <Participants />
+    </Project>
+  </JoinedProjects>
+  <Cv>
+    <Id>1</Id>
+    <OwnerId>1</OwnerId>
+    <Skills>
+      <string>Projektledning</string>
+      <string>CSS</string>
+    </Skills>
+    <Views>10</Views>
+  </Cv>
+  <Work>
+    <Work>
+      <Id>11</Id>
+      <CvId>1</CvId>
+      <StartDate>2020-06-29T00:00:00</StartDate>
+      <EndDate>0001-01-01T00:00:00</EndDate>
+      <Location>Café Deed</Location>
+      <City>Örebro</City>
+      <Description>Underhåller ett team i bageri/ungdomsgård</Description>
+      <Role>Arbetsledare</Role>
+    </Work>
+  </Work>
+  <Education />
+  <OtherExperience />
+</ProfileInformation>

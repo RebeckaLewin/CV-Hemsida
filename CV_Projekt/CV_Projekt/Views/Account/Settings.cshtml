@@ -71,10 +71,8 @@
                         <label class="settingsLbl" for="address">Adress</label>
                         <input asp-for="User.ContactInformation.Address" type="text" class="bg-light form-control" value="@Model.User.ContactInformation.Address">
                     </div>
-                    <div class="col-md-6 pt-md-0 pt-3">
-                        
-                    </div>
-                   
+                    <div class="col-md-6 pt-md-0 pt-3">                      
+                    </div>     
                 </div>
             <div class="row py-2">
                 <div class="col-md-6">
@@ -178,8 +176,34 @@
             </div>
         </div>
         </form>
+        <div>
+            <form method="post" asp-action="AddTag" asp-route-uid="@Model.User.Id" asp-route-tid="@Model">
+                <input asp-for="User.Id" value="@Model.User.Id" hidden/>
+                <select asp-items="@ViewBag.options" asp-for="TagId"></select>
+                <button type="submit">Lägg till tagg</button>
+            </form>
+
+            <h5>Mina taggar</h5>
+            <form method="post" asp-action="RemoveTag" asp-route-uid="@Model.User.Id">
+                <input asp-for="User.Id" value="@Model.User.Id" hidden />
+                @if(Model.User.Tags.Count <= 0)
+                {
+                    <b>Du har inga taggar.</b>
+                }
+                else
+                {
+                    @foreach (var tag in Model.User.Tags)
+                    {
+                        <button type="submit">Ta bort</button>
+                        <input asp-for="TagId" value="@tag.Id.ToString()" hidden/>
+                        <b>@tag.Descriptor</b>
+                    }
+                }
+            </form>
+        </div>
 	</div>
 </body>
+
 <script>
 
     let profilePicture = document.getElementById('profilePic');
