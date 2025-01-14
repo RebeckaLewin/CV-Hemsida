@@ -1,4 +1,5 @@
 ﻿@model ChatListViewModel
+@using System.Security.Claims
 
 <h2 style="color:#FFF;">Inkorg</h2>
 <h3 style="color:#FFF;">Olästa Meddelanden</h3>
@@ -7,22 +8,25 @@
     <div class="card">
         <h3> Från: @message.Sender.FirstName @message.Sender.LastName </h3>
         <h4> @message.Subject</h4>
-        @* <a class="btn btn-primary text-light"
-           style="background-color:#ff6219; margin-bottom:2rem;"
-           asp-controller="Chat"
-           asp-action="Chat11"
-           asp-route-senderId="@message.SenderId"
-           asp-route-receiverId="@message.ReceiverId">
-           Visa Meddelande
-        </a> *@
-        <form asp-controller="Message" asp-action="ChatList" method="post">
+      
+        @* <form asp-controller="Message" asp-action="ChatList" method="post">
             <input asp-for="@Model.Message.Id" type="hidden" value="@message.Id" />
             <br />
             <br />
             <button type="submit">Visa Meddelande</button>
-        </form>
+        </form> *@
+
+            <a class="btn btn-primary text-light"
+                   style="background-color:#ff6219; margin-bottom:2rem;"
+                   asp-controller="Chat"
+                   asp-action="Chat11"
+                   asp-route-receiverId="@ViewBag.Id"
+                   asp-route-senderId="@message.SenderId">
+                   Öppna meddelanden
+                </a>
     </div>
 }
+
 
 <a class="btn btn-primary text-light"
                style="background-color:#ff6219; margin-bottom:2rem;"
@@ -31,6 +35,7 @@
                asp-route-id="@ViewBag.Id">
                Skriv Nytt Meddelande
             </a>
+
 
         
 

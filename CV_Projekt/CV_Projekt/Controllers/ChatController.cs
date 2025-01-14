@@ -22,20 +22,16 @@ namespace CV_Projekt.Controllers
                 .OrderBy(m => m.Date)
                 .ToList();
             var allSentMes = _context.Messages
-                .Where(m => m.ReceiverId.Equals(receiverId) && m.SenderId.Equals(senderId))
+                .Where(m => m.ReceiverId.Equals(senderId) && m.SenderId.Equals(receiverId))
                 .OrderBy(m => m.Date)
                 .ToList();
+
+            TurnRead(allRecMes);
+
             var delRecMes = allRecMes.Where(r => r.ReceiverDelete.Equals(true)).ToList();
             var delSentMes = allSentMes.Where(s => s.SenderDelete.Equals(true)).ToList();
             var recMes = allRecMes.Except(delRecMes).ToList();
             var sentMes = allSentMes.Except(delSentMes).ToList();
-
-            foreach (var message in recMes)
-            {
-                message.isRead = true;
-                _context.Messages.Update(message);
-                _context.SaveChanges();
-            }
 
             var firstName = _context.Users.Where(u => u.Id.Equals(senderId)).Select(u => u.FirstName).FirstOrDefault();
             var lastName = _context.Users.Where(u => u.Id.Equals(senderId)).Select(u => u.LastName).FirstOrDefault();
@@ -74,6 +70,20 @@ namespace CV_Projekt.Controllers
             _context.Messages.Update(message);
             _context.SaveChanges();
             return RedirectToAction("Chat11", viewModel);
+        }
+
+        public void TurnRead(List<Message> messages)
+        {
+            foreach (Message mess in messages)
+            {
+                if (!mess.isRead)
+                {
+                    mess.isRead = true;
+                    _context.Messages.Update(mess);
+                    _context.SaveChanges();
+                }
+            }
+            
         }
         public IActionResult Index()
         {

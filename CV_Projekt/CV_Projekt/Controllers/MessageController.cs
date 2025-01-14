@@ -43,26 +43,6 @@ namespace CV_Projekt.Controllers
             return View(viewModel);
         }
 
-        [HttpPost]
-        public IActionResult ChatList(ChatListViewModel viewModel)
-        {
-            var mess = _context.Messages.Where(m => m.Id.Equals(viewModel.Message.Id)).FirstOrDefault();
-            viewModel.Message = mess;
-
-            if (ModelState.IsValid)
-            {
-                mess.isRead = true;
-                _context.Update(mess);
-                _context.SaveChanges();
-                return RedirectToAction("Chat11", "Chat", new { senderId = viewModel.Message.ReceiverId, receiverId = viewModel.Message.SenderId });
-            }
-            else
-            {
-                Console.WriteLine(ModelState.ErrorCount.ToString());
-                return RedirectToAction("ChatList", new { senderId = viewModel.Message.SenderId, recieverId = viewModel.Message.ReceiverId });
-            }
-        }
-
 
         [HttpGet]
         public IActionResult Add(string senderId, string receiverId)
