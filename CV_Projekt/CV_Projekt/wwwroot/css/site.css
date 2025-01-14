@@ -57,7 +57,7 @@ input[type="checkbox"]:checked {
     padding: 10px;
 }
 
-.participant-item .work-item .edu-item .otherExp-item .skill-item {
+.participant-item .work-item .edu-item .otherExp-item .skill-item .tag-item{
     display: flex;
     justify-content: space-between;
     align-items: center; 
@@ -70,7 +70,7 @@ input[type="checkbox"]:checked {
 .cv-h6 {
     color: #ff6219;
 }
-.participant-name .work-name .edu-name .otherExp-name .skill-name {
+.participant-name .work-name .edu-name .otherExp-name .skill-name .tag-name {
     flex-grow: 1;
     overflow: hidden;
     white-space: nowrap;
