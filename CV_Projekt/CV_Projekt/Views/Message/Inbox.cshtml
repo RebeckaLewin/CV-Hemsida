@@ -1,21 +1,38 @@
-﻿@model ChatListViewModel
+﻿@model InboxViewModel
 @using System.Security.Claims
 
 <h2 style="color:#FFF;">Inkorg</h2>
 <h3 style="color:#FFF;">Olästa Meddelanden</h3>
+
+@foreach (var user in Model.UsersInContact)
+{<div>
+        <a asp-controller="Chat" asp-action="Chat11" asp-route-otherId="@user.Id" class="btn">@user.FirstName @user.LastName</a>
+        @{
+            var unreadCount = 0;
+            for(int i = 0; i < Model.ReceivedMessages.Count; i++)
+            {
+                Message aMessage = Model.ReceivedMessages[i];
+                if(aMessage.SenderId.Equals(user.Id) && !aMessage.isRead)
+                {
+                    unreadCount++;
+                }
+            }
+        }
+        @if(unreadCount > 0)
+        {
+            <span class="badge rounded-pill badge-notification bg-danger" style="font-size:0.5rem;">@unreadCount</span>
+        }
+</div>
+}
+
+
+
+
 @foreach (var message in Model.ReceivedMessages)
 {
     <div class="card">
         <h3> Från: @message.Sender.FirstName @message.Sender.LastName </h3>
         <h4> @message.Subject</h4>
-      
-        @* <form asp-controller="Message" asp-action="ChatList" method="post">
-            <input asp-for="@Model.Message.Id" type="hidden" value="@message.Id" />
-            <br />
-            <br />
-            <button type="submit">Visa Meddelande</button>
-        </form> *@
-
             <a class="btn btn-primary text-light"
                    style="background-color:#ff6219; margin-bottom:2rem;"
                    asp-controller="Chat"

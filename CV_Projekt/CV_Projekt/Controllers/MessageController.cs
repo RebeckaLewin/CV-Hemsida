@@ -18,26 +18,35 @@ namespace CV_Projekt.Controllers
         }
 
         [HttpGet]
-        public IActionResult ChatList()
+        public IActionResult Inbox()
         {
+            string loggedInId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var loggedInUser = _context.Users.Where(u => u.Id.Equals(loggedInId)).FirstOrDefault();
 
-            var identity = _context.Users.Where(u => u.UserName.Equals(User.Identity.Name)).FirstOrDefault();
-            var id = identity.Id;
-            ViewBag.Id = id;
+            ViewBag.Id = loggedInId;
 
-            var recMes = _context.Messages
-                .Where(m => m.ReceiverId.Equals(id))
+            List<string> userIds = _context.Messages.Where(m => m.ReceiverId.Equals(loggedInId)).Select(m => m.SenderId).ToList();
+            userIds.AddRange(_context.Messages.Where(m => m.SenderId.Equals(loggedInId)).Select(m => m.ReceiverId).ToList());
+            userIds = userIds.DistinctBy(id => id).ToList();
+            List<User> usersInContact = new List<User>();
+
+            foreach(string id in userIds)
+            {
+                User newUser = _context.Users.Where(u => u.Id.Equals(id)).FirstOrDefault();
+                usersInContact.Add(newUser);
+            }
+
+			var receivedMes = _context.Messages
+                .Where(m => m.ReceiverId.Equals(loggedInId))
                 .Where(m => m.isRead.Equals(false))
                 .OrderByDescending(m => m.Date)
                 .ToList();
 
-            var recMes1 = recMes.DistinctBy(r => r.SenderId).ToList();
-
-            var loggedInId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-
-            var viewModel = new ChatListViewModel(_context, loggedInId)
+            var viewModel = new InboxViewModel(_context, loggedInId)
             {
-                ReceivedMessages = recMes1,
+                ReceivedMessages = receivedMes,
+                UsersInContact = usersInContact,
+                LoggedInId = loggedInId
             };
 
             return View(viewModel);
@@ -45,43 +54,39 @@ namespace CV_Projekt.Controllers
 
 
         [HttpGet]
-        public IActionResult Add(string senderId, string receiverId)
+        public IActionResult Add(string oid)
         {
-            var sender = _context.Users.Where(u => u.Id.Equals(senderId)).FirstOrDefault();
-            var receiver = _context.Users.Where(u => u.Id.Equals(receiverId)).FirstOrDefault();
+			var loggedInUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+			User loggedInUser = _context.Users.Where(u => u.Id.Equals(loggedInUserId)).FirstOrDefault();
+            User otherUser = _context.Users.Where(u => u.Id.Equals(oid)).FirstOrDefault();
             Message message = new Message();
 
-            var loggedInUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-
-            MessageViewModel viewModel = new MessageViewModel(_context, loggedInUserId) { Message = message, Receiver = receiver, Sender = sender };
+            MessageViewModel viewModel = new MessageViewModel(_context, loggedInUserId) { Message = message, Receiver = otherUser, Sender = loggedInUser };
             return View(viewModel);
         }
 
         [HttpPost]
         public IActionResult Add(MessageViewModel viewModel)
         {
-            viewModel.Sender = _context.Users.Where(u => u.Id.Equals(viewModel.Message.SenderId)).FirstOrDefault();
-            viewModel.Receiver = _context.Users.Where(u => u.Id.Equals(viewModel.Message.ReceiverId)).FirstOrDefault();
-            
-
+            viewModel.Message.Date = DateTime.Now;
             if (ModelState.IsValid)
             {
                 var mess = viewModel.Message;
                 _context.Messages.Add(mess);
                 _context.SaveChanges();
-                return RedirectToAction("Chat11", "Chat", new { senderId = viewModel.Message.ReceiverId, receiverId = viewModel.Message.SenderId } );
+                return RedirectToAction("Chat11", "Chat", new { otherId = viewModel.Message.ReceiverId } );
             }
             else
             {
                 Console.WriteLine(ModelState.ErrorCount.ToString());
-                return RedirectToAction("Add", new { senderId = viewModel.Message.SenderId, receiverId = viewModel.Message.ReceiverId });
+                return RedirectToAction("Add", new { oid = viewModel.Message.ReceiverId });
             }
         }
 
         [HttpGet]
         public IActionResult AllUserList()
         {
-
             var identity = _context.Users.Where(u => u.UserName.Equals(User.Identity.Name)).FirstOrDefault();
             var id = identity.Id;
             ViewBag.Id = id;
@@ -96,9 +101,7 @@ namespace CV_Projekt.Controllers
 			var viewModel = new UserViewModel(_context, loggedInId)
             {
                 _users = notMeUsers
-            };
-
-            
+            };            
 
             return View(viewModel);
         }

@@ -1,6 +1,5 @@
 ﻿@model MessageViewModel
 
-
 <body class="bodyUserProfileSettings" 
       style="margin: 0;
             padding: 0;
@@ -24,7 +23,6 @@
      <div class="container">
          <div class="row ">
              <div class="col-md-12">
-
 					<form asp-action="Add" method="post">
 						<h6 class="text-dark" style="color:#FFF;"><b>Till:</b> <i>@Model.Receiver.FirstName @Model.Receiver.LastName</i></h6>
 						
@@ -34,10 +32,9 @@
 						<label class="settingsLbl text-dark">Meddelande: </label>
 						<textarea class="bg-light form-control" rows="5" asp-for="@Model.Message.Content"></textarea>
 						
-						<input asp-for="@Model.Message.SenderId" type="hidden" value="@Model.Sender.Id" />
-						<input asp-for="@Model.Message.ReceiverId" type="hidden" value="@Model.Receiver.Id" />
-						<input asp-for="@Model.Message.Date" type="hidden" name="Date" value="DateTime.Now" />
-						<input asp-for="@Model.Message.isRead" type="hidden" value="false" />
+						<input asp-for="Message.SenderId" type="hidden" value="@Model.Sender.Id" />
+						<input asp-for="Message.ReceiverId" type="hidden" value="@Model.Receiver.Id" />
+                        <input asp-for="Message.Date" name="Date" value="@DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")" hidden />
                         
 					    <button type="submit">Skicka</button>
                         @* <div style="text-align:right; margin-top: 1rem;">

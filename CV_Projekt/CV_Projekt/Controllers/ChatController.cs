@@ -14,77 +14,67 @@ namespace CV_Projekt.Controllers
         }
 
         [HttpGet]
-        public IActionResult Chat11(string senderId, string receiverId)
+        public IActionResult Chat11(string otherId)
         {
-
-            var allRecMes = _context.Messages
-                .Where(m => m.ReceiverId.Equals(receiverId) && m.SenderId.Equals(senderId))
-                .OrderBy(m => m.Date)
-                .ToList();
-            var allSentMes = _context.Messages
-                .Where(m => m.ReceiverId.Equals(senderId) && m.SenderId.Equals(receiverId))
+            string loggedInId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var allMessages = _context.Messages
+                .Where(m => (m.ReceiverId.Equals(loggedInId) && m.SenderId.Equals(otherId) ||
+				             m.ReceiverId.Equals(otherId) && m.SenderId.Equals(loggedInId)))
                 .OrderBy(m => m.Date)
                 .ToList();
 
-            TurnRead(allRecMes);
-
-            var delRecMes = allRecMes.Where(r => r.ReceiverDelete.Equals(true)).ToList();
-            var delSentMes = allSentMes.Where(s => s.SenderDelete.Equals(true)).ToList();
-            var recMes = allRecMes.Except(delRecMes).ToList();
-            var sentMes = allSentMes.Except(delSentMes).ToList();
-
-            var firstName = _context.Users.Where(u => u.Id.Equals(senderId)).Select(u => u.FirstName).FirstOrDefault();
-            var lastName = _context.Users.Where(u => u.Id.Equals(senderId)).Select(u => u.LastName).FirstOrDefault();
-            var fullName = firstName + " " + lastName;
-
-            var sentUser = _context.Users.Where(u => u.Id.Equals(senderId)).FirstOrDefault();
-            var recUser = _context.Users.Where(u => u.Id.Equals(receiverId)).FirstOrDefault();
-
-            ViewBag.FullName = fullName;
-
-            var id = User.FindFirstValue(ClaimTypes.NameIdentifier);
-
-            var viewModel = new Chat11ViewModel(_context, id)
+            foreach (var message in allMessages)
             {
-                ReceivedMessages = recMes,
-                SentMessages = sentMes,
-                Sender = sentUser,
-                Receiver = recUser
+                if(message.ReceiverId.Equals(loggedInId))
+                {
+                    TurnRead(message);
+                }
+            }
+
+            allMessages = allMessages.Where(m => (m.ReceiverId.Equals(loggedInId) && m.ReceiverDelete == false) ||
+                                                 (m.SenderId.Equals(loggedInId) && m.SenderDelete == false)
+                                            ).ToList();
+
+            var loggedInUser = _context.Users.Where(u => u.Id.Equals(loggedInId)).FirstOrDefault();
+            var otherUser = _context.Users.Where(u => u.Id.Equals(otherId)).FirstOrDefault();
+
+            var viewModel = new Chat11ViewModel(_context, loggedInId)
+            {
+                AllMessages = allMessages,
+                LoggedInUser = loggedInUser,
+                OtherUser = otherUser
             };
 
             return View(viewModel);
         }
 
         [HttpPost]
-        public IActionResult RemoveMessage(int messageId, Chat11ViewModel viewModel)
+        public IActionResult RemoveMessage(int mid, string oid)
         {
-            var message = _context.Messages.Where(m => m.Id.Equals(messageId)).FirstOrDefault();
+            Message message = _context.Messages.Where(m => m.Id.Equals(mid)).FirstOrDefault();
             if (message.SenderId.Equals(User.FindFirstValue(ClaimTypes.NameIdentifier)))
             {
                 message.SenderDelete = true;
             }
-            if (message.ReceiverId.Equals(User.FindFirstValue(ClaimTypes.NameIdentifier)))
+            else
             {
                 message.ReceiverDelete = true;
             }
             _context.Messages.Update(message);
             _context.SaveChanges();
-            return RedirectToAction("Chat11", viewModel);
+            return RedirectToAction("Chat11", new { otherId = oid });
         }
 
-        public void TurnRead(List<Message> messages)
+        public void TurnRead(Message aMessage)
         {
-            foreach (Message mess in messages)
-            {
-                if (!mess.isRead)
-                {
-                    mess.isRead = true;
-                    _context.Messages.Update(mess);
-                    _context.SaveChanges();
-                }
-            }
-            
-        }
+			if (!aMessage.isRead)
+			{
+				aMessage.isRead = true;
+				_context.Messages.Update(aMessage);
+				_context.SaveChanges();
+			}
+		}
+
         public IActionResult Index()
         {
             return View();

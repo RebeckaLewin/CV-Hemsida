@@ -38,7 +38,8 @@
 											{
 												<a asp-controller="Cv" asp-action="Inspect" asp-route-id="@Model.User.Id" class="btn" style="background-color:#fff; color:#ff6219; margin-bottom:1rem;"><i class="fa-solid fa-file-lines"></i>Visa CV</a>
 											}
-                                            @if(Model.User.Id.Equals(User.FindFirstValue(ClaimTypes.NameIdentifier)))
+                                            
+											@if(Model.User.Id.Equals(User.FindFirstValue(ClaimTypes.NameIdentifier)))
 										    {
 												<div>
 													<a asp-controller="Account" asp-action="Settings" asp-route-id="@Model.User.Id" class="btn" style="background-color:#fff; color:#ff6219; margin-bottom:1rem;"><i class="fa-solid fa-gear"></i>Ändra Profil</a>
@@ -48,11 +49,23 @@
 													<a asp-controller="Profile" asp-action="Download" asp-route-id="@Model.User.Id" class="btn" style="background-color:#fff; color:#ff6219; margin-bottom:1rem;"><i class="fa-solid fa-file-circle-plus"></i>Ladda ner profil</a>
 												</div>
 										    }
-                                            <a asp-controller="Message" asp-action="AddAnon" asp-route-id="@Model.User.Id" class ="btn" style="background-color:#fff; color:#ff6219;">
-                                                <i class="fa-solid fa-envelope position-relative">     
-												</i>Skicka Meddelande
-											</a>
-                                           
+											else
+											{
+												@if(User.Identity.IsAuthenticated)
+												{
+													<a asp-controller="Message" asp-action="Add" asp-route-oid="@Model.User.Id" class="btn" style="background-color:#fff; color:#ff6219;">
+														<i class="fa-solid fa-envelope position-relative">
+														</i>Skicka Meddelande
+													</a>
+												}
+												else
+												{
+													<a asp-controller="Message" asp-action="AddAnon" asp-route-id="@Model.User.Id" class="btn" style="background-color:#fff; color:#ff6219;">
+														<i class="fa-solid fa-envelope position-relative">
+														</i>Skicka Meddelande
+													</a>
+												}
+											}											                                         
 										</div>
 										
 									</div>
