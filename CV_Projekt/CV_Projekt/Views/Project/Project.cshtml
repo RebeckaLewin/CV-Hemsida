@@ -35,7 +35,6 @@ style="margin: 0 0 2rem 0;
                     {
                         <div class="participant-item d-flex justify-content-between align-items-center">
                             <p><span class="participant-name">@participant.FirstName @participant.LastName</span></p>
-
                         </div>
                     }
                 </div>
@@ -48,16 +47,14 @@ style="margin: 0 0 2rem 0;
                         <div class="d-flex justify-content-center mb-4">
                             @if (!Model.Project.Participants.Any(p => p.UserName == User.Identity.Name))
                             {
-
-                                <form asp-controller="Project" asp-action="AddParticipant" method="post">
-                                    <input type="hidden" name="projectId" value="@Model.Project.Id" />
+                                <form asp-controller="Project" asp-action="AddParticipant" asp-route-pid="@Model.Project.Id" method="post">
+                                    <input type="hidden" asp-for="Project.Id" value="@Model.Project.Id" />
                                     <button type="submit" class="btn text-light"
                                     style="background-color:#ff6219; margin-bottom:2rem;">
                                         Registrera som deltagare
                                     </button>
                                 </form>
                             }
-
                             else
                             {
                                 <form asp-controller="Project" asp-action="RemoveParticipant" asp-route-pid="@Model.Project.Id" asp-route-uid="@User.FindFirstValue(ClaimTypes.NameIdentifier)" asp-route-edit="false" method="post">

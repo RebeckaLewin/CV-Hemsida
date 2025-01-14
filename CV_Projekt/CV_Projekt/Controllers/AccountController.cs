@@ -99,6 +99,7 @@ namespace CV_Projekt.Controllers
 					Password = viewModel.Password,
 					ContactInformation = contactInformation,
 					PictureUrl = "~/images/profilepic_default.jpg",
+					isActive = true
 				};
 				var result = await userManager.CreateAsync(newUser, newUser.Password);
 				if (result.Succeeded)
