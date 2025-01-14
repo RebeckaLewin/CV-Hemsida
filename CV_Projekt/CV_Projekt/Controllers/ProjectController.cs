@@ -102,21 +102,22 @@ namespace CV_Projekt.Controllers
 		}
 
 		[HttpPost]
-		public IActionResult AddParticipant(int projectId) 
+		public IActionResult AddParticipant(int pid) 
 		{
-			var currentUser = context.Users.Where(u => u.UserName.Equals(User.Identity.Name)).FirstOrDefault();
+			var loggedInId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+			var currentUser = context.Users.Where(u => u.Id.Equals(loggedInId)).FirstOrDefault();
 
             var project = context.Projects.
-				Where(p => p.Id == projectId)
-				.Include(p => p.Participants)
+				Where(p => p.Id == pid)
 				.FirstOrDefault();
-			if (!project.Participants.Any(u => u.Id == currentUser.Id) && project.CreatorId != currentUser.Id)
+			if (!project.Participants.Any(u => u.Id == currentUser.Id) && !project.CreatorId.Equals(currentUser.Id))
 			{
 				project.Participants.Add(currentUser);
+				context.Projects.Update(project);
 				context.SaveChanges();
 			}
 
-			return RedirectToAction("Project", new {id = projectId});
+			return RedirectToAction("Project", new { id = pid } );
 		}
 
 		[HttpGet]
