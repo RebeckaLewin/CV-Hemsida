@@ -1,8 +1,9 @@
-﻿@model ChatListViewModel
+﻿@model Chat11ViewModel
 
 <div class="row">
 <h2 style="color:#FFF;">Meddelanden</h2>
 
+@*
 <a  class="btn btn-primary text-light"
            style="background-color:#ff6219; margin-bottom:2rem;"
            asp-controller="Message"
@@ -10,32 +11,96 @@
            asp-route-senderId="@Model.Receiver.Id"
            asp-route-receiverId="@Model.Sender.Id">
            Skriv meddelande till @ViewBag.FullName
-</a>
+</a>*@
 
 <a  class="btn btn-primary text-light"
            style="background-color:#ff6219; margin-bottom:2rem;"
            asp-controller="Message"
-           asp-action="ChatList"
-           asp-route-id="@Model.Receiver.Id">
+           asp-action="Inbox">
            Tillbaka
 </a>
-</div>
+    <section class="h-100">
+        <div class="container py-5 h-100">
+            <div class="row d-flex justify-content-center">
+                <div class="col col-lg-9 col-xl-8">
+                    <div class="card" style="border: 2px solid #ff6219; ">
+                        <section>
+                            <div class="container py-5">
+                                <div class="row d-flex justify-content-center">
+                                    <div class="card" id="chat2">
+                                        <div class="card-header d-flex justify-content-between align-items-center p-3">
+                                            <h5 class="mb-0" style="color: #ff6219;"><b>Inkorg</b></h5>
+                                            <h6 class="mb-0" style="color: #ff6219;">@Model.OtherUser.FirstName @Model.OtherUser.LastName</h6>
+                                        </div>
+                                        <div class="card-body" data-mdb-perfect-scrollbar-init style="position: relative; height: 500px">
+                                            @foreach(Message message in @Model.AllMessages)
+                                            {
+                                                @if(message.SenderId.Equals(Model.LoggedInUser.Id))
+                                                {
+                                                    <form method="post" asp-action="RemoveMessage" asp-route-mid="@message.Id" asp-route-oid="@Model.OtherUser.Id">
+                                                        <div class="d-flex flex-row justify-content-end mb-4 pt-1">
+                                                            <div>
+                                                                <button type="submit">ta bort</button>
+                                                                <p class="small p-2 me-3 mb-1 text-white rounded-3" style="background-color:#ff6219;">
+                                                                    @message.Content
+                                                                </p>
+                                                                <p class="small me-3 mb-3 rounded-3 text-muted d-flex justify-content-end">@message.Date</p>
+                                                            </div>
+                                                            <img src="@Url.Content(Model.LoggedInUser.PictureUrl)"
+                                                                 alt="avatar 1" style="width: 45px; height: 100%;">
+                                                        </div>
+                                                   </form>
+                                                }
+                                                else {
+                                                    <form method="post" asp-action="RemoveMessage" asp-route-mid="@message.Id" asp-route-oid="@Model.OtherUser.Id">
+                                                        <div class="d-flex flex-row justify-content-start">
+                                                            <img src="@Url.Content(Model.OtherUser.PictureUrl)"
+                                                                 alt="avatar 1" style="width: 45px; height: 100%;">
+                                                            <div>
+                                                                <p class="small p-2 ms-3 mb-1 rounded-3" style="background-color:lightgrey;">@message.Content</p>
+                                                                <div class="row-cols-2">
+                                                                    <button type="submit">ta bort</button>
+                                                                    <p class="small ms-3 mb-3 rounded-3 text-muted">@message.Date</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                }
+                                            }
+                                            <div class="card-footer text-muted d-flex justify-content-end align-items-center p-3">
+                                                <a asp-action="Add" asp-controller="Message" asp-route-oid="@Model.OtherUser.Id" class="btn" style="background-color:#ff6219; color:#fff;"><i class="fas fa-paper-plane"></i>Svara</a>
+                                                <a class="btn" style="color:#ff6219; background-color:#fff; margin-left: 3px;">Tillbaka</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-@foreach (Message mess in @Model.ReceivedMessages)
+    @*
+
+<h1>@Model</h1>
+
+@foreach (Message mess in @Model.AllMessages)
 {
     <div class="card">
-        <h4>Från: @mess.Sender.FirstName   @mess.Sender.LastName</h4>
+        <h4>@mess.Sender.FirstName @mess.Sender.LastName</h4>
+        <h4>@mess.Date</h4>
         <h4> @mess.Subject</h4>
         <h5> @mess.Content</h5>
+        <form asp-controller="Chat" asp-action="RemoveMessage" asp-route-messageId="@mess.Id" method="post" onsubmit="return confirmDelete();">
+                <button type="submit" class="btn btn-primary text-light"
+               style="background-color:#ff6219; margin-bottom:2rem;">Ta Bort</button>
+        </form>
+        <script>
+        function confirmDelete() {
+            return confirm("Är du säker på att du vill ta bort detta objekt?");
+        }
+        </script>
     </div>
-}
-<h2 style="color:#FFF;"> Skickade Meddelanden</h2>
-@foreach (Message mess in @Model.SentMessages)
-{
-    <div class="card">
-            <h4>Till: @mess.Sender.FirstName   @mess.Sender.LastName</h4>
-        <h4> @mess.Subject</h4>
-        <h5> @mess.Content</h5>
-    </div>
-}
-
+}*@
