@@ -1,5 +1,6 @@
 ﻿@model Chat11ViewModel
-
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <div class="row">
 <h2 style="color:#FFF;">Meddelanden</h2>
 
@@ -37,10 +38,13 @@
                                             {
                                                 @if(message.SenderId.Equals(Model.LoggedInUser.Id))
                                                 {
-                                                    <form method="post" asp-action="RemoveMessage" asp-route-mid="@message.Id" asp-route-oid="@Model.OtherUser.Id">
+                                                    <div class="d-flex flex-row justify-content-end mb-4 pt-1">
+                                                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#deleteMessageSender-@message.Id" style="background-color:#ff6219">
+                                                                <i class="fa-regular fa-trash-can"></i>
+                                                            </button>
+                                                        </div>
                                                         <div class="d-flex flex-row justify-content-end mb-4 pt-1">
                                                             <div>
-                                                                <button type="submit">ta bort</button>
                                                                 <p class="small p-2 me-3 mb-1 text-white rounded-3" style="background-color:#ff6219;">
                                                                     @message.Content
                                                                 </p>
@@ -49,22 +53,65 @@
                                                             <img src="@Url.Content(Model.LoggedInUser.PictureUrl)"
                                                                  alt="avatar 1" style="width: 45px; height: 100%;">
                                                         </div>
-                                                   </form>
+                                                    <div class="modal fade" id="deleteMessageSender-@message.Id" tabindex="-1" role="dialog" aria-labelledby="deleteMessageSender-@message.Id" aria-hidden="true">
+                                                        <div class="modal-dialog" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title" id="deleteMessageSender-@message.Id">Bekräfta?</h5>
+                                                                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    Är du säker på att du vill ta bort meddelandet?
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Behåll</button>
+                                                                    <form method="post" asp-action="RemoveMessage" asp-route-mid="@message.Id" asp-route-oid="@Model.OtherUser.Id">
+                                                                        <button type="submit" class="btn btn-primary" style="color:#ff6219">Ta bort</button>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 }
                                                 else {
-                                                    <form method="post" asp-action="RemoveMessage" asp-route-mid="@message.Id" asp-route-oid="@Model.OtherUser.Id">
+                                                        <div class="d-flex flex-row justify-content-start">
+                                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#deleteMessageReceiver-@message.Id" style="background-color:#ff6219">
+                                                            <i class="fa-regular fa-trash-can"></i>
+                                                        </button>
+                                                        </div>
                                                         <div class="d-flex flex-row justify-content-start">
                                                             <img src="@Url.Content(Model.OtherUser.PictureUrl)"
                                                                  alt="avatar 1" style="width: 45px; height: 100%;">
                                                             <div>
                                                                 <p class="small p-2 ms-3 mb-1 rounded-3" style="background-color:lightgrey;">@message.Content</p>
                                                                 <div class="row-cols-2">
-                                                                    <button type="submit">ta bort</button>
                                                                     <p class="small ms-3 mb-3 rounded-3 text-muted">@message.Date</p>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </form>
+                                                    <div class="modal fade" id="deleteMessageReceiver-@message.Id" tabindex="-1" role="dialog" aria-labelledby="deleteMessageReceiver-@message.Id" aria-hidden="true">
+                                                        <div class="modal-dialog" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title" id="deleteMessageReceiver-@message.Id">Bekräfta?</h5>
+                                                                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    Är du säker på att du vill ta bort meddelandet?
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Behåll</button>
+                                                                    <form method="post" asp-action="RemoveMessage" asp-route-mid="@message.Id" asp-route-oid="@Model.OtherUser.Id">
+                                                                        <button type="submit" class="btn" style="background-color:#ff6219; color:#fff">Ta bort</button>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 }
                                             }
                                             <div class="card-footer text-muted d-flex justify-content-end align-items-center p-3">
@@ -81,6 +128,8 @@
             </div>
         </div>
     </section>
+
+    
 
     @*
 
