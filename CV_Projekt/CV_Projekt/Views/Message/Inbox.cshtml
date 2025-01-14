@@ -15,9 +15,6 @@
                                         <h5 class="mb-0" style="color: #ff6219;"><b>Inkorg</b></h5>
                                     </div>
 
-@* <h2 style="color:#FFF;">Inkorg</h2>
-<h3 style="color:#FFF;">Olästa Meddelanden</h3>
- *@
                                     <div class="card-body" data-mdb-perfect-scrollbar-init style="position: relative; height: 500px">
                                         @foreach (var user in Model.UsersInContact)
 {
@@ -57,22 +54,17 @@
                                                         </form>
                                                         </div>
                                                     }
-
-@*
-<a class="btn btn-primary text-light"
-               style="background-color:#ff6219; margin-bottom:2rem;"
-               asp-controller="Message"
-               asp-action="AllUserList"
-               asp-route-id="@ViewBag.Id">
-               Skriv Nytt Meddelande
-            </a>
-*@
-                                    </div>
+                                         
+                                         </div>
+                                         <div class="d-flex justify-content-center">
+									<a class="btn" style="color:#ff6219; background-color:#fff;border:1px solid #ff6219; margin-left: 3px;">Tillbaka</a>
+									</div>
+                           
                                 </div>
                             </div>
                         </div>
                     </section>
-                </div>
+                
 
                 </div>
             </div>
