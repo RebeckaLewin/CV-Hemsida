@@ -12,11 +12,11 @@
 					<div class="container">
 						<div class="row">
 							<div class="col-sm-4">
-								<div class="rounded-top text-dark d-flex flex-row" >
+								<div class="rounded-top text-dark d-flex flex-row">
 									<div class="ms-4 mt-5 d-flex flex-column">
 										<img src="@Url.Content(Model.Owner.PictureUrl)"
-										alt="Generic placeholder image" class="img-fluid img-thumbnail mt-4 mb-2"
-										style="width: 150px; z-index: 1; box-shadow:2px 2px 4px dimgray">
+											 alt="Generic placeholder image" class="img-fluid img-thumbnail mt-4 mb-2"
+											 style="width: 150px; z-index: 1; box-shadow:2px 2px 4px dimgray">
 									</div>
 								</div>
 
@@ -25,7 +25,7 @@
 								<div class="ms-3 text-light" style="margin-top: 100px;">
 									<h4 style="text-align:center;">CV</h4>
 									<h5 style="text-align:center;">@Model.Owner.FirstName @Model.Owner.LastName</h5>
-									@if(Model.Owner.Id.Equals(User.FindFirstValue(ClaimTypes.NameIdentifier)))
+									@if (Model.Owner.Id.Equals(User.FindFirstValue(ClaimTypes.NameIdentifier)))
 									{
 										<h5 style="text-align:right">Visningar: @Model.CV.Views</h5>
 									}
@@ -62,7 +62,7 @@
 											}
 
 											<h6 class="lead fw-normal mb-1" style="color:#ff6219;">Kompetenser</h6>
-										
+
 
 											@if (Model.Skills != null && Model.Skills.Any())
 											{
@@ -82,70 +82,44 @@
 									</div>
 								</div>
 							</div>
-							
-								<div class="card col-sm-7 mb-2 experience-container">
-									<div class="card-body text-black">
-									
-										<h6 class="card-header" style="background-color:#fff; color:#ff6219; text-align:center;">Arbetslivserfarenhet</h6>
-										@foreach (var work in Model.Work)
-										{
-											<div class="experience-item">
-												<p class="card-text">@work.Description</p>
-												<p class="card-text"><i>@work.StartDate.ToString("yyyy-MM-dd") - @work.EndDate.ToString("yyyy-MM-dd")</i></p>
-											</div>
-										}
-										</div>
-										</div>
-									
-									</div>
-					<div class="row">
-						<div class="col-sm-5">
-							
-						</div>
-						
 
-						<div class="card col-sm-7 mb-2 experience-container">
-							<div class="card-body text-black">
-								
-								<h6 class="card-header" style="background-color:#fff; color:#ff6219; text-align:center;">Utbildningar</h6>
-								
-										@foreach (var education in Model.Educations)
-										{
-											<div class="experience-item">
-												<p class="card-text">@education.Description</p>
-												<p class="card-text"><i>@education.StartDate.ToString("yyyy-MM-dd") - @education.EndDate.ToString("yyyy-MM-dd")</i></p>
-											</div>
-										}
+							<div class="card col-sm-7 mb-2 experience-container">
+								<div class="card-body text-black">
+
+									<h6 class="card-header" style="background-color:#fff; color:#ff6219; text-align:center;">Arbetslivserfarenhet</h6>
+									@foreach (var work in Model.Work)
+									{
+										<div class="experience-item">
+											<p class="card-text">@work.Description</p>
+											<p class="card-text"><i>@work.StartDate.ToString("yyyy-MM-dd") - @work.EndDate.ToString("yyyy-MM-dd")</i></p>
+										</div>
+									}
+								</div>
 							</div>
-						</div>
-					</div>
-					
 
-					<div class="row">
-						<div class="col-sm-5">
-							<div class="card-body p-4 text-black">
-								<div class="mb-5  text-body">
-									<p class="lead fw-normal mb-1"></p>
-									<div class="p-4 bg-body-tertiary">
-									</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-5">
+							</div>
+
+
+							<div class="card col-sm-7 mb-2 experience-container">
+								<div class="card-body text-black">
+
+									<h6 class="card-header" style="background-color:#fff; color:#ff6219; text-align:center;">Utbildningar</h6>
+
+									@foreach (var education in Model.Educations)
+									{
+										<div class="experience-item">
+											<p class="card-text">@education.Description</p>
+											<p class="card-text"><i>@education.StartDate.ToString("yyyy-MM-dd") - @education.EndDate.ToString("yyyy-MM-dd")</i></p>
+										</div>
+									}
 								</div>
 							</div>
 						</div>
 
-						<div class="card col-sm-7 mb-2 experience-container">
-							<div class="card-body text-black">
-								
-								<h6 class="card-header" style="background-color:#fff; color:#ff6219; text-align:center;">Andra Erfarenheter</h6>
-										@foreach (var other in Model.OtherExperiences)
-										{
-											<div class="experience-item">
-												<p class="card-text">@other.Description</p>
-												<p class="card-text"><i>@other.StartDate.ToString("yyyy-MM-dd") - @other.EndDate.ToString("yyyy-MM-dd")</i></p>
-											</div>
-										}
-							</div>
-						</div>
-					</div>
+
 						<div class="row">
 							<div class="col-sm-5">
 								<div class="card-body p-4 text-black">
@@ -160,8 +134,33 @@
 							<div class="card col-sm-7 mb-2 experience-container">
 								<div class="card-body text-black">
 
-								
-									<h6 class="card-header" style="background-color:#fff; color:#ff6219; text-align:center;">Projekt jag skapat</h6>
+									<h6 class="card-header" style="background-color:#fff; color:#ff6219; text-align:center;">Andra Erfarenheter</h6>
+									@foreach (var other in Model.OtherExperiences)
+									{
+										<div class="experience-item">
+											<p class="card-text">@other.Description</p>
+											<p class="card-text"><i>@other.StartDate.ToString("yyyy-MM-dd") - @other.EndDate.ToString("yyyy-MM-dd")</i></p>
+										</div>
+									}
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-5">
+								<div class="card-body p-4 text-black">
+									<div class="mb-5  text-body">
+										<p class="lead fw-normal mb-1"></p>
+										<div class="p-4 bg-body-tertiary">
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="card col-sm-7 mb-2 experience-container">
+								<div class="card-body text-black">
+
+
+									<h6 class="card-header" style="background-color:#fff; color:#ff6219; text-align:center;">Projekt jag är med i</h6>
 
 									@foreach (var project in Model.Owner.JoinedProjects)
 									{
@@ -205,14 +204,14 @@
 								</div>
 							</div>
 						</div>
-					
-									
 
-								</div>
-							</div>
-						</div>
-						</div>
-						</div>
-					
-				
+
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
 </section>

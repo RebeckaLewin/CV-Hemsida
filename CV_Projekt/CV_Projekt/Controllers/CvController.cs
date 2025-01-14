@@ -138,7 +138,7 @@ namespace CV_Projekt.Controllers
 
         public IActionResult AddSkill(UpdateCvViewModel viewModel)
         {
-			if (ModelState.IsValid)
+			if (ModelState.IsValid && !viewModel.SkillToAdd.IsNullOrEmpty())
 			{
                 CV cvToUpdate = _context.CVs.Where(cv => cv.Id == viewModel.CvId).FirstOrDefault();
                 cvToUpdate.Skills.Add(viewModel.SkillToAdd);
