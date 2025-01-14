@@ -45,7 +45,7 @@
 
 													<a asp-controller="Cv" asp-action="Update" asp-route-id="@Model.User.Id" class="btn" style="background-color:#fff; color:#ff6219; margin-bottom:1rem;"><i class="fa-solid fa-file-circle-plus"></i>Ändra CV</a>
 
-													<a asp-controller="Profile" asp-action="Download" asp-route-id="@Model.User.Id" class="btn" style="background-color:#fff; color:#ff6219; margin-bottom:1rem;"><i class="fa-solid fa-file-circle-plus"></i>Ändra CV</a>
+													<a asp-controller="Profile" asp-action="Download" asp-route-id="@Model.User.Id" class="btn" style="background-color:#fff; color:#ff6219; margin-bottom:1rem;"><i class="fa-solid fa-file-circle-plus"></i>Ladda ner profil</a>
 												</div>
 										    }
                                             <a asp-controller="Message" asp-action="AddAnon" asp-route-id="@Model.User.Id" class ="btn" style="background-color:#fff; color:#ff6219;">
@@ -126,7 +126,11 @@
 							</div>
 						</div>
 						<div>
-							<button asp-action="FindSimilarProfile" asp-controller="Profile" asp-route-id="@Model.User.Id">Hitta någon som jag!</button>
+							<form method="post" asp-action="FindFriend" asp-controller="¨Profile" asp-route-id="@Model.User.Id">
+								<input asp-for="User.Id" value="@Model.User.Id" hidden />
+								<button type="submit">Hitta någon som jag!</button>
+							</form>
+
 						</div>
 					</div>
 				</div>

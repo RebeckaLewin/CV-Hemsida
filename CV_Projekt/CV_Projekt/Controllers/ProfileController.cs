@@ -2,6 +2,7 @@
 using CV_Projekt.Models;
 using Microsoft.AspNetCore.Http.Headers;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 using System.Security.Claims;
 using System.Xml.Serialization;
@@ -28,13 +29,36 @@ namespace CV_Projekt.Controllers
             return View(viewModel);
         }
 
-        public IActionResult FindSimilarProfile(string id)
+        [HttpPost]
+        public IActionResult FindFriend(string id)
         {
             string suitableUserId = "";
 
             User user = _context.Users.Where(u => u.Id.Equals(id)).FirstOrDefault();
+            List<int> tagIds = new List<int>();
+            foreach(var tag in user.Tags)
+            {
+                tagIds.Add(tag.Id);
+            }
 
-            return View("Profile", new { id = user.Id });
+            var usersWithMatchingTags = _context.Users
+                                               .Include(u => u.Tags)
+                                               .Where(u => u.isActive
+                                                     && !u.Id.Equals(user.Id)
+                                                     && u.Tags.Any(t => tagIds.Contains(t.Id)))
+                                               .Select(u => u)
+                                               .ToList();
+
+            if(usersWithMatchingTags.Count > 0)
+            {
+				suitableUserId = usersWithMatchingTags.FirstOrDefault().Id;
+			}
+            else
+            {
+                suitableUserId = user.Id;
+            }
+
+			return View("Profile", new { id = suitableUserId });
         }
 
         public IActionResult Download()
