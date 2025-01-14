@@ -7,15 +7,16 @@
             box-sizing: border-box;
             font-family: 'Poppins', sans-serif;
             background-color: dimgrey;">
-      <div class="container">
-          <div class="row">
-              <div class="col text-end ">
-                <a asp-controller="Project" asp-action="Add" class="btn text-light" style="background-color:#ff6219; margin:1rem;"><i class="fa-solid fa-plus"></i> Skapa nytt projekt</a>
-              </div>
-          </div>
-      </div>
-      
-      
+    <div class="container">
+        <div class="row">
+            <div class="col text-end ">
+                @if(User.Identity.IsAuthenticated)
+                {
+                    <a asp-controller="Project" asp-action="Add" class="btn text-light" style="background-color:#ff6219; margin:1rem;"><i class="fa-solid fa-plus"></i> Skapa nytt projekt</a>
+                }
+            </div>
+        </div>
+    </div>
     <div class="wrapper my-sm-5"
          style="background-color:#fff;
                 padding: 30px 50px;
@@ -23,30 +24,32 @@
                 border-radius: 15px;
                 margin: 10px auto;
                 max-width: 600px;">
-<div class="card mb-3">
+        <div class="card mb-3">
             <img class="card-img-top" src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(107).webp" alt="Card image cap" style="max-height: 180px; width:100%; object-fit: cover;">
-    
-        @foreach (var proj in Model.Projects)
-        {
-          <div class="card-body" style="border-bottom: 2px solid #ff6219;">
-          <h5 class="card-title" style="color:#ff6219;">@proj.Title</h5>
-          <p class="card-text">@proj.Description</p>
-          <h6 class="card-title" style="color:#ff6219;">Startdatum - Slutdatum</h6>
-                    <p class="card-text">@proj.StartDate.ToString("yy-MM-dd") - @proj.EndDate.ToString("yy-MM-dd")</p>
-          <h6 class="card-title" style="color:#ff6219;">Skapare</h6>
-                    <p class="card-text">@proj.Creator.FirstName @proj.Creator.LastName </p>
-          <h6 class="card-title" style="color:#ff6219;">Deltagare</h6>
-            @if (proj.Participants != null && proj.Participants.Any())
+
+            @foreach (var proj in Model.Projects)
             {
-                @foreach (var part in proj.Participants)
-                {
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item">@part.FirstName @part.LastName</li>
-                </ul>
-                }
-            } else {
-                <p class="card-text">Inga deltagare hittades</p>
-            }
+                <div class="card-body" style="border-bottom: 2px solid #ff6219;">
+                    <h5 class="card-title" style="color:#ff6219;">@proj.Title</h5>
+                    <p class="card-text">@proj.Description</p>
+                    <h6 class="card-title" style="color:#ff6219;">Startdatum - Slutdatum</h6>
+                    <p class="card-text">@proj.StartDate.ToString("yy-MM-dd") - @proj.EndDate.ToString("yy-MM-dd")</p>
+                    <h6 class="card-title" style="color:#ff6219;">Skapare</h6>
+                    <p class="card-text">@proj.Creator.FirstName @proj.Creator.LastName </p>
+                    <h6 class="card-title" style="color:#ff6219;">Deltagare</h6>
+                    @if (proj.Participants != null && proj.Participants.Any())
+                    {
+                        @foreach (var part in proj.Participants)
+                        {
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">@part.FirstName @part.LastName</li>
+                            </ul>
+                        }
+                    }
+                    else
+                    {
+                        <p class="card-text">Inga deltagare hittades</p>
+                    }
                     <div class="text-center">
                         <a class="btn text-light"
                            style="background-color:#ff6219; margin-bottom:2rem;"
@@ -56,9 +59,9 @@
                             Visa detta projekt
                         </a>
                     </div>
+                </div>
+            }
+
         </div>
-        }
-    
-</div>
-</div>
+    </div>
 </body>

@@ -26,6 +26,7 @@
         </h4>
         <div class="py-2">
             <form asp-action="Update" method="post">
+                <div asp-validation-summary="All" class="text-danger"></div>
                 <input asp-for="Project.Id" value="@Model.Project.Id" hidden />
                 <input asp-for="Project.CreatorId" value="@Model.Project.CreatorId" hidden />
             <div class="row py-2">
@@ -35,7 +36,7 @@
                 </div>
                 <div class="col-md-6 pt-md-0 pt-3">
                     <label class="settingsLbl" for="startdate">Startdatum</label>
-                        <input asp-for="Project.StartDate" type="date" value="@Model.Project.StartDate" class="bg-light form-control">
+                        <input asp-for="Project.StartDate" type="date" value="@Model.Project.StartDate.ToString("yyyy-MM-dd")" class="bg-light form-control">
                 </div>
             </div>
             <div class="row py-2">
@@ -46,9 +47,13 @@
                 </div>
                 <div class="col-md-6 pt-md-0 pt-3">
                      <label class="settingsLbl" for="enddate">Slutdatum</label>
-                        <input asp-for="Project.EndDate" type="date" value="@Model.Project.EndDate" class="bg-light form-control">
+                        <input asp-for="Project.EndDate" type="date" value="@Model.Project.EndDate.ToString("yyyy-MM-dd")" class="bg-light form-control">
                 </div>
             </div>
+                <div class="py-3 pb-4 border-bottom">
+                    <a asp-action="Project" asp-route-id="@Model.Project.Id" class="btn border border-light button" style="background-color: #fff; color: #ff6219" ;>Tillbaka</a>
+                    <button type="submit" class="btn border border-light button mr-3 text-light" style="background-color:#ff6219;">Spara Projekt</button>
+                </div>
 			</form>
                 <div class="row py-2">
                 <div class="col-md-6">
@@ -75,14 +80,7 @@
                     </div>
                 </div>
 
-                </div>
-               
-            <div class="py-3 pb-4 border-bottom">
-                <button type="submit" class="btn border border-light button mr-3 text-light" style="background-color:#ff6219;">Spara Projekt</button>
-                <button asp-action="Project" onclick="history.back()" class="btn border border-light button" style="background-color: #fff; color: #ff6219";>Tillbaka</button>
-            </div>
-           
-           
+                </div>         
         </div>
     </div>
   
