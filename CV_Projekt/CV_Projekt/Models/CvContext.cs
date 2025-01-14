@@ -233,8 +233,8 @@ namespace CV_Projekt.Models
                 new Message
                 {
                     Id = 1,
-                    Subject = "En hälsning",
                     Content = "Hej på dig! Hur är det med dig?",
+                    SenderName = "",
                     Date = new DateTime(2020, 6, 12),
                     SenderId = 1.ToString(),
                     ReceiverId = 2.ToString()
@@ -242,81 +242,81 @@ namespace CV_Projekt.Models
                 new Message
                 {
                     Id = 2,
-                    Subject = "Missade",
                     Content = "Missade att du skrev, förlåt.",
-                    Date = new DateTime(2020, 7, 16),
+					SenderName = "",
+					Date = new DateTime(2020, 7, 16),
                     SenderId = 2.ToString(),
                     ReceiverId = 1.ToString()
                 },
                 new Message
                 {
                     Id = 3,
-                    Subject = "Lunch?",
                     Content = "Ska vi ta en lunch imorgon?",
-                    Date = new DateTime(2020, 8, 1),
+					SenderName = "",
+					Date = new DateTime(2020, 8, 1),
                     SenderId = 3.ToString(),
                     ReceiverId = 1.ToString()
                 },
                 new Message
                 {
                     Id = 4,
-                    Subject = "Tack!",
                     Content = "Tack för att du hjälpte mig med projektet.",
-                    Date = new DateTime(2020, 8, 15),
+					SenderName = "",
+					Date = new DateTime(2020, 8, 15),
                     SenderId = 1.ToString(),
                     ReceiverId = 3.ToString()
                 },
                 new Message
                 {
                     Id = 5,
-                    Subject = "Fråga",
                     Content = "Kan du kika på dokumentet jag skickade?",
-                    Date = new DateTime(2020, 9, 10),
+					SenderName = "",
+					Date = new DateTime(2020, 9, 10),
                     SenderId = 4.ToString(),
                     ReceiverId = 5.ToString()
                 },
                 new Message
                 {
                     Id = 6,
-                    Subject = "Feedback",
                     Content = "Jag har lagt till några kommentarer i ditt utkast.",
-                    Date = new DateTime(2020, 9, 15),
+					SenderName = "",
+					Date = new DateTime(2020, 9, 15),
                     SenderId = 5.ToString(),
                     ReceiverId = 4.ToString()
                 },
                 new Message
                 {
                     Id = 7,
-                    Subject = "Möte",
                     Content = "Glöm inte mötet imorgon kl. 10.",
-                    Date = new DateTime(2020, 10, 1),
+					SenderName = "",
+					Date = new DateTime(2020, 10, 1),
                     SenderId = 6.ToString(),
                     ReceiverId = 7.ToString()
                 },
                 new Message
                 {
                     Id = 8,
-                    Subject = "Presentation",
                     Content = "Har du hunnit förbereda presentationen?",
-                    Date = new DateTime(2020, 10, 20),
+					SenderName = "",
+					Date = new DateTime(2020, 10, 20),
                     SenderId = 7.ToString(),
                     ReceiverId = 6.ToString()
                 },
                 new Message
                 {
                     Id = 9,
-                    Subject = "Grattis!",
                     Content = "Grattis på födelsedagen!",
-                    Date = new DateTime(2020, 11, 3),
+					SenderName = "",
+					Date = new DateTime(2020, 11, 3),
                     SenderId = 8.ToString(),
                     ReceiverId = 9.ToString()
                 },
                 new Message
                 {
                     Id = 10,
-                    Subject = "Trevlig helg",
                     Content = "Ha en trevlig helg! Vi hörs på måndag.",
-                    Date = new DateTime(2020, 11, 6),
+					SenderName = "",
+					Date = new DateTime(2020, 11, 6),
                     SenderId = 9.ToString(),
                     ReceiverId = 10.ToString()
                 }

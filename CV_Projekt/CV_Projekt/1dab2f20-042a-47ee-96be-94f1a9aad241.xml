@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ProfileInformation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <FullName>Rebecka Lewin</FullName>
+  <Email>rebeckalewin@hotmail.com</Email>
+  <Address>Norrgatan 27A</Address>
+  <Phone>0723073920</Phone>
+  <CreatedProjects />
+  <JoinedProjects>
+    <Project>
+      <Id>1</Id>
+      <StartDate>2010-08-30T00:00:00</StartDate>
+      <EndDate>2011-08-30T00:00:00</EndDate>
+      <Title>Tidtabell för postnord</Title>
+      <Description>En app för att optimera postleveranser.</Description>
+      <CreatorId>1</CreatorId>
+      <Participants />
+    </Project>
+    <Project>
+      <Id>3</Id>
+      <StartDate>2015-06-01T00:00:00</StartDate>
+      <EndDate>2016-06-01T00:00:00</EndDate>
+      <Title>Miljödatabas</Title>
+      <Description>En databas för miljöövervakning och analys.</Description>
+      <CreatorId>2</CreatorId>
+      <Participants />
+    </Project>
+    <Project>
+      <Id>10</Id>
+      <StartDate>2020-06-15T00:00:00</StartDate>
+      <EndDate>2021-05-10T00:00:00</EndDate>
+      <Title>Telemedicinplattform</Title>
+      <Description>En lösning för fjärrmedicinska konsultationer.</Description>
+      <CreatorId>10</CreatorId>
+      <Participants />
+    </Project>
+  </JoinedProjects>
+  <Cv>
+    <Id>11</Id>
+    <OwnerId>1dab2f20-042a-47ee-96be-94f1a9aad241</OwnerId>
+    <Skills />
+    <Views>2</Views>
+  </Cv>
+  <Work />
+  <Education />
+  <OtherExperience />
+</ProfileInformation>

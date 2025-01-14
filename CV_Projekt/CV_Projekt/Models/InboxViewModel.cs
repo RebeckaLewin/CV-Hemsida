@@ -5,6 +5,7 @@ namespace CV_Projekt.Models
     public class InboxViewModel : BaseViewModel
     {
         public List<Message> ReceivedMessages {  get; set; }
+        public List<Message> AnonMessages { get; set; }
         public List<User> UsersInContact { get; set; }
         public string LoggedInId { get; set; }
 

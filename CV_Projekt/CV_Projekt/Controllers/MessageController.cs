@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
+using System.Diagnostics;
 using System.Security.Claims;
 using System.Security.Cryptography;
 
@@ -32,6 +33,10 @@ namespace CV_Projekt.Controllers
 
             foreach(string id in userIds)
             {
+                if(id == null)
+                {
+                    continue;
+                }
                 User newUser = _context.Users.Where(u => u.Id.Equals(id)).FirstOrDefault();
                 usersInContact.Add(newUser);
             }
@@ -42,9 +47,13 @@ namespace CV_Projekt.Controllers
                 .OrderByDescending(m => m.Date)
                 .ToList();
 
+            var anonMes = receivedMes.Where(m => m.SenderId == null).ToList();
+            receivedMes = receivedMes.Except(anonMes).ToList();
+
             var viewModel = new InboxViewModel(_context, loggedInId)
             {
                 ReceivedMessages = receivedMes,
+                AnonMessages = anonMes,
                 UsersInContact = usersInContact,
                 LoggedInId = loggedInId
             };
@@ -75,13 +84,30 @@ namespace CV_Projekt.Controllers
                 var mess = viewModel.Message;
                 _context.Messages.Add(mess);
                 _context.SaveChanges();
-                return RedirectToAction("Chat11", "Chat", new { otherId = viewModel.Message.ReceiverId } );
+                return RedirectToAction("Profile", "Profile", new { id = viewModel.Message.ReceiverId } );
             }
             else
             {
-                Console.WriteLine(ModelState.ErrorCount.ToString());
-                return RedirectToAction("Add", new { oid = viewModel.Message.ReceiverId });
+                Debug.WriteLine(ModelState.ErrorCount.ToString());
+                if (viewModel.Sender == null)
+                {
+                    return RedirectToAction("AddAnon", new { oid = viewModel.Message.ReceiverId });
+                }
+                else
+                {
+					return RedirectToAction("Add", new { oid = viewModel.Message.ReceiverId });
+				}
             }
+        }
+
+        [HttpPost]
+        public IActionResult SetToRead(int mid)
+        {
+            Message mess = _context.Messages.Where(m => m.Id == mid).FirstOrDefault();
+            mess.isRead = true;
+            _context.Messages.Update(mess);
+            _context.SaveChanges();
+            return RedirectToAction("Inbox");
         }
 
         [HttpGet]
@@ -107,12 +133,12 @@ namespace CV_Projekt.Controllers
         }
         
         [HttpGet]
-        public IActionResult AddAnon(string id)
+        public IActionResult AddAnon(string oid)
         {
-			var receiver = _context.Users.Where(u => u.Id.Equals(id)).FirstOrDefault();
+			User otherUser = _context.Users.Where(u => u.Id.Equals(oid)).FirstOrDefault();
 			Message message = new Message();
 
-			AddAnonViewModel viewModel = new AddAnonViewModel(_context, null) { Message = message, Receiver = receiver, Sender = null };
+			MessageViewModel viewModel = new MessageViewModel() { Message = message, Receiver = otherUser };
 			return View(viewModel);
 		}
 
@@ -120,10 +146,8 @@ namespace CV_Projekt.Controllers
 		public IActionResult AddAnon(AddAnonViewModel viewModel)
 		{
 			if (ModelState.IsValid)
-			{
-                var subject = Subject(viewModel.Message.Subject, viewModel.Name, viewModel.Email);
+			{               
                 var message = viewModel.Message;
-                message.Subject = subject;
 				_context.Add(message);
 				_context.SaveChanges();
 				return RedirectToAction("SentAnon", viewModel);
