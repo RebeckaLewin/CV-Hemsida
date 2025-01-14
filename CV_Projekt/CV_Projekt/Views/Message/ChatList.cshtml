@@ -17,9 +17,6 @@
         </a> *@
         <form asp-controller="Message" asp-action="ChatList" method="post">
             <input asp-for="@Model.Message.Id" type="hidden" value="@message.Id" />
-                <input asp-for="@Model.Message.SenderId" type="hidden" value="@message.Sender.Id" />
-                <input asp-for="@Model.Message.ReceiverId" type="hidden" value="@message.Receiver.Id" />
-                <input asp-for="@Model.Message.isRead" type="hidden" value="True" />
             <br />
             <br />
             <button type="submit">Visa Meddelande</button>

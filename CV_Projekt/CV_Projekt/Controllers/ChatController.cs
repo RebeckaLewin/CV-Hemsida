@@ -48,7 +48,7 @@ namespace CV_Projekt.Controllers
 
             var id = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            var viewModel = new ChatListViewModel(_context, id)
+            var viewModel = new Chat11ViewModel(_context, id)
             {
                 ReceivedMessages = recMes,
                 SentMessages = sentMes,
@@ -60,7 +60,7 @@ namespace CV_Projekt.Controllers
         }
 
         [HttpPost]
-        public IActionResult RemoveMessage(int messageId, ChatListViewModel viewModel)
+        public IActionResult RemoveMessage(int messageId, Chat11ViewModel viewModel)
         {
             var message = _context.Messages.Where(m => m.Id.Equals(messageId)).FirstOrDefault();
             if (message.SenderId.Equals(User.FindFirstValue(ClaimTypes.NameIdentifier)))

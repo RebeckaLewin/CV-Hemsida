@@ -1,6 +1,7 @@
 ﻿using CV_Projekt.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 using System.Security.Claims;
 using System.Security.Cryptography;
@@ -30,11 +31,13 @@ namespace CV_Projekt.Controllers
                 .OrderByDescending(m => m.Date)
                 .ToList();
 
-			var loggedInId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var recMes1 = recMes.DistinctBy(r => r.SenderId).ToList();
 
-			var viewModel = new ChatListViewModel(_context, loggedInId)
+            var loggedInId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var viewModel = new ChatListViewModel(_context, loggedInId)
             {
-                ReceivedMessages = recMes
+                ReceivedMessages = recMes1,
             };
 
             return View(viewModel);
@@ -44,10 +47,11 @@ namespace CV_Projekt.Controllers
         public IActionResult ChatList(ChatListViewModel viewModel)
         {
             var mess = _context.Messages.Where(m => m.Id.Equals(viewModel.Message.Id)).FirstOrDefault();
-            
+            viewModel.Message = mess;
+
             if (ModelState.IsValid)
             {
-                mess.isRead = viewModel.Message.isRead;
+                mess.isRead = true;
                 _context.Update(mess);
                 _context.SaveChanges();
                 return RedirectToAction("Chat11", "Chat", new { senderId = viewModel.Message.ReceiverId, receiverId = viewModel.Message.SenderId });
@@ -76,16 +80,21 @@ namespace CV_Projekt.Controllers
         [HttpPost]
         public IActionResult Add(MessageViewModel viewModel)
         {
+            viewModel.Sender = _context.Users.Where(u => u.Id.Equals(viewModel.Message.SenderId)).FirstOrDefault();
+            viewModel.Receiver = _context.Users.Where(u => u.Id.Equals(viewModel.Message.ReceiverId)).FirstOrDefault();
+            
+
             if (ModelState.IsValid)
             {
-                _context.Add(viewModel.Message);
+                var mess = viewModel.Message;
+                _context.Messages.Add(mess);
                 _context.SaveChanges();
                 return RedirectToAction("Chat11", "Chat", new { senderId = viewModel.Message.ReceiverId, receiverId = viewModel.Message.SenderId } );
             }
             else
             {
                 Console.WriteLine(ModelState.ErrorCount.ToString());
-                return RedirectToAction("Add", new { senderId = viewModel.Message.SenderId, recieverId = viewModel.Message.ReceiverId });
+                return RedirectToAction("Add", new { senderId = viewModel.Message.SenderId, receiverId = viewModel.Message.ReceiverId });
             }
         }
 
@@ -120,12 +129,12 @@ namespace CV_Projekt.Controllers
 			var receiver = _context.Users.Where(u => u.Id.Equals(id)).FirstOrDefault();
 			Message message = new Message();
 
-			MessageViewModel viewModel = new MessageViewModel(_context, null) { Message = message, Receiver = receiver, Sender = null };
+			AddAnonViewModel viewModel = new AddAnonViewModel(_context, null) { Message = message, Receiver = receiver, Sender = null };
 			return View(viewModel);
 		}
 
 		[HttpPost]
-		public IActionResult AddAnon(MessageViewModel viewModel)
+		public IActionResult AddAnon(AddAnonViewModel viewModel)
 		{
 			if (ModelState.IsValid)
 			{
