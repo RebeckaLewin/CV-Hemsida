@@ -6,10 +6,10 @@ namespace CV_Projekt.Models
 	public class Message
 	{
 		public int Id { get; set; }
-		[Required]
+		[Required(ErrorMessage ="Ämne måste anges")]
 		public string Subject { get; set; }
-		[Required]
-		[MaxLength(300)]
+		[Required(ErrorMessage ="Meddelandet måste ha ett innehåll")]
+        [MaxLength(300, ErrorMessage = "Innehållet får inte överstiga 300 tecken")]
 		public string Content { get; set; }
 		[Required]
 		public DateTime Date { get; set; }

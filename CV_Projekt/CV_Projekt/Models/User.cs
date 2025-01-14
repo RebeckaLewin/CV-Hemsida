@@ -8,15 +8,15 @@ namespace CV_Projekt.Models
 {
 	public class User : IdentityUser
 	{
-		[Required]
-		[RegularExpression("^[a-zA-ZÅÄÖåäö_-]+$")]
+		[Required(ErrorMessage = "Förnamn är obligatoriskt.")]
+		[RegularExpression("^[a-zA-ZÅÄÖåäö_-]+$", ErrorMessage = "Förnamnet får endast innehålla bokstäver och bindestreck.")]
 		public string FirstName { get; set; }
 		/*
 		[Required(ErrorMessage = "Eposten måste anges.")]
 		[RegularExpression("^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,}$", ErrorMessage = "Eposten är inte giltig.")]
 		public string Email { get; set; }*/
-		[Required]
-		[RegularExpression("^[A-Za-zÅÄÖåäö_-]+$")]
+		[Required(ErrorMessage = "Efternamn är obligatoriskt.")]
+		[RegularExpression("^[A-Za-zÅÄÖåäö_-]+$", ErrorMessage = "Efternamnet får endast innehålla bokstäver och bindestreck.")]
 		public string LastName { get; set; }
 		public string? Description { get; set; }
 		[Required]
