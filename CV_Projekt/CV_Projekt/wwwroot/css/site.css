@@ -54,6 +54,28 @@ input[type="checkbox"]:checked {
 #selectedParticipantsList {
     max-height: 150px;
     overflow-y: auto;
+    padding: 10px;
+}
+
+.participant-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; 
+    margin-bottom: 5px;
+    padding: 5px;
+    border-radius: 3px;
+    background-color: #fff;
+}
+.participant-name {
+    flex-grow: 1;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    padding-right: 10px;
+}
+.remove-btn:hover {
+    background-color: #ff6219;
+    color: #fff;
 }
 
 #listgroupdiv {
