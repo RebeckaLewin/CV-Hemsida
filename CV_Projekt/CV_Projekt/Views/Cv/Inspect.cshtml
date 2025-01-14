@@ -87,10 +87,13 @@
 								<div class="card-body text-black">
 
 									<h6 class="card-header" style="background-color:#fff; color:#ff6219; text-align:center;">Arbetslivserfarenhet</h6>
-									@foreach (var work in Model.Work)
+									@foreach (Work work in Model.Work)
 									{
 										<div class="experience-item">
+											<p class="card-text">@work.Location</p>
+											<p class="card-text">@work.Role</p>
 											<p class="card-text">@work.Description</p>
+											<p class="card-text">@work.City</p>
 											<p class="card-text"><i>@work.StartDate.ToString("yyyy-MM-dd") - @work.EndDate.ToString("yyyy-MM-dd")</i></p>
 										</div>
 									}
@@ -108,11 +111,15 @@
 
 									<h6 class="card-header" style="background-color:#fff; color:#ff6219; text-align:center;">Utbildningar</h6>
 
-									@foreach (var education in Model.Educations)
+									@foreach (Education edu in Model.Educations)
 									{
 										<div class="experience-item">
-											<p class="card-text">@education.Description</p>
-											<p class="card-text"><i>@education.StartDate.ToString("yyyy-MM-dd") - @education.EndDate.ToString("yyyy-MM-dd")</i></p>
+											<p class="card-text">@edu.Location</p>
+											<p class="card-text">@edu.Description</p>
+											<p class="card-text">@edu.Program'</p>
+											<p class="card-text">@edu.Level</p>
+											<p class="card-text">@edu.City</p>
+											<p class="card-text"><i>@edu.StartDate.ToString("yyyy-MM-dd") - @edu.EndDate.ToString("yyyy-MM-dd")</i></p>
 										</div>
 									}
 								</div>
@@ -135,11 +142,14 @@
 								<div class="card-body text-black">
 
 									<h6 class="card-header" style="background-color:#fff; color:#ff6219; text-align:center;">Andra Erfarenheter</h6>
-									@foreach (var other in Model.OtherExperiences)
+									@foreach (OtherExperience oe in Model.OtherExperiences)
 									{
 										<div class="experience-item">
-											<p class="card-text">@other.Description</p>
-											<p class="card-text"><i>@other.StartDate.ToString("yyyy-MM-dd") - @other.EndDate.ToString("yyyy-MM-dd")</i></p>
+											<p class="card-text">@oe.Location</p>
+											<p class="card-text">@oe.Type</p>
+											<p class="card-text">@oe.Description</p>
+											<p class="card-text">@oe.City</p>
+											<p class="card-text"><i>@oe.StartDate.ToString("yyyy-MM-dd") - @oe.EndDate.ToString("yyyy-MM-dd")</i></p>
 										</div>
 									}
 								</div>
