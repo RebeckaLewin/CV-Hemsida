@@ -16,7 +16,7 @@
 <ul>
 	@foreach (var participant in Model.Project.Participants)
 	{
-		<button asp-action="RemoveParticipant" asp-route-pid="@Model.Project.Id" asp-route-uid="@participant.Id">Ta bort</button>
+		<button asp-action="RemoveParticipant" asp-route-pid="@Model.Project.Id" asp-route-uid="@participant.Id" asp-route-edit="true">Ta bort</button>
 		<li>@participant.FirstName @participant.LastName</li>
 	}
 </ul>

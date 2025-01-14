@@ -128,7 +128,7 @@ namespace CV_Projekt.Controllers
 		}
 
 		[HttpPost]
-		public IActionResult RemoveParticipant(int pid, string uid)
+		public IActionResult RemoveParticipant(int pid, string uid, bool edit)
 		{
 			Project projectToRemoveFrom = context.Projects.Where(p => p.Id == pid).FirstOrDefault();
 			User userToRemove = context.Users.Where(u => u.Id == uid).FirstOrDefault();
@@ -136,8 +136,15 @@ namespace CV_Projekt.Controllers
 			projectToRemoveFrom.Participants.Remove(userToRemove);
 			context.Update(projectToRemoveFrom);
 			context.SaveChanges();
+			if(edit)
+			{
+				return RedirectToAction("Update", new { id = pid });
+			}
+			else
+			{
+				return RedirectToAction("Project", new { id = pid });
+			}
 
-			return RedirectToAction("Update", new { id = pid });
 		}
 
 		public IActionResult Delete(int id)

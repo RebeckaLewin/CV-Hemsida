@@ -34,7 +34,10 @@
 					<div class="card-body p-2 text-black">
 						<div class="mb-5  text-body">
 										<div class="d-flex flex-column justify-content-center mt-2" style="margin-bottom:1rem;">
-										    <a asp-controller="Cv" asp-action="Inspect" asp-route-id="@Model.User.Id" class="btn" style="background-color:#fff; color:#ff6219; margin-bottom:1rem;"><i class="fa-solid fa-file-lines"></i>Visa CV</a>
+											@if (!Model.User.isPrivate || Model.User.Id.Equals(User.FindFirstValue(ClaimTypes.NameIdentifier)))
+											{
+												<a asp-controller="Cv" asp-action="Inspect" asp-route-id="@Model.User.Id" class="btn" style="background-color:#fff; color:#ff6219; margin-bottom:1rem;"><i class="fa-solid fa-file-lines"></i>Visa CV</a>
+											}
                                             @if(Model.User.Id.Equals(User.FindFirstValue(ClaimTypes.NameIdentifier)))
 										    {
 												<div>

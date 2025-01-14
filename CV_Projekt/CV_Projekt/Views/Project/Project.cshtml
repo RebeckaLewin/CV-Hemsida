@@ -18,16 +18,26 @@
 
         @if (User.Identity.IsAuthenticated)
         {
-            @if (User.Identity.Name != Model.Creator.UserName && !Model.Project.Participants.Any(p => p.UserName == User.Identity.Name))
+            @if (User.Identity.Name != Model.Creator.UserName)
             {
                 <div class="mt-4">
-                    <form asp-controller="Project" asp-action="AddParticipant" method="post">
-                        <input type="hidden" name="projectId" value="@Model.Project.Id" />
-                        <button type="submit" class="btn btn-primary">
-                            Registrera som deltagare
-                        </button>
-                    </form>
-
+                    @if (!Model.Project.Participants.Any(p => p.UserName == User.Identity.Name))
+                    {
+                        <form asp-controller="Project" asp-action="AddParticipant" method="post">
+                            <input type="hidden" name="projectId" value="@Model.Project.Id" />
+                            <button type="submit" class="btn btn-primary">
+                                Registrera som deltagare
+                            </button>
+                        </form>
+                    }
+                    else
+                    {
+                        <form asp-controller="Project" asp-action="RemoveParticipant" asp-route-pid="@Model.Project.Id" asp-route-uid="@User.FindFirstValue(ClaimTypes.NameIdentifier)" asp-route-edit="false" method="post">
+                            <button type="submit" class="btn btn-primary">
+                                Gå ur projekt
+                            </button>
+                        </form>
+                    }
                 </div>
             }
         }
@@ -46,7 +56,7 @@
 
 
 <div class="center mt-4">
-    <button class="btn text-light" style="background-color:#ff6219; margin-bottom:2rem" onclick="history.back()">
+    <button asp-action="ShowProjectsView" class="btn text-light" style="background-color:#ff6219; margin-bottom:2rem" onclick="history.back()">
         Tillbaka
     </button>
 </div>
