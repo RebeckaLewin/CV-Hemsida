@@ -25,28 +25,42 @@ namespace CV_Projekt.Controllers
 
             if(!string.IsNullOrEmpty(searchTerm))
             {
+                var searchTerms = searchTerm.ToLower().Split(' ', StringSplitOptions.RemoveEmptyEntries);
 
-               users = context.Users
-                    .Where(u => u.isActive &&
-                        ((u.FirstName.ToLower().Contains(searchTerm.ToLower()) ||
-                        u.LastName.ToLower().Contains(searchTerm.ToLower())) &&
-                        (User.Identity.IsAuthenticated || !u.isPrivate)))
-                    .ToList();
-                
-               cvs = context.CVs
-                    .Where(cv => cv.Skills
-                    .Any(skill => skill
-                    .ToLower().Contains(searchTerm.ToLower())))
-                    .Include(cv => cv.Owner)
-                    .ToList();
+                users = context.Users
+                .Where(u => u.isActive &&
+                       searchTerms.Any(term =>
+                           u.FirstName.ToLower().Contains(term) ||
+                           u.LastName.ToLower().Contains(term)) &&
+                       (User.Identity.IsAuthenticated || !u.isPrivate))
+                .ToList();
+
+                //users = context.Users
+                //    .Where(u => u.isActive &&
+                //        searchTerms.Any(term => 
+                //        u.FirstName.ToLower().Contains(term) ||
+                //        u.LastName.ToLower().Contains(term)) &&
+                //        (User.Identity.IsAuthenticated || !u.isPrivate)))
+                //    .ToList();
+
+                cvs = context.CVs
+                     .Where(cv => cv.Skills
+                         .Any(skill => searchTerms.Any(term => skill.ToLower().Contains(term))))
+                     .Include(cv => cv.Owner)
+                     .ToList();
 
                 usersWithSkills = cvs
                     .Where(cv => cv.Owner != null && cv.Owner.isActive &&
                         (User.Identity.IsAuthenticated || !cv.Owner.isPrivate))
                     .Select(cv => (cv.Owner, cv.Skills
-                        .Where(skill => skill.ToLower().Contains(searchTerm.ToLower()))
+                        .Where(skill => searchTerms.Any(term => skill.ToLower().Contains(term)))
                         .ToList()))
                     .ToList();
+                        
+                        
+                    //    skill.ToLower().Contains(searchTerm.ToLower()))
+                    //    .ToList()))
+                    //.ToList();
 
                 var usersNotInSkills = users
                     .Where(u => !usersWithSkills.Any(uws => uws.user.Id == u.Id))
