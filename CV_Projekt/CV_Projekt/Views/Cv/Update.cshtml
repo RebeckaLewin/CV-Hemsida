@@ -23,6 +23,9 @@
             Ändra CV
         </h4>
 
+        <div asp-validation-summary="All" class="text-danger"></div>
+
+
         <form method="post" asp-action="AddWork">
             <input asp-for="WorkToAdd.CvId" value="@Model.CvId" hidden />
             <div class="row py-2">
@@ -49,7 +52,7 @@
             <div class="row py-2">
                 <div class="col-md-6 pt-md-0 pt-3">
                     <label class="settingsLbl" for="startdate">Startdatum</label>
-                    <input asp-for="WorkToAdd.StartDate" type="date" class="bg-light form-control">
+                    <input asp-for="WorkToAdd.StartDate" type="date" value="@DateTime.Now.ToString("yyyy-MM-dd")" class="bg-light form-control">
                 </div>
                 <div class="col-md-6 pt-md-0 pt-3">
                     <label class="settingsLbl" for="enddate">Slutdatum</label>
@@ -122,7 +125,7 @@
                 </div>
                 <div class="col-md-6 pt-md-0 pt-3">
                     <label class="settingsLbl" for="startdate">Startdatum</label>
-                    <input asp-for="EducationToAdd.StartDate" type="date" class="bg-light form-control">
+                    <input asp-for="EducationToAdd.StartDate" type="date" value="@DateTime.Now.ToString("yyyy-MM-dd")" class="bg-light form-control">
                 </div>
             </div>
             <div class="row py-2">
@@ -191,7 +194,7 @@
                 </div>
                 <div class="col-md-6 pt-md-0 pt-3">
                     <label class="settingsLbl" for="startdate">Startdatum</label>
-                    <input asp-for="OtherToAdd.StartDate" type="date" class="bg-light form-control">
+                    <input asp-for="OtherToAdd.StartDate" type="date" value="@DateTime.Now.ToString("yyyy-MM-dd")" class="bg-light form-control">
                 </div>
             </div>
             <div class="row py-2">
@@ -269,6 +272,7 @@
 									<span class="skill-name"><b>@Model.Skills[i]</b></span>
                                     <button asp-action="RemoveSkill"
                                             asp-route-id="@Model.CvId"
+                                            asp-route-index="@i"
                                             class="btn btn-sm remove-btn"
                                             style="background-color: #fff;
                                                 color: #ff6219;

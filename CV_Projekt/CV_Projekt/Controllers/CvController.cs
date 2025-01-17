@@ -2,6 +2,7 @@
 using System.Security.Claims;
 using CV_Projekt.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.IdentityModel.Tokens;
@@ -69,7 +70,7 @@ namespace CV_Projekt.Controllers
         }
 
         [HttpGet]
-        public IActionResult Update(string id)
+        public IActionResult Update(string id, List<string> errors)
         {
             var cv = _context.CVs.Where(cv => cv.OwnerId == id)
                 .FirstOrDefault();
@@ -84,6 +85,14 @@ namespace CV_Projekt.Controllers
             List<string> skillList = cv.Skills;
 
             UpdateCvViewModel viewModel = new UpdateCvViewModel(_context, cv.OwnerId) { CvId = cv.Id, Work = workList, Educations = educationList, Other = otherList, Skills = skillList };
+            
+            if(errors != null)
+            {
+                foreach(string e in errors)
+                {
+                    ModelState.AddModelError("", e);
+                }
+            }
 
             return View(viewModel);
         }
@@ -91,38 +100,65 @@ namespace CV_Projekt.Controllers
         [HttpPost]
         public IActionResult AddWork(UpdateCvViewModel viewModel)
         {
+            List<string> possibleErrors = new List<string>();
             if (ModelState.IsValid)
             {
                 _context.Experiences.Add(viewModel.WorkToAdd);
                 _context.SaveChanges();
             }
+            else
+            {
+                IEnumerable<ModelError> allErrors = ModelState.Values.SelectMany(v => v.Errors);
+                foreach (var error in allErrors)
+                {
+                    possibleErrors.Add(error.ErrorMessage);
+                }
+			}
             var loggedInId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            return RedirectToAction("Update", "Cv", new { id = loggedInId });
+            return RedirectToAction("Update", "Cv", new { id = loggedInId, errors = possibleErrors } );
         }
 
         [HttpPost]
         public IActionResult AddEducation(UpdateCvViewModel viewModel)
         {
-            if (ModelState.IsValid)
+			List<string> possibleErrors = new List<string>();
+			if (ModelState.IsValid)
             {
                 _context.Experiences.Add(viewModel.EducationToAdd);
                 _context.SaveChanges();
             }
-            var loggedInId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            return RedirectToAction("Update", "Cv", new { id = loggedInId });
-        }
+			else
+			{
+				IEnumerable<ModelError> allErrors = ModelState.Values.SelectMany(v => v.Errors);
+				foreach (var error in allErrors)
+				{
+					possibleErrors.Add(error.ErrorMessage);
+				}
+			}
+			var loggedInId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+			return RedirectToAction("Update", "Cv", new { id = loggedInId, errors = possibleErrors });
+		}
 
         [HttpPost]
         public IActionResult AddOtherExperience(UpdateCvViewModel viewModel)
         {
-            if (ModelState.IsValid)
+			List<string> possibleErrors = new List<string>();
+			if (ModelState.IsValid)
             {
                 _context.Experiences.Add(viewModel.OtherToAdd);
                 _context.SaveChanges();
             }
-            var loggedInId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            return RedirectToAction("Update", "Cv", new { id = loggedInId });
-        }
+			else
+			{
+				IEnumerable<ModelError> allErrors = ModelState.Values.SelectMany(v => v.Errors);
+				foreach (var error in allErrors)
+				{
+					possibleErrors.Add(error.ErrorMessage);
+				}
+			}
+			var loggedInId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+			return RedirectToAction("Update", "Cv", new { id = loggedInId, errors = possibleErrors });
+		}
 
         public IActionResult RemoveExperience(int id)
         {
@@ -138,6 +174,7 @@ namespace CV_Projekt.Controllers
 
         public IActionResult AddSkill(UpdateCvViewModel viewModel)
         {
+			List<string> possibleErrors = new List<string>();
 			if (ModelState.IsValid && !viewModel.SkillToAdd.IsNullOrEmpty())
 			{
                 CV cvToUpdate = _context.CVs.Where(cv => cv.Id == viewModel.CvId).FirstOrDefault();
@@ -145,8 +182,16 @@ namespace CV_Projekt.Controllers
                 _context.Update(cvToUpdate);
 				_context.SaveChanges();
 			}
+			else
+			{
+				IEnumerable<ModelError> allErrors = ModelState.Values.SelectMany(v => v.Errors);
+				foreach (var error in allErrors)
+				{
+					possibleErrors.Add(error.ErrorMessage);
+				}
+			}
 			var loggedInId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-			return RedirectToAction("Update", "Cv", new { id = loggedInId });
+			return RedirectToAction("Update", "Cv", new { id = loggedInId, errors = possibleErrors });
 		}
 
         public IActionResult RemoveSkill(int id, int index)

@@ -18,17 +18,19 @@
                    font-weight: 400;">
             Registrera Konto
         </h4>
+        <label class="settingsLbl" >Obligatoriska fält är markerade med *</label>
+
         <div asp-validation-summary="All" class="text-danger"></div>
 
 		<div class="py-2">
 			<form method="post" asp-action="Register" onsubmit="">
             <div class="row py-2">
                 <div class="col-md-6">
-                    <label class="settingsLbl" for="firstname">Förnamn</label>
+                    <label class="settingsLbl" for="firstname">Förnamn*</label>
                     <input asp-for="FirstName" type="text" class="bg-light form-control" placeholder="Ex. Anna">
                 </div>
                 <div class="col-md-6 pt-md-0 pt-3">
-                    <label class="settingsLbl" for="lastname">Efternamn</label>
+                    <label class="settingsLbl" for="lastname">Efternamn*</label>
                     <input asp-for="LastName" type="text" class="bg-light form-control" placeholder="Ex. Andersson">
                 </div>
             </div>
@@ -40,7 +42,7 @@
                 </div>
             <div class="row py-2">
                 <div class="col-md-6">
-                    <label class="settingsLbl" for="email">Epost-Adress</label>
+                    <label class="settingsLbl" for="email">Epost*</label>
                     <input asp-for="Email" type="text" class="bg-light form-control" placeholder="Ex. exempel@exempel.se">
                 </div>
                 <div class="col-md-6 pt-md-0 pt-3">
@@ -50,11 +52,11 @@
             </div>
             <div class="row py-2">
                 <div class="col-md-6">
-                    <label class="settingsLbl" for="passwordchange">Nytt Lösenord</label>
+                    <label class="settingsLbl" for="passwordchange">Nytt Lösenord*</label>
                     <input asp-for="Password" type="password" class="bg-light form-control" placeholder="Minst 6 tecken långt">
                 </div>
                 <div class="col-md-6 pt-md-0 pt-3">
-                    <label class="settingsLbl" for="confirmpasswordchange">Bekräfta Lösenord</label>
+                    <label class="settingsLbl" for="confirmpasswordchange">Bekräfta Lösenord*</label>
                     <input asp-for="ConfirmedPassword" type="password" class="bg-light form-control" placeholder="**********">
                 </div>
             </div>

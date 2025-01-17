@@ -2,7 +2,6 @@
 
 @using System.Security.Claims
 
-
 <section class="h-100">
 	<div class="container py-5 h-100">
 		<div class="row d-flex justify-content-center">
@@ -15,8 +14,8 @@
 								<div class="rounded-top text-dark d-flex flex-row">
 									<div class="ms-4 mt-5 d-flex flex-column">
 										<img src="@Url.Content(Model.Owner.PictureUrl)"
-											 alt="Generic placeholder image" class="img-fluid img-thumbnail mt-4 mb-2"
-											 style="width: 150px; z-index: 1; box-shadow:2px 2px 4px dimgray">
+										alt="Generic placeholder image" class="img-fluid img-thumbnail mt-4 mb-2"
+										style="width: 150px; z-index: 1; box-shadow:2px 2px 4px dimgray">
 									</div>
 								</div>
 
@@ -94,7 +93,14 @@
 											<p class="card-text">@work.Role</p>
 											<p class="card-text">@work.Description</p>
 											<p class="card-text">@work.City</p>
-											<p class="card-text"><i>@work.StartDate.ToString("yyyy-MM-dd") - @work.EndDate.ToString("yyyy-MM-dd")</i></p>
+											@if (work.EndDate == null)
+											{
+												<p class="card-text"><i>@work.StartDate.ToString("yyyy-MM-dd") - Nu</i></p>
+											}
+											else
+											{
+												<p class="card-text"><i>@work.StartDate.ToString("yyyy-MM-dd") - @work.EndDate</i></p>
+											}
 										</div>
 									}
 								</div>
@@ -119,7 +125,15 @@
 											<p class="card-text">@edu.Program</p>
 											<p class="card-text">@edu.Level</p>
 											<p class="card-text">@edu.City</p>
-											<p class="card-text"><i>@edu.StartDate.ToString("yyyy-MM-dd") - @edu.EndDate.ToString("yyyy-MM-dd")</i></p>
+											@if(edu.EndDate == null)
+											{
+												<p class="card-text"><i>@edu.StartDate.ToString("yyyy-MM-dd") - Nu</i></p>
+											}
+											else
+											{
+												<p class="card-text"><i>@edu.StartDate.ToString("yyyy-MM-dd") - @edu.EndDate</i></p>
+											}
+
 										</div>
 									}
 								</div>
@@ -149,7 +163,14 @@
 											<p class="card-text">@oe.Type</p>
 											<p class="card-text">@oe.Description</p>
 											<p class="card-text">@oe.City</p>
-											<p class="card-text"><i>@oe.StartDate.ToString("yyyy-MM-dd") - @oe.EndDate.ToString("yyyy-MM-dd")</i></p>
+											@if (oe.EndDate == null)
+											{
+												<p class="card-text"><i>@oe.StartDate.ToString("yyyy-MM-dd") - Nu</i></p>
+											}
+											else
+											{
+												<p class="card-text"><i>@oe.StartDate.ToString("yyyy-MM-dd") - @oe.EndDate</i></p>
+											}
 										</div>
 									}
 								</div>
