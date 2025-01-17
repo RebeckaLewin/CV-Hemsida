@@ -63,6 +63,11 @@ namespace CV_Projekt.Controllers
 
         public IActionResult Download()
         {
+            /*
+                Laddar ner profilen som en xml-fil
+                Hämtar in proxies och kopierar över datan till faktiska objekt
+            */
+
 			string loggedInId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             User user = _context.Users.Where(u => u.Id.Equals(loggedInId)).FirstOrDefault();
 

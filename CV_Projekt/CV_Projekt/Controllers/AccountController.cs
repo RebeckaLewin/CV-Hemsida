@@ -1,15 +1,9 @@
 ﻿using CV_Projekt.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
-using System.Web;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using Microsoft.AspNetCore.Http;
-using static System.Net.Mime.MediaTypeNames;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using System.Security.Cryptography;
-using System;
+
 
 namespace CV_Projekt.Controllers
 {
@@ -236,14 +230,13 @@ namespace CV_Projekt.Controllers
 		}
 
 		[HttpPost]
-		public IActionResult RemoveTag(SettingsViewModel viewModel)
+		public IActionResult RemoveTag(string id, int index)
 		{
-			if (viewModel.TagId != null && viewModel.User.Id != null)
+			if (id != null)
 			{
-				User user = context.Users.Where(u => u.Id.Equals(viewModel.User.Id)).FirstOrDefault();
-				Tag tag = context.Tags.Where(t => t.Id.ToString() == viewModel.TagId).FirstOrDefault();
+				User user = context.Users.Where(u => u.Id.Equals(id)).FirstOrDefault();
 
-				user.Tags.Remove(tag);
+				user.Tags.RemoveAt(index);
 				context.Users.Update(user);
 				context.SaveChanges();
 			}
