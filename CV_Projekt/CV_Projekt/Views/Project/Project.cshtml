@@ -39,7 +39,7 @@ style="margin: 0 0 2rem 0;
                     }
                 </div>
 
-
+                @* det här if-villkoret används i flera views för att endast visa knappar om man är inloggad *@ 
                 @if (User.Identity.IsAuthenticated) 
                 {
                     @if (User.Identity.Name != Model.Creator.UserName) 

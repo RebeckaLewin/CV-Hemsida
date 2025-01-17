@@ -19,13 +19,14 @@ namespace CV_Projekt.Controllers
         }
 
         [HttpGet]
+        //hämtar och visar inbox för den inloggade usern
         public IActionResult Inbox()
         {
             string loggedInId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var loggedInUser = _context.Users.Where(u => u.Id.Equals(loggedInId)).FirstOrDefault();
 
             ViewBag.Id = loggedInId;
-
+            //hämtar unika users som har skickat/tagit emot meddelanden till/från inloggad user
             List<string> userIds = _context.Messages.Where(m => m.ReceiverId.Equals(loggedInId)).Select(m => m.SenderId).ToList();
             userIds.AddRange(_context.Messages.Where(m => m.SenderId.Equals(loggedInId)).Select(m => m.ReceiverId).ToList());
             userIds = userIds.DistinctBy(id => id).ToList();
@@ -40,13 +41,13 @@ namespace CV_Projekt.Controllers
                 User newUser = _context.Users.Where(u => u.Id.Equals(id)).FirstOrDefault();
                 usersInContact.Add(newUser);
             }
-
+            //hämtar olästa meddelanden
 			var receivedMes = _context.Messages
                 .Where(m => m.ReceiverId.Equals(loggedInId))
                 .Where(m => m.isRead.Equals(false))
                 .OrderByDescending(m => m.Date)
                 .ToList();
-
+            //separerar anonyma meddelanden från andra meddelanden
             var anonMes = receivedMes.Where(m => m.SenderId == null).ToList();
             receivedMes = receivedMes.Except(anonMes).ToList();
 

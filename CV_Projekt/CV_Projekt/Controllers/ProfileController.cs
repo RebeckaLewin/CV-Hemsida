@@ -32,15 +32,16 @@ namespace CV_Projekt.Controllers
         [HttpPost]
         public IActionResult FindFriend(string id)
         {
+            // sätter upp en tom variabel för att hålla id från en matchad user
             string suitableUserId = "";
-
+            
             User user = _context.Users.Where(u => u.Id.Equals(id)).FirstOrDefault();
-            List<int> tagIds = new List<int>();
-            foreach(var tag in user.Tags)
+            List<int> tagIds = new List<int>(); //sätter upp en ny lista för att lagra tagId från taggarna för inloggad user 
+            foreach(var tag in user.Tags)   
             {
                 tagIds.Add(tag.Id);
             }
-
+            //hämtar users som har taggar med matchande tagId som de som finns i liston ovanför. Exkluderar inaktiva users
             var usersWithMatchingTags = _context.Users
                                                .Include(u => u.Tags)
                                                .Where(u => u.isActive
@@ -48,7 +49,7 @@ namespace CV_Projekt.Controllers
                                                      && u.Tags.Any(t => tagIds.Contains(t.Id)))
                                                .Select(u => u)
                                                .ToList();
-
+            //om det finns minst en användare i listan så väljs den första, annars kommer man tillbaka till sitt eget cv
             if(usersWithMatchingTags.Count > 0)
             {
 				suitableUserId = usersWithMatchingTags.FirstOrDefault().Id;

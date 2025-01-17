@@ -10,6 +10,7 @@
     <div class="container">
         <div class="row">
             <div class="col text-end ">
+                @* det här if-villkoret används i flera views för att endast visa knappar om man är inloggad *@ 
                 @if(User.Identity.IsAuthenticated)
                 {
                     <a asp-controller="Project" asp-action="Add" class="btn text-light" style="background-color:#ff6219; margin:1rem;"><i class="fa-solid fa-plus"></i> Skapa nytt projekt</a>

@@ -16,13 +16,14 @@ namespace CV_Projekt.Controllers
 		}
 
 		[HttpGet]
+		//hämtar specifikt projekt
         public IActionResult Project(int id)
         {
             var project = context.Projects
 				.Where(p => p.Id == id)
                 .Include(p => p.Participants)
                 .FirstOrDefault();
-
+			//filtrerar bort inaktiva users och privata users om man är utloggad
 			if (project != null) 
 			{
 				project.Participants = project.Participants
@@ -44,7 +45,7 @@ namespace CV_Projekt.Controllers
             };
             return View(proj);
         }
-
+		//hämtar alla projekt
         public IActionResult ShowProjectsView() 
 		{
 			var projects = context.Projects
@@ -54,8 +55,8 @@ namespace CV_Projekt.Controllers
             if (projects != null)
             {
 				foreach (var project in projects)
-				{
-					project.Participants = project.Participants
+                {//filtrerar bort inaktiva users och privata users om man är utloggad
+                    project.Participants = project.Participants
 						.Where(part => part.isActive &&
 							(User.Identity.IsAuthenticated || !part.isPrivate))
 						.ToList();
@@ -80,24 +81,26 @@ namespace CV_Projekt.Controllers
 		[HttpGet]
 		public IActionResult Add()
 		{
+			//hämtar den inloggade usern
 			var loggedInId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 			User loggedInUser = context.Users.Where(u => u.Id.Equals(loggedInId)).FirstOrDefault();
 			Project newProject = new Project();
 			newProject.Creator = loggedInUser;
+			//skapar ny viewmodel med nytt projekt och data hämtad från den inloggade usern
 			ProjectViewModel viewModel = new ProjectViewModel(context, loggedInId) { Users = context.Users.ToList(), ProjectToSave = newProject, Creator = loggedInUser }; 
 			return View(viewModel);
 		}
 
 		[HttpPost]
 		public IActionResult Add(ProjectViewModel viewModel)
-		{
+		{ //spara projekt i db om alla fält är godkända 
 			if (ModelState.IsValid)
 			{
 				context.Add(viewModel.ProjectToSave);
 				context.SaveChanges();
 				return RedirectToAction("ShowProjectsView");
 			}
-
+			//återgå till formuläret med aktuell data vid valideringsfel
 			var loggedInId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 			User loggedInUser = context.Users.Where(u => u.Id.Equals(loggedInId)).FirstOrDefault();
 			Project newProject = new Project();
@@ -107,6 +110,7 @@ namespace CV_Projekt.Controllers
 		}
 
 		[HttpPost]
+		//lägg till sig själv som medarbetare i ett projekt 
 		public IActionResult AddParticipant(int pid) 
 		{
 			var loggedInId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -116,7 +120,7 @@ namespace CV_Projekt.Controllers
 				Where(p => p.Id == pid)
 				.FirstOrDefault();
 			if (!project.Participants.Any(u => u.Id == currentUser.Id) && !project.CreatorId.Equals(currentUser.Id))
-			{
+			{ //lägger till som medarbetare om man inte redan är det, eller om man står som projekt-skapare
 				project.Participants.Add(currentUser);
 				context.Projects.Update(project);
 				context.SaveChanges();
@@ -126,10 +130,11 @@ namespace CV_Projekt.Controllers
 		}
 
 		[HttpGet]
+		//visar formulär för att editera ett projekt
 		public IActionResult Update(int id)
 		{
 			Project projectToEdit = context.Projects.Where(p => p.Id == id).FirstOrDefault();
-
+			//kollar vem som är inloggad
 			string loggedInId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
 			UpdateProjectViewModel viewModel = new UpdateProjectViewModel(context, loggedInId) { Project = projectToEdit };
@@ -138,7 +143,7 @@ namespace CV_Projekt.Controllers
 
 		[HttpPost]
 		public IActionResult Update(UpdateProjectViewModel viewModel)
-		{
+		{//uppdaterar ett projekt med nya värden
 			Project projectToUpdate = context.Projects.Where(p => p.Id == viewModel.Project.Id).FirstOrDefault();
 			if (ModelState.IsValid)
 			{
@@ -154,6 +159,7 @@ namespace CV_Projekt.Controllers
 		}
 
 		[HttpPost]
+		//tar bort en medarbetare från ett projekt
 		public IActionResult RemoveParticipant(int pid, string uid, bool edit)
 		{
 			Project projectToRemoveFrom = context.Projects.Where(p => p.Id == pid).FirstOrDefault();
@@ -174,7 +180,7 @@ namespace CV_Projekt.Controllers
 		}
 
 		public IActionResult Delete(int id)
-		{
+		{ //tar bort ett prjekt från databasen
 			Project projectToDelete = context.Projects.Where(p => p.Id == id).FirstOrDefault();
 			context.Projects.Remove(projectToDelete);
 			context.SaveChanges();

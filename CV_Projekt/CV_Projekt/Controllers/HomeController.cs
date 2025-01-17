@@ -19,6 +19,7 @@ namespace CV_Projekt.Controllers
         }
 
         [HttpGet]
+        //metod för att fylla startsidan med information
         public IActionResult Index()
         {
             var cvs = _context.CVs.ToList();
@@ -29,14 +30,14 @@ namespace CV_Projekt.Controllers
                 .FirstOrDefault();
 
             var random = new Random();
-
+            //hämtar de CVn som ska visas på startsidan. Filtrerar bort inaktiva users och privata user om man är utloggad
             var usersWithCvs = users
                 .Where(u => u.isActive &&
                     cvs.Any(cv => cv.OwnerId == u.Id) &&
                     (User.Identity.IsAuthenticated || !u.isPrivate)
                     )
-                .OrderBy(u => random.Next())
-                .Take(4)
+                .OrderBy(u => random.Next()) //randomiserar hela listan
+                .Take(4) //väljer ut fyra cvn
                 .Distinct()
                 .ToList();
 

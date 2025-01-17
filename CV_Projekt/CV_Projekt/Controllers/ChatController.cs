@@ -14,15 +14,17 @@ namespace CV_Projekt.Controllers
         }
 
         [HttpGet]
-        public IActionResult Chat11(string otherId)
-        {
+        //borde ha hetat chatOneOnOne
+        public IActionResult Chat11(string otherId) 
+        { 
             string loggedInId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            //hämtar och visar alla meddelanden som har skickats mellan inloggad user och en annan user
             var allMessages = _context.Messages
                 .Where(m => (m.ReceiverId.Equals(loggedInId) && m.SenderId.Equals(otherId) ||
 				             m.ReceiverId.Equals(otherId) && m.SenderId.Equals(loggedInId)))
                 .OrderBy(m => m.Date)
                 .ToList();
-
+            // markerar mottagna meddelanden som lästa om mottagaren är den inloggade usern
             foreach (var message in allMessages)
             {
                 if(message.ReceiverId.Equals(loggedInId))
@@ -30,7 +32,7 @@ namespace CV_Projekt.Controllers
                     TurnRead(message);
                 }
             }
-
+            // filtrerar bort meddelanden som har markerats som borttagna av antingen mottagaren eller avsändaren
             allMessages = allMessages.Where(m => (m.ReceiverId.Equals(loggedInId) && m.ReceiverDelete == false) ||
                                                  (m.SenderId.Equals(loggedInId) && m.SenderDelete == false)
                                             ).ToList();
@@ -52,6 +54,7 @@ namespace CV_Projekt.Controllers
         public IActionResult RemoveMessage(int mid, string oid)
         {
             Message message = _context.Messages.Where(m => m.Id.Equals(mid)).FirstOrDefault();
+            // kontrollerar om den inloggade usern är avsändare eller mottagare.
             if (message.SenderId.Equals(User.FindFirstValue(ClaimTypes.NameIdentifier)))
             {
                 message.SenderDelete = true;
@@ -65,7 +68,7 @@ namespace CV_Projekt.Controllers
             return RedirectToAction("Chat11", new { otherId = oid });
         }
 
-        public void TurnRead(Message aMessage)
+        public void TurnRead(Message aMessage) //markerar ett meddelande som läst
         {
 			if (!aMessage.isRead)
 			{

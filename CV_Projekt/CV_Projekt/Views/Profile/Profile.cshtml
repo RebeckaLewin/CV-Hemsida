@@ -138,7 +138,7 @@
 								</div>
 							</div>
 						</div>
-						<div>
+						<div> @* det här if-villkoret anväbds i flera views för att endast visa knappar om man är inloggad *@ 
 							@if (Model.User.Id.Equals(User.FindFirstValue(ClaimTypes.NameIdentifier)))
 							{
 								<form method="post" asp-action="FindFriend" asp-controller="Profile" asp-route-id="@Model.User.Id">

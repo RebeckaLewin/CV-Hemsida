@@ -37,7 +37,7 @@
                                                         </div>
                                                         <img src="@Url.Content(Model.LoggedInUser.PictureUrl)"
                                                              alt="avatar 1" style="width: 45px; height: 100%;">
-                                                    </div>
+                                                    </div> //modal för att visa Bekräfta-knappen vid borttagning av ett skickat meddelande
                                                     <div class="modal fade" id="deleteMessageSender-@message.Id" tabindex="-1" role="dialog" aria-labelledby="deleteMessageSender-@message.Id" aria-hidden="true">
                                                         <div class="modal-dialog" role="document">
                                                             <div class="modal-content">
@@ -81,8 +81,9 @@
                                                             <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#deleteMessageReceiver-@message.Id" style="background-color:#ff6219; color:#fff;">
                                                                 <i class="fa-regular fa-trash-can"></i>
                                                             </button>
-                                                        
+
                                                     </div>
+                                                    //modal för att visa Bekräfta-knappen vid borttagning av ett mottaget meddelande
                                                     <div class="modal fade" id="deleteMessageReceiver-@message.Id" tabindex="-1" role="dialog" aria-labelledby="deleteMessageReceiver-@message.Id" aria-hidden="true">
                                                         <div class="modal-dialog" role="document">
                                                             <div class="modal-content">

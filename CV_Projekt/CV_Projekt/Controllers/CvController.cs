@@ -21,6 +21,7 @@ namespace CV_Projekt.Controllers
         }
 
         [HttpGet]
+        //hämtar ett CV för en specifik user
         public IActionResult Inspect(string id)
         {
             var user = _context.Users.Where(u => u.Id.Equals(id))
@@ -38,7 +39,7 @@ namespace CV_Projekt.Controllers
             }
 
             var loggedInId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-
+            //inkrementerar Visningar för ett CV, så länge det inte är en users egna CV
             if (!user.Id.Equals(loggedInId))
             {
                 cv.Views++;
