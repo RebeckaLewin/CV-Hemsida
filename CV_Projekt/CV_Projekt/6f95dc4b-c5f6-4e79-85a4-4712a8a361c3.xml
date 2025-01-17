@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ProfileInformation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <FullName>Rebecka Lewin</FullName>
+  <Email>rebeckalewin@hotmail.com</Email>
+  <Address>Norrgatan 27A</Address>
+  <Phone>0723073920</Phone>
+  <CreatedProjects />
+  <JoinedProjects />
+  <Cv>
+    <Id>21</Id>
+    <OwnerId>6f95dc4b-c5f6-4e79-85a4-4712a8a361c3</OwnerId>
+    <Skills />
+    <Views>0</Views>
+  </Cv>
+  <Work />
+  <Education />
+  <OtherExperience />
+</ProfileInformation>

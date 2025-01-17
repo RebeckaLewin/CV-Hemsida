@@ -99,7 +99,8 @@ namespace CV_Projekt.Controllers
 					Password = viewModel.Password,
 					ContactInformation = contactInformation,
 					PictureUrl = "~/images/profilepic_default.jpg",
-					isActive = true
+					isActive = true,
+					isPrivate = viewModel.IsPrivate
 				};
 				var result = await userManager.CreateAsync(newUser, newUser.Password);
 				if (result.Succeeded)
@@ -199,7 +200,7 @@ namespace CV_Projekt.Controllers
 
 				viewModel.User = userToUpdate;
 
-				RedirectToAction("Profile", "Profile", viewModel);
+				return RedirectToAction("Profile", "Profile", new { id = userToUpdate.Id });
 			}
 			return View(viewModel);
 		}
